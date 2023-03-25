@@ -5,7 +5,9 @@
 
 int main()
 {
-    std::cout << "Hello World!\n";
+
+    std::cout << "Please log in\n Enter your username:";
+    
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
