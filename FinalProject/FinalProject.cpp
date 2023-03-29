@@ -2,11 +2,18 @@
 //
 
 #include <iostream>
+#include <string>
+using namespace std;
 
 int main()
 {
-
-    std::cout << "Please log in\n Enter your username:";
+    
+    string userName, password;
+    cout << "Please log in\n Enter your username: ";
+    cin >> userName;
+    cout << "\nEnter your password: ";
+    cin >> password;
+    //TODO:: Implement login function
     
 }
 
