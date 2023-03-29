@@ -6,9 +6,28 @@
 #include <iomanip>
 #include <fstream>
 
+using namespace std;
+
+void TimeFunction() {
+	// current date/time based on current system
+	time_t now = time(0);
+
+	// convert now to string form
+	char* dt = ctime(&now);
+
+	cout << "The local date and time is: " << dt << endl;
+
+	// convert now to tm struct for UTC
+	tm* gmtm = gmtime(&now);
+	dt = asctime(gmtm);
+	cout << "The UTC date and time is:" << dt << endl;
+}
+
 int main()
 {
-
+	
+	TimeFunction();
+	/*
 	//creating objects of BookList for testing LinkedList functions
 	BookList* book1 = new BookList("Harry Potter", "J.K. Rowling", "2001", 1, 8909789098, " ", " ", 35.00);
 	BookList* book2 = new BookList("Bad Guys", "Blabey", "2011", 23, 9809876678, " ", " ", 10.00);
@@ -26,7 +45,8 @@ int main()
 
 	Books.printList();
 
-	/*
+	*/
+	cout << endl;
 	LinkedList<string> Books;
 	Books.insertItem("Harry Potter");
 	Books.insertItem("Information System");
@@ -63,5 +83,5 @@ int main()
 	cout << Books.getItem(2) << endl;
 
 	return 0;
-	*/
+	
 }

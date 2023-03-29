@@ -58,9 +58,6 @@ void LinkedList<T>::deleteItem(const T& value) { //delete at given value
 			else {
 				curr = curr->next;
 			}
-			/*Node<T>* temp = curr->next;
-			curr->next = curr->next->next;
-			delete temp;*/
 		}
 		count--;
 
