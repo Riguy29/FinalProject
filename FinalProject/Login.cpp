@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -84,7 +85,7 @@ void Login::login()const {
 
     ifstream userpass("records.txt");
 
-    while (userpass>>id>>pass) {//check to see if password exists
+    while (userpass >> id >> pass) {//check to see if password exists
         if (id == username && pass == password) {
             exists = true;
         }
@@ -92,13 +93,15 @@ void Login::login()const {
     userpass.close();
 
     if (true) {
-        cout << username << "Login Successful!" << endl;
-        //FIXME: IF LOGIN MATCHES ADMIN LOGIN GO TO ADMIN MENU ELSE GO TO PATRON LOGIN
-        
-    }
-    else {
-        cout << "\n Login not successful.  Please try again.";
-    }
+        //system("cls");
+             cout << username << " Login Successful!" << endl;
+            //FIXME: IF LOGIN MATCHES ADMIN LOGIN GO TO ADMIN MENU ELSE GO TO PATRON LOGIN
+
+        }
+        else {
+            cout << "\n Login not successful.  Please try again.";
+        }
+    
 }
 //guest() allows user to be a guest and use material from the library for 2 hours
 void Login::guest()const {

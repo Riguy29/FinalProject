@@ -9,7 +9,7 @@ class Login{
 private:
 	string username;
 	string password;
-	AdminMenu adminMenu;
+	//AdminMenu adminMenu;
 public:
 	Login();//default constructor
 	Login(string username, string password);
