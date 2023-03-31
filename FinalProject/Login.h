@@ -1,26 +1,30 @@
 #ifndef LOGIN_H
 #define LOGIN_H
 
-#include "MenuScreen.h"
 #include <iostream>
 #include <string>
 using namespace std;
 
-class Login : public Menu {
+class Login{
 private:
 	string username;
 	string password;
+	AdminMenu adminMenu;
 public:
-	Login();
+	Login();//default constructor
 	Login(string username, string password);
 	Login(Login& l);
 	~Login();
-	void print()const;
+	void printMenu()const;
 	string getUsername()const;
 	string getPassword()const;
 	void setUsername(string userN);
 	void setPassword(string userP);
-	bool isValid()const;
+	//bool isValid()const;
+	void login()const;
+	void registration()const;
+	void forgot()const;
+	void guest()const;
 };
 
 #endif // !LOGIN_H

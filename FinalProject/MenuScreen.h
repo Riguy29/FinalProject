@@ -5,12 +5,15 @@
 #include <string>
 using namespace std;
 
-class Menu 
+class MenuScreen 
 {
 protected:
-    virtual bool isValid()const = 0;
+    
 public:
-    virtual void print()const = 0;
+    virtual void printMenu()const = 0;
+	virtual void search()const;
+	virtual void viewAccount()const;
+	virtual void exit()const;
 };
 
 
