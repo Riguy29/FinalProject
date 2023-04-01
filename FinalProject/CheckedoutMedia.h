@@ -13,5 +13,12 @@ private:
 public:
 	LibraryMedia GetMedia();
 	void ReturnMedia();
+	void SetFee();
+	double GetFee();
+	void SetCheckoutDate();
+	Date GetCheckoutDate();
+
+	void SetDueDate();
+	Date GetDueDate();
 };
 

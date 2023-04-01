@@ -3,7 +3,7 @@
 #include <vector>
 #include "Publisher.h"
 using namespace std;
-abstract class LibraryMedia
+class LibraryMedia
 {
 private:
 	string Title;
@@ -25,6 +25,8 @@ private:
 	int inventoryCount;
 
 public:
+	void SetAuthors(vector<string>);
+	void SetPublishers(vector<Publisher>);
 
 
 };
