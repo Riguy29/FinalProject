@@ -35,6 +35,7 @@ LibraryMedia::LibraryMedia()
 
 void LibraryMedia::SetTitle(string newTitle)
 {
+	title = newTitle;
 }
 
 string LibraryMedia::GetTitle()
