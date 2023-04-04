@@ -17,12 +17,15 @@ string Publisher::GetAddress()
 
 void Publisher::SetName(string newName)
 {
+	name = newName;
 }
 
 void Publisher::SetEmail(string newEmail)
 {
+	email = newEmail;
 }
 
 void Publisher::SetAddress(string newAddress)
 {
+	address = newAddress;
 }
