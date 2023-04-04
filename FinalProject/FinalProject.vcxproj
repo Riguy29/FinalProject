@@ -131,14 +131,12 @@
     <ClCompile Include="CheckedoutMedia.cpp" />
     <ClCompile Include="ConferenceJournal.cpp" />
     <ClCompile Include="Date.cpp" />
-    <ClCompile Include="FinalProject.cpp" />
+	<ClCompile Include="FinalProject.cpp" />
     <ClCompile Include="LibraryMedia.cpp" />
     <ClCompile Include="LoginScreen.cpp" />
     <ClCompile Include="Newspaper.cpp" />
     <ClCompile Include="Publisher.cpp" />
     <ClCompile Include="User.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="CheckedoutMedia.h" />
     <ClInclude Include="ConferenceJournal.h" />
     <ClInclude Include="Date.h" />
@@ -148,7 +146,6 @@
     <ClInclude Include="Publisher.h" />
     <ClInclude Include="User.h" />
     <ClCompile Include="AdminMenu.cpp" />
-    <ClCompile Include="FinalProject.cpp" />
     <ClCompile Include="LibraryLinkedList.cpp" />
     <ClCompile Include="Login.cpp" />
     <ClCompile Include="MenuScreen.h" />

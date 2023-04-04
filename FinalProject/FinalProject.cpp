@@ -6,7 +6,7 @@
 #include <cstdlib>
 #include <iomanip>
 #include <fstream>
-//#include <stdlib.h>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -14,16 +14,14 @@ void TimeFunction() {
 	// current date/time based on current system
 	time_t now = time(0);
 
-	// convert now to string form
-	char* dt = ctime(&now);
+	// Char array for ctime_s to get time to compile properly using C++ 20
+	// This char array holds the string of what the current time is
+	char str[26];
 
-	//cout << "The local date and time is: " << dt << endl;
+	// Get the current time and convert to string, storing it in the str char array
+	ctime_s(str, sizeof str, &now);
 
-	// convert now to tm struct for UTC
-	tm* gmtm = gmtime(&now);
-	dt = asctime(gmtm);
-	//cout << "The date and time is: " << dt << endl;
-	cout << dt << endl;
+	cout << "The local date and time is: " << str << endl;
 }
 
 int main()
