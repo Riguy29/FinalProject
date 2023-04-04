@@ -1,4 +1,7 @@
 #include "LibraryMedia.h"
+#include "LibraryLinkedList.h"
+#include "Publisher.h"
+
 
 void LibraryMedia::ToString()
 {
@@ -23,6 +26,11 @@ LibraryMedia::LibraryMedia()
 	subCategory = "";
 	edition = "";
 	inventoryCount = 0;
+	price = 0;
+	authors = LinkedList<string>();
+	publishers = LinkedList<Publisher>();
+	
+	
 }
 
 void LibraryMedia::SetTitle(string newTitle)
@@ -32,6 +40,16 @@ void LibraryMedia::SetTitle(string newTitle)
 string LibraryMedia::GetTitle()
 {
 	return string();
+}
+
+void LibraryMedia::SetMediaType(mediaTypes mediaType)
+{
+	this->mediaType = mediaType;
+}
+
+LibraryMedia::mediaTypes LibraryMedia::GetMediaType()
+{
+	return mediaType;
 }
 
 void LibraryMedia::SetAuthors(LinkedList<string> authorList)

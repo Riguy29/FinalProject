@@ -6,19 +6,6 @@
 using namespace std;
 class LibraryMedia
 {
-private:
-	string title;
-
-	mediaTypes mediaType;
-	LinkedList<Publisher> publishers;
-	LinkedList<string> authors;
-	string edition;
-	double price;
-	string ISBN;
-	string category;
-	string subCategory;
-	int inventoryCount;
-
 public:
 	enum  mediaTypes
 	{
@@ -54,6 +41,20 @@ public:
 	void ToString();
 
 	LibraryMedia();
+private:
+	string title;
+
+	mediaTypes mediaType;
+	LinkedList<Publisher> publishers;
+	LinkedList<string> authors;
+	string edition;
+	double price;
+	string ISBN;
+	string category;
+	string subCategory;
+	int inventoryCount;
+
+
 
 
 };
