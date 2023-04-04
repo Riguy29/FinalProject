@@ -16,7 +16,13 @@ void LibraryMedia::ToString()
 
 LibraryMedia::LibraryMedia()
 {
-
+	title = "";
+	mediaType = book;
+	ISBN = "";
+	category = "";
+	subCategory = "";
+	edition = "";
+	inventoryCount = 0;
 }
 
 void LibraryMedia::SetTitle(string newTitle)
