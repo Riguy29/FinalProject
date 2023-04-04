@@ -9,6 +9,7 @@ void LibraryMedia::ToString()
 	cout << " Sub-Category: " << subCategory;
 	cout << " Edition: " << edition;
 	cout << " Inventory Amt: " << inventoryCount;
+	cout << endl << endl;
 	
 	//FIXME add code to print authors and publishers
 }
