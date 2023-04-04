@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include "Publisher.h"
+#include "LibraryLinkedList.h"
 using namespace std;
 class LibraryMedia
 {
@@ -15,8 +16,8 @@ private:
 		periodical
 	};
 	mediaTypes mediaType;
-	vector<string> authors;
-	vector<Publisher> publishers;
+	LinkedList<Publisher> publishers;
+	LinkedList<string> authors;
 	string edition;
 	double price;
 	string ISBN;
@@ -25,9 +26,15 @@ private:
 	int inventoryCount;
 
 public:
-	void SetAuthors(vector<string>);
-	void SetPublishers(vector<Publisher>);
+	void SetAuthors(LinkedList<string> authorList);
+	void SetPublishers(LinkedList<Publisher> publisherList);
+	void SetISBN(string newISBN);
+	string GetISBN();
+	void SetPrice(int newPrice);
+	double GetPrice();
 
+
+	void ToString();
 
 
 };
