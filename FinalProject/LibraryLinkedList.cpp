@@ -34,7 +34,6 @@ void LinkedList<T>::insertItem(const T& value) { //insert value at end of list
 		while (curr->next != NULL) {
 			curr = curr->next;
 		}
-		//add->next = curr->next;
 		curr->next = add;
 	}
 	count++;
@@ -43,7 +42,7 @@ void LinkedList<T>::insertItem(const T& value) { //insert value at end of list
 template<typename T>
 void LinkedList<T>::deleteItem(const T& value) { //delete at given value
 	Node <T>* curr = head;
-	if (head->data == value) {
+	if (head->data.ToString().compare(value.ToString()) == 0) {
 		Node<T>* temp = head;
 		head = curr->next;
 		delete temp;
@@ -51,7 +50,7 @@ void LinkedList<T>::deleteItem(const T& value) { //delete at given value
 	else {
 		Node<T>* nextNode = head;
 		while (curr->next != NULL) {
-			if (nextNode->data == value) {
+			if (nextNode->data.ToString().compare(value.ToString()) == 0) {
 				curr->next = curr->next->next;
 				break;
 			}
@@ -87,7 +86,7 @@ T& LinkedList<T>::getItem(int pos)const {
 			}
 
 		}
-		return curr->data;
+		return curr->data.ToString();
 	}
 }
 
