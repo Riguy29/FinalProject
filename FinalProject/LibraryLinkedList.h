@@ -1,9 +1,12 @@
 #ifndef LIBRARYLINKEDLIST_H
 #define LIBRATYLINKEDLIST_H
 
+
 #include <iostream>
 #include <cassert> //check if the parameters passed to a function are valid, to check the return value of a 
 //function or to check the array bounds among other things.
+
+#include "LibraryMedia.h"
 
 using namespace std;
 

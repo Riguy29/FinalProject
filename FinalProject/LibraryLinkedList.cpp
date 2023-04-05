@@ -106,7 +106,8 @@ void LinkedList<T>::printList()const {
 	}
 	Node<T>* curr = head;
 	while (curr != NULL) {
-		cout << curr->data << endl;
+		cout << curr->data.ToString() << endl;
+		cout << endl;
 		curr = curr->next;
 	}
 }

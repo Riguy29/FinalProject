@@ -89,8 +89,9 @@ void Login::login()const {
     string id;
     string pass;
     bool exists = false;
+    cout << "Please log in or " << endl;
     cout << "Press 1 to return to Main Menu." << endl;
-    cout << "Please log in. " << endl;
+
     cout << "\nEnter your username: \t" << endl;
     cin >> username;
     if (!username._Equal("1")) {
@@ -114,7 +115,6 @@ void Login::login()const {
         system("cls");
              cout << username << " Login Successful!" << endl;
             //FIXME: IF LOGIN MATCHES ADMIN LOGIN GO TO ADMIN MENU ELSE GO TO PATRON LOGIN
-
         }
         else {
         system("cls");

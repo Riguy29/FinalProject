@@ -1,5 +1,6 @@
 
 #include "LibraryLinkedList.h"
+#include "LibraryMedia.h"
 #include "Test.h"
 #include "Login.h"
 #include <string>
@@ -26,9 +27,17 @@ void TimeFunction() {
 
 int main()
 {
+	
 	TimeFunction();
 	Login login;
 	login.printMenu();
+	
+	/*
+	LibraryMedia book1("");
 
+	LibraryLinkedList<LibraryMedia> mediaList;
+	mediaList.insertItem(book1);
+	mediaList.printList();
+	*/
 	return 0;
 }
