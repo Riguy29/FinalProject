@@ -39,6 +39,28 @@ void LinkedList<T>::insertItem(const T& value) { //insert value at end of list
 	count++;
 }
 
+template <typename T>
+void LinkedList<T>::insertAlpha(const T& value) {
+	Node <T>* add = newNode(value);
+	if (head == NULL || head->data.toString().compare(value.toString()) >= 0) {
+		add->next = head;
+		head = add;
+	}
+	else {
+		Node<T>* curr = head;
+		while (curr->next != NULL) {
+			if (curr->next->data.toString().compare(value.toString()) < 0) {
+				add->next = curr->next;
+				curr->next = add;
+				break;
+			}
+			else {
+				curr = curr->next;
+			}
+		}
+	}
+	count++;
+}
 template<typename T>
 void LinkedList<T>::deleteItem(const T& value) { //delete at given value
 	Node <T>* curr = head;
@@ -50,17 +72,16 @@ void LinkedList<T>::deleteItem(const T& value) { //delete at given value
 	else {
 		Node<T>* nextNode = head;
 		while (curr->next != NULL) {
-			if (nextNode->data.ToString().compare(value.ToString()) == 0) {
+			if (nextNode->data.ToString().compare(value.ToString()) != 0) {
 				curr->next = curr->next->next;
 				break;
 			}
 			else {
 				curr = curr->next;
 			}
-		}
-		count--;
-
+		}	
 	}
+	count--;
 }
 
 //get member function

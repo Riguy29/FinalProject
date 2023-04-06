@@ -43,9 +43,9 @@ void Login::printMenu()const {
     cout << "************************************\n" << endl;
     cout << "WELCOME!\n" << endl;
     cout << "How would you like to login today?\n" << endl;
-    cout << "1. Login\n" << endl;
-    cout << "2. Guest\n" << endl;
-    cout << "3. New User\n" << endl;
+    cout << "1. Member Login\n" << endl;
+    cout << "2. Guest Login\n" << endl;
+    cout << "3. Register\n" << endl;
     cout << "4. Forgot login\n" << endl;
     cout << "5. Exit\n" << endl;
     cout << "Enter Your Choice: \n" << endl;

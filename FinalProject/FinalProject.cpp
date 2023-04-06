@@ -27,17 +27,17 @@ void TimeFunction() {
 
 int main()
 {
-	/*
+	
 	TimeFunction();
 	Login login;
 	login.printMenu();
 	
-	*/
+	/*
 	LibraryMedia book1("Harry Potter", book, "978-0-545-79142-7", "Fantasy", "Young Adult", "First illustrated edition", 2, 24.99);// , "J.K. Rowling", "Bloomsbury Publishing PLC");
 	
 	LinkedList<LibraryMedia> mediaList;
 	mediaList.insertItem(book1);
 	mediaList.printList();
-	
+	*/
 	return 0;
 }

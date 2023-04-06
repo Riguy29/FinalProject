@@ -28,7 +28,7 @@ public:
 	LinkedList();
 	~LinkedList();
 	void insertItem(const T& value);
-	//void insertSorted(const T& value);
+	void insertAlpha(const T& value);
 	void deleteItem(const T& value);
 	T& getItem(int pos)const;
 	int size()const;
