@@ -1,3 +1,7 @@
+#ifndef LIBRARYMEDIA_CPP
+#define LIBRARYMEDIA_CPP
+
+
 #include "LibraryMedia.h"
 #include "LibraryLinkedList.h"
 #include "Publisher.h"
@@ -132,3 +136,5 @@ string LibraryMedia::GetEdition()
 {
 	return edition;
 }
+
+#endif // !LIBRARYMEDIA_CPP

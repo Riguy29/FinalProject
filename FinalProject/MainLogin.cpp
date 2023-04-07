@@ -1,6 +1,7 @@
-#ifndef LOGIN_H
-#define LOGIN_H
-#include "LoginScreen.h"
+#ifndef MAINLOGIN_CPP
+#define MAINLOGIN_CPP
+
+#include "MainLogin.h"
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -10,10 +11,7 @@
 
 using namespace std;
 
-Login::Login(){
-    username = "";
-    password = "";
-} //default constructor initialized to empty strings
+Login::Login() : Login("", "") {} //default constructor initialized to empty strings
 
 Login::Login(string userN, string userP)
     : username(userN), password(userP) {}
@@ -142,7 +140,7 @@ void Login::login()const {
         cout << "\nLogin not successful.  Please try again.";
         system("PAUSE");
         system("cls");
-        login(); 
+        //login(); 
 
     }
 
@@ -531,13 +529,4 @@ void Login::registration()const {
 
 
 }
-
-
-/*
-isValid checks to see if username and password is correct
-*/
-//bool Login::isValid(string username, string password)const {
-  //  return true;
-    //}
-
-#endif // !LOGIN_H
+#endif // !MAINLOGIN_CPP

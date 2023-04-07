@@ -1,9 +1,13 @@
 #pragma once
+#ifndef LIBRARYMEDIA_H
+#define LIBRARYMEDIA_H
 #include <string>
 #include <vector>
 #include "Publisher.h"
 #include "LibraryLinkedList.h"
+
 using namespace std;
+
 class LibraryMedia
 {
 public:
@@ -54,8 +58,6 @@ private:
 	string subCategory;
 	int inventoryCount;
 
-
-
-
 };
 
+#endif // !LIBRARYMEDIA_H

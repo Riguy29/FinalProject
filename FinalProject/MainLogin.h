@@ -1,7 +1,7 @@
-#ifndef LOGINSCREEN_H 
-#define LOGINSCREEN_H
+#pragma once
+#ifndef MAINLOGIN_H
+#define MAINLOGIN_H
 
-//#include "MenuScreen.h"
 #include <iostream>
 #include <string>
 
@@ -27,5 +27,6 @@ public:
 	void guest()const;
 	static string randomPass();
 	static string randomLibID();
+};
 
-#endif // !LOGINSCREEN_H
+#endif // !MAINLOGIN_H

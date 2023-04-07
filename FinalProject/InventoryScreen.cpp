@@ -1,3 +1,9 @@
+#ifndef INVENTORYSCREEN_CPP
+#define INVENTORYSCREEN_CPP
+
+
+
+
 #include "InventoryScreen.h"
 
 void InventoryScreen::SearchForBook()
@@ -42,3 +48,4 @@ void InventoryScreen::printMenu() {
 	
 
 }
+#endif // !INVENTORYSCREEN_CPP

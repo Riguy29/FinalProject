@@ -85,31 +85,31 @@ void LinkedList<T>::deleteItem(const T& value) { //delete at given value
 }
 
 //get member function
-template<typename T>
-T& LinkedList<T>::getItem(int pos)const {
-	int length = size();
-	if (pos < 0 || pos > length) {
-		cout << "Error! Position out of range.";
-		assert(false);
-	}
-	else if (pos == 0) {
-		return head->data;
-	}
-	else {
-		Node<T>* curr = head;
-		int currIndex = 0;
-		for (int i = 0; i < pos; i++) {
-			if (pos == currIndex) {
-				return curr->data;
-			}
-			else {
-				curr = curr->next;
-			}
-
-		}
-		return curr->data.ToString();
-	}
-}
+//template<typename T>
+//T& LinkedList<T>::getItem(int pos)const {
+//	int length = size();
+//	if (pos < 0 || pos > length) {
+//		cout << "Error! Position out of range.";
+//		assert(false);
+//	}
+//	else if (pos == 0) {
+//		return head->data;
+//	}
+//	else {
+//		Node<T>* curr = head;
+//		int currIndex = 0;
+//		for (int i = 0; i < pos; i++) {
+//			if (pos == currIndex) {
+//				return curr->data;
+//			}
+//			else {
+//				curr = curr->next;
+//			}
+//
+//		}
+//		return curr->data.ToString();
+//	}
+//}
 
 //get size of LinkList
 template<typename T>
@@ -137,7 +137,7 @@ template<typename T>
 Node<T>* LinkedList<T>::newNode(const T& value) {
 	Node<T>* temp = new Node <T>;
 	temp->data = value;
-	temp->next = 0;
+	temp->next = NULL;
 	return temp;
 }
 #endif

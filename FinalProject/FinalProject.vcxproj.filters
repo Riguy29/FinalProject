@@ -1,98 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="CheckedoutMedia.cpp" />
+    <ClCompile Include="ConferenceJournal.cpp" />
+    <ClCompile Include="Date.cpp" />
+    <ClCompile Include="FinalProject.cpp" />
+    <ClCompile Include="InventoryScreen.cpp" />
+    <ClCompile Include="LibraryMedia.cpp" />
+    <ClCompile Include="PatronLogin.cpp" />
+    <ClCompile Include="Newspaper.cpp" />
+    <ClCompile Include="Publisher.cpp" />
+    <ClCompile Include="AdminMenu.cpp" />
+    <ClCompile Include="LibraryLinkedList.cpp" />
+    <ClCompile Include="MainLogin.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FinalProject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LoginScreen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="User.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CheckedoutMedia.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Date.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LibraryMedia.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Publisher.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Newspaper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ConferenceJournal.cpp">
-    <ClCompile Include="LibraryLinkedList.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Test.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuScreen.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Login.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AdminMenu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="LoginScreen.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="User.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CheckedoutMedia.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Date.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LibraryMedia.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Publisher.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Newspaper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ConferenceJournal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LibraryLinkedList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Test.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Login.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AdminMenu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClInclude Include="CheckedoutMedia.h" />
+    <ClInclude Include="ConferenceJournal.h" />
+    <ClInclude Include="Date.h" />
+    <ClInclude Include="InventoryScreen.h" />
+    <ClInclude Include="LibraryMedia.h" />
+    <ClInclude Include="PatronLogin.h" />
+    <ClInclude Include="Newspaper.h" />
+    <ClInclude Include="Publisher.h" />
+    <ClInclude Include="AdminMenu.h" />
+    <ClInclude Include="LibraryLinkedList.h" />
+    <ClInclude Include="MainLogin.h" />
+    <ClInclude Include="MenuScreen.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="records.txt" />

@@ -4,7 +4,8 @@
 #include <string>
 #include "MenuScreen.h"
 
-class AdminMenu:public MenuScreen {
+class AdminMenu : public MenuScreen 
+{
 private:
 	
 public:

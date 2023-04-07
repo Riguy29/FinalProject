@@ -1,8 +1,8 @@
 
 #include "LibraryLinkedList.h"
-#include "LibraryMedia.h"
-#include "Test.h"
-#include "Login.h"
+//#include "LibraryMedia.h"
+#include "AdminMenu.h"
+#include "MainLogin.h"
 #include <string>
 #include <cstdlib>
 #include <iomanip>
@@ -27,13 +27,28 @@ void TimeFunction() {
 
 int main()
 {
-	
 	TimeFunction();
+
 	Login login;
 	login.printMenu();
-	
+
+	//opeing current user in order to open the correct menu
+	string line;
+	ifstream currUser("currentUser.txt");
+	if (currUser.is_open()) {
+		getline(currUser, line);
+		if (line.at(0) == 'M') {
+			AdminMenu adminMenu;
+			adminMenu.printMenu();
+		}
+		else if (line.at(0) == 'E' || line.at(0) == 'S')
+			cout << "Menu Under Construction";
+		currUser.close();
+	}
+
+
 	/*
-	LibraryMedia book1("Harry Potter", book, "978-0-545-79142-7", "Fantasy", "Young Adult", "First illustrated edition", 2, 24.99);// , "J.K. Rowling", "Bloomsbury Publishing PLC");
+	LibraryMedia book1("Harry Potter", book, "978-0-545-79142-7", "Fantasy", "Young Adult", "First illustrated edition", 2, 24.99), "J.K. Rowling", "Bloomsbury Publishing PLC");
 	
 	LinkedList<LibraryMedia> mediaList;
 	mediaList.insertItem(book1);

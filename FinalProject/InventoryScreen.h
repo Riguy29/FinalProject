@@ -3,6 +3,9 @@
 #include <string>
 #include "MenuScreen.h"
 #include "CheckedoutMedia.h"
+
+using namespace std; 
+
 class InventoryScreen : public MenuScreen
 {
 public:
