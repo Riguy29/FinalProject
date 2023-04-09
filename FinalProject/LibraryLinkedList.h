@@ -1,6 +1,6 @@
 #ifndef LIBRARYLINKEDLIST_H
 #define LIBRARYLINKEDLIST_H
-#include "LibraryMedia.h"
+//#include "LibraryMedia.h"
 
 #include <iostream>
 #include <cassert> //check if the parameters passed to a function are valid, to check the return value of a 

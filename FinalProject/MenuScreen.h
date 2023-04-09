@@ -1,6 +1,6 @@
 #ifndef MENUSCREEN_H
 #define MENUSCREEN_H
-
+/*
 #include <iostream>
 #include <string>
 using namespace std;
@@ -15,6 +15,6 @@ public:
 	virtual void viewAccount()const;
 	virtual void exit()const;
 };
-
+*/
 
 #endif // !MENUSCREEN_H

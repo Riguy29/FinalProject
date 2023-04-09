@@ -8,7 +8,7 @@
 
 using namespace std; 
 
-class InventoryScreen : public MenuScreen
+class InventoryScreen //: public MenuScreen
 {
 public:
 	void SearchForBook();

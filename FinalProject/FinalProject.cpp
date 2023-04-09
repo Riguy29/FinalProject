@@ -1,7 +1,8 @@
 
-#include "LibraryLinkedList.h"
-//#include "LibraryMedia.h"
+#include "LibraryLinkedList.cpp"
+#include "LibraryMedia.h"
 #include "AdminMenu.h"
+
 #include "MainLogin.h"
 #include <string>
 #include <cstdlib>
