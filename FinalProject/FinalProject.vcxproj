@@ -150,12 +150,14 @@
     <ClCompile Include="AdminMenu.cpp" />
     <ClCompile Include="LibraryLinkedList.cpp" />
     <ClInclude Include="MainLogin.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AdminMenu.h" />
     <ClInclude Include="LibraryLinkedList.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="InventoryRecord.txt" />
     <Text Include="records.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

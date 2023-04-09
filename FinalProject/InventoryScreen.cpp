@@ -23,6 +23,7 @@ void InventoryScreen::SearchForBook()
 		switch (choice)
 		{
 		case 1:
+			SearchByTitle();
 			break;
 		case 2:
 			break;
@@ -35,17 +36,33 @@ void InventoryScreen::SearchForBook()
 			break;
 		}
 	} while (true);
+	//If search find items, return the top 5 items
 }
 void InventoryScreen::printMenu() {
-	int choice;
-	bool validChoice;
+	int choice =0;
+	bool validChoice =false;
 	do
 	{
 		cout << "What would you like to do?" << endl;
 		cout << "1. Search inventory" << endl;
-		//If 
+		cout << "2. Exit menu" << endl;
 	} while (true);
 	
 
 }
+void InventoryScreen::SearchByTitle()
+{
+	string title;
+	fstream inventoryFile;
+	cout << "Enter the title of the book you are looking for" << endl;
+	cin >> title;
+	inventoryFile.open(recordTxtFile);
+	if (!inventoryFile.is_open()) {
+		cout << "Error";
+	}
+	else {
+
+	}
+}
+
 #endif // !INVENTORYSCREEN_CPP

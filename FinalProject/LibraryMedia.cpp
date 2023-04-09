@@ -37,6 +37,20 @@ LibraryMedia::LibraryMedia()
 	
 }
 
+LibraryMedia::LibraryMedia(string title, LinkedList<string> authors, LinkedList<Publisher> publishers, mediaTypes mediaType, string ISBN, string cateogory, string subCategory, string edition, int inventoryCount, int price)
+{
+	this->title = title;
+	this->authors = authors;
+	this->publishers = publishers;
+	this->mediaType = mediaType;
+	this->ISBN = ISBN;
+	this->category = category;
+	this->subCategory = subCategory;
+	this->edition = edition;
+	this->inventoryCount = inventoryCount;
+	this->price = price;
+}
+
 void LibraryMedia::SetTitle(string newTitle)
 {
 	title = newTitle;

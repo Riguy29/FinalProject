@@ -3,6 +3,8 @@
 #include <string>
 #include "MenuScreen.h"
 #include "CheckedoutMedia.h"
+#include <vector>
+#include <fstream>
 
 using namespace std; 
 
@@ -12,5 +14,9 @@ public:
 	void SearchForBook();
 	void CheckoutBook();
 	void printMenu();
+	void SearchByTitle();
+	void SearchByAuthor(string targetAuthor);
+private:
+	string recordTxtFile = "InventoryRecord.txt";
 };
 

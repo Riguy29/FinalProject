@@ -45,6 +45,7 @@ public:
 	void ToString();
 
 	LibraryMedia();
+	LibraryMedia(string title, LinkedList<string> authors, LinkedList<Publisher> publishers, mediaTypes mediaType = book, string ISBN = "", string cateogory = "", string subCategory = "", string edition = "", int inventoryCount = 0, int price = 0);
 private:
 	string title;
 

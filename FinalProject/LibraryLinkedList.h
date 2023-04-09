@@ -6,6 +6,7 @@
 #include <cassert> //check if the parameters passed to a function are valid, to check the return value of a 
 //function or to check the array bounds among other things.
 
+
 using namespace std;
 
 //Definition of Node as a struct
@@ -34,7 +35,6 @@ public:
 	int size()const;
 	void printList()const;
 };
-
 
 
 #endif // !LIBRARYLINKEDLIST_H
