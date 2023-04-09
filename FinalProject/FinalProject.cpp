@@ -2,6 +2,7 @@
 #include "LibraryLinkedList.cpp"
 #include "LibraryMedia.h"
 #include "AdminMenu.h"
+#include "PatronLogin.h"
 
 #include "MainLogin.h"
 #include <string>
@@ -28,9 +29,13 @@ void TimeFunction() {
 
 int main()
 {
+	
 	TimeFunction();
 
 	Login login;
+	AdminMenu adminMenu;
+	PatronLogin patron;
+
 	login.printMenu();
 
 	//opeing current user in order to open the correct menu
@@ -39,17 +44,17 @@ int main()
 	if (currUser.is_open()) {
 		getline(currUser, line);
 		if (line.at(0) == 'M') {
-			AdminMenu adminMenu;
+
 			adminMenu.printMenu();
 		}
 		else if (line.at(0) == 'E' || line.at(0) == 'S')
-			cout << "Menu Under Construction";
+			patron.printMenu();
 		currUser.close();
 	}
 
 
 	/*
-	LibraryMedia book1("Harry Potter", book, "978-0-545-79142-7", "Fantasy", "Young Adult", "First illustrated edition", 2, 24.99), "J.K. Rowling", "Bloomsbury Publishing PLC");
+	LibraryMedia book1("Harry Potter", "book", "978-0-545-79142-7", "Fantasy", "Young Adult", "First illustrated edition", 2, 24.99, "J.K. Rowling", "Bloomsbury Publishing PLC");
 	
 	LinkedList<LibraryMedia> mediaList;
 	mediaList.insertItem(book1);

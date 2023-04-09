@@ -156,7 +156,9 @@
     <ClInclude Include="LibraryLinkedList.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="currentUser.txt" />
     <Text Include="records.txt" />
+    <Text Include="userpass.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
