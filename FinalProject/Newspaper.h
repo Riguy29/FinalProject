@@ -1,5 +1,4 @@
-
-#pragma once;
+#pragma once
 #include "LibraryMedia.h"
 class Newspaper : public LibraryMedia
 {

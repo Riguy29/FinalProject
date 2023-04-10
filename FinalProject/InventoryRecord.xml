@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<inventory>
+  <media>
+    <tile> Lord of the Rings </tile>
+    <isbn> 145123512352</isbn>
+    <price> 24.50 </price>
+  </media>
+  
+</inventory>

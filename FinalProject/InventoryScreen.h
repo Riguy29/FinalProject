@@ -3,14 +3,21 @@
 #include <string>
 #include "MenuScreen.h"
 #include "CheckedoutMedia.h"
+#include "CurrentSessionInfo.h"
+#include "Newspaper.h"
+#include "ConferenceJournal.h"
 #include <vector>
 #include <fstream>
+#include "tinyxml2.h"
+
 
 using namespace std; 
 
 class InventoryScreen //: public MenuScreen
 {
 public:
+	void UpdateMedia();
+	void AddMedia();
 	void SearchForBook();
 	void CheckoutBook();
 	void printMenu();

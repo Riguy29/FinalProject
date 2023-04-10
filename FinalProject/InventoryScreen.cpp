@@ -1,10 +1,45 @@
 #ifndef INVENTORYSCREEN_CPP
 #define INVENTORYSCREEN_CPP
-
-
-
-
 #include "InventoryScreen.h"
+#include "tinyxml2.h"
+using namespace tinyxml2;
+
+void InventoryScreen::AddMedia()
+{
+	XMLDocument inventoryXML;
+	//FIXME: Right now we are just assuming it will load right
+	XMLError eResult = inventoryXML.LoadFile("InventoryRecord.xml"); 
+	int choice =0;
+	bool isValid = true;
+	LibraryMedia book;
+	Newspaper newspaper;
+	ConferenceJournal journal;
+	
+	do
+	{
+		cout << "What kind of media would you like to add?" << endl;
+		cout << "1. Book" << endl;
+		cout << "2. Newspaper" << endl;
+		cout << "3. Journal" << endl;
+		cin >> choice;
+		switch (choice)
+		{
+		case 1:
+			book.SetTitle();
+			book.SetISBN();
+			book.SetPrice();
+			break;
+		case 2:
+			newspaper.SetTitle();
+			newspaper.SetISBN();
+		default:
+			break;
+		}
+	} while (true);
+
+
+
+}
 
 void InventoryScreen::SearchForBook()
 {
@@ -35,17 +70,40 @@ void InventoryScreen::SearchForBook()
 			cout << "Invalid selection, try again" << endl;
 			break;
 		}
-	} while (true);
+	} while (!validChoice);
 	//If search find items, return the top 5 items
 }
 void InventoryScreen::printMenu() {
 	int choice =0;
-	bool validChoice =false;
+	bool validChoice;
 	do
 	{
 		cout << "What would you like to do?" << endl;
-		cout << "1. Search inventory" << endl;
-		cout << "2. Exit menu" << endl;
+		cout << "1. Checkout Media" << endl;
+		if (CurrentSessionInfo::CheckIfAdmin()) {
+			cout << "2. Edit Media" << endl;
+			cout << "3. Add new Media" << endl;
+		}
+		cout << "4. Exit menu" << endl;
+		cin >> choice;
+		validChoice = true; //Assume choice is valid
+		switch (choice)
+		{
+		case 1:
+			SearchForBook();
+			break;
+		case 2: //If a user is not an admin and selects 2, make choice invlaid
+			if (CurrentSessionInfo::CheckIfAdmin()) SearchForBook();
+			break;
+		case 3:
+			if (CurrentSessionInfo::CheckIfAdmin()) AddMedia();
+			break;
+		case 4:
+			return;
+		default:
+			cout << "Invalid selection, try again" << endl;
+			break;
+		}
 	} while (true);
 	
 

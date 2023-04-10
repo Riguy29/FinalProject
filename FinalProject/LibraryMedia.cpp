@@ -51,14 +51,23 @@ LibraryMedia::LibraryMedia(string title, LinkedList<string> authors, LinkedList<
 	this->price = price;
 }
 
-void LibraryMedia::SetTitle(string newTitle)
+void LibraryMedia::SetTitle()
 {
-	title = newTitle;
+	string newTitle;
+	bool isValid = true;
+	do
+	{
+		cout << "Enter the title: ";
+		cin >> newTitle;
+		//FIX ME:: Validate data
+	} while (!isValid);
+	this->title = title;
+
 }
 
 string LibraryMedia::GetTitle()
 {
-	return string();
+	return title;
 }
 
 void LibraryMedia::SetMediaType(mediaTypes mediaType)
@@ -91,8 +100,16 @@ LinkedList<Publisher> LibraryMedia::GetPublishers()
 	return LinkedList<Publisher>();
 }
 
-void LibraryMedia::SetISBN(string newISBN)
+void LibraryMedia::SetISBN()
 {
+	string newISBN;
+	bool isValid = true;
+	do
+	{
+		cout << "Enter the ISBN: ";
+		cin >> newISBN;
+		//Validate data
+	} while (!isValid);
 	ISBN = newISBN;
 }
 
@@ -101,8 +118,17 @@ string LibraryMedia::GetISBN()
 	return ISBN;
 }
 
-void LibraryMedia::SetPrice(int newPrice)
+void LibraryMedia::SetPrice()
 {
+	double newPrice = 0;
+	bool isValid = true;
+	do
+	{
+		isValid = true; //Assume data is valid
+		cout << "Enter the price: ";
+		cin >> newPrice;
+		//Validate data
+	} while (!isValid);
 	price = newPrice;
 }
 

@@ -13,6 +13,7 @@
     <ClCompile Include="AdminMenu.cpp" />
     <ClCompile Include="LibraryLinkedList.cpp" />
     <ClCompile Include="MainLogin.cpp" />
+    <ClCompile Include="CurrentSessionInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CheckedoutMedia.h" />
@@ -27,8 +28,13 @@
     <ClInclude Include="LibraryLinkedList.h" />
     <ClInclude Include="MainLogin.h" />
     <ClInclude Include="MenuScreen.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="CurrentSessionInfo.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="records.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xsd Include="XMLSchema.xsd" />
   </ItemGroup>
 </Project>

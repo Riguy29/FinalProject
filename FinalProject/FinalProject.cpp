@@ -12,6 +12,8 @@
 
 using namespace std;
 
+static bool isAdmin;
+
 void TimeFunction() {
 	// current date/time based on current system
 	time_t now = time(0);
@@ -41,6 +43,7 @@ int main()
 		if (line.at(0) == 'M') {
 			AdminMenu adminMenu;
 			adminMenu.printMenu();
+			isAdmin = true;
 		}
 		else if (line.at(0) == 'E' || line.at(0) == 'S')
 			cout << "Menu Under Construction";
