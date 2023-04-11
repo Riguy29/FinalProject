@@ -6,9 +6,9 @@ using namespace tinyxml2;
 
 void InventoryScreen::AddMedia()
 {
-	XMLDocument inventoryXML;
-	//FIXME: Right now we are just assuming it will load right
-	XMLError eResult = inventoryXML.LoadFile("InventoryRecord.xml"); 
+	//XMLDocument inventoryXML;
+	////FIXME: Right now we are just assuming it will load right
+	//XMLError eResult = inventoryXML.LoadFile("InventoryRecord.xml"); 
 	int choice =0;
 	bool isValid = true;
 	LibraryMedia book;
@@ -41,7 +41,7 @@ void InventoryScreen::AddMedia()
 
 }
 
-void InventoryScreen::SearchForBook()
+void InventoryScreen::SearchForMedia()
 {
 	int choice;
 	bool validChoice = false;
@@ -90,10 +90,10 @@ void InventoryScreen::printMenu() {
 		switch (choice)
 		{
 		case 1:
-			SearchForBook();
+			SearchForMedia();
 			break;
 		case 2: //If a user is not an admin and selects 2, make choice invlaid
-			if (CurrentSessionInfo::CheckIfAdmin()) SearchForBook();
+			if (CurrentSessionInfo::CheckIfAdmin()) SearchForMedia();
 			break;
 		case 3:
 			if (CurrentSessionInfo::CheckIfAdmin()) AddMedia();
@@ -111,14 +111,16 @@ void InventoryScreen::printMenu() {
 void InventoryScreen::SearchByTitle()
 {
 	string title;
-	fstream inventoryFile;
-	cout << "Enter the title of the book you are looking for" << endl;
+	cout << "Enter the title of the media you are looking for" << endl;
 	cin >> title;
-	inventoryFile.open(recordTxtFile);
-	if (!inventoryFile.is_open()) {
-		cout << "Error";
-	}
-	else {
+
+	XMLDocument inventoryXML;
+	XMLElement* pRootElement = inventoryXML.RootElement();
+	XMLElement* pInvetory = pRootElement->FirstChildElement("inventory");
+	XMLElement* pMedia = pInvetory->FirstChildElement("media");
+
+	while (pMedia != nullptr)
+	{
 
 	}
 }

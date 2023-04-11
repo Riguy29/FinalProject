@@ -139,6 +139,8 @@
     <ClCompile Include="PatronLogin.cpp" />
     <ClCompile Include="Newspaper.cpp" />
     <ClCompile Include="Publisher.cpp" />
+    <ClCompile Include="tinyxml2.cpp" />
+    <ClCompile Include="xmltest.cpp" />
     <ClInclude Include="CheckedoutMedia.h" />
     <ClInclude Include="ConferenceJournal.h" />
     <ClInclude Include="CurrentSessionInfo.h" />
@@ -153,6 +155,7 @@
     <ClCompile Include="LibraryLinkedList.cpp" />
     <ClInclude Include="MainLogin.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="tinyxml2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AdminMenu.h" />
@@ -162,12 +165,7 @@
     <Text Include="records.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Xsd Include="XMLSchema.xsd">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </Xsd>
+    <Xml Include="InventoryRecord.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -18,7 +18,7 @@ class InventoryScreen //: public MenuScreen
 public:
 	void UpdateMedia();
 	void AddMedia();
-	void SearchForBook();
+	void SearchForMedia();
 	void CheckoutBook();
 	void printMenu();
 	void SearchByTitle();

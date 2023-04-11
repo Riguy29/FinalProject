@@ -2,17 +2,17 @@
 #include "LibraryLinkedList.cpp"
 #include "LibraryMedia.h"
 #include "AdminMenu.h"
-
+#include "CurrentSessionInfo.h"
 #include "MainLogin.h"
 #include <string>
 #include <cstdlib>
 #include <iomanip>
 #include <fstream>
 #include <stdlib.h>
+#include "tinyxml2.h"
 
 using namespace std;
-
-static bool isAdmin;
+using namespace tinyxml2;
 
 void TimeFunction() {
 	// current date/time based on current system
@@ -30,8 +30,18 @@ void TimeFunction() {
 
 int main()
 {
-	TimeFunction();
-
+	//THIS IS A TEST, REMOVE AFTER USAGE
+	string search;
+	CurrentSessionInfo::LoadInventory();
+	//Node<LibraryMedia>* currBook = CurrentSessionInfo::GetBookList().GetHead();
+	//if (currBook->data.GetTitle() == "") cout << "TEST";
+	//cout << currBook->data.GetTitle() << endl;
+	//while (currBook != NULL)
+	//{
+	//	
+	//	currBook = currBook->next;
+	//}
+	//END TEST
 	Login login;
 	login.printMenu();
 
@@ -43,7 +53,7 @@ int main()
 		if (line.at(0) == 'M') {
 			AdminMenu adminMenu;
 			adminMenu.printMenu();
-			isAdmin = true;
+			CurrentSessionInfo::SetAdmin(true);
 		}
 		else if (line.at(0) == 'E' || line.at(0) == 'S')
 			cout << "Menu Under Construction";

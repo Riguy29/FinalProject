@@ -31,9 +31,10 @@ public:
 	void insertItem(const T& value);
 	void insertAlpha(const T& value);
 	void deleteItem(const T& value);
-	//T& getItem(int pos)const;
+	T& getItem(int pos)const;
 	int size()const;
 	void printList()const;
+	Node<T>* GetHead();
 };
 
 
