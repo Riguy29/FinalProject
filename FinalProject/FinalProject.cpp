@@ -1,18 +1,11 @@
+/*
+* FinalProject.cpp
+* 
+* Main source file for the project. Includes the main function.
+* Also includes the time function to get the current date and time for the program.
+*/
 
-#include "LibraryLinkedList.cpp"
-#include "LibraryMedia.h"
-#include "AdminMenu.h"
-#include "CurrentSessionInfo.h"
-#include "MainLogin.h"
-#include <string>
-#include <cstdlib>
-#include <iomanip>
-#include <fstream>
-#include <stdlib.h>
-#include "tinyxml2.h"
-
-using namespace std;
-using namespace tinyxml2;
+#include "FinalProject.h"
 
 void TimeFunction() {
 	// current date/time based on current system
@@ -30,18 +23,6 @@ void TimeFunction() {
 
 int main()
 {
-	//THIS IS A TEST, REMOVE AFTER USAGE
-	string search;
-	CurrentSessionInfo::LoadInventory();
-	//Node<LibraryMedia>* currBook = CurrentSessionInfo::GetBookList().GetHead();
-	//if (currBook->data.GetTitle() == "") cout << "TEST";
-	//cout << currBook->data.GetTitle() << endl;
-	//while (currBook != NULL)
-	//{
-	//	
-	//	currBook = currBook->next;
-	//}
-	//END TEST
 	Login login;
 	login.printMenu();
 
@@ -60,13 +41,5 @@ int main()
 		currUser.close();
 	}
 
-
-	/*
-	LibraryMedia book1("Harry Potter", book, "978-0-545-79142-7", "Fantasy", "Young Adult", "First illustrated edition", 2, 24.99), "J.K. Rowling", "Bloomsbury Publishing PLC");
-	
-	LinkedList<LibraryMedia> mediaList;
-	mediaList.insertItem(book1);
-	mediaList.printList();
-	*/
 	return 0;
 }

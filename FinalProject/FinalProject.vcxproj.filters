@@ -14,8 +14,6 @@
     <ClCompile Include="LibraryLinkedList.cpp" />
     <ClCompile Include="MainLogin.cpp" />
     <ClCompile Include="CurrentSessionInfo.cpp" />
-    <ClCompile Include="tinyxml2.cpp" />
-    <ClCompile Include="xmltest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CheckedoutMedia.h" />
@@ -32,12 +30,8 @@
     <ClInclude Include="MenuScreen.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="CurrentSessionInfo.h" />
-    <ClInclude Include="tinyxml2.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="records.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Xml Include="InventoryRecord.xml" />
   </ItemGroup>
 </Project>

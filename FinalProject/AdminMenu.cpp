@@ -6,7 +6,7 @@
 
 using namespace std;
 
-//AdminMenu::AdminMenu(){}
+AdminMenu::AdminMenu(){}
 AdminMenu::~AdminMenu(){}
 
 void AdminMenu::addMedia()const{}

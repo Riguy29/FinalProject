@@ -1,5 +1,6 @@
 #ifndef ADMINMENU_H
 #define ADMINMENU_H
+
 #include <iostream>
 #include <string>
 #include "MenuScreen.h"
@@ -9,7 +10,7 @@ class AdminMenu //: public MenuScreen
 private:
 	
 public:
-	//AdminMenu();
+	AdminMenu();
 	~AdminMenu();
 	void addMedia()const;
 	void updateMedia()const;

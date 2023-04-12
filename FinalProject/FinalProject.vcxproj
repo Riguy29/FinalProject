@@ -139,8 +139,6 @@
     <ClCompile Include="PatronLogin.cpp" />
     <ClCompile Include="Newspaper.cpp" />
     <ClCompile Include="Publisher.cpp" />
-    <ClCompile Include="tinyxml2.cpp" />
-    <ClCompile Include="xmltest.cpp" />
     <ClInclude Include="CheckedoutMedia.h" />
     <ClInclude Include="ConferenceJournal.h" />
     <ClInclude Include="CurrentSessionInfo.h" />
@@ -155,7 +153,6 @@
     <ClCompile Include="LibraryLinkedList.cpp" />
     <ClInclude Include="MainLogin.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="tinyxml2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AdminMenu.h" />
@@ -163,9 +160,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="records.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Xml Include="InventoryRecord.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

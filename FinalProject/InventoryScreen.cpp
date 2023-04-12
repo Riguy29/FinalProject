@@ -1,8 +1,6 @@
 #ifndef INVENTORYSCREEN_CPP
 #define INVENTORYSCREEN_CPP
 #include "InventoryScreen.h"
-#include "tinyxml2.h"
-using namespace tinyxml2;
 
 void InventoryScreen::AddMedia()
 {
@@ -114,15 +112,12 @@ void InventoryScreen::SearchByTitle()
 	cout << "Enter the title of the media you are looking for" << endl;
 	cin >> title;
 
-	XMLDocument inventoryXML;
-	XMLElement* pRootElement = inventoryXML.RootElement();
-	XMLElement* pInvetory = pRootElement->FirstChildElement("inventory");
-	XMLElement* pMedia = pInvetory->FirstChildElement("media");
-
+	/*
 	while (pMedia != nullptr)
 	{
 
 	}
+	*/
 }
 
 #endif // !INVENTORYSCREEN_CPP

@@ -1,7 +1,3 @@
-#ifndef LIBRARYMEDIA_CPP
-#define LIBRARYMEDIA_CPP
-
-
 #include "LibraryMedia.h"
 #include "LibraryLinkedList.h"
 #include "Publisher.h"
@@ -33,8 +29,6 @@ LibraryMedia::LibraryMedia()
 	price = 0;
 	authors = LinkedList<string>();
 	publishers = LinkedList<Publisher>();
-	
-	
 }
 
 LibraryMedia::LibraryMedia(string title, LinkedList<string> authors, LinkedList<Publisher> publishers, mediaTypes mediaType, string ISBN, string cateogory, string subCategory, string edition, int inventoryCount, int price)
@@ -51,6 +45,20 @@ LibraryMedia::LibraryMedia(string title, LinkedList<string> authors, LinkedList<
 	this->price = price;
 }
 
+// Accessors
+
+LibraryMedia::mediaTypes LibraryMedia::GetMediaType() { return mediaType; }
+LinkedList<string> LibraryMedia::GetAuthors() { return authors; }
+LinkedList<Publisher> LibraryMedia::GetPublishers() { return LinkedList<Publisher>(); }
+string LibraryMedia::GetISBN() { return ISBN; }
+double LibraryMedia::GetPrice() { return price; }
+string LibraryMedia::GetCategory() { return category; }
+string LibraryMedia::GetSubCategory() { return subCategory; }
+int LibraryMedia::GetInventoryCount() { return inventoryCount; }
+string LibraryMedia::GetEdition() { return edition; }
+
+// Mutators
+
 void LibraryMedia::SetTitle()
 {
 	string newTitle;
@@ -59,45 +67,10 @@ void LibraryMedia::SetTitle()
 	{
 		cout << "Enter the title: ";
 		cin >> newTitle;
-		//FIX ME:: Validate data
+		// FIX ME:: Validate data
 	} while (!isValid);
 	this->title = title;
 
-}
-
-string LibraryMedia::GetTitle()
-{
-	return title;
-}
-
-void LibraryMedia::SetMediaType(mediaTypes mediaType)
-{
-	this->mediaType = mediaType;
-}
-
-LibraryMedia::mediaTypes LibraryMedia::GetMediaType()
-{
-	return mediaType;
-}
-
-void LibraryMedia::SetAuthors(LinkedList<string> authorList)
-{
-	authors = authorList;
-}
-
-LinkedList<string> LibraryMedia::GetAuthors()
-{
-	return authors;
-}
-
-void LibraryMedia::SetPublishers(LinkedList<Publisher> publisherList)
-{
-	publishers = publisherList;
-}
-
-LinkedList<Publisher> LibraryMedia::GetPublishers()
-{
-	return LinkedList<Publisher>();
 }
 
 void LibraryMedia::SetISBN()
@@ -108,14 +81,9 @@ void LibraryMedia::SetISBN()
 	{
 		cout << "Enter the ISBN: ";
 		cin >> newISBN;
-		//Validate data
+		// FIX ME: Validate data
 	} while (!isValid);
 	ISBN = newISBN;
-}
-
-string LibraryMedia::GetISBN()
-{
-	return ISBN;
 }
 
 void LibraryMedia::SetPrice()
@@ -124,57 +92,19 @@ void LibraryMedia::SetPrice()
 	bool isValid = true;
 	do
 	{
-		isValid = true; //Assume data is valid
+		isValid = true; // Assume data is valid
 		cout << "Enter the price: ";
 		cin >> newPrice;
-		//Validate data
+		// FIX ME: Validate data
 	} while (!isValid);
 	price = newPrice;
 }
 
-double LibraryMedia::GetPrice()
-{
-	return price;
-}
 
-void LibraryMedia::SetCategory(string newCategory)
-{
-	category = newCategory;
-}
-
-string LibraryMedia::GetCategory()
-{
-	return category;
-}
-
-void LibraryMedia::SetSubCategory(string newSubCategory)
-{
-	subCategory = newSubCategory;
-}
-
-string LibraryMedia::GetSubCategory()
-{
-	return subCategory;
-}
-
-void LibraryMedia::SetInventoryCount(int newCount)
-{
-	inventoryCount = newCount;
-}
-
-int LibraryMedia::GetInventoryCount()
-{
-	return inventoryCount;
-}
-
-void LibraryMedia::SetEdition(string newEdition)
-{
-	edition = newEdition;
-}
-
-string LibraryMedia::GetEdition()
-{
-	return edition;
-}
-
-#endif // !LIBRARYMEDIA_CPP
+void LibraryMedia::SetCategory(string newCategory) { category = newCategory; }
+void LibraryMedia::SetSubCategory(string newSubCategory) { subCategory = newSubCategory; }
+void LibraryMedia::SetInventoryCount(int newCount) { inventoryCount = newCount; }
+void LibraryMedia::SetEdition(string newEdition) { edition = newEdition; }
+void LibraryMedia::SetMediaType(mediaTypes mediaType) { this->mediaType = mediaType; }
+void LibraryMedia::SetAuthors(LinkedList<string> authorList) { authors = authorList; }
+void LibraryMedia::SetPublishers(LinkedList<Publisher> publisherList) { publishers = publisherList; }

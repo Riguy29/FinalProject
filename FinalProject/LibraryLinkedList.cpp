@@ -147,4 +147,5 @@ Node<T>* LinkedList<T>::newNode(const T& value) {
 	temp->next = NULL;
 	return temp;
 }
+
 #endif

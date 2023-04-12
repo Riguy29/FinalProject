@@ -8,12 +8,11 @@
 #include "ConferenceJournal.h"
 #include <vector>
 #include <fstream>
-#include "tinyxml2.h"
 
 
 using namespace std; 
 
-class InventoryScreen //: public MenuScreen
+class InventoryScreen // public MenuScreen
 {
 public:
 	void UpdateMedia();
