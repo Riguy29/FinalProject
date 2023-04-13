@@ -3,6 +3,8 @@
 #define USER_H
 
 #include <iostream>
+#include "LibraryLinkedList.h"
+
 using namespace std;
 
 class User {
@@ -17,8 +19,12 @@ private:
 	string password;
 	
 	int userID;
+
+	LinkedList<User> users;
+
 public:
-	User(bool isAdmin, bool isGuest, string status, string firstN, string lastN, string usern, string pass, int ID) {}
+	// Constructors
+	User(bool isAdmin, bool isGuest, string status, string firstN, string lastN, string usern, string pass, int ID, LinkedList<User> users) {}
 	User() {}
 	~User() {}
 
@@ -34,15 +40,17 @@ public:
 
 	int getUserID() {}
 
+	LinkedList<User> getUsers() {}
+
 	// Mutators
-	void setIsAdmin(bool isAdmin)const {}
-	void setIsGuest(bool isGuest)const {}
-	void setStatusLevel(string statusLevel)const {}
-	void setFirstName(string firstName)const {}
-	void setLastName(string lastName)const {}
-	void setUsername(string username)const {}
-	void setPassword(string password)const {}
-	void setUserID(int userID)const {}
+	void setIsAdmin(bool isAdmin) {}
+	void setIsGuest(bool isGuest){}
+	void setStatusLevel(string statusLevel){}
+	void setFirstName(string firstName) {}
+	void setLastName(string lastName) {}
+	void setUsername(string username){}
+	void setPassword(string password){}
+	void setUserID(int userID) {}
 };
 
 #endif // !USER_H
