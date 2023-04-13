@@ -4,6 +4,10 @@
 //I guess because this is a static variable we have to define it outside of our .h file, idk thats what the internet told me and now it works so
 bool CurrentSessionInfo::isUserAdmin = false;
 LinkedList<Book> CurrentSessionInfo::bookList = LinkedList<Book>();
+LinkedList<ConferenceJournal> CurrentSessionInfo::journalList = LinkedList<ConferenceJournal>();
+LinkedList<Newspaper> CurrentSessionInfo::newspaperList = LinkedList<Newspaper>();
+LinkedList<Periodical> CurrentSessionInfo::periodicalList = LinkedList<Periodical>();
+
 
 void CurrentSessionInfo::SetAdmin(bool isAdmin)
 {

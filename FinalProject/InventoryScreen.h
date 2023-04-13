@@ -6,6 +6,7 @@
 #include "CurrentSessionInfo.h"
 #include "Newspaper.h"
 #include "ConferenceJournal.h"
+#include "Periodical.h"
 #include "Book.h"
 #include <vector>
 #include <fstream>
@@ -24,7 +25,11 @@ public:
 	void printMenu();
 	void SearchByTitle(LibraryMedia::mediaTypes type);
 	void SearchByAuthor(string targetAuthor);
+
+	void PrintMatchingMedia(vector<Book*> mediaList);
+	void PrintMatchingMedia(vector<ConferenceJournal> mediaList);
+	void PrintMatchingMedia(vector<Newspaper> mediaList);
+	void PrintMatchingMedia(vector<Periodical> mediaList);
 private:
 	string recordTxtFile = "InventoryRecord.txt";
 };
-

@@ -122,7 +122,9 @@ T& LinkedList<T>::getItem(int pos)const {
 			}
 
 		}
-		return curr->data.ToString();
+		//This should never happen
+		//throw exception;
+		return curr->data;
 	}
 }
 

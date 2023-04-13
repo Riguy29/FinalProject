@@ -3,6 +3,7 @@
 #include "Book.h"
 #include "LibraryMedia.h"
 #include "Newspaper.h"
+#include "Periodical.h"
 #include "ConferenceJournal.h"
 
 #include <fstream>
@@ -14,6 +15,10 @@ class CurrentSessionInfo
 private:
 	static bool isUserAdmin;
 	static LinkedList<Book> bookList;
+	static LinkedList<ConferenceJournal> journalList;
+	static LinkedList<Newspaper> newspaperList;
+	static LinkedList<Periodical> periodicalList;
+
 	//User currUser;
 public:
 	static void SetAdmin(bool isAdmin);
@@ -24,5 +29,6 @@ public:
 	static void SaveInventory();
 
 	static LinkedList<Book> GetBookList();
+	
 };
 

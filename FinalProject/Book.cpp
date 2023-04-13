@@ -40,6 +40,19 @@ int Book::GetEdition()
 	return edition;
 }
 
+void Book::ToString()
+{
+	cout << "Title: " << title;
+	cout << " Type: " << mediaType;
+	cout << " ISBN: " << ISBN;
+	cout << " Category: " << category;
+	cout << " Sub-Category: " << subCategory;
+	cout << " Inventory Amt: " << inventoryCount;
+	cout << endl << endl;
+}
+
+
+
 Book::Book()
 {
 	title = "";

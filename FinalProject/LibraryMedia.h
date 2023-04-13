@@ -37,8 +37,8 @@ public:
 	void SetInventoryCount(int newCount);
 	int GetInventoryCount();
 
-	void ToString();
-
+	//We will want to disp
+	virtual void ToString();
 	LibraryMedia();
 	LibraryMedia(string title, LinkedList<string> authors = LinkedList<string>(), LinkedList<Publisher> publishers = LinkedList<Publisher>(), mediaTypes mediaType = book, string cateogory = "", string subCategory = "", int inventoryCount = 0, int price = 0);
 protected:

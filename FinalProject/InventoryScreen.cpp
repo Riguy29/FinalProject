@@ -41,7 +41,6 @@ void InventoryScreen::AddMedia()
 void InventoryScreen::SearchForMedia()
 {
 	int choice;
-	bool validChoice = false;
 	LibraryMedia::mediaTypes tempMediaType;
 	string searchType = "ERROR";
 	do
@@ -53,7 +52,7 @@ void InventoryScreen::SearchForMedia()
 		cout << "4. Periodicals" << endl;
 		cout << "5. Return" << endl;
 		cin >> choice;
-		validChoice = true; //Assume choice is valid
+		//validChoice = true; //Assume choice is valid
 		switch (choice)
 		{
 		case 1:
@@ -76,9 +75,10 @@ void InventoryScreen::SearchForMedia()
 			return;
 		default:
 			cout << "Invalid selection, try again" << endl;
+
 			break;
 		}
-	} while (!validChoice);
+	} while (true);
 	do
 	{
 		cout << "How would like to search for " << searchType <<"?" << endl;
@@ -87,8 +87,8 @@ void InventoryScreen::SearchForMedia()
 		cout << "3. Search by Publisher" << endl;
 		cout << "4. Search by Cateogory" << endl;
 		//FIXME:: If user is admin, offer more search options
+		cout << "9. Return" << endl;
 		cin >> choice;
-		validChoice = true; //Assume choice is valid
 		switch (choice)
 		{
 		case 1:
@@ -102,9 +102,9 @@ void InventoryScreen::SearchForMedia()
 			break;
 		default:
 			cout << "Invalid selection, try again" << endl;
-			break;
+			return;
 		}
-	} while (!validChoice);
+	} while (true);
 	//If search find items, return the top 5 items
 }
 void InventoryScreen::printMenu() {
@@ -148,12 +148,60 @@ void InventoryScreen::SearchByTitle(LibraryMedia::mediaTypes type)
 	cout << "Enter the title of the " << type << "you are looking for" << endl;
 	cin >> title;
 	if (type == LibraryMedia::book) {
-		vector<Book> matchingBookList;
+
+		//Create vector of pointers that will point to the memory of matching books found in BookList();
+		vector<Book*> matchingBookList;
+
+		//Goes through Book list and checks for title that contain the user input
+		for (int i = 0; i < CurrentSessionInfo::GetBookList().size(); i++)
+		{
+			if (CurrentSessionInfo::GetBookList().getItem(i).GetTitle().find(title) != string::npos) {
+				Book* pNewBook = &CurrentSessionInfo::GetBookList().getItem(i);
+				matchingBookList.push_back(pNewBook);
+				if (matchingBookList.size() >= 5) {
+					PrintMatchingMedia(matchingBookList);
+				}
+			}
+		}
+		if (matchingBookList.size() == 0) {
+			cout << "No Books Found";
+			return;
+		}
 	}
 	else if (type == LibraryMedia::conferenceJournal) {
 		vector<ConferenceJournal> matchingJournalList;
 	}
 
+
 }
+
+void InventoryScreen::PrintMatchingMedia(vector<Book*> mediaList)
+{
+	
+	Book* selectedBook;
+	int choice=0;
+	do
+	{
+		cout << "Select a book" << endl;
+		for (int i = 1; i <= mediaList.size(); i++)
+		{
+			cout << i << ". ";
+			mediaList.at(i-1)->ToString();
+			cout << endl;
+		}
+		cout << "6. Return" << endl;
+		cin >> choice;
+		if (choice == 6) return;
+		else if (mediaList.at(choice - 1) != NULL) {
+			selectedBook = mediaList.at(choice - 1);
+			//Open up a option to edit the book
+		}
+		else cout << "Invalid Selection, try again" << endl;
+
+		
+
+	} while (true);
+}
+
 
 #endif // !INVENTORYSCREEN_CPP
