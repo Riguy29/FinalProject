@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <vector>
 #include <random>
+#include <regex>
 
 using namespace std;
 
@@ -34,6 +35,19 @@ void Login::setPassword(string userP) {
     password = userP;
 }
 
+void Login::TimeFunction() {
+    // current date/time based on current system
+    time_t now = time(0);
+
+    // Char array for ctime_s to get time to compile properly using C++ 20
+    // This char array holds the string of what the current time is
+    char str[26];
+
+    // Get the current time and convert to string, storing it in the str char array
+    ctime_s(str, sizeof str, &now);
+
+    cout << str << endl;
+}
 
 //printMenu() prints the menu options for the login screen
 void Login::printMenu()const {
@@ -71,10 +85,17 @@ void Login::printMenu()const {
         break;
     case 5:
         system("cls");
-        cout << "Have a great Day!" << endl;
-        system("PAUSE");
+        /*
+    {
         system("cls");
-        printMenu();
+        //cout << "Have a great Day!" << endl;
+        //FIX ME clear current user so the system closes without entering another login
+        ofstream clearCurrentUser("currentUser.txt");
+        clearCurrentUser << "";
+        clearCurrentUser.close();
+
+    }
+    */
         break;
     default:
         system("cls");
@@ -85,41 +106,31 @@ void Login::printMenu()const {
 
 
 }
+
 //login() allows user to login to borrow books if they have a username and password
 void Login::login()const {
     string username;
     string password;
-    string id;
-    string pass;
-    bool exists = false;
+
     cout << "Please log in or " << endl;
     cout << "Press 1 to return to Main Menu." << endl;
     cout << endl;
 
-    ifstream userpass("userpass.txt");
-    cout << "\nEnter your username: \t" << endl;
-    cin >> username;
-    if (!username._Equal("1")) {
-        cout << "\nEnter your password: \t" << endl;
-        cin >> password;
-    }
-    else {
-        system("cls");
-        printMenu();
-    }
-
-    while (userpass.is_open()) {
-        getline(userpass, id);
-        getline(userpass, pass);
-
-        //if (userpass >> id >> pass) {//check to see if password exists
-        if (id == username && pass == password) {
-            exists = true;
+    do {
+        
+        cout << "\nEnter your username: \t" << endl;
+        cin >> username;
+        if (!username._Equal("1")) {
+            cout << "\nEnter your password: \t" << endl;
+            cin >> password;
         }
-        // }
+        else {
+            system("cls");
+            printMenu();
+        }
+       
+    } while (isLoginValid(username, password) != true);
 
-        userpass.close();
-    }
     if (true) {
         system("cls");
         cout << username << " Login Successful!" << endl;
@@ -135,42 +146,75 @@ void Login::login()const {
         system("cls");
         return;
     }
-    else {
+   
+}
+
+//validate username and password match to login
+bool Login::isLoginValid(string& inUser, string& inPass){
+    string username, password;
+
+    ifstream read("userpass.txt");
+
+    if (!read.is_open()) {
+        cout << "File not opened successfully";
+    }
+    
+        while(read >> username >> password) {//check to see if password exists
+            if (inUser == username && inPass == password) {
+                return true;
+            }
+        }
         system("cls");
-        cout << "\nLogin not successful.  Please try again.";
+        cout << "\nUsername or Password not found.  Please try again." << endl;
         system("PAUSE");
         system("cls");
-        //login(); 
 
+        return false;
+        read.close();
     }
 
+//validate email format
+bool Login::isEmailValid(string& email) {    
+    //create regex variable pattern with requirements for valid email
+    const regex pattern("(\\w+)(\\.|_)?(\\w*)@(\\w+)(\\.(\\w+))+");
+    //match the email passed in to the regex pattern and return true if it matches
+    return regex_match(email, pattern);
+    
 }
+    
 //guest() allows user to be a guest and use material from the library for 2 hours
 void Login::guest()const {
     string gName;
     string media;
     vector<string>guestBorrowList;
     int choice;
-    //cout << "Enter your full name: \n" << endl;
-    //getline(cin, gName);
     cout << "Press 1 to return to Main Menu." << endl;
-    cout << "Enter your name: \n" << endl;
-    cin >> gName;
+    //cout << "Enter your name: \n" << endl;
     cout << endl;
-    if (!gName._Equal("1")) {
+    cout << "Enter your full name: \n" << endl;
+    cin.ignore();
+    getline(cin, gName);
+    
+   // cin >> gName;
+    cout << endl;
+    if (!gName._Equal("1")) {//collect list of items being borrowed
         cout << "What will you be borrowing today?\n (press d when finished)\n" << endl;
-        while (!media._Equal("d")) {
-            cin >> media;
+        //FIX ME guest should be able to search inventory and borrow.  It should reflect in the library records
+        do {
+            //cin.ignore();
+            getline(cin, media);
             guestBorrowList.push_back(media);
-        }
-
+        } while (!media._Equal("d"));
+    
         system("cls");
-        //FIXME: LINK TIME FUNCTION AND ADD TIME TO COUT
-        cout << "Thank you " << gName << "! You are borrowing " << endl;
+        cout << "Thank you " << gName << "! You are borrowing \n" << endl;
+        
         for (int i = 0; i < guestBorrowList.size() - 1; i++) {
             cout << guestBorrowList.at(i) << endl;
         }
-        cout << "\nThe time is ? ? Time ? ? Please return items by ? ? ? Time ? ? ?" << endl;
+        cout << "\nToday is ";
+       TimeFunction();
+        cout << "Please return items in 2 hours." << endl;
         cout << endl;
         do {
             cout << "Press 1 to return to Main Menu" << endl;
@@ -183,6 +227,8 @@ void Login::guest()const {
         else {
             system("cls");
             cout << "You have exited.Thank you!" << endl;
+            system("PAUSE");
+            system("cls");
             printMenu();
         }
     }
@@ -214,16 +260,10 @@ void Login::forgot()const {
     case 1:
         system("cls");
         cout << "\nForgot Password?: No worries! " << endl;
-        cout << "Press 1 to get password." << endl;
-        cout << "Press 2 to go to return to Main Menu. " << endl;
-        cin >> option2;
-
-
-
-        switch (option2) {
-
-        case 1:
-            system("cls");
+       
+        cout << "Press 1 to return to Main Menu. " << endl;
+        
+        do {
             cout << "\nEnter username: " << endl;
             cin >> fID;
 
@@ -283,28 +323,32 @@ void Login::forgot()const {
                 }
             }
             break;
-        case 2:
+        } while (!fID._Equal("1"));
             system("cls");
             cout << "Thank you!  Have a great day." << endl;
+            system("PAUSE");
+            system("cls");
             printMenu();
+            
             break;
-        default:
-            system("cls");
-            cout << "Invalid Choice...Please Try Again...\n" << endl;
-            break;
-        }
-    case 2:
+    case 2://forgot username; enter email
         system("cls");
-        int option3;
-        cout << "\nForgot Username?: No worries! " << endl;
-        cout << "Press 1 to get username." << endl;
-        cout << "Press 2 to go to return to Main Menu. " << endl;
-        cin >> option3;
-        switch (option3) {
-        case 1:
-            system("cls");
-            cout << "Enter the email associated with your account." << endl;
-            cin >> fEmail;
+        //int option3;
+        cout << "\nForgot Username?: No worries! " << endl;        
+        cout << "Press 1 to go to return to Main Menu. " << endl;
+  
+
+        do {
+            cout << "\nEnter the email associated with your account." << endl;
+            cin.ignore();
+            getline(cin, fEmail);
+        } while (isEmailValid(fEmail) != true && (!fEmail._Equal("1")));
+
+        if (fEmail._Equal("1")) {
+            system("cls");         
+            printMenu();
+        }
+        else {
 
             while (f2 >> fID >> fEmail) {//file records has an ID and Password that matches
                 if (fEmail == email) {
@@ -329,6 +373,7 @@ void Login::forgot()const {
                 case 2:
                     system("cls");
                     cout << "Thank you! Have a great day." << endl;
+                    system("PAUSE");
                     printMenu();
                     break;
                 default:
@@ -352,6 +397,7 @@ void Login::forgot()const {
                 case 2:
                     system("cls");
                     cout << "Thank you! Have a great day." << endl;
+                    system("PAUSE");
                     printMenu();
                     break;
                 default:
@@ -361,15 +407,7 @@ void Login::forgot()const {
                 }
             }
             break;
-        case 2:
-            system("cls");
-            printMenu();
-            break;
-        default:
-            system("cls");
-            cout << "Invalid Choice...Please Try Again...\n" << endl;
-            break;
-        }
+
     case 3:
         system("cls");
         printMenu();
@@ -377,51 +415,18 @@ void Login::forgot()const {
     default:
         system("cls");
         cout << "Invalid Choice...Please Try Again...\n" << endl;
+        system("PAUSE");
         break;
-    }
+
+        }
+        }
 }
 
-string Login::randomPass() {
-    //srand(time(0));
-    int passLength = 10;
-    static const char alphanum[] =
-        "0123456789"
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        "abcdefghijklmnopqrstuvwxyz";
-    string pass;
-    pass.reserve(passLength);
-
-    for (int i = 0; i < passLength; i++) {
-        pass += alphanum[rand() % (sizeof(alphanum) - 1)];
-    }
-
-    return pass;
-}
-
-string Login::randomLibID() {
-    // srand(time(0));
-    int IDLength = 4;
-    static const char IDNum[] =
-        "0123456789";
-    string libID;
-    libID.reserve(IDLength);
-
-    for (int i = 0; i < IDLength; i++) {
-        libID += IDNum[rand() % (sizeof(IDNum) - 1)];
-    }
-
-    return libID;
-}
 //registration() allows user to register for an account if they don't have one already
 void Login::registration()const {
     string fName, lName, address, phoneNum, email, id, libID, password;
     char pos;
-
     int choice;
-    ofstream file;
-    file.open("records.txt", ios::in | ios::app);
-    ofstream userpassList;
-    userpassList.open("userpass.txt", ios::in | ios::app);
 
     cout << "Press 1 to return to Main Menu or" << endl;
     cout << "\nEnter your first name: \t" << endl;
@@ -433,15 +438,17 @@ void Login::registration()const {
     }
 
     cout << "\nEnter your last name: \t" << endl;
-
     getline(cin, lName);
     cout << "\nEnter your address: \t" << endl;
     cin.ignore();
     getline(cin, address);
     cout << "\nEnter your phone number: \t" << endl;
     getline(cin, phoneNum);
-    cout << "\nEnter your email: \t" << endl;
-    getline(cin, email);
+    do {
+        cout << "\nEnter your email: \t" << endl;
+        getline(cin, email);
+    }while(isEmailValid(email) != true);
+    
     cout << endl;
     cout << "staff member M\nemployee E\nstudent S \t" << endl;
     cout << "Enter your position(M/E/S)" << endl;
@@ -450,19 +457,19 @@ void Login::registration()const {
     case 'M':
     case 'm':
         cout << "\nEnter your staff ID: \t" << endl;
-        libID = "M" + lName + randomLibID();
+        libID = "M" + randomLibID();
         password = randomPass();
         break;
     case 'E':
     case 'e':
         cout << "\nEnter your employee ID: \t" << endl;
-        libID = "E" + lName + randomLibID();
+        libID = "E" + randomLibID();
         password = randomPass();
         break;
     case 'S':
     case 's':
         cout << "\nEnter your student ID: \t" << endl;
-        libID = "S" + lName + randomLibID();
+        libID = "S" + randomLibID();
         password = randomPass();
         break;
     default:
@@ -479,24 +486,40 @@ void Login::registration()const {
     cin >> correct;
     switch (correct) {
     case 'Y':
-    case'y':
+    case'y':    
+    {
+        ofstream file;
+        file.open("records.txt", ios::in | ios::app);
+        if (!file.is_open()) {
+            cout << "File open unsuccessful" << endl;
+        }
+
+        //store memeber registration information in records.txt
         if (file.is_open()) {
             //file << "Name: " << fName << " " << lName << "\tAddress: " << address << "\tPhone: " << phoneNum << "\tEmail: " << email
               //  << "\tPosition: " << pos << "\tID: " << id << "\tLibrary Login: " << libID << "\tPassword: " << password << "\t" << endl;
             file << "Name: " << fName << " " << lName << "\nAddress: " << address << "\nPhone: " << phoneNum << "\nEmail: " << email
                 << "\nPosition: " << pos << "\nID: " << id << "\nLibraryID: " << libID << "\nPassword: " << password << endl;
             file << endl;
-            file.close();
+
         }
+        file.close();
+
+        ofstream userpassList;
+        userpassList.open("userpass.txt", ios::in | ios::app);
+        if (!userpassList.is_open()) {
+            cout << "File open unsuccessful" << endl;
+        }
+        //store username and password in userpassList.txt
         if (userpassList.is_open()) {
             userpassList << libID << "\t" << password << endl;
-            userpassList.close();
         }
+        userpassList.close();
 
         system("cls");
         cout << "\nRegistration is successful!" << endl;
         cout << "\nYour Library ID is: \t" << libID << endl;
-        cout << "\nYour password is: \t" << password << endl;
+        cout << "\nYour Password is: \t" << password << endl;
         cout << endl;
         cout << "\nPress 1 to return to Main Menu" << endl;
         cout << "\nPress 2 to exit" << endl;
@@ -509,6 +532,7 @@ void Login::registration()const {
         case 2:
             system("cls");
             cout << "Thank you!  Have a great day." << endl;
+            system("PAUSE");
             printMenu();
             break;
         default:
@@ -516,6 +540,7 @@ void Login::registration()const {
             cout << "Invalid Choice...Please Try Again...\n" << endl;
             break;
         }
+    }
         break;
     case 'N':
     case 'n':
@@ -528,5 +553,39 @@ void Login::registration()const {
 
 
 
+}
+
+//assigns a random libID to new members
+string Login::randomLibID() {
+    // srand(time(0));
+    int IDLength = 4;
+    static const char IDNum[] =
+        "0123456789";
+    string libID;
+    libID.reserve(IDLength);
+
+    for (int i = 0; i < IDLength; i++) {
+        libID += IDNum[rand() % (sizeof(IDNum) - 1)];
+    }
+
+    return libID;
+}
+   
+//assigns a random password to new members
+string Login::randomPass() {
+    //srand(time(0));
+    int passLength = 5;
+    static const char alphanum[] =
+        "0123456789"
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        "abcdefghijklmnopqrstuvwxyz";
+    string pass;
+    pass.reserve(passLength);
+
+    for (int i = 0; i < passLength; i++) {
+        pass += alphanum[rand() % (sizeof(alphanum) - 1)];
+    }
+
+    return pass;
 }
 #endif // !MAINLOGIN_CPP

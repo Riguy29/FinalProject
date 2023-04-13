@@ -1,19 +1,9 @@
-amber amo@yahoo.com meki 453
 Name: Amber Robertson
-Address: 343
-Phone: 34
-Email: 325
+Address: 345 N 550 W
+Phone: 234 234 2342
+Email: amo.olson@gmail.com
 Position: m
-ID: 345
+ID: 1234
 LibraryID: MRobertson1740
 Password: Bc8Wsa1xVP
-
-Name: mike Robertson
-Address: 3543
-Phone: 35
-Email: 345
-Position: e
-ID: 345
-LibraryID: ERobertson1152
-Password: rgRYwTiizs
 

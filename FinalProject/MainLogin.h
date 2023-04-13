@@ -22,11 +22,14 @@ public:
 	void setUsername(string userN);
 	void setPassword(string userP);
 	void login()const;
+	static bool isLoginValid(string& inUser, string& inPass);
+	static bool isEmailValid(string& email);
 	void registration()const;
 	void forgot()const;
 	void guest()const;
 	static string randomPass();
 	static string randomLibID();
+	static void TimeFunction();
 };
 
 #endif // !MAINLOGIN_H
