@@ -19,7 +19,7 @@ public:
 		periodical
 	};
 
-	void SetTitle(string newTitle);
+	void SetTitle();
 	string GetTitle();
 	void SetMediaType(mediaTypes mediaType);
 	mediaTypes GetMediaType();
@@ -27,9 +27,9 @@ public:
 	LinkedList<string> GetAuthors();
 	void SetPublishers(LinkedList<Publisher> publisherList);
 	LinkedList<Publisher> GetPublishers();
-	void SetISBN(string newISBN);
+	void SetISBN();
 	string GetISBN();
-	void SetPrice(int newPrice);
+	void SetPrice();
 	double GetPrice();
 	void SetCategory(string newCategory);
 	string GetCategory();
@@ -45,6 +45,7 @@ public:
 	void ToString();
 
 	LibraryMedia();
+	LibraryMedia(string title, LinkedList<string> authors = LinkedList<string>(), LinkedList<Publisher> publishers = LinkedList<Publisher>(), mediaTypes mediaType = book, string ISBN = "", string cateogory = "", string subCategory = "", string edition = "", int inventoryCount = 0, int price = 0);
 private:
 	string title;
 
@@ -57,6 +58,7 @@ private:
 	string category;
 	string subCategory;
 	int inventoryCount;
+	string doner;
 
 };
 

@@ -130,6 +130,7 @@
   <ItemGroup>
     <ClCompile Include="CheckedoutMedia.cpp" />
     <ClCompile Include="ConferenceJournal.cpp" />
+    <ClCompile Include="CurrentSessionInfo.cpp" />
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="FinalProject.cpp" />
     <ClCompile Include="InventoryScreen.cpp" />
@@ -138,8 +139,11 @@
     <ClCompile Include="PatronLogin.cpp" />
     <ClCompile Include="Newspaper.cpp" />
     <ClCompile Include="Publisher.cpp" />
+    <ClCompile Include="tinyxml2.cpp" />
+    <ClCompile Include="xmltest.cpp" />
     <ClInclude Include="CheckedoutMedia.h" />
     <ClInclude Include="ConferenceJournal.h" />
+    <ClInclude Include="CurrentSessionInfo.h" />
     <ClInclude Include="Date.h" />
     <ClInclude Include="InventoryScreen.h" />
     <ClInclude Include="LibraryMedia.h" />
@@ -150,6 +154,8 @@
     <ClCompile Include="AdminMenu.cpp" />
     <ClCompile Include="LibraryLinkedList.cpp" />
     <ClInclude Include="MainLogin.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="tinyxml2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AdminMenu.h" />
@@ -159,6 +165,9 @@
     <Text Include="currentUser.txt" />
     <Text Include="records.txt" />
     <Text Include="userpass.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="InventoryRecord.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

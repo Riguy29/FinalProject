@@ -3,14 +3,27 @@
 #include <string>
 #include "MenuScreen.h"
 #include "CheckedoutMedia.h"
+#include "CurrentSessionInfo.h"
+#include "Newspaper.h"
+#include "ConferenceJournal.h"
+#include <vector>
+#include <fstream>
+#include "tinyxml2.h"
+
 
 using namespace std; 
 
 class InventoryScreen //: public MenuScreen
 {
 public:
-	void SearchForBook();
+	void UpdateMedia();
+	void AddMedia();
+	void SearchForMedia();
 	void CheckoutBook();
 	void printMenu();
+	void SearchByTitle();
+	void SearchByAuthor(string targetAuthor);
+private:
+	string recordTxtFile = "InventoryRecord.txt";
 };
 
