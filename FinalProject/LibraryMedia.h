@@ -27,8 +27,6 @@ public:
 	LinkedList<string> GetAuthors();
 	void SetPublishers(LinkedList<Publisher> publisherList);
 	LinkedList<Publisher> GetPublishers();
-	void SetISBN();
-	string GetISBN();
 	void SetPrice();
 	double GetPrice();
 	void SetCategory(string newCategory);
@@ -39,22 +37,16 @@ public:
 	void SetInventoryCount(int newCount);
 	int GetInventoryCount();
 
-	void SetEdition(string newEdition);
-	string GetEdition();
-
 	void ToString();
 
 	LibraryMedia();
-	LibraryMedia(string title, LinkedList<string> authors = LinkedList<string>(), LinkedList<Publisher> publishers = LinkedList<Publisher>(), mediaTypes mediaType = book, string ISBN = "", string cateogory = "", string subCategory = "", string edition = "", int inventoryCount = 0, int price = 0);
-private:
+	LibraryMedia(string title, LinkedList<string> authors = LinkedList<string>(), LinkedList<Publisher> publishers = LinkedList<Publisher>(), mediaTypes mediaType = book, string cateogory = "", string subCategory = "", int inventoryCount = 0, int price = 0);
+protected:
 	string title;
-
 	mediaTypes mediaType;
 	LinkedList<Publisher> publishers;
 	LinkedList<string> authors;
-	string edition;
 	double price;
-	string ISBN;
 	string category;
 	string subCategory;
 	int inventoryCount;

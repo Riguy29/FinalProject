@@ -9,10 +9,8 @@
 #include <iomanip>
 #include <fstream>
 #include <stdlib.h>
-#include "tinyxml2.h"
 
 using namespace std;
-using namespace tinyxml2;
 
 void TimeFunction() {
 	// current date/time based on current system

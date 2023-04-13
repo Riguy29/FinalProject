@@ -1,13 +1,19 @@
 #pragma once
-#include "tinyxml2.h"
 #include "LibraryLinkedList.h"
+#include "Book.h"
 #include "LibraryMedia.h"
-using namespace tinyxml2;
+#include "Newspaper.h"
+#include "ConferenceJournal.h"
+
+#include <fstream>
+
+/*This class is meant to store information that will be used throughout the users session
+and to load and save data from our txt files into linked lists of apporitate types*/
 class CurrentSessionInfo
 {
 private:
 	static bool isUserAdmin;
-	static LinkedList<LibraryMedia> bookList;
+	static LinkedList<Book> bookList;
 	//User currUser;
 public:
 	static void SetAdmin(bool isAdmin);
@@ -17,6 +23,6 @@ public:
 	static void LoadInventory();
 	static void SaveInventory();
 
-	static LinkedList<LibraryMedia> GetBookList();
+	static LinkedList<Book> GetBookList();
 };
 

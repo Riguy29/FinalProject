@@ -31,6 +31,7 @@ public:
 	void insertItem(const T& value);
 	void insertAlpha(const T& value);
 	void deleteItem(const T& value);
+	void clearList();
 	T& getItem(int pos)const;
 	int size()const;
 	void printList()const;

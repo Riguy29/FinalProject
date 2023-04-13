@@ -11,10 +11,8 @@ void LibraryMedia::ToString()
 {
 	cout << "Title: " << title;
 	cout << " Type: " << mediaType;
-	cout << " ISBN: " << ISBN;
 	cout << " Category: " << category;
 	cout << " Sub-Category: " << subCategory;
-	cout << " Edition: " << edition;
 	cout << " Inventory Amt: " << inventoryCount;
 	cout << endl << endl;
 	
@@ -25,10 +23,8 @@ LibraryMedia::LibraryMedia()
 {
 	title = "";
 	mediaType = book;
-	ISBN = "";
 	category = "";
 	subCategory = "";
-	edition = "";
 	inventoryCount = 0;
 	price = 0;
 	authors = LinkedList<string>();
@@ -37,16 +33,14 @@ LibraryMedia::LibraryMedia()
 	
 }
 
-LibraryMedia::LibraryMedia(string title, LinkedList<string> authors, LinkedList<Publisher> publishers, mediaTypes mediaType, string ISBN, string cateogory, string subCategory, string edition, int inventoryCount, int price)
+LibraryMedia::LibraryMedia(string title, LinkedList<string> authors, LinkedList<Publisher> publishers, mediaTypes mediaType, string cateogory, string subCategory, int inventoryCount, int price)
 {
 	this->title = title;
 	this->authors = authors;
 	this->publishers = publishers;
 	this->mediaType = mediaType;
-	this->ISBN = ISBN;
 	this->category = category;
 	this->subCategory = subCategory;
-	this->edition = edition;
 	this->inventoryCount = inventoryCount;
 	this->price = price;
 }
@@ -100,24 +94,6 @@ LinkedList<Publisher> LibraryMedia::GetPublishers()
 	return LinkedList<Publisher>();
 }
 
-void LibraryMedia::SetISBN()
-{
-	string newISBN;
-	bool isValid = true;
-	do
-	{
-		cout << "Enter the ISBN: ";
-		cin >> newISBN;
-		//Validate data
-	} while (!isValid);
-	ISBN = newISBN;
-}
-
-string LibraryMedia::GetISBN()
-{
-	return ISBN;
-}
-
 void LibraryMedia::SetPrice()
 {
 	double newPrice = 0;
@@ -167,14 +143,6 @@ int LibraryMedia::GetInventoryCount()
 	return inventoryCount;
 }
 
-void LibraryMedia::SetEdition(string newEdition)
-{
-	edition = newEdition;
-}
 
-string LibraryMedia::GetEdition()
-{
-	return edition;
-}
 
 #endif // !LIBRARYMEDIA_CPP

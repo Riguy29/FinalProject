@@ -1,8 +1,6 @@
 #ifndef INVENTORYSCREEN_CPP
 #define INVENTORYSCREEN_CPP
 #include "InventoryScreen.h"
-#include "tinyxml2.h"
-using namespace tinyxml2;
 
 void InventoryScreen::AddMedia()
 {
@@ -11,7 +9,7 @@ void InventoryScreen::AddMedia()
 	//XMLError eResult = inventoryXML.LoadFile("InventoryRecord.xml"); 
 	int choice =0;
 	bool isValid = true;
-	LibraryMedia book;
+	Book book;
 	Newspaper newspaper;
 	ConferenceJournal journal;
 	
@@ -31,7 +29,6 @@ void InventoryScreen::AddMedia()
 			break;
 		case 2:
 			newspaper.SetTitle();
-			newspaper.SetISBN();
 		default:
 			break;
 		}
@@ -45,9 +42,46 @@ void InventoryScreen::SearchForMedia()
 {
 	int choice;
 	bool validChoice = false;
+	LibraryMedia::mediaTypes tempMediaType;
+	string searchType = "ERROR";
 	do
 	{
-		cout << "How would like to search for media?" << endl;
+		cout << "What media would like to search for?" << endl;
+		cout << "1. Books" << endl;
+		cout << "2. Newspapers" << endl;
+		cout << "3. Journals" << endl;
+		cout << "4. Periodicals" << endl;
+		cout << "5. Return" << endl;
+		cin >> choice;
+		validChoice = true; //Assume choice is valid
+		switch (choice)
+		{
+		case 1:
+			searchType = "Books";
+			tempMediaType = LibraryMedia::book;
+			break;
+		case 2:
+			searchType = "Journals";
+			tempMediaType = LibraryMedia::book;
+			break;
+		case 3:
+			searchType = "Newspapers";
+			tempMediaType = LibraryMedia::book;
+			break;
+		case 4:
+			searchType = "Periodicals";
+			tempMediaType = LibraryMedia::book;
+			break;
+		case 5:
+			return;
+		default:
+			cout << "Invalid selection, try again" << endl;
+			break;
+		}
+	} while (!validChoice);
+	do
+	{
+		cout << "How would like to search for " << searchType <<"?" << endl;
 		cout << "1. Search by Title" << endl;
 		cout << "2. Search by Author" << endl;
 		cout << "3. Search by Publisher" << endl;
@@ -58,7 +92,7 @@ void InventoryScreen::SearchForMedia()
 		switch (choice)
 		{
 		case 1:
-			SearchByTitle();
+			SearchByTitle(tempMediaType);
 			break;
 		case 2:
 			break;
@@ -108,21 +142,18 @@ void InventoryScreen::printMenu() {
 	
 
 }
-void InventoryScreen::SearchByTitle()
+void InventoryScreen::SearchByTitle(LibraryMedia::mediaTypes type)
 {
 	string title;
-	cout << "Enter the title of the media you are looking for" << endl;
+	cout << "Enter the title of the " << type << "you are looking for" << endl;
 	cin >> title;
-
-	XMLDocument inventoryXML;
-	XMLElement* pRootElement = inventoryXML.RootElement();
-	XMLElement* pInvetory = pRootElement->FirstChildElement("inventory");
-	XMLElement* pMedia = pInvetory->FirstChildElement("media");
-
-	while (pMedia != nullptr)
-	{
-
+	if (type == LibraryMedia::book) {
+		vector<Book> matchingBookList;
 	}
+	else if (type == LibraryMedia::conferenceJournal) {
+		vector<ConferenceJournal> matchingJournalList;
+	}
+
 }
 
 #endif // !INVENTORYSCREEN_CPP

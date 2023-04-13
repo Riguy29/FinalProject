@@ -6,9 +6,10 @@
 #include "CurrentSessionInfo.h"
 #include "Newspaper.h"
 #include "ConferenceJournal.h"
+#include "Book.h"
 #include <vector>
 #include <fstream>
-#include "tinyxml2.h"
+
 
 
 using namespace std; 
@@ -21,7 +22,7 @@ public:
 	void SearchForMedia();
 	void CheckoutBook();
 	void printMenu();
-	void SearchByTitle();
+	void SearchByTitle(LibraryMedia::mediaTypes type);
 	void SearchByAuthor(string targetAuthor);
 private:
 	string recordTxtFile = "InventoryRecord.txt";
