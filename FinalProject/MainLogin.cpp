@@ -1,3 +1,7 @@
+/*
+    This is the main login for the library.  From this screen a user will be able to choose whether they would like
+    to login as a member or a guest, register as a new member, retrieve forgotten username or password or exit the system.
+*/
 #ifndef MAINLOGIN_CPP
 #define MAINLOGIN_CPP
 
@@ -148,40 +152,7 @@ void Login::login()const {
     }
    
 }
-
-//validate username and password match to login
-bool Login::isLoginValid(string& inUser, string& inPass){
-    string username, password;
-
-    ifstream read("userpass.txt");
-
-    if (!read.is_open()) {
-        cout << "File not opened successfully";
-    }
-    
-        while(read >> username >> password) {//check to see if password exists
-            if (inUser == username && inPass == password) {
-                return true;
-            }
-        }
-        system("cls");
-        cout << "\nUsername or Password not found.  Please try again." << endl;
-        system("PAUSE");
-        system("cls");
-
-        return false;
-        read.close();
-    }
-
-//validate email format
-bool Login::isEmailValid(string& email) {    
-    //create regex variable pattern with requirements for valid email
-    const regex pattern("(\\w+)(\\.|_)?(\\w*)@(\\w+)(\\.(\\w+))+");
-    //match the email passed in to the regex pattern and return true if it matches
-    return regex_match(email, pattern);
-    
-}
-    
+  
 //guest() allows user to be a guest and use material from the library for 2 hours
 void Login::guest()const {
     string gName;
@@ -441,45 +412,37 @@ void Login::registration()const {
     getline(cin, lName);
     cout << "\nEnter your address: \t" << endl;
     cin.ignore();
-    getline(cin, address);
-    cout << "\nEnter your phone number: \t" << endl;
-    getline(cin, phoneNum);
-    do {
+    getline(cin, address);    
+    
+    do {//make sure phone number is valid
+        cout << "\nEnter your phone number: \t" << endl;
+        getline(cin, phoneNum);
+    } while (formatPhone(phoneNum) != true);
+    if (true) {
+        phoneNum.insert(0, "(");
+        phoneNum.insert(4, ")");
+        phoneNum.insert(8, "-");
+    }
+
+    do {//make sure email is valid
         cout << "\nEnter your email: \t" << endl;
         getline(cin, email);
-    }while(isEmailValid(email) != true);
-    
+    }while(isEmailValid(email) != true);    
     cout << endl;
-    cout << "staff member M\nemployee E\nstudent S \t" << endl;
-    cout << "Enter your position(M/E/S)" << endl;
-    cin >> pos;
-    switch (pos) {
-    case 'M':
-    case 'm':
-        cout << "\nEnter your staff ID: \t" << endl;
-        libID = "M" + randomLibID();
-        password = randomPass();
-        break;
-    case 'E':
-    case 'e':
-        cout << "\nEnter your employee ID: \t" << endl;
-        libID = "E" + randomLibID();
-        password = randomPass();
-        break;
-    case 'S':
-    case 's':
-        cout << "\nEnter your student ID: \t" << endl;
-        libID = "S" + randomLibID();
-        password = randomPass();
-        break;
-    default:
-        cout << "Not a valid entry." << endl;
 
-    }
+    do {//check positon and issue username and password
+        cout << "Enter your position(M/E/S)" << endl;
+        cout << "Staff member M\nEmployee E\nStudent S \t" << endl;
+        cin >> pos;
+        positionCheck(pos);     
+    } while (pos != 'M' && pos != 'E' && pos != 'S' && pos != 'm' && pos != 'e' && pos != 's');
+    positionCheck(pos);
     cin.ignore();
     getline(cin, id);
     cout << endl;
     char correct;
+    //check that information entered is correct, if it is save to file if it is not, enter new information  
+    //FIXME write switch to allow user to pick which part is incorrect and only update that?
     cout << "Is the information correct? Y/N" << endl;
     cout << "Name: " << fName << " " << lName << "\nAddress: " << address << "\nPhone: " << phoneNum << "\nEmail: " << email
         << "\nPosition: " << pos << "\nID: " << id << endl;
@@ -488,6 +451,7 @@ void Login::registration()const {
     case 'Y':
     case'y':    
     {
+        //open file to store registration information
         ofstream file;
         file.open("records.txt", ios::in | ios::app);
         if (!file.is_open()) {
@@ -504,7 +468,7 @@ void Login::registration()const {
 
         }
         file.close();
-
+        //open file to store username and password
         ofstream userpassList;
         userpassList.open("userpass.txt", ios::in | ios::app);
         if (!userpassList.is_open()) {
@@ -551,8 +515,6 @@ void Login::registration()const {
         cout << "Not a valid entry." << endl;
     }
 
-
-
 }
 
 //assigns a random libID to new members
@@ -588,4 +550,91 @@ string Login::randomPass() {
 
     return pass;
 }
+
+//validate username and password match to login
+bool Login::isLoginValid(string& inUser, string& inPass) {
+    string username, password;
+
+    ifstream read("userpass.txt");
+
+    if (!read.is_open()) {
+        cout << "File not opened successfully";
+    }
+
+    while (read >> username >> password) {//check to see if password exists
+        if (inUser == username && inPass == password) {
+            return true;
+        }
+    }
+    system("cls");
+    cout << "\nUsername or Password not found.  Please try again." << endl;
+    system("PAUSE");
+    system("cls");
+
+    return false;
+    read.close();
+}
+
+//validate email format
+bool Login::isEmailValid(string &email) {
+    //create regex variable pattern with requirements for valid email
+    const regex pattern("(\\w+)(\\.|_)?(\\w*)@(\\w+)(\\.(\\w+))+");
+    //match the email passed in to the regex pattern and return true if it matches
+
+    bool valid = regex_match(email, pattern);
+    if (!valid) {
+        cout << "\nEnter a valid email.";
+    }
+    return valid;
+
+}
+
+//format phone number
+bool Login::formatPhone(string &phone) {
+    const int NUM_LENGTH = 10;
+
+    if (phone.length() != NUM_LENGTH) {
+        cout << "Phone number must contain only 10 digits starting with the area code" << endl;
+        for (char ch : phone) {
+            if (!isdigit(ch)) {
+                return false;
+            }
+        }
+    }
+    else {
+        return true;
+    }
+}       
+      
+//check position using switch
+void Login::positionCheck(char &pos) {
+    string libID;
+    string password;
+    switch (pos) {
+    case 'M':
+    case 'm':
+        cout << "\nEnter your staff ID: \t" << endl;
+        libID = "M" + randomLibID();
+        password = randomPass();
+        break;
+    case 'E':
+    case 'e':
+        cout << "\nEnter your employee ID: \t" << endl;
+        libID = "E" + randomLibID();
+        password = randomPass();
+        break;
+    case 'S':
+    case 's':
+        cout << "\nEnter your student ID: \t" << endl;
+        libID = "S" + randomLibID();
+        password = randomPass();
+        break;
+    default:
+        cout << "\nNot a valid entry." << endl;
+        cout << "Enter your position(M/E/S)" << endl;
+        cout << "Staff member M\nEmployee E\nStudent S \t" << endl;
+        cin >> pos;
+    }
+}
+ 
 #endif // !MAINLOGIN_CPP
