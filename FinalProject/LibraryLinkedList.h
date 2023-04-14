@@ -32,6 +32,7 @@ public:
 	void insertAlpha(const T& value);
 	void deleteItem(const T& value);
 	T& getItem(int pos)const;
+	void search(const string& search)const;
 	int size()const;
 	void printList()const;
 	Node<T>* GetHead();

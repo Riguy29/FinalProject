@@ -15,12 +15,13 @@ void AdminMenu::removeMedia()const{}
 void AdminMenu::viewMedia()const{}
 void AdminMenu::search()const{}
 void AdminMenu::viewAccount()const{}
-void AdminMenu::exit()const{}
 void AdminMenu::printMenu()const{
     int choice;
-    cout << "WELCOME ADMINISTRATOR!\n"; //<< FixMe...get current user name \n" << endl;
-    cout << "What would you like to do today?\n" << endl;
-    cout << "1. Add a Media\n" << endl;
+    cout << "************************************\n" << endl;
+    cout << "********* WELCOME ADMINISTRATOR! ********\n" << endl;//<< FIXME...get current user name \n" << endl;
+    cout << "************************************\n" << endl;
+    cout << "Select from the options below \n" << endl;
+    cout << "1. Add Media\n" << endl;
     cout << "2. Update Media\n" << endl;
     cout << "3. Delete Media\n" << endl;
     cout << "4. View Media\n" << endl;
@@ -51,7 +52,7 @@ void AdminMenu::printMenu()const{
         viewAccount();
         break;
     case 7:
-        exit();
+        exit(0);
         break;
     default:
         cout << "Invalid Choice...Please Try Again...\n" << endl;

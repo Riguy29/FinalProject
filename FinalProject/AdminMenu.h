@@ -17,7 +17,6 @@ public:
 	void viewMedia()const;
 	void search()const;
 	void viewAccount()const;
-	void exit()const;
 	void printMenu()const;
 
 };

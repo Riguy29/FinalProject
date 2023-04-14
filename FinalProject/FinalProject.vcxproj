@@ -147,7 +147,6 @@
     <ClInclude Include="Date.h" />
     <ClInclude Include="InventoryScreen.h" />
     <ClInclude Include="LibraryMedia.h" />
-    <ClInclude Include="MenuScreen.h" />
     <ClInclude Include="PatronLogin.h" />
     <ClInclude Include="Newspaper.h" />
     <ClInclude Include="Publisher.h" />

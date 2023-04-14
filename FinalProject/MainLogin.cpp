@@ -89,17 +89,7 @@ void Login::printMenu()const {
         break;
     case 5:
         system("cls");
-        /*
-    {
-        system("cls");
-        //cout << "Have a great Day!" << endl;
-        //FIX ME clear current user so the system closes without entering another login
-        ofstream clearCurrentUser("currentUser.txt");
-        clearCurrentUser << "";
-        clearCurrentUser.close();
-
-    }
-    */
+        exit(0);
         break;
     default:
         system("cls");
@@ -552,7 +542,7 @@ string Login::randomPass() {
 }
 
 //validate username and password match to login
-bool Login::isLoginValid(string& inUser, string& inPass) {
+bool Login::isLoginValid(string &inUser, string &inPass) {
     string username, password;
 
     ifstream read("userpass.txt");
