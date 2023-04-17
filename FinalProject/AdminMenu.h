@@ -4,6 +4,8 @@
 #include <string>
 #include "MenuScreen.h"
 
+class MainLogin;
+
 class AdminMenu //: public MenuScreen 
 {
 private:

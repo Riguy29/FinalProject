@@ -13,6 +13,7 @@
 #include <vector>
 #include <random>
 #include <regex>
+#include <iomanip>
 
 using namespace std;
 
@@ -56,17 +57,18 @@ void Login::TimeFunction() {
 //printMenu() prints the menu options for the login screen
 void Login::printMenu()const {
     int choice;
-    cout << "************************************\n" << endl;
-    cout << "*********   LIBRARY LOGIN   ********\n" << endl;
-    cout << "************************************\n" << endl;
-    cout << "               WELCOME!\n" << endl;
-    cout << "Select from the options below \n" << endl;
-    cout << "1. Member Login\n" << endl;
-    cout << "2. Guest Login\n" << endl;
-    cout << "3. Register\n" << endl;
-    cout << "4. Forgot Login\n" << endl;
-    cout << "5. Exit\n" << endl;
-    //cout << "Enter Your Choice: \n" << endl;
+    cout << setfill('-') << setw(120) << "" << endl;
+    cout << setfill('-') << setw(60) << " LIBRARY LOGIN " << setfill('-') << setw(60) << "" << endl;
+    cout << setfill('-') << setw(120) << "" << endl;
+    cout << setfill(' ') << setw(57) <<"WELCOME!\n"<< endl;
+    cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
+    cout << setfill(' ') << setw(60) << "1. Member Login" << endl;
+    cout << setfill(' ') << setw(59) << "2. Guest Login" << endl;
+    cout << setfill(' ') << setw(56) << "3. Register" << endl;
+    cout << setfill(' ') << setw(60) << "4. Forgot Login" << endl;
+    cout << setfill(' ') << setw(53) << "5. Exit\n" << endl;
+    cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+
     cin >> choice;
 
     switch (choice) {
@@ -129,6 +131,7 @@ void Login::login()const {
         system("cls");
         cout << username << " Login Successful!" << endl;
         cout << endl;
+        
         ofstream user;
         user.open("currentUser.txt");
         if (!user.is_open()) {
@@ -136,6 +139,7 @@ void Login::login()const {
         }
         user << username << endl;
         user.close();
+        
         system("PAUSE");
         system("cls");
         return;
@@ -216,6 +220,9 @@ void Login::forgot()const {
     cin >> option;
 
     ifstream f2("records.txt");
+    if (!f2.is_open()) {
+        cout << "File not open" << endl;
+    }
 
     switch (option) {
     case 1:
@@ -289,10 +296,13 @@ void Login::forgot()const {
             cout << "Thank you!  Have a great day." << endl;
             system("PAUSE");
             system("cls");
-            printMenu();
-            
+            printMenu();            
             break;
     case 2://forgot username; enter email
+        f2.open("records.txt");
+        if (!f2.is_open()) {
+            cout << "File not open" << endl;
+        }
         system("cls");
         //int option3;
         cout << "\nForgot Username?: No worries! " << endl;        
@@ -390,20 +400,24 @@ void Login::registration()const {
     int choice;
 
     cout << "Press 1 to return to Main Menu or" << endl;
-    cout << "\nEnter your first name: \t" << endl;
-    cin.ignore();
-    getline(cin, fName);
-    if (fName._Equal("1")) {
-        system("cls");
-        printMenu();
-    }
-
-    cout << "\nEnter your last name: \t" << endl;
-    getline(cin, lName);
-    cout << "\nEnter your address: \t" << endl;
-    cin.ignore();
-    getline(cin, address);    
     
+    do {
+        cout << "\nEnter your first name: \t" << endl;
+        cin.ignore();
+        getline(cin, fName);
+        if (fName._Equal("1")) {
+            system("cls");
+            printMenu();
+        }        
+    } while (isValidName(fName) != true);
+
+    do {
+        cout << "\nEnter your last name: \t" << endl;
+        getline(cin, lName);
+    } while (isValidName(lName) != true);
+
+    address = isValidAddress();
+   
     do {//make sure phone number is valid
         cout << "\nEnter your phone number: \t" << endl;
         getline(cin, phoneNum);
@@ -420,13 +434,38 @@ void Login::registration()const {
     }while(isEmailValid(email) != true);    
     cout << endl;
 
-    do {//check positon and issue username and password
+    do {
         cout << "Enter your position(M/E/S)" << endl;
         cout << "Staff member M\nEmployee E\nStudent S \t" << endl;
         cin >> pos;
-        positionCheck(pos);     
     } while (pos != 'M' && pos != 'E' && pos != 'S' && pos != 'm' && pos != 'e' && pos != 's');
-    positionCheck(pos);
+
+    //check positon and issue username and password
+    switch (pos) {
+    case 'M':
+    case 'm':
+        cout << "\nEnter your staff ID: \t" << endl;
+        libID = "M" + randomLibID();
+        password = randomPass();
+        break;
+    case 'E':
+    case 'e':
+        cout << "\nEnter your employee ID: \t" << endl;
+        libID = "E" + randomLibID();
+        password = randomPass();
+        break;
+    case 'S':
+    case 's':
+        cout << "\nEnter your student ID: \t" << endl;
+        libID = "S" + randomLibID();
+        password = randomPass();
+        break;
+    default:
+        cout << "\nNot a valid entry." << endl;
+        cout << "Enter your position(M/E/S)" << endl;
+        cout << "Staff member M\nEmployee E\nStudent S \t" << endl;
+        cin >> pos;
+    }
     cin.ignore();
     getline(cin, id);
     cout << endl;
@@ -509,7 +548,7 @@ void Login::registration()const {
 
 //assigns a random libID to new members
 string Login::randomLibID() {
-    // srand(time(0));
+    srand(time(0));
     int IDLength = 4;
     static const char IDNum[] =
         "0123456789";
@@ -525,7 +564,7 @@ string Login::randomLibID() {
    
 //assigns a random password to new members
 string Login::randomPass() {
-    //srand(time(0));
+    srand(time(0));
     int passLength = 5;
     static const char alphanum[] =
         "0123456789"
@@ -596,35 +635,72 @@ bool Login::formatPhone(string &phone) {
     }
 }       
       
-//check position using switch
-void Login::positionCheck(char &pos) {
-    string libID;
-    string password;
-    switch (pos) {
-    case 'M':
-    case 'm':
-        cout << "\nEnter your staff ID: \t" << endl;
-        libID = "M" + randomLibID();
-        password = randomPass();
-        break;
-    case 'E':
-    case 'e':
-        cout << "\nEnter your employee ID: \t" << endl;
-        libID = "E" + randomLibID();
-        password = randomPass();
-        break;
-    case 'S':
-    case 's':
-        cout << "\nEnter your student ID: \t" << endl;
-        libID = "S" + randomLibID();
-        password = randomPass();
-        break;
-    default:
-        cout << "\nNot a valid entry." << endl;
-        cout << "Enter your position(M/E/S)" << endl;
-        cout << "Staff member M\nEmployee E\nStudent S \t" << endl;
-        cin >> pos;
+
+//limit first and last name to less than 20 letters and only allow letters
+bool Login::isValidName(string &name) {//FIXME not working yet. 
+    const int NUM_LENGTH = 20;
+
+   if (name.length() >= NUM_LENGTH) {
+       cout << "Invalid input. Please try again." << endl;
+       for (int i = 0; i < NUM_LENGTH; i++) {
+            if (!isalpha(i)) {
+                return false;
+            }            
+         }  
     }
+   else {
+       return true;
+   }   
 }
  
+//asks for address information
+string Login::isValidAddress()const {
+    string street;
+    string city;
+    string state;
+    string zipCode;
+    do {
+        cout << "\nEnter your address: \nStreet:\t" << endl;
+        getline(cin, street);
+            if (street.length() > 50) {
+                cout << "Invalid Street.  Please try again." << endl;
+            }
+    } while (street.length() > 50);
+    
+    do {
+        cout << "\nCity:\t" << endl;
+        getline(cin, city);
+             if (city.length() > 25) {
+                cout << "Invalid City.  Please try again." << endl;
+             }
+    } while (city.length() > 25);
+    
+    do {
+        cout << "\nState:\t" << endl;
+        getline(cin, state);
+            if (state.length() > 30) {
+                cout << "Invalid State.  Please try again." << endl;
+            }
+    } while (state.length() > 30);
+
+    do {
+        cout << "\nZip Code:\t" << endl;
+        getline(cin, zipCode);
+        if (zipCode.length() != 5) {
+            cout << "Invalid Zip Code.  Please try again." << endl;
+        }
+        else {
+            for (char ch : zipCode) {
+                if (!isdigit(ch)) {
+                    getline(cin, zipCode);
+                }
+            }
+        }
+    } while (zipCode.length() != 5);
+
+    string address = street + " " + city + ", " + state + " " + zipCode;
+
+    return address;
+
+}
 #endif // !MAINLOGIN_CPP

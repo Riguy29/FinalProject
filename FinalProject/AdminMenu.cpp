@@ -3,6 +3,7 @@
 #include "AdminMenu.h"
 #include <iostream>
 #include <string>	
+#include <iomanip>
 
 using namespace std;
 
@@ -17,18 +18,19 @@ void AdminMenu::search()const{}
 void AdminMenu::viewAccount()const{}
 void AdminMenu::printMenu()const{
     int choice;
-    cout << "************************************\n" << endl;
-    cout << "********* WELCOME ADMINISTRATOR! ********\n" << endl;//<< FIXME...get current user name \n" << endl;
-    cout << "************************************\n" << endl;
-    cout << "Select from the options below \n" << endl;
-    cout << "1. Add Media\n" << endl;
-    cout << "2. Update Media\n" << endl;
-    cout << "3. Delete Media\n" << endl;
-    cout << "4. View Media\n" << endl;
-    cout << "5. Search Media\n" << endl;
-    cout << "6. View Member Accounts\n" << endl;
-    cout << "7. Exit\n" << endl;
-    cout << "Enter Your Choice: \n" << endl;
+    cout << setfill('-') << setw(120) << "" << endl;
+    cout << setfill('-') << setw(65) << " WELCOME ADMINISTRATOR " << setfill('-') << setw(60) << "" << endl;
+    cout << setfill('-') << setw(120) << "\n" << endl;
+    cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
+    cout << setfill(' ') << setw(56) << "1. Add Media\n" << endl;
+    cout << setfill(' ') << setw(59) << "2. Update Media\n" << endl;
+    cout << setfill(' ') << setw(59) << "3. Delete Media\n" << endl;
+    cout << setfill(' ') << setw(57) << "4. View Media\n" << endl;
+    cout << setfill(' ') << setw(59) << "5. Search Media\n" << endl;
+    cout << setfill(' ') << setw(67) << "6. View Member Accounts\n" << endl;
+    cout << setfill(' ') << setw(51) << "7. Exit\n" << endl;
+    cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+
     cin >> choice;
 
     switch (choice) {

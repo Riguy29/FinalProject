@@ -35,7 +35,9 @@ public:
 	static string randomPass();
 	static string randomLibID();
 	static void TimeFunction();
-	static void positionCheck(char &pos);
+	static bool isValidName(string& name);
+	string isValidAddress()const;
+	
 };
 
 #endif // !MAINLOGIN_H

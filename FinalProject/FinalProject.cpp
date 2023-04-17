@@ -45,7 +45,7 @@ int main()
 	login.printMenu();
 
 	//opeing current user in order to open the correct menu
-	string line;
+	/*string line;
 	ifstream currUser("currentUser.txt");
 	if (currUser.is_open()) {
 		getline(currUser, line);
@@ -64,7 +64,7 @@ int main()
 	else {
 		cout << "Guest Login" << endl;
 		currUser.close();
-	}
+	}*/
 	/*
 	LibraryMedia book1("Harry Potter", "book", "978-0-545-79142-7", "Fantasy", "Young Adult", "First illustrated edition", 2, 24.99, "J.K. Rowling", "Bloomsbury Publishing PLC");
 	
