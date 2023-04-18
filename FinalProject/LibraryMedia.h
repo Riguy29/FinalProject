@@ -58,7 +58,7 @@ private:
 	string category;
 	string subCategory;
 	int inventoryCount;
-	string doner;
+	string donor;
 
 };
 
