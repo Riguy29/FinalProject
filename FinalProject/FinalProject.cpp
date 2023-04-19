@@ -1,13 +1,9 @@
 
 #include "LibraryLinkedList.cpp"
 #include "LibraryMedia.h"
-#include "AdminMenu.h"
-#include "Date.h"
-#include "PatronLogin.h"
-
 #include "CurrentSessionInfo.h"
-
 #include "MainLogin.h"
+
 #include <string>
 #include <cstdlib>
 #include <iomanip>
@@ -21,12 +17,12 @@ using namespace tinyxml2;
 int main()
 {
 
-	Date d;
-	d.printDate();
+	//Date d;
+	//d.printDate();
 	
 
 	//THIS IS A TEST, REMOVE AFTER USAGE
-	string search;
+	//string search;
 	CurrentSessionInfo::LoadInventory();
 	//Node<LibraryMedia>* currBook = CurrentSessionInfo::GetBookList().GetHead();
 	//if (currBook->data.GetTitle() == "") cout << "TEST";
@@ -39,8 +35,8 @@ int main()
 	//END TEST
 
 	Login login;
-	AdminMenu adminMenu;
-	PatronLogin patron;
+	//AdminMenu adminMenu;
+	//PatronLogin patron;
 
 	login.printMenu();
 

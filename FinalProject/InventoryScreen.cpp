@@ -4,7 +4,7 @@
 #include "tinyxml2.h"
 using namespace tinyxml2;
 
-void InventoryScreen::AddMedia()
+/*void InventoryScreen::AddMedia()
 {
 	//XMLDocument inventoryXML;
 	////FIXME: Right now we are just assuming it will load right
@@ -72,31 +72,36 @@ void InventoryScreen::SearchForMedia()
 		}
 	} while (!validChoice);
 	//If search find items, return the top 5 items
-}
-void InventoryScreen::printMenu() {
+}*/
+void InventoryScreen::printMenu()const {
 	int choice =0;
 	bool validChoice;
 	do
 	{
-		cout << "What would you like to do?" << endl;
-		cout << "1. Checkout Media" << endl;
-		if (CurrentSessionInfo::CheckIfAdmin()) {
-			cout << "2. Edit Media" << endl;
-			cout << "3. Add new Media" << endl;
-		}
-		cout << "4. Exit menu" << endl;
+		cout << setfill('-') << setw(115) << "" << endl;
+		cout << setfill('-') << setw(65) << " INVENTORY SCREEN " << setfill('-') << setw(50) << "" << endl;
+		cout << setfill('-') << setw(116) << "\n" << endl;
+		cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
+		cout << setfill(' ') << setw(58) << "1. CheckoutMedia" << endl;
+		//if (CurrentSessionInfo::CheckIfAdmin()) {
+			cout << setfill(' ') << setw(55) << "2. Edit Media" << endl;
+			cout << setfill(' ') << setw(58) << "3. Add new Media" << endl;
+		//}
+		cout << setfill(' ') << setw(50) << "4. Exit\n" << endl;
+		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+
 		cin >> choice;
 		validChoice = true; //Assume choice is valid
 		switch (choice)
 		{
 		case 1:
-			SearchForMedia();
+			//SearchForMedia();
 			break;
 		case 2: //If a user is not an admin and selects 2, make choice invlaid
-			if (CurrentSessionInfo::CheckIfAdmin()) SearchForMedia();
+			//if (CurrentSessionInfo::CheckIfAdmin()) SearchForMedia();
 			break;
 		case 3:
-			if (CurrentSessionInfo::CheckIfAdmin()) AddMedia();
+			//if (CurrentSessionInfo::CheckIfAdmin()) AddMedia();
 			break;
 		case 4:
 			return;
@@ -108,7 +113,7 @@ void InventoryScreen::printMenu() {
 	
 
 }
-void InventoryScreen::SearchByTitle()
+/*void InventoryScreen::SearchByTitle()
 {
 	string title;
 	cout << "Enter the title of the media you are looking for" << endl;
@@ -123,6 +128,6 @@ void InventoryScreen::SearchByTitle()
 	{
 
 	}
-}
+}*/
 
 #endif // !INVENTORYSCREEN_CPP

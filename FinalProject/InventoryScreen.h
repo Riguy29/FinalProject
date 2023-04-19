@@ -1,7 +1,8 @@
-#pragma once
+#ifndef INVENTORYSCREEN_H
+#define INVENTORYSCEEN_H
+
 #include <iostream>
 #include <string>
-#include "MenuScreen.h"
 #include "CheckedoutMedia.h"
 #include "CurrentSessionInfo.h"
 #include "Newspaper.h"
@@ -13,17 +14,18 @@
 
 using namespace std; 
 
-class InventoryScreen //: public MenuScreen
+class InventoryScreen 
 {
 public:
-	void UpdateMedia();
+	void printMenu()const;
+	/*void UpdateMedia();
 	void AddMedia();
 	void SearchForMedia();
-	void CheckoutBook();
-	void printMenu();
+	void CheckoutBook();	
 	void SearchByTitle();
 	void SearchByAuthor(string targetAuthor);
 private:
-	string recordTxtFile = "InventoryRecord.txt";
+	string recordTxtFile = "InventoryRecord.txt";*/
 };
 
+#endif

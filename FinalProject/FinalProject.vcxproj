@@ -137,7 +137,6 @@
     <ClCompile Include="InventoryScreen.cpp" />
     <ClCompile Include="LibraryMedia.cpp" />
     <ClCompile Include="MainLogin.cpp" />
-    <ClCompile Include="PatronLogin.cpp" />
     <ClCompile Include="Newspaper.cpp" />
     <ClCompile Include="Publisher.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
@@ -149,17 +148,14 @@
     <ClInclude Include="GuestLogin.h" />
     <ClInclude Include="InventoryScreen.h" />
     <ClInclude Include="LibraryMedia.h" />
-    <ClInclude Include="PatronLogin.h" />
     <ClInclude Include="Newspaper.h" />
     <ClInclude Include="Publisher.h" />
-    <ClCompile Include="AdminMenu.cpp" />
     <ClCompile Include="LibraryLinkedList.cpp" />
     <ClInclude Include="MainLogin.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="tinyxml2.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AdminMenu.h" />
     <ClInclude Include="LibraryLinkedList.h" />
   </ItemGroup>
   <ItemGroup>

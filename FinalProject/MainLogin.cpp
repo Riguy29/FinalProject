@@ -17,7 +17,7 @@
 
 using namespace std;
 
-Login::Login() : Login("", "") {} //default constructor initialized to empty strings
+Login::Login() : username(""), password(""){} //default constructor initialized to empty strings
 
 Login::Login(string userN, string userP)
     : username(userN), password(userP) {}
@@ -40,7 +40,7 @@ void Login::setPassword(string userP) {
     password = userP;
 }
 
-void Login::TimeFunction() {
+/*void Login::TimeFunction() {
     // current date/time based on current system
     time_t now = time(0);
 
@@ -52,21 +52,21 @@ void Login::TimeFunction() {
     ctime_s(str, sizeof str, &now);
 
     cout << str << endl;
-}
+}*/
 
 //printMenu() prints the menu options for the login screen
 void Login::printMenu()const {
     int choice;
-    cout << setfill('-') << setw(120) << "" << endl;
-    cout << setfill('-') << setw(60) << " LIBRARY LOGIN " << setfill('-') << setw(60) << "" << endl;
-    cout << setfill('-') << setw(120) << "" << endl;
-    cout << setfill(' ') << setw(57) <<"WELCOME!\n"<< endl;
+    date.printDate();
+    cout << setfill('-') << setw(115) << "" << endl;
+    cout << setfill('-') << setw(56) << " LIBRARY LOGIN " << setfill('-') << setw(59) << "" << endl;
+    cout << setfill('-') << setw(115) << "" << endl;
+    cout << setfill(' ') << setw(53) <<"WELCOME!\n"<< endl;
     cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
-    cout << setfill(' ') << setw(60) << "1. Member Login" << endl;
-    cout << setfill(' ') << setw(59) << "2. Guest Login" << endl;
-    cout << setfill(' ') << setw(56) << "3. Register" << endl;
-    cout << setfill(' ') << setw(60) << "4. Forgot Login" << endl;
-    cout << setfill(' ') << setw(53) << "5. Exit\n" << endl;
+    cout << setfill(' ') << setw(66) << "1. Login to Your Account" << endl;
+    cout << setfill(' ') << setw(56) << "2. Guest Login" << endl;
+    cout << setfill(' ') << setw(65) << "3. Register for Account" << endl;
+    cout << setfill(' ') << setw(50) << "4. Exit\n" << endl;
     cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 
     cin >> choice;
@@ -79,17 +79,14 @@ void Login::printMenu()const {
         break;
     case 2:
         system("cls");
-        guest();
+        guestLogin.printMenu();
+        //guest();
         break;
     case 3:
         system("cls");
         registration();
         break;
     case 4:
-        system("cls");
-        forgot();
-        break;
-    case 5:
         system("cls");
         exit(0);
         break;
@@ -103,10 +100,80 @@ void Login::printMenu()const {
 
 }
 
+//patron menu of options
+void Login::patronMenu()const {
+    int choice;
+    cout << setfill('-') << setw(115) << "" << endl;
+    cout << setfill('-') << setw(65) << " WELCOME TO YOUR ACCOUNT" << setfill('-') << setw(50) << "" << endl;
+    cout << setfill('-') << setw(116) << "\n" << endl;
+    cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
+    cout << setfill(' ') << setw(52) << "1. Browse" << endl;
+    cout << setfill(' ') << setw(73) << "2. Update Personal Information" << endl;
+    cout << setfill(' ') << setw(59) << "3. View My Media" << endl;
+    cout << setfill(' ') << setw(51) << "4. Exit\n" << endl;
+    cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+
+    cin >> choice;
+
+    switch (choice) {
+
+    case 1:
+        //searchMedia();
+        break;
+    case 2:
+        //updateInfo();
+        break;
+    case 3:
+        //myMedia();
+        break;
+    case 4:        
+        system("cls");
+        exit(0);
+        break;
+    default:
+        cout << "Invalid Choice...Please Try Again...\n" << endl;
+    }
+
+}
+
+//admin menu of options
+void Login::adminMenu()const {
+    int choice;
+    cout << setfill('-') << setw(115) << "" << endl;
+    cout << setfill('-') << setw(65) << " WELCOME ADMINISTRATOR " << setfill('-') << setw(50) << "" << endl;
+    cout << setfill('-') << setw(116) << "\n" << endl;
+    cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
+    cout << setfill(' ') << setw(56) << "1. Inventory" << endl;
+    cout << setfill(' ') << setw(60) << "2. View Accounts" << endl;
+    cout << setfill(' ') << setw(52) << "3. Exit\n" << endl;
+    cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+
+    cin >> choice;
+
+    switch (choice) {
+
+    case 1:
+        system("cls");
+        invScreen.printMenu();
+        break;
+    case 2:
+        cout << "Need to open Account information." << endl;
+        break;
+    case 3:
+        system("cls");
+        exit(0);        
+        break;
+    default:
+        cout << "Invalid Choice...Please Try Again...\n" << endl;
+    }
+
+}
+
 //login() allows user to login to borrow books if they have a username and password
 void Login::login()const {
     string username;
     string password;
+    string line;
 
     cout << "Please log in or " << endl;
     cout << "Press 1 to return to Main Menu." << endl;
@@ -131,15 +198,24 @@ void Login::login()const {
         system("cls");
         cout << username << " Login Successful!" << endl;
         cout << endl;
-        
+
         ofstream user;
         user.open("currentUser.txt");
+
         if (!user.is_open()) {
             cout << "File open was not successful";
         }
         user << username << endl;
-        user.close();
-        
+        user.close();        
+
+        if (username.at(0) == 'M'){
+            adminMenu();
+			CurrentSessionInfo::SetAdmin(true);
+		}
+		else if (username.at(0) == 'E' || line.at(0) == 'S') {
+			patronMenu();
+		}
+		
         system("PAUSE");
         system("cls");
         return;
@@ -178,7 +254,7 @@ void Login::guest()const {
             cout << guestBorrowList.at(i) << endl;
         }
         cout << "\nToday is ";
-       TimeFunction();
+       date.printDate();
         cout << "Please return items in 2 hours." << endl;
         cout << endl;
         do {
@@ -202,195 +278,6 @@ void Login::guest()const {
         printMenu();
     }
 
-}
-//forgot() has users enter their username and retreives their password if they have one on in the file records.txt
-// if user forgot username they can enter their email and retreive it that way.
-void Login::forgot()const {
-    int option;
-    int option2;
-    bool exists = false;
-    string forgotUser;
-    string forgotPass;
-    string fID;
-    string fPass;
-    string email;
-    string fEmail;
-
-    cout << "\nPress 1 if you forgot your password.\nPress 2 if you forgot your username.\nPress 3 to return to main menu" << endl;
-    cin >> option;
-
-    ifstream f2("records.txt");
-    if (!f2.is_open()) {
-        cout << "File not open" << endl;
-    }
-
-    switch (option) {
-    case 1:
-        system("cls");
-        cout << "\nForgot Password?: No worries! " << endl;
-       
-        cout << "Press 1 to return to Main Menu. " << endl;
-        
-        do {
-            cout << "\nEnter username: " << endl;
-            cin >> fID;
-
-            while (f2 >> fID >> fPass) {//file records has an ID and Password that matches
-                if (fID == forgotUser) {
-                    exists = true;
-                }
-            }
-
-            f2.close();
-
-            //if the username was found in the file, print password
-            if (true) {
-                int choice;
-                cout << "\nYour account is found!" << endl;
-                cout << "\nYour password is :  " << fPass << endl;
-                cout << "\nPress 1 to return to Main Menu" << endl;
-                cout << "Press 2 to exit" << endl;
-                cin >> choice;
-                switch (choice) {
-                case 1:
-                    system("cls");
-                    printMenu();
-                    break;
-                case 2:
-                    system("cls");
-                    cout << "Thank you!  Have a great day." << endl;
-                    printMenu();
-                    break;
-                default:
-                    system("cls");
-                    cout << "Invalid Choice...Please Try Again...\n" << endl;
-                    break;
-                }
-
-            }
-            else {// username not found
-                int choice2;
-                cout << "\nSorry, no account found." << endl;
-                cout << "\nPress 1 to return to Main Menu" << endl;
-                cout << "Press 2 to exit" << endl;
-                cin >> choice2;
-                switch (choice2) {
-                case 1:
-                    system("cls");
-                    printMenu();
-                    break;
-                case 2:
-                    system("cls");
-                    cout << "Thank you!  Have a great day." << endl;
-                    printMenu();
-                    break;
-                default:
-                    system("cls");
-                    cout << "Invalid Choice...Please Try Again...\n" << endl;
-                    break;
-                }
-            }
-            break;
-        } while (!fID._Equal("1"));
-            system("cls");
-            cout << "Thank you!  Have a great day." << endl;
-            system("PAUSE");
-            system("cls");
-            printMenu();            
-            break;
-    case 2://forgot username; enter email
-        f2.open("records.txt");
-        if (!f2.is_open()) {
-            cout << "File not open" << endl;
-        }
-        system("cls");
-        //int option3;
-        cout << "\nForgot Username?: No worries! " << endl;        
-        cout << "Press 1 to go to return to Main Menu. " << endl;
-  
-
-        do {
-            cout << "\nEnter the email associated with your account." << endl;
-            cin.ignore();
-            getline(cin, fEmail);
-        } while (isEmailValid(fEmail) != true && (!fEmail._Equal("1")));
-
-        if (fEmail._Equal("1")) {
-            system("cls");         
-            printMenu();
-        }
-        else {
-
-            while (f2 >> fID >> fEmail) {//file records has an ID and Password that matches
-                if (fEmail == email) {
-                    exists = true;
-                }
-            }
-
-            f2.close();
-            //if the username was found in the file, print password
-            if (true) {
-                int choice3;
-                cout << "\nYour account is found!" << endl;
-                cout << "\nYour username is :  " << fID << endl;
-                cout << "\nPress 1 to return to Main Menu" << endl;
-                cout << "Press 2 to exit" << endl;
-                cin >> choice3;
-                switch (choice3) {
-                case 1:
-                    system("cls");
-                    printMenu();
-                    break;
-                case 2:
-                    system("cls");
-                    cout << "Thank you! Have a great day." << endl;
-                    system("PAUSE");
-                    printMenu();
-                    break;
-                default:
-                    system("cls");
-                    cout << "Invalid Choice...Please Try Again...\n" << endl;
-                    break;
-                }
-
-            }
-            else {// username not found
-                int choice4;
-                cout << "\nSorry, no account found." << endl;
-                cout << "\nPress 1 to return to Main Menu" << endl;
-                cout << "Press 2 to exit" << endl;
-                cin >> choice4;
-                switch (choice4) {
-                case 1:
-                    system("cls");
-                    printMenu();
-                    break;
-                case 2:
-                    system("cls");
-                    cout << "Thank you! Have a great day." << endl;
-                    system("PAUSE");
-                    printMenu();
-                    break;
-                default:
-                    system("cls");
-                    cout << "Invalid Choice...Please Try Again...\n" << endl;
-                    break;
-                }
-            }
-            break;
-
-    case 3:
-        system("cls");
-        printMenu();
-        break;
-    default:
-        system("cls");
-        cout << "Invalid Choice...Please Try Again...\n" << endl;
-        system("PAUSE");
-        break;
-
-        }
-        }
 }
 
 //registration() allows user to register for an account if they don't have one already
@@ -640,17 +527,19 @@ bool Login::formatPhone(string &phone) {
 bool Login::isValidName(string &name) {//FIXME not working yet. 
     const int NUM_LENGTH = 20;
 
-   if (name.length() >= NUM_LENGTH) {
-       cout << "Invalid input. Please try again." << endl;
-       for (int i = 0; i < NUM_LENGTH; i++) {
-            if (!isalpha(i)) {
-                return false;
-            }            
+    if (name.length() >= NUM_LENGTH || name.length() == 0) {
+        cout << "Invalid input. Please try again." << endl;
+       for (int i = 0; i < name.length(); i++) {
+            if (!isalpha(name.at(i))) {
+                break;
+            }
          }  
+       return false;
+   } 
+    else {
+        return true;
     }
-   else {
-       return true;
-   }   
+
 }
  
 //asks for address information
@@ -703,4 +592,13 @@ string Login::isValidAddress()const {
     return address;
 
 }
+//void Login::searchMedia(){}
+//void Login::borrow(){}
+//void Login::placeHold(){}
+//void Login::renew(){}
+//void Login::checkout(){}
+//void Login::returnBook(){}
+//void Login::updateInfo(){}
+//void Login::myMedia(){}
+
 #endif // !MAINLOGIN_CPP

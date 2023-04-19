@@ -1,29 +1,18 @@
-
 Name: Amber Robertson
-Address: 345 N 550 W
-Phone: (444)444-4444
+Address: 1345 N 550 W Green Bay, WI 54311
+Phone: (234)566-7776
 Email: amo.olson@gmail.com
 Position: m
-ID: 12312
-LibraryID: M1740
-Password: Bc8Ws
+ID: 1234
+LibraryID: M4021
+Password: 4ssDb
 
-Name: Jane Doe
-Address: 2343 Avery Street
-         green bay, wisconsin 54315
-Phone: (444)444-4444
-Email: amo.olson@gmail.com
-Position: m
-ID: 234324
-LibraryID: M1740
-Password: Bc8Ws
-
-Name: Amber Robertson
-Address: 234324 green bay, wisconsin 54311
+Name: John Smith
+Address: 8930 West Ave Green Bau, WI 54321
 Phone: (333)333-3333
-Email: amo.olson@gmail.com
+Email: johnS@yahoo.com
 Position: e
-ID: 234234
-LibraryID: E2186
-Password: udK2K
+ID: 34543
+LibraryID: E0539
+Password: YBTrB
 
