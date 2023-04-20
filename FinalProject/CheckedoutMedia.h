@@ -7,12 +7,11 @@ using namespace std;
 class CheckedoutMedia
 {
 private:
-	LibraryMedia media;
+	int bookId;
 	double lateFee;
 	Date checkoutDate;
 	Date dueDate;
 public:
-	LibraryMedia GetMedia();
 	void ReturnMedia();
 	void SetFee(double fee);
 	double GetFee();

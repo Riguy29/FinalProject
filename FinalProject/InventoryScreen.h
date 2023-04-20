@@ -7,9 +7,11 @@
 #include "CurrentSessionInfo.h"
 #include "Newspaper.h"
 #include "ConferenceJournal.h"
+#include "Periodical.h"
+#include "Book.h"
 #include <vector>
 #include <fstream>
-#include "tinyxml2.h"
+
 
 
 using namespace std; 
@@ -17,13 +19,18 @@ using namespace std;
 class InventoryScreen 
 {
 public:
-	void printMenu()const;
-	//void UpdateMedia();
-	//void AddMedia();
-	void SearchForMedia()const;
-	//void CheckoutBook();	
-	//void SearchByTitle();
-	//void SearchByAuthor(string targetAuthor);
+	void UpdateMedia();
+	void AddMedia();
+	void SearchForMedia();
+	void CheckoutBook();
+	void printMenu();
+	void SearchByTitle(LibraryMedia::mediaTypes type);
+	void SearchByAuthor(string targetAuthor);
+
+	void PrintMatchingMedia(vector<Book*> mediaList);
+	void PrintMatchingMedia(vector<ConferenceJournal> mediaList);
+	void PrintMatchingMedia(vector<Newspaper> mediaList);
+	void PrintMatchingMedia(vector<Periodical> mediaList);
 private:
 	string recordTxtFile = "InventoryRecord.txt";
 };

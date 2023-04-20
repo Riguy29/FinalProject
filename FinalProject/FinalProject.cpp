@@ -9,29 +9,26 @@
 #include <iomanip>
 #include <fstream>
 #include <stdlib.h>
-#include "tinyxml2.h"
 
-using namespace std;
-using namespace tinyxml2;
+
+
+	Date d;
+	d.printDate();
+	
+
+	//cout << "The local date and time is: " << str << endl;
+}
+
+
 
 int main()
 {
-
-	//Date d;
-	//d.printDate();
-	
-
-	//THIS IS A TEST, REMOVE AFTER USAGE
-	//string search;
-	CurrentSessionInfo::LoadInventory();
-	//Node<LibraryMedia>* currBook = CurrentSessionInfo::GetBookList().GetHead();
-	//if (currBook->data.GetTitle() == "") cout << "TEST";
-	//cout << currBook->data.GetTitle() << endl;
-	//while (currBook != NULL)
-	//{
-	//	
-	//	currBook = currBook->next;
-	//}
+	//TEST
+	CurrentSessionInfo::GenerateDummyData();
+	CurrentSessionInfo::LoadInventory(true);
+	//cout << CurrentSessionInfo::pubList.size() << endl;
+	//cout << *CurrentSessionInfo::authorList.at(1).name << endl;
+	CurrentSessionInfo::bookList.at(0).ToString();
 	//END TEST
 
 	Login login;

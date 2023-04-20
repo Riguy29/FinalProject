@@ -128,6 +128,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Author.cpp" />
+    <ClCompile Include="Book.cpp" />
     <ClCompile Include="CheckedoutMedia.cpp" />
     <ClCompile Include="ConferenceJournal.cpp" />
     <ClCompile Include="CurrentSessionInfo.cpp" />
@@ -138,9 +140,10 @@
     <ClCompile Include="LibraryMedia.cpp" />
     <ClCompile Include="MainLogin.cpp" />
     <ClCompile Include="Newspaper.cpp" />
+    <ClCompile Include="Periodical.cpp" />
     <ClCompile Include="Publisher.cpp" />
-    <ClCompile Include="tinyxml2.cpp" />
-    <ClCompile Include="xmltest.cpp" />
+    <ClInclude Include="Author.h" />
+    <ClInclude Include="Book.h" />
     <ClInclude Include="CheckedoutMedia.h" />
     <ClInclude Include="ConferenceJournal.h" />
     <ClInclude Include="CurrentSessionInfo.h" />
@@ -149,22 +152,21 @@
     <ClInclude Include="InventoryScreen.h" />
     <ClInclude Include="LibraryMedia.h" />
     <ClInclude Include="Newspaper.h" />
+    <ClInclude Include="Periodical.h" />
     <ClInclude Include="Publisher.h" />
     <ClCompile Include="LibraryLinkedList.cpp" />
     <ClInclude Include="MainLogin.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="tinyxml2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LibraryLinkedList.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="currentUser.txt" />
+    <Text Include="AuthorRecord.txt" />
+    <Text Include="BookRecord.txt" />
+    <Text Include="PublisherRecord.txt" />
     <Text Include="records.txt" />
     <Text Include="userpass.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Xml Include="InventoryRecord.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

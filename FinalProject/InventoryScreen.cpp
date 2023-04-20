@@ -1,17 +1,12 @@
 #ifndef INVENTORYSCREEN_CPP
 #define INVENTORYSCREEN_CPP
 #include "InventoryScreen.h"
-#include "tinyxml2.h"
-using namespace tinyxml2;
 
 /*void InventoryScreen::AddMedia()
 {
-	//XMLDocument inventoryXML;
-	////FIXME: Right now we are just assuming it will load right
-	//XMLError eResult = inventoryXML.LoadFile("InventoryRecord.xml"); 
 	int choice =0;
 	bool isValid = true;
-	LibraryMedia book;
+	Book book;
 	Newspaper newspaper;
 	ConferenceJournal journal;
 	
@@ -21,6 +16,8 @@ using namespace tinyxml2;
 		cout << "1. Book" << endl;
 		cout << "2. Newspaper" << endl;
 		cout << "3. Journal" << endl;
+		cout << "4. Periodical" << endl;
+		cout << "5. Return" << endl;
 		cin >> choice;
 		switch (choice)
 		{
@@ -31,7 +28,8 @@ using namespace tinyxml2;
 			break;
 		case 2:
 			newspaper.SetTitle();
-			newspaper.SetISBN();
+		case 5:
+			return;
 		default:
 			break;
 		}
@@ -79,11 +77,59 @@ do{
 	cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 	cin >> choice;
 	
-		validChoice = true; //Assume choice is valid
+	LibraryMedia::mediaTypes tempMediaType;
+	string searchType = "ERROR";
+	do
+	{
+		cout << "What media would like to search for?" << endl;
+		cout << "1. Books" << endl;
+		cout << "2. Newspapers" << endl;
+		cout << "3. Journals" << endl;
+		cout << "4. Periodicals" << endl;
+		cout << "5. Return" << endl;
+		cin >> choice;
+		//validChoice = true; //Assume choice is valid
+		switch (choice)
+		{
+		case 1:
+			searchType = "Books";
+			tempMediaType = LibraryMedia::book;
+			break;
+		case 2:
+			searchType = "Journals";
+			tempMediaType = LibraryMedia::book;
+			break;
+		case 3:
+			searchType = "Newspapers";
+			tempMediaType = LibraryMedia::book;
+			break;
+		case 4:
+			searchType = "Periodicals";
+			tempMediaType = LibraryMedia::book;
+			break;
+		case 5:
+			return;
+		default:
+			cout << "Invalid selection, try again" << endl;
+
+			break;
+		}
+	} while (true);
+	do
+	{
+		cout << "How would like to search for " << searchType <<"?" << endl;
+		cout << "1. Search by Title" << endl;
+		cout << "2. Search by Author" << endl;
+		cout << "3. Search by Publisher" << endl;
+		cout << "4. Search by Cateogory" << endl;
+		//FIXME:: If user is admin, offer more search options
+		cout << "9. Return" << endl;
+		cin >> choice;
 		switch (choice)
 		{
 		case 1:
 			//SearchByTitle();
+			SearchByTitle(tempMediaType);
 			break;
 		case 2:
 			//SearchByAuthor();
@@ -108,9 +154,9 @@ do{
 			printMenu();
 		default:
 			cout << "Invalid selection, try again" << endl;
-			break;
+			return;
 		}
-	} while (!validChoice);
+	} while (true);
 	//If search find items, return the top 5 items
 	
 }
@@ -161,6 +207,8 @@ void InventoryScreen::printMenu()const {
 			system("cls");
 			cout << "Ready for checkout?" << endl;
 			//checkoutBook();
+			if (CurrentSessionInfo::CheckIfAdmin()) SearchForMedia();
+			else cout << "Invalid selection, try again" << endl;
 			break;
 		case 3:
 			system("cls");
@@ -199,6 +247,9 @@ void InventoryScreen::printMenu()const {
 				//cout << "needs to go back to patronMenu in MainLogin" << endl;
 			}
 			
+			if (CurrentSessionInfo::CheckIfAdmin()) AddMedia();
+			cout << "Invalid selection, try again" << endl;
+			break;
 		case 4:
 			system("cls");
 			//cout << "needs to go to adminMenu in MainLogin" << endl;
@@ -214,20 +265,71 @@ void InventoryScreen::printMenu()const {
 
 }
 /*void InventoryScreen::SearchByTitle()
+void InventoryScreen::SearchByTitle(LibraryMedia::mediaTypes type)
 {
 	string title;
-	cout << "Enter the title of the media you are looking for" << endl;
+	cout << "Enter the title of the " << type << "you are looking for" << endl;
 	cin >> title;
+	if (type == LibraryMedia::book) {
 
-	XMLDocument inventoryXML;
-	XMLElement* pRootElement = inventoryXML.RootElement();
-	XMLElement* pInvetory = pRootElement->FirstChildElement("inventory");
-	XMLElement* pMedia = pInvetory->FirstChildElement("media");
+		//Create vector of pointers that will point to the memory of matching books found in BookList();
+		vector<Book*> matchingBookList;
+
+		//Goes through Book list and checks for title that contain the user input
+		//for (int i = 0; i < CurrentSessionInfo::GetBookList().size(); i++)
+		//{
+		//	if (CurrentSessionInfo::GetBookList().getItem(i).GetTitle().find(title) != string::npos) {
+		//		Book* pNewBook = &CurrentSessionInfo::GetBookList().getItem(i);
+		//		matchingBookList.push_back(pNewBook);
+		//		if (matchingBookList.size() >= 5) {
+		//			PrintMatchingMedia(matchingBookList);
+		//		}
+		//	}
+		//}
+		if (matchingBookList.size() == 0) {
+			cout << "No Books Found";
+			return;
+		}
+	}
+	else if (type == LibraryMedia::conferenceJournal) {
+		vector<ConferenceJournal> matchingJournalList;
+	}
+
+
+}
 
 	while (pMedia != nullptr)
 	{
 
 	}
 }*/
+void InventoryScreen::PrintMatchingMedia(vector<Book*> mediaList)
+{
+	
+	Book* selectedBook;
+	int choice=0;
+	do
+	{
+		cout << "Select a book" << endl;
+		for (int i = 1; i <= mediaList.size(); i++)
+		{
+			cout << i << ". ";
+			mediaList.at(i-1)->ToString();
+			cout << endl;
+		}
+		cout << "6. Return" << endl;
+		cin >> choice;
+		if (choice == 6) return;
+		else if (mediaList.at(choice - 1) != NULL) {
+			selectedBook = mediaList.at(choice - 1);
+			//Open up a option to edit the book
+		}
+		else cout << "Invalid Selection, try again" << endl;
+
+		
+
+	} while (true);
+}
+
 
 #endif // !INVENTORYSCREEN_CPP

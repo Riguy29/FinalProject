@@ -84,6 +84,21 @@ void LinkedList<T>::deleteItem(const T& value) { //delete at given value
 	count--;
 }
 
+template<typename T>
+void LinkedList<T>::clearList()
+{
+	Node<T>* curr = head;
+	Node<T>* next;
+	while (curr != NULL)
+	{
+		next = curr->next;
+		delete curr;
+		curr = next;
+	}
+	head = NULL;
+	count = 0;
+}
+
 //get member function
 template<typename T>
 T& LinkedList<T>::getItem(int pos)const {
@@ -108,7 +123,10 @@ T& LinkedList<T>::getItem(int pos)const {
 			}
 
 		}
-		return curr->data.ToString();
+		//This should never happen
+		//throw exception;
+		//I changed this to return the data instead of the the ToString because it was causing issues
+		return curr->data;
 	}
 }
 
@@ -133,6 +151,14 @@ void LinkedList<T>::search(const string& search)const {
 //get size of LinkList
 template<typename T>
 int LinkedList<T>::size()const {
+	//return count;
+	//I changed this function to give us realtime data, instead of relying on a variable to prevent errors down the line --Riley
+	int count = 0;
+	Node<T>* curr = head;
+	while (curr != NULL) {
+		curr = curr->next;
+		count++;
+	}
 	return count;
 }
 
@@ -166,4 +192,5 @@ Node<T>* LinkedList<T>::newNode(const T& value) {
 	temp->next = NULL;
 	return temp;
 }
+
 #endif

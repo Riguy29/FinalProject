@@ -4,8 +4,12 @@
 #include <string>
 #include <vector>
 #include "Publisher.h"
-#include "LibraryLinkedList.cpp"
+//#include "LibraryLinkedList.cpp"
+#include <random>
+#include <iostream>
 
+/*This class is the purely abstract class that acts as the parent for all other media types we have
+It contains data that will be universally shared accross media such as title, authors, price, etc*/
 using namespace std;
 
 class LibraryMedia
@@ -20,45 +24,35 @@ public:
 	};
 
 	void SetTitle();
-	string GetTitle();
+	string& GetTitle();
 	void SetMediaType(mediaTypes mediaType);
 	mediaTypes GetMediaType();
-	void SetAuthors(LinkedList<string> authorList);
-	LinkedList<string> GetAuthors();
-	void SetPublishers(LinkedList<Publisher> publisherList);
-	LinkedList<Publisher> GetPublishers();
-	void SetISBN();
-	string GetISBN();
 	void SetPrice();
 	double GetPrice();
-	void SetCategory(string newCategory);
-	string GetCategory();
-	void SetSubCategory(string newSubCategory);
-	string GetSubCategory();
+	void SetCategory();
+	string& GetCategory();
+	void SetSubCategory();
+	string& GetSubCategory();
 
 	void SetInventoryCount(int newCount);
 	int GetInventoryCount();
 
-	void SetEdition(string newEdition);
-	string GetEdition();
+	void SetDoner();
+	string& GetDoner();
 
+	//We will want to disp
 	void ToString();
-
 	LibraryMedia();
-	LibraryMedia(string title, LinkedList<string> authors = LinkedList<string>(), LinkedList<Publisher> publishers = LinkedList<Publisher>(), mediaTypes mediaType = book, string ISBN = "", string cateogory = "", string subCategory = "", string edition = "", int inventoryCount = 0, int price = 0);
-private:
-	string title;
-
+	LibraryMedia(int id, const string& mediaTitle, mediaTypes typeOfMedia, double mediaPrice, const string& mediaCat, const string& mediaSubCat, int mediaCount, const string& mediaDoner);
+protected:
+	int mediaID;
+	string* title;
 	mediaTypes mediaType;
-	LinkedList<Publisher> publishers;
-	LinkedList<string> authors;
-	string edition;
 	double price;
-	string ISBN;
-	string category;
-	string subCategory;
+	string* category;
+	string* subCategory;
 	int inventoryCount;
-	string donor;
+	string* doner;
 
 };
 
