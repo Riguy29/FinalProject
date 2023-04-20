@@ -1,7 +1,3 @@
-#ifndef LIBRARYMEDIA_CPP
-#define LIBRARYMEDIA_CPP
-
-
 #include "LibraryMedia.h"
 #include "LibraryLinkedList.h"
 #include "CurrentSessionInfo.h"
@@ -76,6 +72,20 @@ LibraryMedia::LibraryMedia(int id, const string& _title, mediaTypes typeOfMedia,
 	doner = new string(_newDoner);
 }
 
+// Accessors
+
+LibraryMedia::mediaTypes LibraryMedia::GetMediaType() { return mediaType; }
+LinkedList<string> LibraryMedia::GetAuthors() { return authors; }
+LinkedList<Publisher> LibraryMedia::GetPublishers() { return LinkedList<Publisher>(); }
+string LibraryMedia::GetISBN() { return ISBN; }
+double LibraryMedia::GetPrice() { return price; }
+string LibraryMedia::GetCategory() { return category; }
+string LibraryMedia::GetSubCategory() { return subCategory; }
+int LibraryMedia::GetInventoryCount() { return inventoryCount; }
+string LibraryMedia::GetEdition() { return edition; }
+
+// Mutators
+
 void LibraryMedia::SetTitle()
 {
 	string newTitle;
@@ -84,7 +94,7 @@ void LibraryMedia::SetTitle()
 	{
 		cout << "Enter the title: ";
 		cin >> newTitle;
-		//FIX ME:: Validate data
+		// FIX ME:: Validate data
 	} while (!isValid);
 	title = new string(newTitle);
 
@@ -111,18 +121,14 @@ void LibraryMedia::SetPrice()
 	bool isValid = true;
 	do
 	{
-		isValid = true; //Assume data is valid
+		isValid = true; // Assume data is valid
 		cout << "Enter the price: ";
 		cin >> newPrice;
-		//Validate data
+		// FIX ME: Validate data
 	} while (!isValid);
 	price = newPrice;
 }
 
-double LibraryMedia::GetPrice()
-{
-	return price;
-}
 
 void LibraryMedia::SetCategory()
 {

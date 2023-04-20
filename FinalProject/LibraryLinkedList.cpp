@@ -102,6 +102,7 @@ void LinkedList<T>::clearList()
 //get member function
 template<typename T>
 T& LinkedList<T>::getItem(int pos)const {
+	
 	int length = size();
 	if (pos < 0 || pos > length) {
 		cout << "Error! Position out of range.";
@@ -129,6 +130,24 @@ T& LinkedList<T>::getItem(int pos)const {
 	}
 }
 
+template<typename T>
+void LinkedList<T>::search(const string& search)const {
+	Node<T>* curr = head;
+	if (curr->data.getTitle().find(search) != string::npos || curr->data.getAuthor().find(search) != string::npos) {
+		cout << curr->data.toString() << endl;
+	}
+	else {
+		while (curr != NULL) {
+			if (curr->data.getTitle().find(search) != string::npos || curr->data.getAuthor().find(search) != string::npos) {
+				cout << curr->data.toString() << endl;
+			}
+
+			curr = curr->next;
+		}
+	}
+
+}
+	
 //get size of LinkList
 template<typename T>
 int LinkedList<T>::size()const {
@@ -173,4 +192,5 @@ Node<T>* LinkedList<T>::newNode(const T& value) {
 	temp->next = NULL;
 	return temp;
 }
+
 #endif

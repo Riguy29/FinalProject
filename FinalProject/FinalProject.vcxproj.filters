@@ -30,7 +30,6 @@
     <ClInclude Include="AdminMenu.h" />
     <ClInclude Include="LibraryLinkedList.h" />
     <ClInclude Include="MainLogin.h" />
-    <ClInclude Include="MenuScreen.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="CurrentSessionInfo.h" />
     <ClInclude Include="Book.h" />

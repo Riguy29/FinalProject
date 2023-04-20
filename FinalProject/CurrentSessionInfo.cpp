@@ -1,6 +1,5 @@
 #include "CurrentSessionInfo.h"
 
-
 //I guess because this is a static variable we have to define it outside of our .h file, idk thats what the internet told me and now it works so
 bool CurrentSessionInfo::isUserAdmin = false;
 //LinkedList<Book> CurrentSessionInfo::bookList = LinkedList<Book>();
@@ -13,10 +12,7 @@ vector<Publisher> CurrentSessionInfo::pubList;
 vector<Author> CurrentSessionInfo::authorList;
 vector<Book> CurrentSessionInfo::bookList;
 
-void CurrentSessionInfo::SetAdmin(bool isAdmin)
-{
-	isUserAdmin = isAdmin;
-}
+void CurrentSessionInfo::SetAdmin(bool isAdmin) { isUserAdmin = isAdmin; }
 
 bool CurrentSessionInfo::CheckIfAdmin()
 {

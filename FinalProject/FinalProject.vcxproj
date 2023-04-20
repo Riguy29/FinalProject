@@ -135,6 +135,7 @@
     <ClCompile Include="CurrentSessionInfo.cpp" />
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="FinalProject.cpp" />
+    <ClCompile Include="GuestLogin.cpp" />
     <ClCompile Include="InventoryScreen.cpp" />
     <ClCompile Include="LibraryMedia.cpp" />
     <ClCompile Include="MainLogin.cpp" />
@@ -148,9 +149,9 @@
     <ClInclude Include="ConferenceJournal.h" />
     <ClInclude Include="CurrentSessionInfo.h" />
     <ClInclude Include="Date.h" />
+    <ClInclude Include="GuestLogin.h" />
     <ClInclude Include="InventoryScreen.h" />
     <ClInclude Include="LibraryMedia.h" />
-    <ClInclude Include="MenuScreen.h" />
     <ClInclude Include="PatronLogin.h" />
     <ClInclude Include="Newspaper.h" />
     <ClInclude Include="Periodical.h" />
@@ -169,6 +170,7 @@
     <Text Include="BookRecord.txt" />
     <Text Include="PublisherRecord.txt" />
     <Text Include="records.txt" />
+    <Text Include="userpass.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
