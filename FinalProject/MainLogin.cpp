@@ -100,14 +100,14 @@ void Login::printMenu()const {
 
 }
 
-//patron menu of options
+//patron menu of options FIX ME: need to 
 void Login::patronMenu()const {
     int choice;
     cout << setfill('-') << setw(115) << "" << endl;
     cout << setfill('-') << setw(65) << " WELCOME TO YOUR ACCOUNT" << setfill('-') << setw(50) << "" << endl;
     cout << setfill('-') << setw(116) << "\n" << endl;
     cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
-    cout << setfill(' ') << setw(52) << "1. Browse" << endl;
+    cout << setfill(' ') << setw(60) << "1. Search Library" << endl;
     cout << setfill(' ') << setw(73) << "2. Update Personal Information" << endl;
     cout << setfill(' ') << setw(59) << "3. View My Media" << endl;
     cout << setfill(' ') << setw(51) << "4. Exit\n" << endl;
@@ -118,13 +118,14 @@ void Login::patronMenu()const {
     switch (choice) {
 
     case 1:
-        //searchMedia();
+        system("cls");
+        invScreen.printMenu();
         break;
     case 2:
-        //updateInfo();
+        updateInfo();
         break;
     case 3:
-        //myMedia();
+        myMedia();
         break;
     case 4:        
         system("cls");
@@ -136,7 +137,7 @@ void Login::patronMenu()const {
 
 }
 
-//admin menu of options
+//admin menu of options FIXME: need to link to accounts and be able to update user information
 void Login::adminMenu()const {
     int choice;
     cout << setfill('-') << setw(115) << "" << endl;
@@ -157,7 +158,8 @@ void Login::adminMenu()const {
         invScreen.printMenu();
         break;
     case 2:
-        cout << "Need to open Account information." << endl;
+        system("cls");
+        cout << "Need to open Account information." << endl;//view account should view list of users and allow admin to update infor via  update()
         break;
     case 3:
         system("cls");
@@ -165,6 +167,7 @@ void Login::adminMenu()const {
         break;
     default:
         cout << "Invalid Choice...Please Try Again...\n" << endl;
+        cin >> choice;
     }
 
 }
@@ -592,13 +595,53 @@ string Login::isValidAddress()const {
     return address;
 
 }
-//void Login::searchMedia(){}
+
+void Login::updateInfo()const {
+    system("cls");
+    int choice;
+    string name, address, email, phone;
+    cout << "Get user info" << endl;//FIX ME
+    cout << "What would you like to update?" << endl;
+    cout << setfill(' ') << setw(68) << "1. Name" << endl;
+    cout << setfill(' ') << setw(68) << "2. Address" << endl;
+    cout << setfill(' ') << setw(68) << "3. Email" << endl;
+    cout << setfill(' ') << setw(68) << "4. Phone" << endl;
+    cout << setfill(' ') << setw(68) << "5. Return" << endl;
+    cin >> choice;
+    switch (choice) {
+    case 1:
+        cin >> name;
+        break;
+    case 2:
+        cin >> address;
+        break;
+    case 3:
+        cin >> email;
+        break;
+    case 4:
+        cin >> phone;
+        break;
+    case 5:
+        system("cls");
+        exit(0);
+        break;
+    default:
+        cout << "Invalid choice. Please try again." << endl;
+        cin >> choice;
+    }
+
+}
+
+void Login::myMedia()const{
+    system("cls");
+    cout << "Show list of books checked out to this user." << endl;
+}
 //void Login::borrow(){}
 //void Login::placeHold(){}
 //void Login::renew(){}
 //void Login::checkout(){}
 //void Login::returnBook(){}
-//void Login::updateInfo(){}
-//void Login::myMedia(){}
+
+
 
 #endif // !MAINLOGIN_CPP

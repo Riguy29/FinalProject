@@ -41,7 +41,6 @@ public:
 	static bool isEmailValid(string& email);
 	static bool formatPhone(string& phone);
 	string isValidAddress()const;
-	//void searchMedia()const;
 	//void borrow()const;
 	//void placeHold()const;
 	//void renew()const;
@@ -49,8 +48,8 @@ public:
 	//void returnBook()const;
 	void patronMenu()const;
 	void adminMenu()const;
-	//void updateInfo()const;
-	//void myMedia()const;
+	void updateInfo()const;
+	void myMedia()const;
 	
 };
 

@@ -18,14 +18,14 @@ class InventoryScreen
 {
 public:
 	void printMenu()const;
-	/*void UpdateMedia();
-	void AddMedia();
-	void SearchForMedia();
-	void CheckoutBook();	
-	void SearchByTitle();
-	void SearchByAuthor(string targetAuthor);
+	//void UpdateMedia();
+	//void AddMedia();
+	void SearchForMedia()const;
+	//void CheckoutBook();	
+	//void SearchByTitle();
+	//void SearchByAuthor(string targetAuthor);
 private:
-	string recordTxtFile = "InventoryRecord.txt";*/
+	string recordTxtFile = "InventoryRecord.txt";
 };
 
 #endif
