@@ -16,6 +16,7 @@
     <ClCompile Include="CurrentSessionInfo.cpp" />
     <ClCompile Include="Book.cpp" />
     <ClCompile Include="Periodical.cpp" />
+    <ClCompile Include="Author.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CheckedoutMedia.h" />
@@ -34,9 +35,12 @@
     <ClInclude Include="CurrentSessionInfo.h" />
     <ClInclude Include="Book.h" />
     <ClInclude Include="Periodical.h" />
+    <ClInclude Include="Author.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="records.txt" />
     <Text Include="BookRecord.txt" />
+    <Text Include="AuthorRecord.txt" />
+    <Text Include="PublisherRecord.txt" />
   </ItemGroup>
 </Project>

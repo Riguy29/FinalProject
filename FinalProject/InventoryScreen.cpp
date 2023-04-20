@@ -4,9 +4,6 @@
 
 void InventoryScreen::AddMedia()
 {
-	//XMLDocument inventoryXML;
-	////FIXME: Right now we are just assuming it will load right
-	//XMLError eResult = inventoryXML.LoadFile("InventoryRecord.xml"); 
 	int choice =0;
 	bool isValid = true;
 	Book book;
@@ -19,6 +16,8 @@ void InventoryScreen::AddMedia()
 		cout << "1. Book" << endl;
 		cout << "2. Newspaper" << endl;
 		cout << "3. Journal" << endl;
+		cout << "4. Periodical" << endl;
+		cout << "5. Return" << endl;
 		cin >> choice;
 		switch (choice)
 		{
@@ -29,6 +28,8 @@ void InventoryScreen::AddMedia()
 			break;
 		case 2:
 			newspaper.SetTitle();
+		case 5:
+			return;
 		default:
 			break;
 		}
@@ -128,9 +129,11 @@ void InventoryScreen::printMenu() {
 			break;
 		case 2: //If a user is not an admin and selects 2, make choice invlaid
 			if (CurrentSessionInfo::CheckIfAdmin()) SearchForMedia();
+			else cout << "Invalid selection, try again" << endl;
 			break;
 		case 3:
 			if (CurrentSessionInfo::CheckIfAdmin()) AddMedia();
+			cout << "Invalid selection, try again" << endl;
 			break;
 		case 4:
 			return;
@@ -153,16 +156,16 @@ void InventoryScreen::SearchByTitle(LibraryMedia::mediaTypes type)
 		vector<Book*> matchingBookList;
 
 		//Goes through Book list and checks for title that contain the user input
-		for (int i = 0; i < CurrentSessionInfo::GetBookList().size(); i++)
-		{
-			if (CurrentSessionInfo::GetBookList().getItem(i).GetTitle().find(title) != string::npos) {
-				Book* pNewBook = &CurrentSessionInfo::GetBookList().getItem(i);
-				matchingBookList.push_back(pNewBook);
-				if (matchingBookList.size() >= 5) {
-					PrintMatchingMedia(matchingBookList);
-				}
-			}
-		}
+		//for (int i = 0; i < CurrentSessionInfo::GetBookList().size(); i++)
+		//{
+		//	if (CurrentSessionInfo::GetBookList().getItem(i).GetTitle().find(title) != string::npos) {
+		//		Book* pNewBook = &CurrentSessionInfo::GetBookList().getItem(i);
+		//		matchingBookList.push_back(pNewBook);
+		//		if (matchingBookList.size() >= 5) {
+		//			PrintMatchingMedia(matchingBookList);
+		//		}
+		//	}
+		//}
 		if (matchingBookList.size() == 0) {
 			cout << "No Books Found";
 			return;

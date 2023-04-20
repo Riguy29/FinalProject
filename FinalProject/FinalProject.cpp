@@ -10,8 +10,10 @@
 #include <fstream>
 #include <stdlib.h>
 
-using namespace std;
 
+
+
+using namespace std;
 void TimeFunction() {
 	// current date/time based on current system
 	time_t now = time(0);
@@ -26,20 +28,18 @@ void TimeFunction() {
 	cout << "The local date and time is: " << str << endl;
 }
 
+
+
 int main()
 {
-	//THIS IS A TEST, REMOVE AFTER USAGE
-	string search;
-	CurrentSessionInfo::LoadInventory();
-	//Node<LibraryMedia>* currBook = CurrentSessionInfo::GetBookList().GetHead();
-	//if (currBook->data.GetTitle() == "") cout << "TEST";
-	//cout << currBook->data.GetTitle() << endl;
-	//while (currBook != NULL)
-	//{
-	//	
-	//	currBook = currBook->next;
-	//}
+	//TEST
+	CurrentSessionInfo::GenerateDummyData();
+	CurrentSessionInfo::LoadInventory(true);
+	//cout << CurrentSessionInfo::pubList.size() << endl;
+	//cout << *CurrentSessionInfo::authorList.at(1).name << endl;
+	CurrentSessionInfo::bookList.at(0).ToString();
 	//END TEST
+
 	Login login;
 	login.printMenu();
 

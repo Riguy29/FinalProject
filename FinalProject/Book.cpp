@@ -12,12 +12,12 @@ void Book::SetISBN()
 		if (newISBN.size() != 10) isValid = false;
 
 	} while (!isValid);
-	ISBN = newISBN;
+	ISBN = new string(newISBN);
 }
 
-string Book::GetISBN()
+string& Book::GetISBN()
 {
-	return ISBN;
+	return *ISBN;
 }
 
 void Book::SetEdition()
@@ -32,7 +32,7 @@ void Book::SetEdition()
 		//Validate data
 		if (newEdition < 0) isValid = false;
 	} while (!isValid);
-	ISBN = newEdition;
+	edition = newEdition;
 }
 
 int Book::GetEdition()
@@ -42,12 +42,9 @@ int Book::GetEdition()
 
 void Book::ToString()
 {
-	cout << "Title: " << title;
-	cout << " Type: " << mediaType;
-	cout << " ISBN: " << ISBN;
-	cout << " Category: " << category;
-	cout << " Sub-Category: " << subCategory;
-	cout << " Inventory Amt: " << inventoryCount;
+	LibraryMedia::ToString();
+	cout << " ISBN: " << GetISBN();
+	cout << " Edition: " << GetEdition();
 	cout << endl << endl;
 }
 
@@ -55,22 +52,22 @@ void Book::ToString()
 
 Book::Book()
 {
-	title = "";
-	authors = LinkedList<string>();
+	mediaID = 1;
+	title = new string("");
+	mediaType = book;
+	category = new string("");
+	subCategory = new string("");
+	inventoryCount = 0;
+	price = 0;
+	doner = new string("");
+	this->ISBN = new string("");
+	this->edition = 1;
 
 }
 
-Book::Book(string title, LinkedList<string> authors, LinkedList<Publisher> publishers, mediaTypes mediaType, string category, string subCategory, int inventoryCount, double price, string ISBN, int edition)
+Book::Book(int id, const string& mediaTitle, double mediaPrice, const string& mediaCat, const string& mediaSubCat, int mediaCount, 
+	const string& mediaDoner, const string& bookISBN, int bookEdition) : LibraryMedia(id,mediaTitle,book,mediaPrice,mediaCat,mediaSubCat,mediaCount,mediaDoner)
 {
-	this->title = title;
-	this->authors = authors;
-	this->publishers = publishers;
-	this->mediaType = mediaType;
-	this->category = category;
-	this->subCategory = subCategory;
-	this->inventoryCount = inventoryCount;
-	this->price = price;
-	this->ISBN = ISBN;
-	this->edition = edition;
-
+	ISBN = new string(bookISBN);
+	edition = bookEdition;
 }

@@ -124,6 +124,7 @@ T& LinkedList<T>::getItem(int pos)const {
 		}
 		//This should never happen
 		//throw exception;
+		//I changed this to return the data instead of the the ToString because it was causing issues
 		return curr->data;
 	}
 }

@@ -4,45 +4,76 @@
 
 #include "LibraryMedia.h"
 #include "LibraryLinkedList.h"
-#include "Publisher.h"
-
+#include "CurrentSessionInfo.h"
 
 void LibraryMedia::ToString()
 {
-	cout << "Title: " << title;
-	cout << " Type: " << mediaType;
-	cout << " Category: " << category;
-	cout << " Sub-Category: " << subCategory;
+	cout << "MediaId: " << mediaID;
+	cout << " Title: " << GetTitle();
+	cout << " Type: ";
+
+	switch (mediaType)
+	{
+	case LibraryMedia::book:
+		cout << "Book";
+		break;
+	case LibraryMedia::newspaper:
+		cout << "Newspaper";
+		break;
+	case LibraryMedia::conferenceJournal:
+		cout << "Conference Journal";
+		break;
+	case LibraryMedia::periodical:
+		cout << "Periodical";
+		break;
+	default:
+		break;
+	}
+	cout << " Category: " << GetCategory();
+	cout << " Authors: ";
+
+	//Access our static author list, and search the list for any authors that match our book id
+	for (int i = 0; i < CurrentSessionInfo::authorList.size(); i++) {
+		if (mediaID == CurrentSessionInfo::authorList.at(i).bookId) {
+			cout << *CurrentSessionInfo::authorList.at(i).name;
+		}
+	}
+
+	cout << " Publishers: ";
+	for (int i = 0; i < CurrentSessionInfo::pubList.size(); i++) {
+		if (mediaID == CurrentSessionInfo::pubList.at(i).GetBookId()) {
+			cout << CurrentSessionInfo::pubList.at(i).GetName();
+		}
+	}
+	cout << " Sub-Category: " << GetSubCategory();
 	cout << " Inventory Amt: " << inventoryCount;
-	cout << endl << endl;
-	
-	//FIXME add code to print authors and publishers
+	cout << " Price: " << price;
+	cout << " Donated By: " << GetDoner();
+	//cout << endl << endl;
 }
 
 LibraryMedia::LibraryMedia()
 {
-	title = "";
+	mediaID = 1;
+	title = new string("");
 	mediaType = book;
-	category = "";
-	subCategory = "";
+	category = new string("");
+	subCategory = new string("");
 	inventoryCount = 0;
 	price = 0;
-	authors = LinkedList<string>();
-	publishers = LinkedList<Publisher>();
-	
-	
+	doner = new string("");
 }
 
-LibraryMedia::LibraryMedia(string title, LinkedList<string> authors, LinkedList<Publisher> publishers, mediaTypes mediaType, string cateogory, string subCategory, int inventoryCount, int price)
+LibraryMedia::LibraryMedia(int id, const string& _title, mediaTypes typeOfMedia, double _price, const string& _category, const string& _subCategory, int count, const string& _newDoner)
 {
-	this->title = title;
-	this->authors = authors;
-	this->publishers = publishers;
-	this->mediaType = mediaType;
-	this->category = category;
-	this->subCategory = subCategory;
-	this->inventoryCount = inventoryCount;
-	this->price = price;
+	mediaID = id;
+	title = new string(_title);
+	mediaType = typeOfMedia;
+	price = _price;
+	category = new string(_category);
+	subCategory = new string(_subCategory);
+	inventoryCount = count;
+	doner = new string(_newDoner);
 }
 
 void LibraryMedia::SetTitle()
@@ -55,13 +86,13 @@ void LibraryMedia::SetTitle()
 		cin >> newTitle;
 		//FIX ME:: Validate data
 	} while (!isValid);
-	this->title = title;
+	title = new string(newTitle);
 
 }
 
-string LibraryMedia::GetTitle()
+string& LibraryMedia::GetTitle()
 {
-	return title;
+	return *title;
 }
 
 void LibraryMedia::SetMediaType(mediaTypes mediaType)
@@ -72,26 +103,6 @@ void LibraryMedia::SetMediaType(mediaTypes mediaType)
 LibraryMedia::mediaTypes LibraryMedia::GetMediaType()
 {
 	return mediaType;
-}
-
-void LibraryMedia::SetAuthors(LinkedList<string> authorList)
-{
-	authors = authorList;
-}
-
-LinkedList<string> LibraryMedia::GetAuthors()
-{
-	return authors;
-}
-
-void LibraryMedia::SetPublishers(LinkedList<Publisher> publisherList)
-{
-	publishers = publisherList;
-}
-
-LinkedList<Publisher> LibraryMedia::GetPublishers()
-{
-	return LinkedList<Publisher>();
 }
 
 void LibraryMedia::SetPrice()
@@ -113,24 +124,23 @@ double LibraryMedia::GetPrice()
 	return price;
 }
 
-void LibraryMedia::SetCategory(string newCategory)
+void LibraryMedia::SetCategory()
 {
-	category = newCategory;
+	//FINISH ME
 }
 
-string LibraryMedia::GetCategory()
+string& LibraryMedia::GetCategory()
 {
-	return category;
+	return *category;
 }
 
-void LibraryMedia::SetSubCategory(string newSubCategory)
+void LibraryMedia::SetSubCategory()
 {
-	subCategory = newSubCategory;
 }
 
-string LibraryMedia::GetSubCategory()
+string& LibraryMedia::GetSubCategory()
 {
-	return subCategory;
+	return *subCategory;
 }
 
 void LibraryMedia::SetInventoryCount(int newCount)
@@ -141,6 +151,15 @@ void LibraryMedia::SetInventoryCount(int newCount)
 int LibraryMedia::GetInventoryCount()
 {
 	return inventoryCount;
+}
+
+void LibraryMedia::SetDoner()
+{
+}
+
+string& LibraryMedia::GetDoner()
+{
+	return *doner;
 }
 
 

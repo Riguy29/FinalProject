@@ -3,15 +3,16 @@
 class Book :public LibraryMedia
 {
 private:
-	string ISBN;
+	string* ISBN;
 	int edition;
 public:
 	void SetISBN();
-	string GetISBN();
+	string& GetISBN();
 	void SetEdition();
 	int GetEdition();
-	void ToString() override;
+	void ToString();
 	Book();
-	Book(string title, LinkedList<string> authors = LinkedList<string>(), LinkedList<Publisher> publishers = LinkedList<Publisher>(), mediaTypes mediaType = book, string cateogory = "", string subCategory = "", int inventoryCount = 0, double price = 0,string ISBN ="", int edition = 1);
+	Book(int id, const string& mediaTitle, double mediaPrice, const string& mediaCat, const string& mediaSubCat, int mediaCount,
+		const string& mediaDoner, const string& bookISBN, int bookEdition);
 };
 

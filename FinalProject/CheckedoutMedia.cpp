@@ -1,10 +1,5 @@
 #include "CheckedoutMedia.h"
 
-LibraryMedia CheckedoutMedia::GetMedia()
-{
-    return LibraryMedia();
-}
-
 void CheckedoutMedia::ReturnMedia()
 {
 }

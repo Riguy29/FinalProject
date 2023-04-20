@@ -4,8 +4,12 @@
 #include <string>
 #include <vector>
 #include "Publisher.h"
-#include "LibraryLinkedList.cpp"
+//#include "LibraryLinkedList.cpp"
+#include <random>
+#include <iostream>
 
+/*This class is the purely abstract class that acts as the parent for all other media types we have
+It contains data that will be universally shared accross media such as title, authors, price, etc*/
 using namespace std;
 
 class LibraryMedia
@@ -20,37 +24,35 @@ public:
 	};
 
 	void SetTitle();
-	string GetTitle();
+	string& GetTitle();
 	void SetMediaType(mediaTypes mediaType);
 	mediaTypes GetMediaType();
-	void SetAuthors(LinkedList<string> authorList);
-	LinkedList<string> GetAuthors();
-	void SetPublishers(LinkedList<Publisher> publisherList);
-	LinkedList<Publisher> GetPublishers();
 	void SetPrice();
 	double GetPrice();
-	void SetCategory(string newCategory);
-	string GetCategory();
-	void SetSubCategory(string newSubCategory);
-	string GetSubCategory();
+	void SetCategory();
+	string& GetCategory();
+	void SetSubCategory();
+	string& GetSubCategory();
 
 	void SetInventoryCount(int newCount);
 	int GetInventoryCount();
 
+	void SetDoner();
+	string& GetDoner();
+
 	//We will want to disp
-	virtual void ToString();
+	void ToString();
 	LibraryMedia();
-	LibraryMedia(string title, LinkedList<string> authors = LinkedList<string>(), LinkedList<Publisher> publishers = LinkedList<Publisher>(), mediaTypes mediaType = book, string cateogory = "", string subCategory = "", int inventoryCount = 0, int price = 0);
+	LibraryMedia(int id, const string& mediaTitle, mediaTypes typeOfMedia, double mediaPrice, const string& mediaCat, const string& mediaSubCat, int mediaCount, const string& mediaDoner);
 protected:
-	string title;
+	int mediaID;
+	string* title;
 	mediaTypes mediaType;
-	LinkedList<Publisher> publishers;
-	LinkedList<string> authors;
 	double price;
-	string category;
-	string subCategory;
+	string* category;
+	string* subCategory;
 	int inventoryCount;
-	string doner;
+	string* doner;
 
 };
 
