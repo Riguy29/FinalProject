@@ -1,7 +1,8 @@
 #include "LibraryMedia.h"
 #include "LibraryLinkedList.h"
 #include "CurrentSessionInfo.h"
-
+#ifndef LIBRARYMEDIA_CPP
+#define LIBRARYMEDIA_CPP
 void LibraryMedia::ToString()
 {
 	cout << "MediaId: " << mediaID;
@@ -75,14 +76,12 @@ LibraryMedia::LibraryMedia(int id, const string& _title, mediaTypes typeOfMedia,
 // Accessors
 
 LibraryMedia::mediaTypes LibraryMedia::GetMediaType() { return mediaType; }
-LinkedList<string> LibraryMedia::GetAuthors() { return authors; }
-LinkedList<Publisher> LibraryMedia::GetPublishers() { return LinkedList<Publisher>(); }
-string LibraryMedia::GetISBN() { return ISBN; }
 double LibraryMedia::GetPrice() { return price; }
-string LibraryMedia::GetCategory() { return category; }
-string LibraryMedia::GetSubCategory() { return subCategory; }
 int LibraryMedia::GetInventoryCount() { return inventoryCount; }
-string LibraryMedia::GetEdition() { return edition; }
+string& LibraryMedia::GetCategory() { return *category; }
+string& LibraryMedia::GetSubCategory(){	return *subCategory;}
+string& LibraryMedia::GetDoner(){return *doner;}
+
 
 // Mutators
 
@@ -110,11 +109,6 @@ void LibraryMedia::SetMediaType(mediaTypes mediaType)
 	this->mediaType = mediaType;
 }
 
-LibraryMedia::mediaTypes LibraryMedia::GetMediaType()
-{
-	return mediaType;
-}
-
 void LibraryMedia::SetPrice()
 {
 	double newPrice = 0;
@@ -135,39 +129,14 @@ void LibraryMedia::SetCategory()
 	//FINISH ME
 }
 
-string& LibraryMedia::GetCategory()
-{
-	return *category;
-}
+
 
 void LibraryMedia::SetSubCategory()
 {
 }
 
-string& LibraryMedia::GetSubCategory()
-{
-	return *subCategory;
-}
-
-void LibraryMedia::SetInventoryCount(int newCount)
-{
-	inventoryCount = newCount;
-}
-
-int LibraryMedia::GetInventoryCount()
-{
-	return inventoryCount;
-}
 
 void LibraryMedia::SetDoner()
 {
 }
-
-string& LibraryMedia::GetDoner()
-{
-	return *doner;
-}
-
-
-
 #endif // !LIBRARYMEDIA_CPP

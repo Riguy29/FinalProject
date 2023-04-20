@@ -26,7 +26,7 @@ void TimeFunction() {
 	d.printDate();
 	
 
-	cout << "The local date and time is: " << str << endl;
+	//cout << "The local date and time is: " << str << endl;
 }
 
 
