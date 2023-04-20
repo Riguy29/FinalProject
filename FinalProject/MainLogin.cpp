@@ -103,6 +103,7 @@ void Login::printMenu()const {
 //patron menu of options FIX ME: need to 
 void Login::patronMenu()const {
     int choice;
+    
     cout << setfill('-') << setw(115) << "" << endl;
     cout << setfill('-') << setw(65) << " WELCOME TO YOUR ACCOUNT" << setfill('-') << setw(50) << "" << endl;
     cout << setfill('-') << setw(116) << "\n" << endl;
@@ -140,36 +141,37 @@ void Login::patronMenu()const {
 //admin menu of options FIXME: need to link to accounts and be able to update user information
 void Login::adminMenu()const {
     int choice;
-    cout << setfill('-') << setw(115) << "" << endl;
-    cout << setfill('-') << setw(65) << " WELCOME ADMINISTRATOR " << setfill('-') << setw(50) << "" << endl;
-    cout << setfill('-') << setw(116) << "\n" << endl;
-    cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
-    cout << setfill(' ') << setw(56) << "1. Inventory" << endl;
-    cout << setfill(' ') << setw(60) << "2. View Accounts" << endl;
-    cout << setfill(' ') << setw(52) << "3. Exit\n" << endl;
-    cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+    while (true) {
+        cout << setfill('-') << setw(115) << "" << endl;
+        cout << setfill('-') << setw(65) << " WELCOME ADMINISTRATOR " << setfill('-') << setw(50) << "" << endl;
+        cout << setfill('-') << setw(116) << "\n" << endl;
+        cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
+        cout << setfill(' ') << setw(56) << "1. Inventory" << endl;
+        cout << setfill(' ') << setw(60) << "2. View Accounts" << endl;
+        cout << setfill(' ') << setw(52) << "3. Exit\n" << endl;
+        cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 
-    cin >> choice;
-
-    switch (choice) {
-
-    case 1:
-        system("cls");
-        invScreen.printMenu();
-        break;
-    case 2:
-        system("cls");
-        cout << "Need to open Account information." << endl;//view account should view list of users and allow admin to update infor via  update()
-        break;
-    case 3:
-        system("cls");
-        exit(0);        
-        break;
-    default:
-        cout << "Invalid Choice...Please Try Again...\n" << endl;
         cin >> choice;
-    }
 
+        switch (choice) {
+
+        case 1:
+            system("cls");
+            invScreen.printMenu();
+            break;
+        case 2:
+            system("cls");
+            cout << "Need to open Account information." << endl;//view account should view list of users and allow admin to update infor via  update()
+            break;
+        case 3:
+            system("cls");
+            exit(0);
+            return;
+        default:
+            cout << "Invalid Choice...Please Try Again...\n" << endl;
+            cin >> choice;
+        }
+    }
 }
 
 //login() allows user to login to borrow books if they have a username and password

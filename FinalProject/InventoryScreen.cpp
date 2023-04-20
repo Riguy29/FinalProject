@@ -195,12 +195,13 @@ void InventoryScreen::printMenu()const {
 			}
 			else {
 				system("cls");
-				cout << "needs to go back to patronMenu in MainLogin" << endl;
+				return;
+				//cout << "needs to go back to patronMenu in MainLogin" << endl;
 			}
 			
 		case 4:
 			system("cls");
-			cout << "needs to go to adminMenu in MainLogin" << endl;
+			//cout << "needs to go to adminMenu in MainLogin" << endl;
 			//adminMenu();
 			//exit(0);
 			return;
