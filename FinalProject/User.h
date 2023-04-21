@@ -3,7 +3,6 @@
 #define USER_H
 
 #include <iostream>
-#include "LibraryLinkedList.h"
 
 using namespace std;
 
@@ -20,11 +19,10 @@ private:
 	
 	int userID;
 
-	LinkedList<User> users;
 
 public:
 	// Constructors
-	User(bool isAdmin, bool isGuest, string status, string firstN, string lastN, string usern, string pass, int ID, LinkedList<User> users) {}
+	User(bool isAdmin, bool isGuest, string status, string firstN, string lastN, string usern, string pass, int ID) {}
 	User() {}
 	~User() {}
 
@@ -40,7 +38,6 @@ public:
 
 	int getUserID() {}
 
-	LinkedList<User> getUsers() {}
 
 	// Mutators
 	void setIsAdmin(bool isAdmin) {}

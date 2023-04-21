@@ -156,7 +156,6 @@
     <ClInclude Include="Publisher.h" />
     <ClCompile Include="LibraryLinkedList.cpp" />
     <ClInclude Include="MainLogin.h" />
-    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LibraryLinkedList.h" />

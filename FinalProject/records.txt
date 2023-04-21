@@ -16,3 +16,12 @@ ID: 34543
 LibraryID: E0539
 Password: YBTrB
 
+Name: Curran Buss
+Address: W621 Della Marcus Court Kaukauna, Wisconsin 54130
+Phone: (920)419-8756
+Email: curranbuss@gmail.com
+Position: E
+ID: 1001
+LibraryID: E6810
+Password: KkR6B
+
