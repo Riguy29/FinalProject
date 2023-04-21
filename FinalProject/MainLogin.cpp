@@ -17,42 +17,15 @@
 
 using namespace std;
 
-Login::Login() : username(""), password(""){} //default constructor initialized to empty strings
-
-Login::Login(string userN, string userP)
-    : username(userN), password(userP) {}
-
-Login::Login(Login& l) : username(l.username), password(l.password) {}
+// Constructonator 9000s
+Login::Login() {}
+Login::Login(Login& l) {}
 
 Login::~Login() {}
 
-
-string Login::getUsername()const {
-    return username;
-}
-string Login::getPassword()const {
-    return password;
-}
-void Login::setUsername(string userN) {
-    username = userN;
-}
-void Login::setPassword(string userP) {
-    password = userP;
-}
-
-/*void Login::TimeFunction() {
-    // current date/time based on current system
-    time_t now = time(0);
-
-    // Char array for ctime_s to get time to compile properly using C++ 20
-    // This char array holds the string of what the current time is
-    char str[26];
-
-    // Get the current time and convert to string, storing it in the str char array
-    ctime_s(str, sizeof str, &now);
-
-    cout << str << endl;
-}*/
+// Manipulate User obj
+void Login::setUser(User u) { *this->tmpUsr = u; }
+User Login::getUser()const { return *this->tmpUsr; }
 
 //printMenu() prints the menu options for the login screen
 void Login::printMenu()const {
@@ -84,7 +57,6 @@ void Login::printMenu()const {
     case 2:
         system("cls");
         guestLogin.printMenu();
-        //guest();
         break;
     case 3:
         system("cls");
@@ -110,7 +82,7 @@ void Login::loginMenu()const {
     currUser.open("currentUser.txt");
 
     if (!currUser.is_open()) {
-        cout << "File open was not successful";
+        cout << "File open was not successful :(";
     }
     getline(currUser, username);
     do {
@@ -236,6 +208,7 @@ void Login::adminMenu()const {
     }
 }
 
+// TODO: Integrate User object in here and registration function
 //login() allows user to login to borrow books if they have a username and password
 void Login::login()const {
     string username;
@@ -266,14 +239,14 @@ void Login::login()const {
         cout << username << " Login Successful!" << endl;
         cout << endl;
 
-        ofstream user;
-        user.open("currentUser.txt");
+        ofstream userInfo;
+        userInfo.open("currentUser.txt");
 
-        if (!user.is_open()) {
+        if (!userInfo.is_open()) {
             cout << "File open was not successful";
         }
-        user << username << endl;
-        user.close();      
+        userInfo << username << endl;
+        userInfo.close();      
         loginMenu();
        
         system("PAUSE");
@@ -340,6 +313,7 @@ void Login::guest()const {
 
 }
 
+// TODO: Integrate User object
 //registration() allows user to register for an account if they don't have one already
 void Login::registration()const {
     string fName, lName, address, phoneNum, email, id, libID, password;
@@ -444,6 +418,9 @@ void Login::registration()const {
 
         }
         file.close();
+
+        
+
         //open file to store username and password
         ofstream userpassList;
         userpassList.open("userpass.txt", ios::in | ios::app);
@@ -583,8 +560,9 @@ bool Login::formatPhone(string &phone) {
 }       
       
 
-//limit first and last name to less than 20 letters and only allow letters
-bool Login::isValidName(string &name) {//FIXME not working yet. 
+// Limit first and last name to less than 20 letters and only allow letters
+// FIXME not working yet.
+bool Login::isValidName(string &name) {
     const int NUM_LENGTH = 20;
 
     if (name.length() >= NUM_LENGTH || name.length() == 0) {
@@ -602,7 +580,7 @@ bool Login::isValidName(string &name) {//FIXME not working yet.
 
 }
  
-//asks for address information
+// Asks for address information
 string Login::isValidAddress()const {
     string street;
     string city;
@@ -653,6 +631,7 @@ string Login::isValidAddress()const {
 
 }
 
+// Update user info
 void Login::updateInfo()const {
     system("cls");
     int choice;
@@ -693,12 +672,5 @@ void Login::myMedia()const{
     system("cls");
     cout << "Show list of books checked out to this user." << endl;
 }
-//void Login::borrow(){}
-//void Login::placeHold(){}
-//void Login::renew(){}
-//void Login::checkout(){}
-//void Login::returnBook(){}
-
-
 
 #endif // !MAINLOGIN_CPP
