@@ -75,7 +75,7 @@ void Login::printMenu()const {
 
     case 1:
         system("cls");
-        login();
+        loginMenu();
         break;
     case 2:
         system("cls");
@@ -98,6 +98,59 @@ void Login::printMenu()const {
     }
 
 
+}
+
+void Login::loginMenu()const {
+    while (true) {
+        ofstream user;
+        user.open("currentUser.txt");
+
+        if (!user.is_open()) {
+            cout << "File open was not successful";
+        }
+        user << username << endl;
+        user.close();
+
+
+        if (username.at(0) == 'E' || line.at(0) == 'S') {        
+        cout << setfill('-') << setw(115) << "" << endl;
+        cout << setfill('-') << setw(65) << " WELCOME TO YOUR ACCOUNT" << setfill('-') << setw(50) << "" << endl;
+        cout << setfill('-') << setw(116) << "\n" << endl;
+        cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
+        cout << setfill(' ') << setw(60) << "1. Search Library" << endl;
+        cout << setfill(' ') << setw(73) << "2. View Account" << endl;
+        }
+        else if (username.at(0) == 'M') {
+            cout << setfill('-') << setw(115) << "" << endl;
+            cout << setfill('-') << setw(65) << " WELCOME ADMINISTRATOR " << setfill('-') << setw(50) << "" << endl;
+            cout << setfill('-') << setw(116) << "\n" << endl;
+            cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
+            cout << setfill(' ') << setw(56) << "1. Inventory" << endl;
+            cout << setfill(' ') << setw(60) << "2. View Accounts" << endl;
+        }
+        cout << setfill(' ') << setw(51) << "3. Exit\n" << endl;
+        cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+   
+        cin >> choice;
+        switch (choice) {
+
+        case 1:
+            system("cls");
+            invScreen.printMenu();
+            break;
+        case 2:
+            system("cls");
+            cout << "Need to open Account information." << endl;//view account should view list of users and allow admin to update infor via  update()
+            break;
+        case 3:
+            system("cls");
+            exit(0);
+            return;
+        default:
+            cout << "Invalid Choice...Please Try Again...\n" << endl;
+            cin >> choice;
+        }
+    }
 }
 
 //patron menu of options FIX ME: need to 
@@ -142,6 +195,7 @@ void Login::patronMenu()const {
 void Login::adminMenu()const {
     int choice;
     while (true) {
+        
         cout << setfill('-') << setw(115) << "" << endl;
         cout << setfill('-') << setw(65) << " WELCOME ADMINISTRATOR " << setfill('-') << setw(50) << "" << endl;
         cout << setfill('-') << setw(116) << "\n" << endl;

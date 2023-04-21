@@ -46,6 +46,7 @@ public:
 	//void renew()const;
 	//void checkout()const;
 	//void returnBook()const;
+	void loginMenu()const;
 	void patronMenu()const;
 	void adminMenu()const;
 	void updateInfo()const;

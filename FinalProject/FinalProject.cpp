@@ -12,17 +12,18 @@
 
 
 
-	Date d;
-	d.printDate();
-	
 
-	//cout << "The local date and time is: " << str << endl;
-}
 
 
 
 int main()
 {
+	Date d;
+	d.printDate();
+
+
+	//cout << "The local date and time is: " << str << endl;
+
 	//TEST
 	CurrentSessionInfo::GenerateDummyData();
 	CurrentSessionInfo::LoadInventory(true);
