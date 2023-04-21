@@ -13,7 +13,6 @@
 #include <fstream>
 
 
-
 using namespace std; 
 
 class InventoryScreen 
@@ -21,9 +20,9 @@ class InventoryScreen
 public:
 	void UpdateMedia();
 	void AddMedia();
-	void SearchForMedia();
+	void SearchForMedia()const;
 	void CheckoutBook();
-	void printMenu();
+	void printMenu()const;
 	void SearchByTitle(LibraryMedia::mediaTypes type);
 	void SearchByAuthor(string targetAuthor);
 

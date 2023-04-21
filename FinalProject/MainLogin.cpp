@@ -69,13 +69,17 @@ void Login::printMenu()const {
     cout << setfill(' ') << setw(50) << "4. Exit\n" << endl;
     cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 
-    cin >> choice;
+    do {
+        cin >> choice;
+        if (choice > 4 || choice < 1) {
+            cout << "Invalid choice. Please try again." << endl;
+        }
+    } while (choice > 4 || choice < 1);
 
     switch (choice) {
-
     case 1:
         system("cls");
-        loginMenu();
+        login();
         break;
     case 2:
         system("cls");
@@ -97,43 +101,45 @@ void Login::printMenu()const {
         break;
     }
 
-
 }
 
-void Login::loginMenu()const {
-    while (true) {
-        ofstream user;
-        user.open("currentUser.txt");
+void Login::loginMenu()const {   
+    int choice;
+    ifstream currUser;
+    string username;
+    currUser.open("currentUser.txt");
 
-        if (!user.is_open()) {
-            cout << "File open was not successful";
+    if (!currUser.is_open()) {
+        cout << "File open was not successful";
+    }
+    getline(currUser, username);
+    do {
+        if (username.at(0) == 'E' || username.at(0) == 'S') {
+            cout << setfill('-') << setw(115) << "" << endl;
+            cout << setfill('-') << setw(65) << " WELCOME TO YOUR ACCOUNT" << setfill('-') << setw(50) << "" << endl;
+            cout << setfill('-') << setw(116) << "\n" << endl;
+            cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
+            cout << setfill(' ') << setw(60) << "1. Search Library" << endl;
+            cout << setfill(' ') << setw(58) << "2. View Account" << endl;
         }
-        user << username << endl;
-        user.close();
-
-
-        if (username.at(0) == 'E' || line.at(0) == 'S') {        
-        cout << setfill('-') << setw(115) << "" << endl;
-        cout << setfill('-') << setw(65) << " WELCOME TO YOUR ACCOUNT" << setfill('-') << setw(50) << "" << endl;
-        cout << setfill('-') << setw(116) << "\n" << endl;
-        cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
-        cout << setfill(' ') << setw(60) << "1. Search Library" << endl;
-        cout << setfill(' ') << setw(73) << "2. View Account" << endl;
-        }
-        else if (username.at(0) == 'M') {
+        else {
             cout << setfill('-') << setw(115) << "" << endl;
             cout << setfill('-') << setw(65) << " WELCOME ADMINISTRATOR " << setfill('-') << setw(50) << "" << endl;
             cout << setfill('-') << setw(116) << "\n" << endl;
             cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
-            cout << setfill(' ') << setw(56) << "1. Inventory" << endl;
-            cout << setfill(' ') << setw(60) << "2. View Accounts" << endl;
+            cout << setfill(' ') << setw(55) << "1. Inventory" << endl;
+            cout << setfill(' ') << setw(59) << "2. View Accounts" << endl;
         }
         cout << setfill(' ') << setw(51) << "3. Exit\n" << endl;
         cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
-   
-        cin >> choice;
+        do {
+            cin >> choice;
+            if (choice > 3 || choice < 1) {
+                cout << "Invalid choice. Please try again." << endl;
+            }
+        } while (choice > 3 || choice < 1); 
+        
         switch (choice) {
-
         case 1:
             system("cls");
             invScreen.printMenu();
@@ -145,12 +151,14 @@ void Login::loginMenu()const {
         case 3:
             system("cls");
             exit(0);
-            return;
+            break;
         default:
             cout << "Invalid Choice...Please Try Again...\n" << endl;
             cin >> choice;
         }
-    }
+    } while (true);
+    currUser.close();
+  
 }
 
 //patron menu of options FIX ME: need to 
@@ -265,16 +273,9 @@ void Login::login()const {
             cout << "File open was not successful";
         }
         user << username << endl;
-        user.close();        
-
-        if (username.at(0) == 'M'){
-            adminMenu();
-			CurrentSessionInfo::SetAdmin(true);
-		}
-		else if (username.at(0) == 'E' || line.at(0) == 'S') {
-			patronMenu();
-		}
-		
+        user.close();      
+        loginMenu();
+       
         system("PAUSE");
         system("cls");
         return;

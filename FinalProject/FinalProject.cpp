@@ -12,24 +12,17 @@
 
 
 
-
-
-
-
 int main()
 {
-	Date d;
-	d.printDate();
-
-
+	
 	//cout << "The local date and time is: " << str << endl;
 
 	//TEST
-	CurrentSessionInfo::GenerateDummyData();
-	CurrentSessionInfo::LoadInventory(true);
+	//CurrentSessionInfo::GenerateDummyData();
+	//CurrentSessionInfo::LoadInventory(true);
 	//cout << CurrentSessionInfo::pubList.size() << endl;
 	//cout << *CurrentSessionInfo::authorList.at(1).name << endl;
-	CurrentSessionInfo::bookList.at(0).ToString();
+	//CurrentSessionInfo::bookList.at(0).ToString();
 	//END TEST
 
 	Login login;

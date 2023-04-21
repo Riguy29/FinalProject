@@ -39,135 +39,124 @@
 
 }
 */
+//FIXME: the switch in second do while loop needs to be finished.  it will send to appropriate search function
 void InventoryScreen::SearchForMedia()const
 {
-	system("cls");
-	
+	system("cls");	
 	int choice;
 	bool validChoice = false;
-do{
-
-	//FIXME
-	cout << setfill('-') << setw(115) << "" << endl;
-	cout << setfill('-') << setw(56) << " SEARCH " << setfill('-') << setw(59) << "" << endl;
-	cout << setfill('-') << setw(115) << "" << endl;
-	cout << endl;
-	cout << setfill(' ') << setw(60) << "1. Search By Title" << endl;
-	cout << setfill(' ') << setw(61) << "2. Search By Author" << endl;
-	cout << setfill(' ') << setw(64) << "3. Search By Publisher" << endl;
-	cout << setfill(' ') << setw(65) << "4. Search By Department" << endl;
-	cout << setfill(' ') << setw(62) << "5. Search By Subject" << endl;
-
-	ifstream user;
-	string username;
-	user.open("currentUser.txt");
-
-	if (!user.is_open()) {
-		cout << "File open was not successful";
-	}
-	user >> username;
-	user.close();
-
-	if (username.at(0) == 'M') {
-		cout << setfill(' ') << setw(61) << "6. Search By Course" << endl;
-		cout << setfill(' ') << setw(60) << "7. Search By Price" << endl;
-		//CurrentSessionInfo::SetAdmin(true);
-	}
-	cout << setfill(' ') << setw(53) << "8. Return\t\n" << endl;
-	cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
-	cin >> choice;
-	
 	LibraryMedia::mediaTypes tempMediaType;
 	string searchType = "ERROR";
 	do
 	{
-		cout << "What media would like to search for?" << endl;
-		cout << "1. Books" << endl;
-		cout << "2. Newspapers" << endl;
-		cout << "3. Journals" << endl;
-		cout << "4. Periodicals" << endl;
-		cout << "5. Return" << endl;
+		cout << setfill('-') << setw(115) << "" << endl;
+		cout << setfill('-') << setw(115) << "" << endl; 
+		cout << setfill('-') << setw(116) << "\n" << endl;
+		cout << setfill(' ') << setw(68) << "What media would like to search for?\n" << endl;
+		cout << setfill(' ') << setw(53) << "1. Books" << endl;
+		cout << setfill(' ') << setw(58) << "2. Newspapers" << endl;
+		cout << setfill(' ') << setw(56) << "3. Journals" << endl;
+		cout << setfill(' ') << setw(59) << "4. Periodicals" << endl;
+		cout << setfill(' ') << setw(55) << "5. Return\n" << endl;
+		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+
 		cin >> choice;
-		//validChoice = true; //Assume choice is valid
+		validChoice = true; //Assume choice is valid
 		switch (choice)
 		{
 		case 1:
 			searchType = "Books";
 			tempMediaType = LibraryMedia::book;
+			validChoice = false;
 			break;
 		case 2:
 			searchType = "Journals";
 			tempMediaType = LibraryMedia::book;
+			validChoice = false;
 			break;
 		case 3:
 			searchType = "Newspapers";
 			tempMediaType = LibraryMedia::book;
+			validChoice = false;
 			break;
 		case 4:
 			searchType = "Periodicals";
 			tempMediaType = LibraryMedia::book;
+			validChoice = false;
 			break;
 		case 5:
+			printMenu();
+			break;			
+		default:
+			cout << "Invalid selection, try again" << endl;
 			return;
+		}
+	} while (validChoice);
+	do {
+		system("cls");
+		cout << setfill('-') << setw(115) << "" << endl;
+		cout << setfill('-') << setw(56) << " SEARCH " << setfill('-') << setw(59) << "" << endl;
+		cout << setfill('-') << setw(115) << "" << endl;
+		cout << endl;
+		cout << setfill(' ') << setw(60) << "1. Search By Title" << endl;
+		cout << setfill(' ') << setw(61) << "2. Search By Author" << endl;
+		cout << setfill(' ') << setw(64) << "3. Search By Publisher" << endl;
+		cout << setfill(' ') << setw(65) << "4. Search By Department" << endl;
+		cout << setfill(' ') << setw(62) << "5. Search By Subject" << endl;
+
+		ifstream user;
+		string username;
+		user.open("currentUser.txt");
+
+		if (!user.is_open()) {
+			cout << "File open was not successful";
+		}
+		user >> username;
+		user.close();
+
+		if (username.at(0) == 'M') {
+			cout << setfill(' ') << setw(61) << "6. Search By Course" << endl;
+			cout << setfill(' ') << setw(60) << "7. Search By Price" << endl;
+			//CurrentSessionInfo::SetAdmin(true);
+		}
+		cout << setfill(' ') << setw(53) << "8. Return\t\n" << endl;
+		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+		cin >> choice;
+		switch (choice) {
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		case 5:
+			break;
+		case 6:
+			break;
+		case 7:
+			break;
+		case 8:
+			SearchForMedia();
+			break;
 		default:
 			cout << "Invalid selection, try again" << endl;
 
-			break;
 		}
-	} while (true);
-	do
-	{
-		cout << "How would like to search for " << searchType <<"?" << endl;
-		cout << "1. Search by Title" << endl;
-		cout << "2. Search by Author" << endl;
-		cout << "3. Search by Publisher" << endl;
-		cout << "4. Search by Cateogory" << endl;
-		//FIXME:: If user is admin, offer more search options
-		cout << "9. Return" << endl;
-		cin >> choice;
-		switch (choice)
-		{
-		case 1:
-			//SearchByTitle();
-			SearchByTitle(tempMediaType);
-			break;
-		case 2:
-			//SearchByAuthor();
-			break;
-		case 3:
-			//SearchByPublisher
-			break;
-		case 4:
-			//SearchByDepartment
-			break;
-		case 5:
-			//SearchBySubject
-			break;
-		case 6:
-			//SearchByCourse
-			break;
-		case 7:
-			//SearchByPrice
-			break;
-		case 8:
-			system("cls");
-			printMenu();
-		default:
-			cout << "Invalid selection, try again" << endl;
-			return;
-		}
-	} while (true);
-	//If search find items, return the top 5 items
-	
+
+	} while (!validChoice);
 }
 void InventoryScreen::printMenu()const {
 	int choice =0;
 	bool validChoice;
+	
+	system("cls");
 	do
 	{
 		
 		cout << setfill('-') << setw(115) << "" << endl;
-		cout << setfill('-') << setw(62) << " INVENTORY SCREEN " << setfill('-') << setw(53) << "" << endl;
+		cout << setfill('-') << setw(115)<<"" << endl; //setw(62) <<  " INVENTORY SCREEN " << setfill('-') << setw(53) << "" << endl;
 		cout << setfill('-') << setw(116) << "\n" << endl;
 		cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
 		cout << setfill(' ') << setw(59) << "1. Search Media" << endl;
@@ -181,7 +170,7 @@ void InventoryScreen::printMenu()const {
 			cout << "File open was not successful";
 		}
 		user >> username;
-		user.close();
+		//user.close();
 
 		if (username.at(0) == 'M') {
 			cout << setfill(' ') << setw(57) << "3. Edit Media" << endl;
@@ -201,7 +190,7 @@ void InventoryScreen::printMenu()const {
 		{
 		case 1:
 			system("cls");
-			SearchForMedia();
+			SearchForMedia();			
 			break;
 		case 2: //If a user is not an admin and selects 2, make choice invlaid
 			system("cls");
@@ -214,6 +203,7 @@ void InventoryScreen::printMenu()const {
 			system("cls");
 			if (username.at(0) == 'M') {
 				int editChoice;
+				cout << endl;
 				cout << setfill(' ') << setw(50) << "1. Edit Media" << endl;
 				cout << setfill(' ') << setw(50) << "2. Add Media" << endl;
 				cout << setfill(' ') << setw(50) << "3. Delete Media" << endl;
@@ -247,14 +237,10 @@ void InventoryScreen::printMenu()const {
 				//cout << "needs to go back to patronMenu in MainLogin" << endl;
 			}
 			
-			if (CurrentSessionInfo::CheckIfAdmin()) AddMedia();
 			cout << "Invalid selection, try again" << endl;
 			break;
 		case 4:
 			system("cls");
-			//cout << "needs to go to adminMenu in MainLogin" << endl;
-			//adminMenu();
-			//exit(0);
 			return;
 		default:
 			cout << "Invalid selection, try again" << endl;
