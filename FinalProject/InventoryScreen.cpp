@@ -47,8 +47,7 @@ void InventoryScreen::SearchForMedia()const
 	bool validChoice = false;
 	LibraryMedia::mediaTypes tempMediaType;
 	string searchType = "ERROR";
-	do
-	{
+	do{
 		cout << setfill('-') << setw(115) << "" << endl;
 		cout << setfill('-') << setw(115) << "" << endl; 
 		cout << setfill('-') << setw(116) << "\n" << endl;
@@ -194,7 +193,7 @@ void InventoryScreen::printMenu()const {
 			break;
 		case 2: //If a user is not an admin and selects 2, make choice invlaid
 			system("cls");
-			cout << "Ready for checkout?" << endl;
+			cout << setfill(' ') << setw(50)<< "Ready for checkout?" << endl;
 			//checkoutBook();
 			if (CurrentSessionInfo::CheckIfAdmin()) SearchForMedia();
 			else cout << "Invalid selection, try again" << endl;
@@ -203,13 +202,18 @@ void InventoryScreen::printMenu()const {
 			system("cls");
 			if (username.at(0) == 'M') {
 				int editChoice;
-				cout << endl;
-				cout << setfill(' ') << setw(50) << "1. Edit Media" << endl;
-				cout << setfill(' ') << setw(50) << "2. Add Media" << endl;
-				cout << setfill(' ') << setw(50) << "3. Delete Media" << endl;
-				cout << setfill(' ') << setw(50) << "4. Return\n" << endl;
+				cout << setfill('-') << setw(115) << "" << endl;
+				cout << setfill('-') << setw(115) << "" << endl;
+				cout << setfill('-') << setw(116) << "\n" << endl;
+				cout << setfill(' ') << setw(68) << "What would you like to do?\n" << endl;
+				cout << setfill(' ') << setw(54) << "1. Edit Media" << endl;
+				cout << setfill(' ') << setw(53) << "2. Add Media" << endl;
+				cout << setfill(' ') << setw(56) << "3. Delete Media" << endl;
+				cout << setfill(' ') << setw(51) << "4. Return\n" << endl;
 				cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+
 				cin >> editChoice;
+
 				switch (editChoice) {
 				case 1:
 					system("cls");

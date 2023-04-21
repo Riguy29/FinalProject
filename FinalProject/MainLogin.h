@@ -6,6 +6,7 @@
 #define MAINLOGIN_H
 #include "GuestLogin.h"
 #include "InventoryScreen.h"
+#include "LibraryMedia.h"
 
 #include <iostream>
 #include <string>
