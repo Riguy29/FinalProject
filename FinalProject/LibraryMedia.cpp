@@ -5,7 +5,7 @@
 #define LIBRARYMEDIA_CPP
 void LibraryMedia::ToString()
 {
-	cout << "MediaId: " << mediaID;
+	//cout << "MediaId: " << GetMediaID();
 	cout << " Title: " << GetTitle();
 	cout << " Type: ";
 
@@ -49,9 +49,25 @@ void LibraryMedia::ToString()
 	//cout << endl << endl;
 }
 
+LibraryMedia::~LibraryMedia()
+{
+}
+
+LibraryMedia::LibraryMedia(const LibraryMedia& mediaToCopy)
+{
+	mediaID = mediaToCopy.mediaID;
+	title = new string(*mediaToCopy.title);
+	mediaType = mediaToCopy.mediaType;
+	category = new string(*mediaToCopy.category);
+	subCategory = new string(*mediaToCopy.subCategory);
+	price = mediaToCopy.price;
+	inventoryCount = mediaToCopy.inventoryCount;
+	doner = new string(*mediaToCopy.doner);
+}
+
 LibraryMedia::LibraryMedia()
 {
-	mediaID = 1;
+	mediaID = 1; //FIXME:: MIGHT want to randomly generate ids
 	title = new string("");
 	mediaType = book;
 	category = new string("");
@@ -77,14 +93,18 @@ LibraryMedia::LibraryMedia(int id, const string& _title, mediaTypes typeOfMedia,
 
 LibraryMedia::mediaTypes LibraryMedia::GetMediaType() { return mediaType; }
 double LibraryMedia::GetPrice() { return price; }
+
 int LibraryMedia::GetInventoryCount() { return inventoryCount; }
 string& LibraryMedia::GetCategory() { return *category; }
 string& LibraryMedia::GetSubCategory(){	return *subCategory;}
+int LibraryMedia::GetMediaID(){return mediaID;}
 string& LibraryMedia::GetDoner(){return *doner;}
 
 
 // Mutators
-
+void LibraryMedia::SetInventoryCount(int newCount)
+{
+}
 void LibraryMedia::SetTitle()
 {
 	string newTitle;
@@ -119,6 +139,7 @@ void LibraryMedia::SetPrice()
 		cout << "Enter the price: ";
 		cin >> newPrice;
 		// FIX ME: Validate data
+		if (newPrice <= 0) isValid = false;
 	} while (!isValid);
 	price = newPrice;
 }
@@ -126,17 +147,44 @@ void LibraryMedia::SetPrice()
 
 void LibraryMedia::SetCategory()
 {
-	//FINISH ME
+	string newCat;
+	bool isValid = true;
+	do
+	{
+		cout << "Enter the category: ";
+		cin >> newCat;
+		// FIX ME:: Validate data
+	} while (!isValid);
+	category = new string(newCat);
+
 }
 
 
 
 void LibraryMedia::SetSubCategory()
 {
+	string newCat;
+	bool isValid = true;
+	do
+	{
+		cout << "Enter the Sub Category: ";
+		cin >> newCat;
+		// FIX ME:: Validate data
+	} while (!isValid);
+	category = new string(newCat);
 }
 
 
 void LibraryMedia::SetDoner()
 {
+	string newDoner;
+	bool isValid = true;
+	do
+	{
+		cout << "Enter the Doner's name: ";
+		cin >> newDoner;
+		// FIX ME:: Validate data
+	} while (!isValid);
+	category = new string(newDoner);
 }
 #endif // !LIBRARYMEDIA_CPP

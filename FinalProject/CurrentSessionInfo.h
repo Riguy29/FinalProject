@@ -17,15 +17,10 @@ class CurrentSessionInfo
 {
 private:
 	static bool isUserAdmin;
-	//static LinkedList<Book> bookList;
-	//static LinkedList<ConferenceJournal> journalList;
-	//static LinkedList<Newspaper> newspaperList;
-	//static LinkedList<Periodical> periodicalList;
-	//static LinkedList<Author> authorList;
-	//static LinkedList<Publisher> publisherList;
 	
 	//User currUser;
 public:
+	static vector<unique_ptr<LibraryMedia>> mediaList;
 	static vector<Author> authorList;
 	static vector<Publisher> pubList;
 	static vector<Book> bookList;
@@ -36,13 +31,19 @@ public:
 	static void LoadInventory(bool generateDummyData);
 	static void SaveInventory();
 	static void GenerateDummyData();
+	static vector<unique_ptr<LibraryMedia>> GetLibraryInventory();
 
 	template<typename T>
 	static void LoadData(string fileName, vector<T>& list);
 
+	//Overload so we can load in all of our media into 1 list
+	template<typename T>
+	static void LoadData(string fileName);
+
 	template<typename T>
 	static void SaveData(string fileName, vector<T>& list);
-	static LinkedList<Book> GetBookList();
+
+	//Overloading function so that we can save multiple types of library media in one list
 	
 };
 

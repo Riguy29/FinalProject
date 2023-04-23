@@ -6,6 +6,7 @@ void Book::SetISBN()
 	bool isValid = true;
 	do
 	{
+		isValid = true;
 		cout << "Enter the ISBN: ";
 		cin >> newISBN;
 		//Validate data
@@ -31,6 +32,7 @@ void Book::SetEdition()
 
 		//Validate data
 		if (newEdition < 0) isValid = false;
+
 	} while (!isValid);
 	edition = newEdition;
 }
@@ -48,26 +50,32 @@ void Book::ToString()
 	cout << endl << endl;
 }
 
-
-
-Book::Book()
+Book::~Book()
 {
-	mediaID = 1;
-	title = new string("");
+
+}
+
+
+
+Book::Book() :LibraryMedia()
+{
 	mediaType = book;
-	category = new string("");
-	subCategory = new string("");
-	inventoryCount = 0;
-	price = 0;
-	doner = new string("");
 	this->ISBN = new string("");
 	this->edition = 1;
 
 }
 
+//Try to figure out a way to upcast to parent for copy constructor
+Book::Book(const Book& newB) : LibraryMedia(newB)
+{
+	ISBN = new string(*newB.ISBN);
+	edition = newB.edition;
+}
+
 Book::Book(int id, const string& mediaTitle, double mediaPrice, const string& mediaCat, const string& mediaSubCat, int mediaCount, 
 	const string& mediaDoner, const string& bookISBN, int bookEdition) : LibraryMedia(id,mediaTitle,book,mediaPrice,mediaCat,mediaSubCat,mediaCount,mediaDoner)
 {
+
 	ISBN = new string(bookISBN);
 	edition = bookEdition;
 }

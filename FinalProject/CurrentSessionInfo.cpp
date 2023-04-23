@@ -2,15 +2,10 @@
 
 //I guess because this is a static variable we have to define it outside of our .h file, idk thats what the internet told me and now it works so
 bool CurrentSessionInfo::isUserAdmin = false;
-//LinkedList<Book> CurrentSessionInfo::bookList = LinkedList<Book>();
-//LinkedList<ConferenceJournal> CurrentSessionInfo::journalList = LinkedList<ConferenceJournal>();
-//LinkedList<Newspaper> CurrentSessionInfo::newspaperList = LinkedList<Newspaper>();
-//LinkedList<Periodical> CurrentSessionInfo::periodicalList = LinkedList<Periodical>();
-//LinkedList<Publisher> CurrentSessionInfo::publisherList = LinkedList<Publisher>();
-//LinkedList<Author> CurrentSessionInfo::authorList = LinkedList<Author>();
 vector<Publisher> CurrentSessionInfo::pubList;
 vector<Author> CurrentSessionInfo::authorList;
 vector<Book> CurrentSessionInfo::bookList;
+vector< unique_ptr<LibraryMedia>> CurrentSessionInfo::mediaList;
 
 void CurrentSessionInfo::SetAdmin(bool isAdmin) { isUserAdmin = isAdmin; }
 
@@ -47,12 +42,39 @@ void CurrentSessionInfo::GenerateDummyData()
 		stream.write(reinterpret_cast<char*> (&b1), sizeof(Book));
 		stream.write(reinterpret_cast<char*> (&b2), sizeof(Book));
 	}
+
+	stream.close();
+	stream.open("NewspaperRecord.txt", ios::binary | ios::out);
+
+	if (stream.is_open()) {
+		Newspaper n1(3,"The Daily Planet",15,"News","Superhero News",10,"Clark Kent",Newspaper::weekly);
+		stream.write(reinterpret_cast<char*> (&n1), sizeof(Newspaper));
+	}
+	stream.close();
+
+	stream.open("PeriodicalRecord.txt", ios::binary | ios::out);
+
+	if (stream.is_open()) {
+		Periodical p1(4, "Monthy Science",25,"Science","Cool Science",2,"John Wick", Periodical::monthly);
+		stream.write(reinterpret_cast<char*> (&p1), sizeof(Periodical));
+	}
+	stream.close();
 }
+//vector<LibraryMedia*> CurrentSessionInfo::GetLibraryInventory()
+//{
+//	return mediaList;
+//}
 void CurrentSessionInfo::LoadInventory(bool generateDummyData)
 {
+	LoadData<Book>("BookRecord.txt", bookList);
 	LoadData<Publisher>("PublisherRecord.txt", pubList);
 	LoadData<Author>("AuthorRecord.txt", authorList);
-	LoadData<Book>("BookRecord.txt", bookList);
+
+
+	LoadData<Book>("BookRecord.txt");
+	LoadData<Newspaper>("NewspaperRecord.txt");
+	LoadData<Periodical>("PeriodicalRecord.txt");
+	//LoadData<ConferenceJournal>("JournalRecord.txt");
 
 	
 }
@@ -62,10 +84,31 @@ void CurrentSessionInfo::LoadData(string fileName, vector<T>& list)
 	fstream inStream;
 	inStream.open(fileName, ios::binary | ios::in);
 	T temp;
-	while (inStream.read(reinterpret_cast<char*>(&temp), sizeof(T)))
-	{
-		list.push_back(temp);
+	if (inStream.is_open()) {
+		while (inStream.read(reinterpret_cast<char*>(&temp), sizeof(T)))
+		{
+			list.push_back(temp);
+		}
 	}
+	else cout << "Error: Could not load data, make sure filepath is correct";
+	inStream.close();
+}
+
+
+template<typename T>
+void CurrentSessionInfo::LoadData(string fileName)
+{
+	fstream inStream;
+	inStream.open(fileName, ios::binary | ios::in);
+	T temp;
+
+	if (inStream.is_open()) {
+		while (inStream.read(reinterpret_cast<char*>(&temp), sizeof(T)))
+		{
+			mediaList.emplace_back(new T(temp));
+		}
+	}
+	else cout << "Error: Could not load data, make sure filepath is correct";
 
 	inStream.close();
 }

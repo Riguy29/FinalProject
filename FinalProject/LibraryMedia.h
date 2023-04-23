@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include "Publisher.h"
-//#include "LibraryLinkedList.cpp"
+#include "Author.h"
 #include <random>
 #include <iostream>
 
@@ -25,7 +25,7 @@ public:
 
 	void SetTitle();
 	string& GetTitle();
-	void SetMediaType(mediaTypes mediaType);
+	void SetMediaType(mediaTypes mediaType); //Not really sure if you should even be able to set media type
 	mediaTypes GetMediaType();
 	void SetPrice();
 	double GetPrice();
@@ -33,6 +33,7 @@ public:
 	string& GetCategory();
 	void SetSubCategory();
 	string& GetSubCategory();
+	int GetMediaID(); //No set method since the id is auto generated;
 
 	void SetInventoryCount(int newCount);
 	int GetInventoryCount();
@@ -41,7 +42,10 @@ public:
 	string& GetDoner();
 
 	//We will want to disp
-	void ToString();
+	virtual void ToString();
+
+	~LibraryMedia();
+	LibraryMedia(const LibraryMedia& mediaToCopy);
 	LibraryMedia();
 	LibraryMedia(int id, const string& mediaTitle, mediaTypes typeOfMedia, double mediaPrice, const string& mediaCat, const string& mediaSubCat, int mediaCount, const string& mediaDoner);
 protected:
