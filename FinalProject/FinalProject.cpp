@@ -3,6 +3,7 @@
 #include "LibraryMedia.h"
 #include "CurrentSessionInfo.h"
 #include "MainLogin.h"
+#include "GuestLogin.h"
 
 #include <string>
 #include <cstdlib>
@@ -24,8 +25,8 @@ int main()
 	//END TEST
 
 	Login login;
-	//AdminMenu adminMenu;
-	//PatronLogin patron;
+	Guest guest;
+	//guest.receipt();
 
 	login.printMenu();
 

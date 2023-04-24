@@ -51,7 +51,7 @@ void InventoryScreen::SearchForMedia()const
 		cout << setfill('-') << setw(115) << "" << endl;
 		cout << setfill('-') << setw(115) << "" << endl; 
 		cout << setfill('-') << setw(116) << "\n" << endl;
-		cout << setfill(' ') << setw(68) << "What media would like to search for?\n" << endl;
+		cout << setfill(' ') << setw(68) << "Choose Which Media:\n" << endl;
 		cout << setfill(' ') << setw(53) << "1. Books" << endl;
 		cout << setfill(' ') << setw(58) << "2. Newspapers" << endl;
 		cout << setfill(' ') << setw(56) << "3. Journals" << endl;
@@ -116,9 +116,11 @@ void InventoryScreen::SearchForMedia()const
 		if (username.at(0) == 'M') {
 			cout << setfill(' ') << setw(61) << "6. Search By Course" << endl;
 			cout << setfill(' ') << setw(60) << "7. Search By Price" << endl;
+			cout << setfill(' ') << setw(53) << "8. Return\t\n" << endl;
+
 			//CurrentSessionInfo::SetAdmin(true);
 		}
-		cout << setfill(' ') << setw(53) << "8. Return\t\n" << endl;
+		cout << setfill(' ') << setw(53) << "6. Return\t\n" << endl;
 		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 		cin >> choice;
 		switch (choice) {
@@ -133,6 +135,7 @@ void InventoryScreen::SearchForMedia()const
 		case 5:
 			break;
 		case 6:
+			SearchForMedia();
 			break;
 		case 7:
 			break;
@@ -194,7 +197,7 @@ void InventoryScreen::printMenu()const {
 		case 2: //If a user is not an admin and selects 2, make choice invlaid
 			system("cls");
 			cout << setfill(' ') << setw(50)<< "Ready for checkout?" << endl;
-			//checkoutBook();
+			//CheckoutBook();
 			if (CurrentSessionInfo::CheckIfAdmin()) SearchForMedia();
 			else cout << "Invalid selection, try again" << endl;
 			break;
@@ -219,11 +222,11 @@ void InventoryScreen::printMenu()const {
 					system("cls");
 					//editMedia();
 					break;
-				case2:
+				case 2:
 					system("cls");
 					//addMedia
 					break;
-				case3:
+				case 3:
 					system("cls");
 					//deleteMedia
 					break;
@@ -235,17 +238,17 @@ void InventoryScreen::printMenu()const {
 					cout << "Invalid selection, try again" << endl;
 				}
 			}
-			else {
-				system("cls");
-				return;
-				//cout << "needs to go back to patronMenu in MainLogin" << endl;
-			}
 			
-			cout << "Invalid selection, try again" << endl;
-			break;
+				system("cls");
+				return;				
+				//cout << "needs to go back to patronMenu in MainLogin" << endl;
+			
+			
+			//cout << "Invalid selection, try again" << endl;
+			//break;
 		case 4:
 			system("cls");
-			return;
+			break;
 		default:
 			cout << "Invalid selection, try again" << endl;
 			break;

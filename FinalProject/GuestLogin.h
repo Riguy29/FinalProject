@@ -2,25 +2,23 @@
 #define GUESTLOGIN_H
 
 //#include "MainLogin.h"
+//#include "InventoryScreen.h"
 #include "Date.h"
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <iomanip>
 
 
-class Guest //: public Login
+class Guest 
 {
 private:
-	//string fName;
-	//string lName;
+	Date date;
 public:
 	Guest();
 	~Guest();
-	//LinkedList<Guest> guestlist;
-	void borrow();
-	void checkout();
-	void returnItems();
-	void printMenu()const;
+	static void buy();
+	void receipt()const;
 
 };
 

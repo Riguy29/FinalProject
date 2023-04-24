@@ -27,12 +27,12 @@
     <ClInclude Include="Publisher.h" />
     <ClInclude Include="LibraryLinkedList.h" />
     <ClInclude Include="MainLogin.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="CurrentSessionInfo.h" />
     <ClInclude Include="Book.h" />
     <ClInclude Include="Periodical.h" />
     <ClInclude Include="Author.h" />
     <ClInclude Include="GuestLogin.h" />
+    <ClInclude Include="Invoice.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="records.txt" />
@@ -43,5 +43,7 @@
     <Text Include="NewspaperRecord.txt" />
     <Text Include="JournalRecord.txt" />
     <Text Include="PeriodicalRecord.txt" />
+    <Text Include="PurchaseList.txt" />
+    <Text Include="currentUser.txt" />
   </ItemGroup>
 </Project>
