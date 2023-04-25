@@ -13,7 +13,7 @@
 
 
 int main()
-{
+{/*
 	//TEST
 	CurrentSessionInfo::GenerateDummyData();
 	CurrentSessionInfo::LoadAllData();
@@ -23,7 +23,7 @@ int main()
 	cout << endl;
 	//cout << CurrentSessionInfo::mediaList.size();
 	//END TEST
-
+	*/
 	Login login;
 	Guest guest;
 	//guest.receipt();

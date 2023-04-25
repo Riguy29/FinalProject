@@ -31,7 +31,7 @@ void Guest::receipt()const {
 		mediaName = line.substr(0, lastSpace);
 		priceStr = line.substr(lastSpace + 1);
 		price = stod(priceStr);
-	//} >> mediaName >> price) {
+
 		nameList.push_back(mediaName);
 		priceList.push_back(price);
 		//sum += price;

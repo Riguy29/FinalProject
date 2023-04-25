@@ -30,11 +30,13 @@ public:
 	void SearchByPublisherName() const;
 	void SearchByPrice() const;
 	void SearchByPublisherAddress() const;
-
+	void ConfirmMediaCheckout() const;
+	void MediaInteractionMenu(LibraryMedia& selectedMedia);
 	void PrintMatchingMedia(vector<LibraryMedia*> mediaList) const;
 	void EditMedia(LibraryMedia* selectedMedia) const;
 private:
 	string recordTxtFile = "InventoryRecord.txt";
+	vector<int> MediaID;
 };
 
 #endif

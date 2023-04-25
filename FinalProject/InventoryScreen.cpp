@@ -131,12 +131,13 @@ void InventoryScreen::SearchForMedia()const
 		if (username.at(0) == 'M') {
 			cout << setfill(' ') << setw(61) << "6. Search By Course" << endl;
 			cout << setfill(' ') << setw(60) << "7. Search By Price" << endl;
-			cout << setfill(' ') << setw(60) << "8. Search By Publisher Address" << endl;
+			cout << setfill(' ') << setw(72) << "8. Search By Publisher Address" << endl;
 			//CurrentSessionInfo::SetAdmin(true);
 		}
 		cout << setfill(' ') << setw(53) << "9. Return\t\n" << endl;
 		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 		cin >> choice;
+		system("cls");
 		switch (choice) {
 		case 1:
 			SearchByTitle();
@@ -255,8 +256,7 @@ void InventoryScreen::printMenu()const {
 					break;
 				case 4:
 					system("cls");
-					printMenu();
-					break;
+					return;
 				default:
 					cout << "Invalid selection, try again" << endl;
 				}
@@ -467,9 +467,9 @@ void InventoryScreen::PrintMatchingMedia(vector<LibraryMedia*> mediaList) const
 			mediaList.at(i-1)->ToString();
 			cout << endl;
 		}
-		cout << "6. Return" << endl;
+		cout << "0. Return" << endl;
 		cin >> choice;
-		if (choice == 6) return;
+		if (choice == 0) return;
 		else if (mediaList.at(choice - 1) != NULL) {
 			selectedMedia = mediaList.at(choice - 1);
 			//Open up a option to edit the book
@@ -478,8 +478,52 @@ void InventoryScreen::PrintMatchingMedia(vector<LibraryMedia*> mediaList) const
 
 		
 
-	} while (true);
+	} while (true); //MAKE THIS NOT A WHILE TRUE
 }
 
+void InventoryScreen::MediaInteractionMenu(LibraryMedia& selectedMedia) {
+	cout << "Selected Media";
+	selectedMedia.ToString();
+	cout << setfill('-') << setw(115) << "" << endl;
+	cout << setfill('-') << setw(115) << "" << endl;
+	cout << setfill('-') << setw(116) << "\n" << endl;
+	cout << setfill(' ') << setw(68) << "What would you like to do?\n" << endl;
+	cout << setfill(' ') << setw(54) << "1. Add to cart " << endl; //FIXME: Make this buy if they are guest, if they are no copies and they are guest then print 
+	
+	//FIXME:: Only print these options if current user is admin
+	cout << setfill(' ') << setw(53) << "2. EditMedia" << endl;
+	cout << setfill(' ') << setw(56) << "3. Delete Media" << endl;
+	//END ADMIN SECTION
+	cout << setfill(' ') << setw(51) << "0. Return\n" << endl;
+	cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 
+	int choice;
+	do
+	{
+		choice = -1;
+		switch (choice) {
+		case 1:
+			//FIXME:: If normal user add to cart, unless no inventory then call, if guest only buy
+			//MediaID.push_back(selectedMedia.GetMediaID());
+			break;
+		case 2:
+			//CHECK IF ADMIN
+			break;
+		case 3:
+			//CHECK IF ADMIN DON'T ALLOW IF NOT ADMIN
+			break;
+		case 0:
+			return;
+		}
+
+	} while (choice != -1);
+	
+}
+
+void InventoryScreen::ConfirmMediaCheckout()const {
+	//print list of mediaID vector
+	//confirm media y/n
+	//if y then deduct from inventory count add books to user vector of checked out books
+	//print list of books with return date
+}
 #endif // !INVENTORYSCREEN_CPP
