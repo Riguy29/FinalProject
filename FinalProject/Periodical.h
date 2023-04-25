@@ -11,7 +11,7 @@ public:
 		yearly,
 		halfYearly
 	};
-	void SetPublishRate(PeriodicalPublishRates rate);
+	void SetPublishRate();
 	PeriodicalPublishRates GetPublishRate();
 
 	~Periodical();

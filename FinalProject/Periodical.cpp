@@ -23,7 +23,7 @@ void Periodical::ToString()
 	}
 }
 
-void Periodical::SetPublishRate(PeriodicalPublishRates rate)
+void Periodical::SetPublishRate()
 {
 }
 

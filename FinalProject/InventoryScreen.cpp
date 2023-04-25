@@ -2,13 +2,13 @@
 #define INVENTORYSCREEN_CPP
 #include "InventoryScreen.h"
 
-/*void InventoryScreen::AddMedia()
+void InventoryScreen::AddMedia()
 {
 	int choice =0;
 	bool isValid = true;
-	Book book;
-	Newspaper newspaper;
-	ConferenceJournal journal;
+	Book* book;
+	Newspaper* newspaper;
+	ConferenceJournal* journal;
 	
 	do
 	{
@@ -22,12 +22,26 @@
 		switch (choice)
 		{
 		case 1:
-			book.SetTitle();
-			book.SetISBN();
-			book.SetPrice();
+			book = new Book();
+			book->SetTitle();
+			book->SetMediaType(LibraryMedia::book);
+			book->SetCategory();
+			book->SetSubCategory();
+			book->SetInventoryCount();
+			book->SetDoner();
+			book->SetISBN();
+			book->SetPrice();
+			CurrentSessionInfo::mediaList.push_back(book);
 			break;
 		case 2:
-			newspaper.SetTitle();
+			newspaper = new Newspaper();
+			newspaper->SetTitle();
+			newspaper->SetMediaType(LibraryMedia::newspaper);
+			newspaper->SetCategory();
+			newspaper->SetSubCategory();
+			newspaper->SetInventoryCount();
+			newspaper->SetDoner();
+			//newspaper->SetPublishRate();
 		case 5:
 			return;
 		default:
@@ -38,59 +52,60 @@
 
 
 }
-*/
 //FIXME: the switch in second do while loop needs to be finished.  it will send to appropriate search function
 void InventoryScreen::SearchForMedia()const
 {
 	system("cls");	
 	int choice;
 	bool validChoice = false;
-	LibraryMedia::mediaTypes tempMediaType;
-	string searchType = "ERROR";
-	do{
-		cout << setfill('-') << setw(115) << "" << endl;
-		cout << setfill('-') << setw(115) << "" << endl; 
-		cout << setfill('-') << setw(116) << "\n" << endl;
-		cout << setfill(' ') << setw(68) << "Choose Which Media:\n" << endl;
-		cout << setfill(' ') << setw(53) << "1. Books" << endl;
-		cout << setfill(' ') << setw(58) << "2. Newspapers" << endl;
-		cout << setfill(' ') << setw(56) << "3. Journals" << endl;
-		cout << setfill(' ') << setw(59) << "4. Periodicals" << endl;
-		cout << setfill(' ') << setw(55) << "5. Return\n" << endl;
-		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+	//Commented this out because I think we can now search by all media at a single time
 
-		cin >> choice;
-		validChoice = true; //Assume choice is valid
-		switch (choice)
-		{
-		case 1:
-			searchType = "Books";
-			tempMediaType = LibraryMedia::book;
-			validChoice = false;
-			break;
-		case 2:
-			searchType = "Journals";
-			tempMediaType = LibraryMedia::book;
-			validChoice = false;
-			break;
-		case 3:
-			searchType = "Newspapers";
-			tempMediaType = LibraryMedia::book;
-			validChoice = false;
-			break;
-		case 4:
-			searchType = "Periodicals";
-			tempMediaType = LibraryMedia::book;
-			validChoice = false;
-			break;
-		case 5:
-			printMenu();
-			break;			
-		default:
-			cout << "Invalid selection, try again" << endl;
-			return;
-		}
-	} while (validChoice);
+	//LibraryMedia::mediaTypes tempMediaType;
+	//string searchType = "ERROR";
+	//do{
+	//	cout << setfill('-') << setw(115) << "" << endl;
+	//	cout << setfill('-') << setw(115) << "" << endl; 
+	//	cout << setfill('-') << setw(116) << "\n" << endl;
+	//	cout << setfill(' ') << setw(68) << "What media would like to search for?\n" << endl;
+	//	cout << setfill(' ') << setw(53) << "1. Books" << endl;
+	//	cout << setfill(' ') << setw(58) << "2. Newspapers" << endl;
+	//	cout << setfill(' ') << setw(56) << "3. Journals" << endl;
+	//	cout << setfill(' ') << setw(59) << "4. Periodicals" << endl;
+	//	cout << setfill(' ') << setw(55) << "5. Return\n" << endl;
+	//	cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+
+	//	cin >> choice;
+	//	validChoice = true; //Assume choice is valid
+	//	switch (choice)
+	//	{
+	//	case 1:
+	//		searchType = "Books";
+	//		tempMediaType = LibraryMedia::book;
+	//		validChoice = false;
+	//		break;
+	//	case 2:
+	//		searchType = "Journals";
+	//		tempMediaType = LibraryMedia::book;
+	//		validChoice = false;
+	//		break;
+	//	case 3:
+	//		searchType = "Newspapers";
+	//		tempMediaType = LibraryMedia::book;
+	//		validChoice = false;
+	//		break;
+	//	case 4:
+	//		searchType = "Periodicals";
+	//		tempMediaType = LibraryMedia::book;
+	//		validChoice = false;
+	//		break;
+	//	case 5:
+	//		printMenu();
+	//		break;			
+	//	default:
+	//		cout << "Invalid selection, try again" << endl;
+	//		return;
+	//	}
+	//} while (validChoice);
 	do {
 		system("cls");
 		cout << setfill('-') << setw(115) << "" << endl;
@@ -116,31 +131,39 @@ void InventoryScreen::SearchForMedia()const
 		if (username.at(0) == 'M') {
 			cout << setfill(' ') << setw(61) << "6. Search By Course" << endl;
 			cout << setfill(' ') << setw(60) << "7. Search By Price" << endl;
-			cout << setfill(' ') << setw(53) << "8. Return\t\n" << endl;
-
+			cout << setfill(' ') << setw(60) << "8. Search By Publisher Address" << endl;
 			//CurrentSessionInfo::SetAdmin(true);
 		}
-		cout << setfill(' ') << setw(53) << "6. Return\t\n" << endl;
+		cout << setfill(' ') << setw(53) << "9. Return\t\n" << endl;
 		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 		cin >> choice;
 		switch (choice) {
 		case 1:
+			SearchByTitle();
 			break;
 		case 2:
+			SearchByAuthor();
 			break;
 		case 3:
+			SearchByPublisherName();
 			break;
 		case 4:
+			SearchByDepartment();
 			break;
 		case 5:
+			SearchBySubject();
 			break;
 		case 6:
 			SearchForMedia();
 			break;
 		case 7:
+			SearchByPrice();
 			break;
 		case 8:
-			SearchForMedia();
+			SearchByPublisherAddress();
+			break;
+		case 9:
+			return;
 			break;
 		default:
 			cout << "Invalid selection, try again" << endl;
@@ -257,53 +280,187 @@ void InventoryScreen::printMenu()const {
 	
 
 }
-/*void InventoryScreen::SearchByTitle()
-void InventoryScreen::SearchByTitle(LibraryMedia::mediaTypes type)
+void InventoryScreen::SearchByTitle() const
 {
-	string title;
-	cout << "Enter the title of the " << type << "you are looking for" << endl;
-	cin >> title;
-	if (type == LibraryMedia::book) {
+	string searchTitle;
+	cout << "Enter the title of the media you are looking for" << endl;
+	cin >> searchTitle;
 
-		//Create vector of pointers that will point to the memory of matching books found in BookList();
-		vector<Book*> matchingBookList;
+	//Create vector of pointers that will point to the memory of matching books found in BookList();
+	vector<LibraryMedia*> matchingList;
 
-		//Goes through Book list and checks for title that contain the user input
-		//for (int i = 0; i < CurrentSessionInfo::GetBookList().size(); i++)
-		//{
-		//	if (CurrentSessionInfo::GetBookList().getItem(i).GetTitle().find(title) != string::npos) {
-		//		Book* pNewBook = &CurrentSessionInfo::GetBookList().getItem(i);
-		//		matchingBookList.push_back(pNewBook);
-		//		if (matchingBookList.size() >= 5) {
-		//			PrintMatchingMedia(matchingBookList);
-		//		}
-		//	}
-		//}
-		if (matchingBookList.size() == 0) {
-			cout << "No Books Found";
-			return;
+	//Goes through Book list and checks for title that contain the user input
+
+	for (int i = 0; i < CurrentSessionInfo::mediaList.size(); i++)
+	{
+		if (CurrentSessionInfo::mediaList.at(i)->GetTitle().find(searchTitle) != string::npos) {
+			matchingList.push_back(CurrentSessionInfo::mediaList.at(i));
+			if (matchingList.size() >= 5) {
+				PrintMatchingMedia(matchingList); //If we get more than 5 matches only return the top 5
+			}
 		}
 	}
-	else if (type == LibraryMedia::conferenceJournal) {
-		vector<ConferenceJournal> matchingJournalList;
+	if (matchingList.size() == 0) { //IF we dont find any media, print out statement and then return
+		cout << "No Matching Media Found";
+		return;
+	}
+	else {
+		PrintMatchingMedia(matchingList);
 	}
 
 
 }
+void InventoryScreen::SearchByAuthor() const
+{
+	string searchAuthor;
+	cout << "Enter the author of the media you are looking for" << endl;
+	cin >> searchAuthor;
 
-	while (pMedia != nullptr)
+	//Create vector of pointers that will point to the memory of matching books found in BookList();
+	vector<LibraryMedia*> matchingList;
+
+	//Goes through Book list and checks for title that contain the user input
+
+	for (int i = 0; i < CurrentSessionInfo::mediaList.size(); i++)
 	{
-
+		if (CurrentSessionInfo::mediaList.at(i)->GetSearchString(0).find(searchAuthor) != string::npos) {
+			matchingList.push_back(CurrentSessionInfo::mediaList.at(i));
+			if (matchingList.size() >= 5) {
+				PrintMatchingMedia(matchingList); //If we get more than 5 matches only return the top 5
+			}
+		}
 	}
-}*/
-void InventoryScreen::PrintMatchingMedia(vector<Book*> mediaList)
+	if (matchingList.size() == 0) { //IF we dont find any media, print out statement and then return
+		cout << "No Matching Media Found";
+		return;
+	}
+	else {
+		PrintMatchingMedia(matchingList);
+	}
+}
+void InventoryScreen::SearchByDepartment() const
+{
+	string searchDep;
+	cout << "Enter the Department of the media you are looking for" << endl;
+	cin >> searchDep;
+	vector<LibraryMedia*> matchingList;//Create vector of pointers that will point to the memory of matching books found in BookList();
+	for (int i = 0; i < CurrentSessionInfo::mediaList.size(); i++)//Goes through Book list and checks for title that contain the user input
+	{
+		if (CurrentSessionInfo::mediaList.at(i)->GetCategory().find(searchDep) != string::npos) {
+			matchingList.push_back(CurrentSessionInfo::mediaList.at(i));
+			if (matchingList.size() >= 5) {
+				PrintMatchingMedia(matchingList); //If we get more than 5 matches only return the top 5
+			}
+		}
+	}
+	if (matchingList.size() == 0) { //IF we dont find any media, print out statement and then return
+		cout << "No Matching Media Found";
+		return;
+	}
+	else {
+		PrintMatchingMedia(matchingList);
+	}
+}
+void InventoryScreen::SearchBySubject() const
+{
+	string searchSub;
+	cout << "Enter the Department of the media you are looking for" << endl;
+	cin >> searchSub;
+	vector<LibraryMedia*> matchingList;//Create vector of pointers that will point to the memory of matching books found in BookList();
+	for (int i = 0; i < CurrentSessionInfo::mediaList.size(); i++)//Goes through Book list and checks for title that contain the user input
+	{
+		if (CurrentSessionInfo::mediaList.at(i)->GetSubCategory().find(searchSub) != string::npos) {
+			matchingList.push_back(CurrentSessionInfo::mediaList.at(i));
+			if (matchingList.size() >= 5) {
+				PrintMatchingMedia(matchingList); //If we get more than 5 matches only return the top 5
+			}
+		}
+	}
+	if (matchingList.size() == 0) { //IF we dont find any media, print out statement and then return
+		cout << "No Matching Media Found";
+		return;
+	}
+	else {
+		PrintMatchingMedia(matchingList);
+	}
+}
+void InventoryScreen::SearchByPublisherName() const
+{
+	string searchName;
+	cout << "Enter the publisher's name of the media you are looking for" << endl;
+	cin >> searchName;
+	vector<LibraryMedia*> matchingList;//Create vector of pointers that will point to the memory of matching books found in BookList();
+	for (int i = 0; i < CurrentSessionInfo::mediaList.size(); i++)//Goes through Book list and checks for title that contain the user input
+	{
+		if (CurrentSessionInfo::mediaList.at(i)->GetSearchString(1).find(searchName) != string::npos) {
+			matchingList.push_back(CurrentSessionInfo::mediaList.at(i));
+			if (matchingList.size() >= 5) {
+				PrintMatchingMedia(matchingList); //If we get more than 5 matches only return the top 5
+			}
+		}
+	}
+	if (matchingList.size() == 0) { //IF we dont find any media, print out statement and then return
+		cout << "No Matching Media Found";
+		return;
+	}
+	else {
+		PrintMatchingMedia(matchingList);
+	}
+}
+void InventoryScreen::SearchByPrice() const
+{
+	double searchPrice;
+	cout << "Enter the Price of the media you are looking for" << endl;
+	cin >> searchPrice;
+	vector<LibraryMedia*> matchingList;//Create vector of pointers that will point to the memory of matching books found in BookList();
+	for (int i = 0; i < CurrentSessionInfo::mediaList.size(); i++)//Goes through Book list and checks for title that contain the user input
+	{
+		if (CurrentSessionInfo::mediaList.at(i)->GetPrice() == searchPrice) {
+			matchingList.push_back(CurrentSessionInfo::mediaList.at(i));
+			if (matchingList.size() >= 5) {
+				PrintMatchingMedia(matchingList); //If we get more than 5 matches only return the top 5
+			}
+		}
+	}
+	if (matchingList.size() == 0) { //IF we dont find any media, print out statement and then return
+		cout << "No Matching Media Found";
+		return;
+	}
+	else {
+		PrintMatchingMedia(matchingList);
+	}
+}
+void InventoryScreen::SearchByPublisherAddress() const
+{
+	string searchAdd;
+	cout << "Enter the publisher's address of the media you are looking for" << endl;
+	cin >> searchAdd;
+	vector<LibraryMedia*> matchingList;//Create vector of pointers that will point to the memory of matching books found in BookList();
+	for (int i = 0; i < CurrentSessionInfo::mediaList.size(); i++)//Goes through Book list and checks for title that contain the user input
+	{
+		if (CurrentSessionInfo::mediaList.at(i)->GetSearchString(2).find(searchAdd) != string::npos) {
+			matchingList.push_back(CurrentSessionInfo::mediaList.at(i));
+			if (matchingList.size() >= 5) {
+				PrintMatchingMedia(matchingList); //If we get more than 5 matches only return the top 5
+			}
+		}
+	}
+	if (matchingList.size() == 0) { //IF we dont find any media, print out statement and then return
+		cout << "No Matching Media Found";
+		return;
+	}
+	else {
+		PrintMatchingMedia(matchingList);
+	}
+}
+void InventoryScreen::PrintMatchingMedia(vector<LibraryMedia*> mediaList) const
 {
 	
-	Book* selectedBook;
+	LibraryMedia* selectedMedia;
 	int choice=0;
 	do
 	{
-		cout << "Select a book" << endl;
+		cout << "Select a media" << endl;
 		for (int i = 1; i <= mediaList.size(); i++)
 		{
 			cout << i << ". ";
@@ -314,7 +471,7 @@ void InventoryScreen::PrintMatchingMedia(vector<Book*> mediaList)
 		cin >> choice;
 		if (choice == 6) return;
 		else if (mediaList.at(choice - 1) != NULL) {
-			selectedBook = mediaList.at(choice - 1);
+			selectedMedia = mediaList.at(choice - 1);
 			//Open up a option to edit the book
 		}
 		else cout << "Invalid Selection, try again" << endl;

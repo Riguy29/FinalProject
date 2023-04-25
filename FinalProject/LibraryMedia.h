@@ -23,23 +23,27 @@ public:
 		periodical
 	};
 
-	void SetTitle();
+	//Accesors
 	string& GetTitle();
-	void SetMediaType(mediaTypes mediaType); //Not really sure if you should even be able to set media type
-	mediaTypes GetMediaType();
-	void SetPrice();
+	mediaTypes GetMediaType(); //No set method since media type should never change
 	double GetPrice();
-	void SetCategory();
 	string& GetCategory();
-	void SetSubCategory();
 	string& GetSubCategory();
+	int GetInventoryCount();
+	string& GetDoner();
+	//0 for author search string, 1 for publisher name search string, 2 for publisher address search string
+	string GetSearchString(int searchParm);
 	int GetMediaID(); //No set method since the id is auto generated;
 
-	void SetInventoryCount(int newCount);
-	int GetInventoryCount();
-
+	//Mutators
+	void SetTitle();
+	void SetMediaType(mediaTypes mediaType); //Not really sure if you should even be able to set media type
+	void SetPrice();
+	void SetCategory();
+	void SetSubCategory();
+	void SetInventoryCount();
 	void SetDoner();
-	string& GetDoner();
+
 
 	//We will want to disp
 	virtual void ToString();
@@ -57,6 +61,7 @@ protected:
 	string* subCategory;
 	int inventoryCount;
 	string* doner;
+
 
 };
 

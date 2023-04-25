@@ -17,10 +17,13 @@ class CurrentSessionInfo
 {
 private:
 	static bool isUserAdmin;
-	
+	static string BOOK_FILE_PATH;
+	static string NEWS_FILE_PATH;
+	static string PERIODICAL_FILE_PATH;
+	static string JOURNAL_FILE_PATH;
 	//User currUser;
 public:
-	static vector<unique_ptr<LibraryMedia>> mediaList;
+	static vector<LibraryMedia*> mediaList;
 	static vector<Author> authorList;
 	static vector<Publisher> pubList;
 	static vector<Book> bookList;
@@ -28,8 +31,8 @@ public:
 	static bool CheckIfAdmin();
 	//void SetUser();
 	//User GetCurrUser();
-	static void LoadInventory(bool generateDummyData);
-	static void SaveInventory();
+	static void LoadAllData();
+	static void SaveAllData();
 	static void GenerateDummyData();
 	static vector<unique_ptr<LibraryMedia>> GetLibraryInventory();
 
@@ -44,7 +47,7 @@ public:
 	static void SaveData(string fileName, vector<T>& list);
 
 	//Overloading function so that we can save multiple types of library media in one list
-	
+	static void SaveData(); //This is to save our media data, since we need special logic for it
 };
 
 

@@ -67,7 +67,11 @@ LibraryMedia::LibraryMedia(const LibraryMedia& mediaToCopy)
 
 LibraryMedia::LibraryMedia()
 {
-	mediaID = 1; //FIXME:: MIGHT want to randomly generate ids
+	//mediaID = 1; //FIXME:: MIGHT want to randomly generate ids
+	default_random_engine generator;
+	uniform_int_distribution<int> distribution(10, 1000000);
+	int mediaID = distribution(generator);
+	//FIXME:: Make sure it doesn't generate an already in use id
 	title = new string("");
 	mediaType = book;
 	category = new string("");
@@ -100,10 +104,52 @@ string& LibraryMedia::GetSubCategory(){	return *subCategory;}
 int LibraryMedia::GetMediaID(){return mediaID;}
 string& LibraryMedia::GetDoner(){return *doner;}
 
+string LibraryMedia::GetSearchString(int searchParm)
+{
+	string returnString = "";
+	if (searchParm == 0) { //Generate Author Search String
+		for (int i = 0; i < CurrentSessionInfo::authorList.size(); i++) {
+			if (mediaID == CurrentSessionInfo::authorList.at(i).bookId) {
+				returnString += *CurrentSessionInfo::authorList.at(i).name;
+				returnString += " ";
+			}
+		}
+		return	returnString;
+	}
+	else if (searchParm == 1) { //Generate PublisherName Search Parm
+		for (int i = 0; i < CurrentSessionInfo::pubList.size(); i++) {
+			if (mediaID == CurrentSessionInfo::pubList.at(i).GetBookId()) {
+				returnString += CurrentSessionInfo::pubList.at(i).GetName();
+				returnString += " ";
+			}
+		}
+		return	returnString;
+	}
+	else if (searchParm == 2) { //Generate Publisher Address Search Parm
+		for (int i = 0; i < CurrentSessionInfo::pubList.size(); i++) {
+			if (mediaID == CurrentSessionInfo::pubList.at(i).GetBookId()) {
+				returnString += CurrentSessionInfo::pubList.at(i).GetAddress();
+				returnString += " ";
+			}
+		}
+		return	returnString;
+	}
+	return string();
+}
+
 
 // Mutators
-void LibraryMedia::SetInventoryCount(int newCount)
+void LibraryMedia::SetInventoryCount()
 {
+	bool isValid = true;
+	int newCount;
+	do
+	{
+		isValid = true;
+		cin >> newCount;
+		if (newCount < 0) isValid = false; //Can't enter negative number of media
+	} while (!isValid);
+	cout << "What is the new inventory of this media?" << endl;
 }
 void LibraryMedia::SetTitle()
 {
@@ -151,6 +197,7 @@ void LibraryMedia::SetCategory()
 	bool isValid = true;
 	do
 	{
+		isValid = true;
 		cout << "Enter the category: ";
 		cin >> newCat;
 		// FIX ME:: Validate data
@@ -167,6 +214,7 @@ void LibraryMedia::SetSubCategory()
 	bool isValid = true;
 	do
 	{
+		isValid = true;
 		cout << "Enter the Sub Category: ";
 		cin >> newCat;
 		// FIX ME:: Validate data
