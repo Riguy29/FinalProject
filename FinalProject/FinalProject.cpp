@@ -15,7 +15,7 @@ int main()
 {
 	//TEST
 	CurrentSessionInfo::GenerateDummyData();
-	CurrentSessionInfo::LoadInventory(true);
+	CurrentSessionInfo::LoadAllData();
 	//cout << CurrentSessionInfo::pubList.size() << endl;
 	//cout << *CurrentSessionInfo::authorList.at(1).name << endl;
 	CurrentSessionInfo::mediaList.at(3)->ToString();
@@ -29,5 +29,7 @@ int main()
 
 	login.printMenu();
 
+
+	CurrentSessionInfo::SaveAllData();
 	return 0;
 }
