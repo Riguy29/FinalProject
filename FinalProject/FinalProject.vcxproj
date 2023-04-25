@@ -134,7 +134,9 @@
     <ClCompile Include="ConferenceJournal.cpp" />
     <ClCompile Include="CurrentSessionInfo.cpp" />
     <ClCompile Include="Date.cpp" />
+    <ClCompile Include="FacultyMember.cpp" />
     <ClCompile Include="FinalProject.cpp" />
+    <ClCompile Include="Guest.cpp" />
     <ClCompile Include="GuestLogin.cpp" />
     <ClCompile Include="InventoryScreen.cpp" />
     <ClCompile Include="LibraryMedia.cpp" />
@@ -142,12 +144,17 @@
     <ClCompile Include="Newspaper.cpp" />
     <ClCompile Include="Periodical.cpp" />
     <ClCompile Include="Publisher.cpp" />
+    <ClCompile Include="Staff.cpp" />
+    <ClCompile Include="Student.cpp" />
+    <ClCompile Include="User.cpp" />
     <ClInclude Include="Author.h" />
     <ClInclude Include="Book.h" />
     <ClInclude Include="CheckedoutMedia.h" />
     <ClInclude Include="ConferenceJournal.h" />
     <ClInclude Include="CurrentSessionInfo.h" />
     <ClInclude Include="Date.h" />
+    <ClInclude Include="FacultyMember.h" />
+    <ClInclude Include="Guest.h" />
     <ClInclude Include="GuestLogin.h" />
     <ClInclude Include="InventoryScreen.h" />
     <ClInclude Include="LibraryMedia.h" />
@@ -156,6 +163,9 @@
     <ClInclude Include="Publisher.h" />
     <ClCompile Include="LibraryLinkedList.cpp" />
     <ClInclude Include="MainLogin.h" />
+    <ClInclude Include="Staff.h" />
+    <ClInclude Include="Student.h" />
+    <ClInclude Include="User.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LibraryLinkedList.h" />

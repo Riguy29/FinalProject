@@ -16,6 +16,11 @@
     <ClCompile Include="Periodical.cpp" />
     <ClCompile Include="Author.cpp" />
     <ClCompile Include="GuestLogin.cpp" />
+    <ClCompile Include="User.cpp" />
+    <ClCompile Include="FacultyMember.cpp" />
+    <ClCompile Include="Staff.cpp" />
+    <ClCompile Include="Student.cpp" />
+    <ClCompile Include="Guest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CheckedoutMedia.h" />
@@ -27,12 +32,16 @@
     <ClInclude Include="Publisher.h" />
     <ClInclude Include="LibraryLinkedList.h" />
     <ClInclude Include="MainLogin.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="CurrentSessionInfo.h" />
     <ClInclude Include="Book.h" />
     <ClInclude Include="Periodical.h" />
     <ClInclude Include="Author.h" />
     <ClInclude Include="GuestLogin.h" />
+    <ClInclude Include="User.h" />
+    <ClInclude Include="FacultyMember.h" />
+    <ClInclude Include="Staff.h" />
+    <ClInclude Include="Student.h" />
+    <ClInclude Include="Guest.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="records.txt" />

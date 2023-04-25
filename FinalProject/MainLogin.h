@@ -19,13 +19,13 @@ private:
 	Date date;
 	Guest guestLogin;
 	InventoryScreen invScreen;
-	string username;
-	string password;
+
 public:
 	Login();//default constructor
-	Login(string username, string password);
+	Login();
 	Login(Login& l);
 	~Login();
+
 	void printMenu()const;
 	string getUsername()const;
 	string getPassword()const;
@@ -36,23 +36,15 @@ public:
 	void guest()const;
 	static string randomPass();
 	static string randomLibID();
-	static void TimeFunction();
 	static bool isValidName(string& name);
 	static bool isLoginValid(string& inUser, string& inPass);
 	static bool isEmailValid(string& email);
 	static bool formatPhone(string& phone);
 	string isValidAddress()const;
-	//void borrow()const;
-	//void placeHold()const;
-	//void renew()const;
-	//void checkout()const;
-	//void returnBook()const;
+
 	void loginMenu()const;
-	void patronMenu()const;
-	void adminMenu()const;
 	void updateInfo()const;
 	void myMedia()const;
-	
 };
 
 #endif // !MAINLOGIN_H
