@@ -14,34 +14,45 @@
 using namespace std;
 
 class User {
-protected:
-	string* firstName;
-	string* lastName;
-	string* address;
-	string* phoneNum;
-	string* email;
-	bool isAdmin;
 public:
+	// User type enum
+	enum userTypes
+	{
+		facultyMember,
+		student,
+		staff
+	};
+
 	// Constructors
-	User(const string& fName, const string& lName, const string& address, const string& phoneNum, const string& email);
 	User();
-	~User();
+	User(userTypes typeOfUsr,const char* fName, const char* lName, const char* address, const char* phoneNum, const char* email);
 	User(const User& newU);
+	~User();
 
 	// Mutators
-	void setFirstName(string firstName);
-	void setLastName(string lastName);
-	void setAddress(string a);
-	void setPhoneNumber(string p);
-	void setEmail(string e);
+	void setFirstName(const char* firstName);
+	void setLastName(const char* lastName);
+	void setAddress(const char* a);
+	void setPhoneNumber(const char* p);
+	void setEmail(const char* e);
+	void setUserType(userTypes type);
 
 	// Accessors 
-	string& getFirstName()const;
-	string& getLastName()const;
-	string& getAddress()const;
-	string& getPhoneNumber()const;
-	string& getEmail()const;
+	const char* getFirstName()const;
+	const char* getLastName()const;
+	const char* getAddress()const;
+	const char* getPhoneNumber()const;
+	const char* getEmail()const;
+	userTypes getUserType();
 	bool getAdminStatus() const {};
+
+protected:
+	userTypes userType;
+	const char* firstName;
+	const char* lastName;
+	const char* address;
+	const char* phoneNum;
+	const char* email;
 };
 
 #endif // USER_H

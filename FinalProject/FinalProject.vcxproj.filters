@@ -25,9 +25,6 @@
     <ClCompile Include="FinalProject.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Guest.cpp">
-      <Filter>Classes</Filter>
-    </ClCompile>
     <ClCompile Include="GuestLogin.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
@@ -82,9 +79,6 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="FacultyMember.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Guest.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="GuestLogin.h">

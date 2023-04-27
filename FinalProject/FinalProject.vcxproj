@@ -136,7 +136,6 @@
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="FacultyMember.cpp" />
     <ClCompile Include="FinalProject.cpp" />
-    <ClCompile Include="Guest.cpp" />
     <ClCompile Include="GuestLogin.cpp" />
     <ClCompile Include="InventoryScreen.cpp" />
     <ClCompile Include="LibraryMedia.cpp" />
@@ -154,7 +153,6 @@
     <ClInclude Include="CurrentSessionInfo.h" />
     <ClInclude Include="Date.h" />
     <ClInclude Include="FacultyMember.h" />
-    <ClInclude Include="Guest.h" />
     <ClInclude Include="GuestLogin.h" />
     <ClInclude Include="InventoryScreen.h" />
     <ClInclude Include="Invoice.h" />

@@ -15,7 +15,7 @@ using namespace std;
 class LibraryMedia
 {
 public:
-	enum  mediaTypes
+	enum mediaTypes
 	{
 		book,
 		newspaper,

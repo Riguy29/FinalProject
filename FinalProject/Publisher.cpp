@@ -125,6 +125,10 @@ Publisher::Publisher(int id)
 	strncpy_s(address, "Not set", sizeof(address));
 }
 
+Publisher::Publisher(int id) {
+	bookId = id;
+}
+
 void Publisher::PrintInfo()
 {
 	cout << "Publisher Info--Name: " << GetName() << " Address: " << GetAddress() << " Email: " << GetEmail();
