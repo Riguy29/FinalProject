@@ -27,6 +27,8 @@ void InventoryScreen::AddMedia()
 			book = new Book();
 			book->SetTitle();
 			book->SetMediaType(LibraryMedia::book);
+			book->SetAuthors();
+			book->SetPublishers();
 			book->SetCategory();
 			book->SetSubCategory();
 			book->SetInventoryCount();
@@ -47,6 +49,7 @@ void InventoryScreen::AddMedia()
 			newspaper->SetDoner();
 			//newspaper->SetPublishRate();
 		case 0:
+			system("cls");//Clear screen before we return
 			return;
 		default:
 			break;
@@ -119,6 +122,7 @@ void InventoryScreen::SearchForMedia()
 			SearchByPublisherAddress();
 			break;
 		case 0:
+			system("cls");
 			return;
 			break;
 		default:
@@ -172,6 +176,7 @@ void InventoryScreen::printMenu() {
 				delete mediaPointer;
 			}
 			mediaToCheckout.clear();
+			system("cls");
 			return;
 		case 1:
 			system("cls");
@@ -185,9 +190,6 @@ void InventoryScreen::printMenu() {
 		case 3: //If a user is not an admin and selects 2, make choice invlaid
 			system("cls");
 			AddMedia();
-			break;
-		case 4:
-			system("cls");
 			break;
 		default:
 			cout << "Invalid selection, try again" << endl;

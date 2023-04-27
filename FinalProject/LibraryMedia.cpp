@@ -70,7 +70,7 @@ LibraryMedia::LibraryMedia()
 	//mediaID = 1; //FIXME:: MIGHT want to randomly generate ids
 	default_random_engine generator;
 	uniform_int_distribution<int> distribution(10, 1000000);
-	int mediaID = distribution(generator);
+	mediaID = distribution(generator);
 	//FIXME:: Make sure it doesn't generate an already in use id
 	title = new string("");
 	mediaType = book;
@@ -236,5 +236,31 @@ void LibraryMedia::SetDoner()
 		// FIX ME:: Validate data
 	} while (!isValid);
 	category = new string(newDoner);
+}
+void LibraryMedia::SetAuthors()
+{
+	int numAuthors;
+	cout << "How many authors does this media have?" << endl;
+	cin >> numAuthors;
+
+	for (int i = 0; i < numAuthors; i++)
+	{
+		Author tempAuthor(mediaID);
+		tempAuthor.SetName();
+		CurrentSessionInfo::authorList.push_back(tempAuthor);
+	}
+}
+void LibraryMedia::SetPublishers()
+{
+	int numPublishers;
+	cout << "How many publishers does this media have" << endl;
+	cin >> numPublishers;
+	for (int i = 0; i < numPublishers; i++)
+	{
+		Publisher tempPub(mediaID);
+		tempPub.SetName();
+		tempPub.SetEmail();
+		tempPub.SetAddress();
+	}
 }
 #endif // !LIBRARYMEDIA_CPP

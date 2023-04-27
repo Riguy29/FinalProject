@@ -155,6 +155,7 @@ void CurrentSessionInfo::SaveData()
 			switch (mediaList.at(i)->GetMediaType())
 			{
 			case LibraryMedia::book:
+				//Book writeOutBook = dynamic_cast<Book>(*mediaList.at(i));
 				bookOut.write(reinterpret_cast<char*>(&mediaList.at(i)), sizeof(Book));
 				break;
 			case LibraryMedia::newspaper:

@@ -43,12 +43,14 @@ public:
 	void SetSubCategory();
 	void SetInventoryCount();
 	void SetDoner();
+	void SetAuthors();
+	void SetPublishers();
 
 
 	//We will want to disp
 	virtual void ToString();
 
-	~LibraryMedia();
+	virtual ~LibraryMedia();
 	LibraryMedia(const LibraryMedia& mediaToCopy);
 	LibraryMedia();
 	LibraryMedia(int id, const string& mediaTitle, mediaTypes typeOfMedia, double mediaPrice, const string& mediaCat, const string& mediaSubCat, int mediaCount, const string& mediaDoner);

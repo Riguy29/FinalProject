@@ -14,9 +14,9 @@
 
 int main()
 {
-	CurrentSessionInfo::GenerateDummyData();
+	//CurrentSessionInfo::GenerateDummyData();
 	CurrentSessionInfo::LoadAllData();
-	CurrentSessionInfo::mediaList.size();
+	//CurrentSessionInfo::authorList.at(0).name;
 	/*
 	//TEST
 	cout << endl;

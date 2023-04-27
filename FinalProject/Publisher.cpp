@@ -20,19 +20,85 @@ string& Publisher::GetAddress()
 	return *address;
 }
 
-void Publisher::SetName(string newName)
+void Publisher::SetName()
 {
-	name = new string(newName);
+	bool valid= true;
+	do
+	{
+		valid = true;
+		string tempName;
+		try
+		{
+			cin >> tempName;
+			cout << "Enter the name of the publisher" << endl;
+			for (char nameChar : tempName) {
+				if (isdigit(nameChar)) throw(1);
+			}
+			//If we throw no errors set name
+			name = new string(tempName);
+		}
+		catch (int errorCode)
+		{
+			system("cls");
+			if (errorCode == 1) {
+				cout << "A name should not have digits" << endl;
+			}
+
+			valid = false;
+
+		}
+	} while (!valid);
 }
 
-void Publisher::SetEmail(string newEmail)
+void Publisher::SetEmail()
 {
-	email = new string(newEmail);
+	bool valid = true;
+	do
+	{
+		valid = true;
+		string tempEmail;
+		try
+		{
+			cin >> tempEmail;
+			cout << "Enter the name of the publisher" << endl;
+			//FIXME: Validate Data
+			email = new string(tempEmail);
+		}
+		catch (int errorCode)
+		{
+			system("cls");
+			//Print error codes here
+			valid = false;
+
+		}
+	} while (!valid);
 }
 
-void Publisher::SetAddress(string newAddress)
+void Publisher::SetAddress()
 {
-	address =new string( newAddress );
+	bool valid = true;
+	do
+	{
+		valid = true;
+		string tempAddress;
+		try
+		{
+			cin >> tempAddress;
+			cout << "Enter the name of the publisher" << endl;
+			//Validate Data
+			address = new string(tempAddress);
+		}
+		catch (int errorCode)
+		{
+			system("cls");
+			if (errorCode == 1) {
+				cout << "A name should not have digits" << endl;
+			}
+
+			valid = false;
+
+		}
+	} while (!valid);
 }
 
 Publisher::Publisher()
