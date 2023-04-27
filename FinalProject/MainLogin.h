@@ -11,6 +11,9 @@
 #include "InventoryScreen.h"
 #include "LibraryMedia.h"
 #include "User.h"
+#include "FacultyMember.h"
+#include "Student.h"
+#include "Staff.h"
 
 #include <iostream>
 #include <string>
@@ -20,39 +23,35 @@ using namespace std;
 
 class Login {
 private:
-	User *tmpUsr;
 	Date date;
 	Guest guestLogin;
 	InventoryScreen invScreen;
-	vector<User> users;
+	User currentUsr;
+	vector<User> usrs;
 public:
-	// Constructor(s)
 	Login();
 	Login(Login& l);
 	~Login();
 
-	User getUser()const;
-	void setUser(User u);
-
-	// Misc functions
+	void printMenu();
+	string getUsername()const;
+	string getPassword()const;
+	void setUsername(string userN);
+	void setPassword(string userP);
+	void login();	
+	void registration();
+	void guest();
 	static string randomPass();
 	static string randomLibID();
-	string isValidAddress()const;
-
-	void loginMenu()const;
-	void patronMenu()const;
-	void adminMenu()const;
-	void updateInfo()const;
-	void myMedia()const;
-	void login()const;
-	void registration()const;
-	void guest()const;
-	void printMenu()const;
-
 	static bool isValidName(string& name);
 	static bool isLoginValid(string& inUser, string& inPass);
 	static bool isEmailValid(string& email);
 	static bool formatPhone(string& phone);
+	string isValidAddress()const;
+
+	void loginMenu()const;
+	void updateInfo()const;
+	void myMedia()const;
 };
 
 #endif // !MAINLOGIN_H

@@ -17,18 +17,13 @@
 
 using namespace std;
 
-// Constructonator 9000s
-Login::Login() {}
+// Default constructor
+Login::Login() {} 
 Login::Login(Login& l) {}
-
 Login::~Login() {}
 
-// Manipulate User obj
-void Login::setUser(User u) { *this->tmpUsr = u; }
-User Login::getUser()const { return *this->tmpUsr; }
-
-//printMenu() prints the menu options for the login screen
-void Login::printMenu()const {
+// printMenu() prints the menu options for the login screen
+void Login::printMenu() {
     int choice;
     date.printDate();
     cout << setfill('-') << setw(115) << "" << endl;
@@ -135,86 +130,9 @@ void Login::loginMenu()const {
     currUser.close();
   
 }
-/*
-//patron menu of options FIX ME: need to 
-void Login::patronMenu()const {
-    int choice;
-    
-    cout << setfill('-') << setw(115) << "" << endl;
-    cout << setfill('-') << setw(65) << " WELCOME TO YOUR ACCOUNT" << setfill('-') << setw(50) << "" << endl;
-    cout << setfill('-') << setw(116) << "\n" << endl;
-    cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
-    cout << setfill(' ') << setw(60) << "1. Search Library" << endl;
-    cout << setfill(' ') << setw(73) << "2. Update Personal Information" << endl;
-    cout << setfill(' ') << setw(59) << "3. View My Media" << endl;
-    cout << setfill(' ') << setw(51) << "4. Exit\n" << endl;
-    cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 
-    cin >> choice;
-
-    switch (choice) {
-
-    case 1:
-        system("cls");
-        invScreen.printMenu();
-        break;
-    case 2:
-        updateInfo();
-        break;
-    case 3:
-        myMedia();
-        break;
-    case 4:        
-        system("cls");
-        exit(0);
-        break;
-    default:
-        cout << "Invalid Choice...Please Try Again...\n" << endl;
-    }
-
-}
-
-//admin menu of options FIXME: need to link to accounts and be able to update user information
-void Login::adminMenu()const {
-    int choice;
-    while (true) {
-        
-        cout << setfill('-') << setw(115) << "" << endl;
-        cout << setfill('-') << setw(65) << " WELCOME ADMINISTRATOR " << setfill('-') << setw(50) << "" << endl;
-        cout << setfill('-') << setw(116) << "\n" << endl;
-        cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
-        cout << setfill(' ') << setw(56) << "1. Inventory" << endl;
-        cout << setfill(' ') << setw(60) << "2. View Accounts" << endl;
-        cout << setfill(' ') << setw(52) << "3. Exit\n" << endl;
-        cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
-
-        cin >> choice;
-
-        switch (choice) {
-
-        case 1:
-            system("cls");
-            invScreen.printMenu();
-            break;
-        case 2:
-            system("cls");
-            cout << "Need to open Account information." << endl;//view account should view list of users and allow admin to update infor via  update()
-            break;
-        case 3:
-            system("cls");
-            exit(0);
-            return;
-        default:
-            cout << "Invalid Choice...Please Try Again...\n" << endl;
-            cin >> choice;
-        }
-    }
-}
-
-// TODO: Integrate User object in here and registration function
-*/
 //login() allows user to login to borrow books if they have a username and password
-void Login::login()const {
+void Login::login() {
     string username;
     string password;
     string line;
@@ -259,9 +177,10 @@ void Login::login()const {
     }
    
 }
+
   /*
 //guest() allows user to be a guest and use material from the library for 2 hours
-void Login::guest()const {
+void Login::guest() {
     string gName;
     string media;
     vector<string>guestBorrowList;
@@ -316,14 +235,16 @@ void Login::guest()const {
     }
 
 }
-
-// TODO: Integrate User object
 */
-//registration() allows user to register for an account if they don't have one already
-void Login::registration()const {
+
+// TODO: reformat using User classes & sub-classes
+// DO NOT FORGET!! Add exception handling in these classes!!!!!
+void Login::registration() {
     string fName, lName, address, phoneNum, email, id, libID, password;
     char pos;
     int choice;
+
+    User tmpUsr;
 
     cout << "Press 1 to return to Main Menu or" << endl;
     
@@ -396,8 +317,10 @@ void Login::registration()const {
     getline(cin, id);
     cout << endl;
     char correct;
+
     //check that information entered is correct, if it is save to file if it is not, enter new information  
     //FIXME write switch to allow user to pick which part is incorrect and only update that?
+    // TODO : Change this part to store data into MainLogin Vector instead of file
     cout << "Is the information correct? Y/N" << endl;
     cout << "Name: " << fName << " " << lName << "\nAddress: " << address << "\nPhone: " << phoneNum << "\nEmail: " << email
         << "\nPosition: " << pos << "\nID: " << id << endl;
@@ -406,6 +329,25 @@ void Login::registration()const {
     case 'Y':
     case'y':    
     {
+        /*
+        switch (pos) {
+        case 'M':
+        case 'm':
+            FacultyMember tmpF(fName, lName, address, phoneNum, email, password, *(new string("M")), id);
+            break;
+        case 'E':
+        case 'e':
+
+            break;
+        case 'S':
+        case 's':
+
+            break;
+        }
+
+        usrs.push_back(currentUsr);
+        */
+
         //open file to store registration information
         ofstream file;
         file.open("records.txt", ios::in | ios::app);
@@ -415,8 +357,8 @@ void Login::registration()const {
 
         //store memeber registration information in records.txt
         if (file.is_open()) {
-            //file << "Name: " << fName << " " << lName << "\tAddress: " << address << "\tPhone: " << phoneNum << "\tEmail: " << email
-              //  << "\tPosition: " << pos << "\tID: " << id << "\tLibrary Login: " << libID << "\tPassword: " << password << "\t" << endl;
+
+
             file << "Name: " << fName << " " << lName << "\nAddress: " << address << "\nPhone: " << phoneNum << "\nEmail: " << email
                 << "\nPosition: " << pos << "\nID: " << id << "\nLibraryID: " << libID << "\nPassword: " << password << endl;
             file << endl;
