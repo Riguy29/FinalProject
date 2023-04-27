@@ -36,6 +36,7 @@ private:
 	int year;
 public:
 	Date();
+	Date(const Date& copyDate);
 	Date(int month, int day, int year);
 	~Date();
 	void print() const;

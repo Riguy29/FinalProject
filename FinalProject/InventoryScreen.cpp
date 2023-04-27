@@ -59,53 +59,6 @@ void InventoryScreen::SearchForMedia()const
 	int choice;
 	bool validChoice = false;
 	//Commented this out because I think we can now search by all media at a single time
-
-	//LibraryMedia::mediaTypes tempMediaType;
-	//string searchType = "ERROR";
-	//do{
-	//	cout << setfill('-') << setw(115) << "" << endl;
-	//	cout << setfill('-') << setw(115) << "" << endl; 
-	//	cout << setfill('-') << setw(116) << "\n" << endl;
-	//	cout << setfill(' ') << setw(68) << "What media would like to search for?\n" << endl;
-	//	cout << setfill(' ') << setw(53) << "1. Books" << endl;
-	//	cout << setfill(' ') << setw(58) << "2. Newspapers" << endl;
-	//	cout << setfill(' ') << setw(56) << "3. Journals" << endl;
-	//	cout << setfill(' ') << setw(59) << "4. Periodicals" << endl;
-	//	cout << setfill(' ') << setw(55) << "5. Return\n" << endl;
-	//	cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
-
-	//	cin >> choice;
-	//	validChoice = true; //Assume choice is valid
-	//	switch (choice)
-	//	{
-	//	case 1:
-	//		searchType = "Books";
-	//		tempMediaType = LibraryMedia::book;
-	//		validChoice = false;
-	//		break;
-	//	case 2:
-	//		searchType = "Journals";
-	//		tempMediaType = LibraryMedia::book;
-	//		validChoice = false;
-	//		break;
-	//	case 3:
-	//		searchType = "Newspapers";
-	//		tempMediaType = LibraryMedia::book;
-	//		validChoice = false;
-	//		break;
-	//	case 4:
-	//		searchType = "Periodicals";
-	//		tempMediaType = LibraryMedia::book;
-	//		validChoice = false;
-	//		break;
-	//	case 5:
-	//		printMenu();
-	//		break;			
-	//	default:
-	//		cout << "Invalid selection, try again" << endl;
-	//		return;
-	//	}
-	//} while (validChoice);
 	do {
 		system("cls");
 		cout << setfill('-') << setw(115) << "" << endl;
@@ -185,6 +138,7 @@ void InventoryScreen::printMenu()const {
 		cout << setfill('-') << setw(115)<<"" << endl; //setw(62) <<  " INVENTORY SCREEN " << setfill('-') << setw(53) << "" << endl;
 		cout << setfill('-') << setw(116) << "\n" << endl;
 		cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
+		cout << setfill(' ') << setw(54) << "0. Return\n" << endl;
 		cout << setfill(' ') << setw(59) << "1. Search Media" << endl;
 		cout << setfill(' ') << setw(55) << "2. Checkout" << endl;
 
@@ -204,7 +158,6 @@ void InventoryScreen::printMenu()const {
 
 		}
 		else {
-			cout << setfill(' ') << setw(54) << "3. Return\n" << endl;
 
 		}
 		user.close();

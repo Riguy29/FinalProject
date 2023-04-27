@@ -34,7 +34,7 @@ public:
 	static void LoadAllData();
 	static void SaveAllData();
 	static void GenerateDummyData();
-	static vector<unique_ptr<LibraryMedia>> GetLibraryInventory();
+	static vector<LibraryMedia*> GetLibraryInventory();
 
 	template<typename T>
 	static void LoadData(string fileName, vector<T>& list);
@@ -43,6 +43,7 @@ public:
 	template<typename T>
 	static void LoadData(string fileName);
 
+	//This function is used to save data for publishers, authors, and users
 	template<typename T>
 	static void SaveData(string fileName, vector<T>& list);
 

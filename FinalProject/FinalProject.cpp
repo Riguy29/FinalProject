@@ -13,15 +13,14 @@
 
 
 int main()
-{/*
-	//TEST
+{
 	CurrentSessionInfo::GenerateDummyData();
 	CurrentSessionInfo::LoadAllData();
-	//cout << CurrentSessionInfo::pubList.size() << endl;
-	//cout << *CurrentSessionInfo::authorList.at(1).name << endl;
-	CurrentSessionInfo::mediaList.at(3)->ToString();
+	CurrentSessionInfo::mediaList.size();
+	/*
+	//TEST
 	cout << endl;
-	//cout << CurrentSessionInfo::mediaList.size();
+	cout << CurrentSessionInfo::mediaList.size();
 	//END TEST
 	*/
 	Login login;
@@ -29,8 +28,5 @@ int main()
 	//guest.receipt();
 
 	login.printMenu();
-
-
-	CurrentSessionInfo::SaveAllData();
 	return 0;
 }

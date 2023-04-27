@@ -93,6 +93,7 @@ void Login::printMenu()const {
         break;
     case 4:
         system("cls");
+        CurrentSessionInfo::SaveAllData(); //Before we exit save all our data
         exit(0);
         break;
     default:
