@@ -18,11 +18,11 @@ using namespace std;
 class InventoryScreen 
 {
 public:
-	void UpdateMedia();
-	void AddMedia();
+	void UpdateMedia()const;
+	void AddMedia()const;
 	void SearchForMedia()const;
 	void CheckoutBook();
-	void printMenu()const;
+	void PrintMenu()const;
 	void SearchByTitle() const;
 	void SearchByAuthor() const;
 	void SearchByDepartment() const;
@@ -37,6 +37,8 @@ public:
 private:
 	string recordTxtFile = "InventoryRecord.txt";
 	vector<int> MediaID;
+	vector<string> MediaTitle;
+	vector<double> MediaPrice;
 };
 
 #endif

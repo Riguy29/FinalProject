@@ -1,5 +1,5 @@
 #include "Book.h"
-
+#include <iomanip>
 void Book::SetISBN()
 {
 	string newISBN;
@@ -7,7 +7,7 @@ void Book::SetISBN()
 	do
 	{
 		isValid = true;
-		cout << "Enter the ISBN: ";
+		cout << setfill(' ') << setw(54) << "Enter the ISBN: ";
 		cin >> newISBN;
 		//Validate data
 		if (newISBN.size() != 10) isValid = false;
@@ -27,7 +27,7 @@ void Book::SetEdition()
 	bool isValid = true;
 	do
 	{
-		cout << "Enter the Edition as an int: ";
+		cout << setfill(' ') << setw(54) << "Enter the Edition as an int: ";
 		cin >> newEdition;
 
 		//Validate data

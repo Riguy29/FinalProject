@@ -1,6 +1,7 @@
 #include "LibraryMedia.h"
 #include "LibraryLinkedList.h"
 #include "CurrentSessionInfo.h"
+#include <iomanip>
 #ifndef LIBRARYMEDIA_CPP
 #define LIBRARYMEDIA_CPP
 void LibraryMedia::ToString()
@@ -27,7 +28,7 @@ void LibraryMedia::ToString()
 		break;
 	}
 	cout << " Category: " << GetCategory();
-	cout << " Authors: ";
+	cout << " Authors: " ;
 
 	//Access our static author list, and search the list for any authors that match our book id
 	for (int i = 0; i < CurrentSessionInfo::authorList.size(); i++) {
@@ -157,7 +158,7 @@ void LibraryMedia::SetTitle()
 	bool isValid = true;
 	do
 	{
-		cout << "Enter the title: ";
+		cout << setfill(' ') << setw(54) << "Enter the title: " ;
 		cin >> newTitle;
 		// FIX ME:: Validate data
 	} while (!isValid);
@@ -182,7 +183,7 @@ void LibraryMedia::SetPrice()
 	do
 	{
 		isValid = true; // Assume data is valid
-		cout << "Enter the price: ";
+		cout << setfill(' ') << setw(57) << "Enter the price: ";
 		cin >> newPrice;
 		// FIX ME: Validate data
 		if (newPrice <= 0) isValid = false;
@@ -198,7 +199,7 @@ void LibraryMedia::SetCategory()
 	do
 	{
 		isValid = true;
-		cout << "Enter the category: ";
+		cout << setfill(' ') << setw(54) << "Enter the category: ";
 		cin >> newCat;
 		// FIX ME:: Validate data
 	} while (!isValid);
@@ -215,7 +216,7 @@ void LibraryMedia::SetSubCategory()
 	do
 	{
 		isValid = true;
-		cout << "Enter the Sub Category: ";
+		cout << setfill(' ') << setw(54) << "Enter the Sub Category: ";
 		cin >> newCat;
 		// FIX ME:: Validate data
 	} while (!isValid);
@@ -229,7 +230,7 @@ void LibraryMedia::SetDoner()
 	bool isValid = true;
 	do
 	{
-		cout << "Enter the Doner's name: ";
+		cout << setfill(' ') << setw(54) << "Enter the Doner's name: ";
 		cin >> newDoner;
 		// FIX ME:: Validate data
 	} while (!isValid);

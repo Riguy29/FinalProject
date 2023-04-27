@@ -83,7 +83,7 @@ void Login::printMenu()const {
         break;
     case 2:
         system("cls");
-        invScreen.SearchForMedia();
+        invScreen.PrintMenu();
         //guestLogin.printMenu();
         //guest();
         break;
@@ -114,7 +114,7 @@ void Login::loginMenu()const {
         cout << "File open was not successful";
     }
     getline(currUser, username);
-    do {
+    do {//if(isAdmin){
         if (username.at(0) == 'E' || username.at(0) == 'S') {
             cout << setfill('-') << setw(115) << "" << endl;
             cout << setfill('-') << setw(65) << " WELCOME TO YOUR ACCOUNT" << setfill('-') << setw(50) << "" << endl;
@@ -143,7 +143,7 @@ void Login::loginMenu()const {
         switch (choice) {
         case 1:
             system("cls");
-            invScreen.printMenu();
+            invScreen.PrintMenu();
             break;
         case 2:
             system("cls");

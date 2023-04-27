@@ -9,10 +9,7 @@ Guest::~Guest(){}
 void Guest::buy() {}
 
 void Guest::receipt()const {
-	string fullName;
-	cout << "Enter your name: " << endl;
-	getline(cin, fullName);
-	system("cls");
+	
 
 	fstream purchase;
 	purchase.open("PurchaseList.txt", ios::in | ios::out);
@@ -47,7 +44,7 @@ void Guest::receipt()const {
 	date.printDate();
 
 	
-	cout << setfill(' ') << left << setw(25) << fullName << endl;
+	//cout << setfill(' ') << left << setw(25) << fullName << endl;
 	cout << setfill(' ') << setw(30) << "Thank you for you Purchase!" << endl;
 
 	cout << setfill(' ') << setw(35) << left << "Item" << "Price" << endl;

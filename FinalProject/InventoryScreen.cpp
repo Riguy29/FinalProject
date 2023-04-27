@@ -2,7 +2,11 @@
 #define INVENTORYSCREEN_CPP
 #include "InventoryScreen.h"
 
-void InventoryScreen::AddMedia()
+void InventoryScreen::UpdateMedia()const {
+	system("cls");
+	cout << "Need to set up Update Media" << endl;
+}
+void InventoryScreen::AddMedia()const
 {
 	int choice =0;
 	bool isValid = true;
@@ -12,15 +16,23 @@ void InventoryScreen::AddMedia()
 	
 	do
 	{
-		cout << "What kind of media would you like to add?" << endl;
-		cout << "1. Book" << endl;
-		cout << "2. Newspaper" << endl;
-		cout << "3. Journal" << endl;
-		cout << "4. Periodical" << endl;
-		cout << "5. Return" << endl;
+		cout << setfill('-') << setw(115) << "" << endl;
+		cout << setfill('-') << setw(115) << "" << endl; 
+		cout << setfill('-') << setw(116) << "\n" << endl;
+		cout << setfill(' ') << setw(72) << "What kind of media would you like to add?\n" << endl;
+		cout << setfill(' ') << setw(54) << "0. Return" << endl;
+		cout << setfill(' ') << setw(53) << "1. Books" << endl;
+		cout << setfill(' ') << setw(58) << "2. Newspapers" << endl;
+		cout << setfill(' ') << setw(56) << "3. Journals" << endl;
+	    cout << setfill(' ') << setw(60) << "4. Periodicals\n" << endl;
+		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 		cin >> choice;
+		system("cls");
+
 		switch (choice)
 		{
+		case 0:
+			return;
 		case 1:
 			book = new Book();
 			book->SetTitle();
@@ -42,8 +54,13 @@ void InventoryScreen::AddMedia()
 			newspaper->SetInventoryCount();
 			newspaper->SetDoner();
 			//newspaper->SetPublishRate();
-		case 5:
-			return;
+			break;
+		case 3:
+			//journal = new ConferenceJournal(); 
+			//journal->Set
+			break;
+		case 4:
+			//periodicals
 		default:
 			break;
 		}
@@ -70,8 +87,8 @@ void InventoryScreen::SearchForMedia()const
 	//	cout << setfill(' ') << setw(53) << "1. Books" << endl;
 	//	cout << setfill(' ') << setw(58) << "2. Newspapers" << endl;
 	//	cout << setfill(' ') << setw(56) << "3. Journals" << endl;
-	//	cout << setfill(' ') << setw(59) << "4. Periodicals" << endl;
-	//	cout << setfill(' ') << setw(55) << "5. Return\n" << endl;
+	//	cout << setfill(' ') << setw(59) << "4. Periodicals\n" << endl;
+	//	cout << setfill(' ') << setw(56) << "0. Return" << endl;
 	//	cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 
 	//	cin >> choice;
@@ -112,6 +129,7 @@ void InventoryScreen::SearchForMedia()const
 		cout << setfill('-') << setw(56) << " SEARCH " << setfill('-') << setw(59) << "" << endl;
 		cout << setfill('-') << setw(115) << "" << endl;
 		cout << endl;
+		cout << setfill(' ') << setw(51) << "0. Return" << endl;
 		cout << setfill(' ') << setw(60) << "1. Search By Title" << endl;
 		cout << setfill(' ') << setw(61) << "2. Search By Author" << endl;
 		cout << setfill(' ') << setw(64) << "3. Search By Publisher" << endl;
@@ -128,17 +146,19 @@ void InventoryScreen::SearchForMedia()const
 		user >> username;
 		user.close();
 
-		if (username.at(0) == 'M') {
+		if (username.at(0) == 'M') {// if user isAdmin
 			cout << setfill(' ') << setw(61) << "6. Search By Course" << endl;
 			cout << setfill(' ') << setw(60) << "7. Search By Price" << endl;
-			cout << setfill(' ') << setw(72) << "8. Search By Publisher Address" << endl;
+			cout << setfill(' ') << setw(73) << "8. Search By Publisher Address\n" << endl;
 			//CurrentSessionInfo::SetAdmin(true);
 		}
-		cout << setfill(' ') << setw(53) << "9. Return\t\n" << endl;
 		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 		cin >> choice;
 		system("cls");
 		switch (choice) {
+		case 0:
+			return;
+			break;
 		case 1:
 			SearchByTitle();
 			break;
@@ -162,18 +182,15 @@ void InventoryScreen::SearchForMedia()const
 			break;
 		case 8:
 			SearchByPublisherAddress();
-			break;
-		case 9:
-			return;
-			break;
+			break;		
 		default:
 			cout << "Invalid selection, try again" << endl;
 
 		}
-
+		
 	} while (!validChoice);
 }
-void InventoryScreen::printMenu()const {
+void InventoryScreen::PrintMenu()const {
 	int choice =0;
 	bool validChoice;
 	
@@ -184,10 +201,12 @@ void InventoryScreen::printMenu()const {
 		cout << setfill('-') << setw(115) << "" << endl;
 		cout << setfill('-') << setw(115)<<"" << endl; //setw(62) <<  " INVENTORY SCREEN " << setfill('-') << setw(53) << "" << endl;
 		cout << setfill('-') << setw(116) << "\n" << endl;
+
 		cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
+		cout << setfill(' ') << setw(53) << "0. Return" << endl;
 		cout << setfill(' ') << setw(59) << "1. Search Media" << endl;
 		cout << setfill(' ') << setw(55) << "2. Checkout" << endl;
-
+		
 		ifstream user;
 		string username;
 		user.open("currentUser.txt");
@@ -197,36 +216,46 @@ void InventoryScreen::printMenu()const {
 		}
 		user >> username;
 		//user.close();
-
-		if (username.at(0) == 'M') {
-			cout << setfill(' ') << setw(57) << "3. Edit Media" << endl;
-			cout << setfill(' ') << setw(54) << "4. Return\n" << endl;
-
-		}
-		else {
-			cout << setfill(' ') << setw(54) << "3. Return\n" << endl;
+		
+		if (username.at(0) == 'M') {// if isAdmin
+			cout << setfill(' ') << setw(57) << "3. Add Media\n" << endl;
 
 		}
+		
 		user.close();
+		
 		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 
 		cin >> choice;
 		validChoice = true; //Assume choice is valid
+		string fullName;
+
 		switch (choice)
 		{
+		case 0:
+			system("cls");
+			return;
+			break;
 		case 1:
 			system("cls");
 			SearchForMedia();			
 			break;
 		case 2: //If a user is not an admin and selects 2, make choice invlaid
 			system("cls");
-			cout << setfill(' ') << setw(50)<< "Ready for checkout?" << endl;
+			//if (isGuest) {
+				cout << "Enter your name: " << endl;
+				getline(cin, fullName);
+				system("cls");
+			//}
+			cout << setfill(' ') << setw(50)<< fullName << ", Ready for checkout?" << endl;
 			//CheckoutBook();
 			if (CurrentSessionInfo::CheckIfAdmin()) SearchForMedia();
 			else cout << "Invalid selection, try again" << endl;
 			break;
+			
 		case 3:
 			system("cls");
+			/*
 			if (username.at(0) == 'M') {
 				int editChoice;
 				cout << setfill('-') << setw(115) << "" << endl;
@@ -263,22 +292,21 @@ void InventoryScreen::printMenu()const {
 			}
 			
 				system("cls");
-				return;				
+				//return;				
 				//cout << "needs to go back to patronMenu in MainLogin" << endl;
 			
 			
 			//cout << "Invalid selection, try again" << endl;
-			//break;
-		case 4:
-			system("cls");
+			*/
+			AddMedia();
 			break;
 		default:
 			cout << "Invalid selection, try again" << endl;
 			break;
 		}
+		
 	} while (true);
 	
-
 }
 void InventoryScreen::SearchByTitle() const
 {
@@ -306,6 +334,7 @@ void InventoryScreen::SearchByTitle() const
 	}
 	else {
 		PrintMatchingMedia(matchingList);
+		
 	}
 
 
@@ -488,12 +517,18 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia& selectedMedia) {
 	cout << setfill('-') << setw(115) << "" << endl;
 	cout << setfill('-') << setw(116) << "\n" << endl;
 	cout << setfill(' ') << setw(68) << "What would you like to do?\n" << endl;
+
+	//if(selectedMedia available quantity > 0){
 	cout << setfill(' ') << setw(54) << "1. Add to cart " << endl; //FIXME: Make this buy if they are guest, if they are no copies and they are guest then print 
-	
+   //}else{
+   // cout<<"Media not available"<<endl;
+   // }
+	//if(isAdmin) {
 	//FIXME:: Only print these options if current user is admin
-	cout << setfill(' ') << setw(53) << "2. EditMedia" << endl;
+	cout << setfill(' ') << setw(53) << "2. Update Media" << endl;
 	cout << setfill(' ') << setw(56) << "3. Delete Media" << endl;
 	//END ADMIN SECTION
+	//}
 	cout << setfill(' ') << setw(51) << "0. Return\n" << endl;
 	cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 
@@ -503,14 +538,40 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia& selectedMedia) {
 		choice = -1;
 		switch (choice) {
 		case 1:
+			//if(!isGuest){
 			//FIXME:: If normal user add to cart, unless no inventory then call, if guest only buy
 			//MediaID.push_back(selectedMedia.GetMediaID());
+			// }
+			//else{ // if (isGuest){
+			MediaPrice.push_back(selectedMedia.GetPrice());
+			MediaTitle.push_back(selectedMedia.GetTitle());
+			{
+				ofstream buyList("PurchaseList.txt", ios::in | ios::out);
+				if (!buyList.is_open()) {
+					cout << "File not opened successfully" << endl;
+				}
+				ostream_iterator<string> out_iterator(buyList, "\n");
+				copy(MediaTitle.begin(), MediaTitle.end(), out_iterator);
+				ostream_iterator<double> output_iterator(buyList, "\n");
+				copy(MediaPrice.begin(), MediaPrice.end(), output_iterator);
+				buyList.close();
+			}
+
 			break;
 		case 2:
 			//CHECK IF ADMIN
+			//if(!isAdmin){
+			//cout << "Invalid choice." << endl;
+			//}else{
+			//UpdateMedia();
 			break;
 		case 3:
 			//CHECK IF ADMIN DON'T ALLOW IF NOT ADMIN
+			//if(!isAdmin){
+			//cout << "Invalid choice." << endl;
+			//}else{
+			// delete selected MediaID
+			//}
 			break;
 		case 0:
 			return;
