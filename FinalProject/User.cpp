@@ -1,50 +1,38 @@
+/*
+	User.cpp
+	This cpp file implements the User object functions, including:
+	Accessors, mutators, constructors, and destructors
+
+	This cpp file also performs all error checking within the mutator functions for object creation
+*/
+
 #include "User.h"
 
-// Constructors
-User::User() {
-	isAdmin = false;
-	isGuest = true;
+// Default Constructor
+User::User():firstName(new string("")), lastName(new string("")), address(new string("")), phoneNum(new string("")), email(new string("")) {}
 
-	statusLevel = "";
-	firstName = "";
-	lastName = "";
-	username = "";
-	password = "";
+// Overloaded Constructor
+User::User(string &fName, string &lName, string &a, string &p, string &e):
+	firstName(new string(fName)), lastName(new string(lName)), address(new string(a)), phoneNum(new string(p)), email(new string(e)) {}
 
-	userID = 0;
-}
-
-User::User(bool isAdmin, bool isGuest, string status, string firstN, string lastN, string usern, string pass, int ID) {
-	this->isAdmin = isAdmin;
-	this->isGuest = isGuest;
-	this->statusLevel = status;
-	this->firstName = firstN;
-	this->lastName = lastName;
-	this->username = usern;
-	this->password = pass;
-	this->userID = ID;
-}
+// Copy constructor
+User::User(User& u):isAdmin(u.isAdmin), isGuest(u.isGuest), statusLevel(u.statusLevel), 
+	firstName(u.firstName), lastName(u.lastName), username(u.username), password(u.password),
+	userID(u.userID) {}
 
 // Destructor
 User::~User() { cout << "User object destroyed: Please remove this before deployment!" << endl; }
 
 // Accessors
-bool User::getIsAdmin() { return this->isAdmin; }
-bool User::getIsGuest() { return this->isGuest; }
+string &User::getFirstName()const { return *firstName; }
+string &User::getLastName()const { return *lastName; }
+string &User::getAddress()const { return *address; }
+string &User::getPhoneNumber()const { return *phoneNum; }
+string &User::getEmail()const { return *email; }
 
-string User::getStatusLevel() { return this->statusLevel; }
-string User::getFirstName() { return this->firstName; }
-string User::getLastName() { return this->lastName; }
-string User::getUsername() { return this->username; }
-string User::getPassword() { return this->password; }
-
-int User::getUserID() { return this->userID; }
-
-// Mutators
-void User::setIsAdmin(bool isAdmin) { this->isAdmin = isAdmin; }
-void User::setIsGuest(bool isGuest) { this->isGuest = isGuest; }
-void User::setStatusLevel(string statusLevel) { this->statusLevel = statusLevel; }
-void User::setFirstName(string firstName) { this->firstName = firstName; }
-void User::setLastName(string lastName) { this->lastName = lastName; }
-void User::setUsername(string username) { this->username = username; }
-void User::setPassword(string password) { this->password = password; }
+// Mutators TODO: Implement error checking for user creation and mod
+void User::setFirstName(string firstName) { this->firstName = &firstName; }
+void User::setLastName(string lastName) { this->lastName = &lastName; }
+void User::setAddress(string a) {}
+void User::setPhoneNumber(string p) {}
+void User::setEmail(string e) {}

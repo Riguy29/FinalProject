@@ -17,45 +17,13 @@
 
 using namespace std;
 
-Login::Login() : username(""), password(""){} //default constructor initialized to empty strings
-
-Login::Login(string userN, string userP)
-    : username(userN), password(userP) {}
-
-Login::Login(Login& l) : username(l.username), password(l.password) {}
-
+// Default constructor
+Login::Login() {} 
+Login::Login(Login& l) {}
 Login::~Login() {}
 
-
-string Login::getUsername()const {
-    return username;
-}
-string Login::getPassword()const {
-    return password;
-}
-void Login::setUsername(string userN) {
-    username = userN;
-}
-void Login::setPassword(string userP) {
-    password = userP;
-}
-
-/*void Login::TimeFunction() {
-    // current date/time based on current system
-    time_t now = time(0);
-
-    // Char array for ctime_s to get time to compile properly using C++ 20
-    // This char array holds the string of what the current time is
-    char str[26];
-
-    // Get the current time and convert to string, storing it in the str char array
-    ctime_s(str, sizeof str, &now);
-
-    cout << str << endl;
-}*/
-
-//printMenu() prints the menu options for the login screen
-void Login::printMenu()const {
+// printMenu() prints the menu options for the login screen
+void Login::printMenu() {
     int choice;
     date.printDate();
     cout << setfill('-') << setw(115) << "" << endl;
@@ -83,6 +51,7 @@ void Login::printMenu()const {
         break;
     case 2:
         system("cls");
+        guestLogin.printMenu();
         invScreen.SearchForMedia();
         //guestLogin.printMenu();
         //guest();
@@ -112,7 +81,7 @@ void Login::loginMenu()const {
     currUser.open("currentUser.txt");
 
     if (!currUser.is_open()) {
-        cout << "File open was not successful";
+        cout << "File open was not successful :(";
     }
     getline(currUser, username);
     do {
@@ -162,84 +131,9 @@ void Login::loginMenu()const {
     currUser.close();
   
 }
-/*
-//patron menu of options FIX ME: need to 
-void Login::patronMenu()const {
-    int choice;
-    
-    cout << setfill('-') << setw(115) << "" << endl;
-    cout << setfill('-') << setw(65) << " WELCOME TO YOUR ACCOUNT" << setfill('-') << setw(50) << "" << endl;
-    cout << setfill('-') << setw(116) << "\n" << endl;
-    cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
-    cout << setfill(' ') << setw(60) << "1. Search Library" << endl;
-    cout << setfill(' ') << setw(73) << "2. Update Personal Information" << endl;
-    cout << setfill(' ') << setw(59) << "3. View My Media" << endl;
-    cout << setfill(' ') << setw(51) << "4. Exit\n" << endl;
-    cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 
-    cin >> choice;
-
-    switch (choice) {
-
-    case 1:
-        system("cls");
-        invScreen.printMenu();
-        break;
-    case 2:
-        updateInfo();
-        break;
-    case 3:
-        myMedia();
-        break;
-    case 4:        
-        system("cls");
-        exit(0);
-        break;
-    default:
-        cout << "Invalid Choice...Please Try Again...\n" << endl;
-    }
-
-}
-
-//admin menu of options FIXME: need to link to accounts and be able to update user information
-void Login::adminMenu()const {
-    int choice;
-    while (true) {
-        
-        cout << setfill('-') << setw(115) << "" << endl;
-        cout << setfill('-') << setw(65) << " WELCOME ADMINISTRATOR " << setfill('-') << setw(50) << "" << endl;
-        cout << setfill('-') << setw(116) << "\n" << endl;
-        cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
-        cout << setfill(' ') << setw(56) << "1. Inventory" << endl;
-        cout << setfill(' ') << setw(60) << "2. View Accounts" << endl;
-        cout << setfill(' ') << setw(52) << "3. Exit\n" << endl;
-        cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
-
-        cin >> choice;
-
-        switch (choice) {
-
-        case 1:
-            system("cls");
-            invScreen.printMenu();
-            break;
-        case 2:
-            system("cls");
-            cout << "Need to open Account information." << endl;//view account should view list of users and allow admin to update infor via  update()
-            break;
-        case 3:
-            system("cls");
-            exit(0);
-            return;
-        default:
-            cout << "Invalid Choice...Please Try Again...\n" << endl;
-            cin >> choice;
-        }
-    }
-}
-*/
 //login() allows user to login to borrow books if they have a username and password
-void Login::login()const {
+void Login::login() {
     string username;
     string password;
     string line;
@@ -268,14 +162,14 @@ void Login::login()const {
         cout << username << " Login Successful!" << endl;
         cout << endl;
 
-        ofstream user;
-        user.open("currentUser.txt");
+        ofstream userInfo;
+        userInfo.open("currentUser.txt");
 
-        if (!user.is_open()) {
+        if (!userInfo.is_open()) {
             cout << "File open was not successful";
         }
-        user << username << endl;
-        user.close();      
+        userInfo << username << endl;
+        userInfo.close();      
         loginMenu();
        
         system("PAUSE");
@@ -284,9 +178,10 @@ void Login::login()const {
     }
    
 }
+
   /*
 //guest() allows user to be a guest and use material from the library for 2 hours
-void Login::guest()const {
+void Login::guest() {
     string gName;
     string media;
     vector<string>guestBorrowList;
@@ -342,11 +237,15 @@ void Login::guest()const {
 
 }
 */
-//registration() allows user to register for an account if they don't have one already
-void Login::registration()const {
+
+// TODO: reformat using User classes & sub-classes
+// DO NOT FORGET!! Add exception handling in these classes!!!!!
+void Login::registration() {
     string fName, lName, address, phoneNum, email, id, libID, password;
     char pos;
     int choice;
+
+    User tmpUsr;
 
     cout << "Press 1 to return to Main Menu or" << endl;
     
@@ -419,8 +318,10 @@ void Login::registration()const {
     getline(cin, id);
     cout << endl;
     char correct;
+
     //check that information entered is correct, if it is save to file if it is not, enter new information  
     //FIXME write switch to allow user to pick which part is incorrect and only update that?
+    // TODO : Change this part to store data into MainLogin Vector instead of file
     cout << "Is the information correct? Y/N" << endl;
     cout << "Name: " << fName << " " << lName << "\nAddress: " << address << "\nPhone: " << phoneNum << "\nEmail: " << email
         << "\nPosition: " << pos << "\nID: " << id << endl;
@@ -429,6 +330,25 @@ void Login::registration()const {
     case 'Y':
     case'y':    
     {
+        /*
+        switch (pos) {
+        case 'M':
+        case 'm':
+            FacultyMember tmpF(fName, lName, address, phoneNum, email, password, *(new string("M")), id);
+            break;
+        case 'E':
+        case 'e':
+
+            break;
+        case 'S':
+        case 's':
+
+            break;
+        }
+
+        usrs.push_back(currentUsr);
+        */
+
         //open file to store registration information
         ofstream file;
         file.open("records.txt", ios::in | ios::app);
@@ -438,14 +358,17 @@ void Login::registration()const {
 
         //store memeber registration information in records.txt
         if (file.is_open()) {
-            //file << "Name: " << fName << " " << lName << "\tAddress: " << address << "\tPhone: " << phoneNum << "\tEmail: " << email
-              //  << "\tPosition: " << pos << "\tID: " << id << "\tLibrary Login: " << libID << "\tPassword: " << password << "\t" << endl;
+
+
             file << "Name: " << fName << " " << lName << "\nAddress: " << address << "\nPhone: " << phoneNum << "\nEmail: " << email
                 << "\nPosition: " << pos << "\nID: " << id << "\nLibraryID: " << libID << "\nPassword: " << password << endl;
             file << endl;
 
         }
         file.close();
+
+        
+
         //open file to store username and password
         ofstream userpassList;
         userpassList.open("userpass.txt", ios::in | ios::app);
@@ -585,8 +508,9 @@ bool Login::formatPhone(string &phone) {
 }       
       
 
-//limit first and last name to less than 20 letters and only allow letters
-bool Login::isValidName(string &name) {//FIXME not working yet. 
+// Limit first and last name to less than 20 letters and only allow letters
+// FIXME not working yet.
+bool Login::isValidName(string &name) {
     const int NUM_LENGTH = 20;
 
     if (name.length() >= NUM_LENGTH || name.length() == 0) {
@@ -604,7 +528,7 @@ bool Login::isValidName(string &name) {//FIXME not working yet.
 
 }
  
-//asks for address information
+// Asks for address information
 string Login::isValidAddress()const {
     string street;
     string city;
@@ -655,6 +579,7 @@ string Login::isValidAddress()const {
 
 }
 
+// Update user info
 void Login::updateInfo()const {
     system("cls");
     int choice;
@@ -695,12 +620,5 @@ void Login::myMedia()const{
     system("cls");
     cout << "Show list of books checked out to this user." << endl;
 }
-//void Login::borrow(){}
-//void Login::placeHold(){}
-//void Login::renew(){}
-//void Login::checkout(){}
-//void Login::returnBook(){}
-
-
 
 #endif // !MAINLOGIN_CPP

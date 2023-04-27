@@ -1,3 +1,10 @@
+/*
+	User.h
+	This header file defines all of the User object functions.
+	This also defines the following variables:
+	isAdmin, isGuest, statusLevel, firstName, lastName, username, password, and userID
+*/
+
 #pragma once
 #ifndef USER_H
 #define USER_H
@@ -7,47 +14,32 @@
 using namespace std;
 
 class User {
-private:
-	bool isAdmin;
-	bool isGuest;
-
-	string statusLevel;
-	string firstName;
-	string lastName;
-	string username;
-	string password;
-	
-	int userID;
-
-
+protected:
+	string* firstName;
+	string* lastName;
+	string* address;
+	string* phoneNum;
+	string* email;
 public:
 	// Constructors
-	User(bool isAdmin, bool isGuest, string status, string firstN, string lastN, string usern, string pass, int ID) {}
+	User(string &fName, string &lName, string &address, string &phoneNum, string &email) {}
 	User() {}
 	~User() {}
-
-	// Accessors 
-	bool getIsAdmin() {}
-	bool getIsGuest() {}
-
-	string getStatusLevel() {}
-	string getFirstName() {}
-	string getLastName() {}
-	string getUsername() {}
-	string getPassword() {}
-
-	int getUserID() {}
-
+	User(const User& newU);
 
 	// Mutators
-	void setIsAdmin(bool isAdmin) {}
-	void setIsGuest(bool isGuest){}
-	void setStatusLevel(string statusLevel){}
 	void setFirstName(string firstName) {}
 	void setLastName(string lastName) {}
-	void setUsername(string username){}
-	void setPassword(string password){}
-	void setUserID(int userID) {}
+	void setAddress(string a) {}
+	void setPhoneNumber(string p) {}
+	void setEmail(string e) {}
+
+	// Accessors 
+	string &getFirstName()const {}
+	string &getLastName()const {}
+	string &getAddress()const {}
+	string &getPhoneNumber()const {}
+	string &getEmail()const {}
 };
 
-#endif // !USER_H
+#endif // USER_H
