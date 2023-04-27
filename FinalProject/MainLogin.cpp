@@ -23,7 +23,7 @@ Login::Login(Login& l) {}
 Login::~Login() {}
 
 // printMenu() prints the menu options for the login screen
-void Login::printMenu()const {
+void Login::printMenu() {
     int choice;
     date.printDate();
     cout << setfill('-') << setw(115) << "" << endl;
@@ -130,7 +130,7 @@ void Login::loginMenu()const {
 }
 
 //login() allows user to login to borrow books if they have a username and password
-void Login::login()const {
+void Login::login() {
     string username;
     string password;
     string line;
@@ -177,7 +177,7 @@ void Login::login()const {
 }
   
 //guest() allows user to be a guest and use material from the library for 2 hours
-void Login::guest()const {
+void Login::guest() {
     string gName;
     string media;
     vector<string>guestBorrowList;
@@ -235,10 +235,12 @@ void Login::guest()const {
 
 // TODO: reformat using User classes & sub-classes
 // DO NOT FORGET!! Add exception handling in these classes!!!!!
-void Login::registration()const {
+void Login::registration() {
     string fName, lName, address, phoneNum, email, id, libID, password;
     char pos;
     int choice;
+
+    User tmpUsr;
 
     cout << "Press 1 to return to Main Menu or" << endl;
     
@@ -311,8 +313,10 @@ void Login::registration()const {
     getline(cin, id);
     cout << endl;
     char correct;
+
     //check that information entered is correct, if it is save to file if it is not, enter new information  
     //FIXME write switch to allow user to pick which part is incorrect and only update that?
+    // TODO : Change this part to store data into MainLogin Vector instead of file
     cout << "Is the information correct? Y/N" << endl;
     cout << "Name: " << fName << " " << lName << "\nAddress: " << address << "\nPhone: " << phoneNum << "\nEmail: " << email
         << "\nPosition: " << pos << "\nID: " << id << endl;
@@ -321,6 +325,25 @@ void Login::registration()const {
     case 'Y':
     case'y':    
     {
+        /*
+        switch (pos) {
+        case 'M':
+        case 'm':
+            FacultyMember tmpF(fName, lName, address, phoneNum, email, password, *(new string("M")), id);
+            break;
+        case 'E':
+        case 'e':
+
+            break;
+        case 'S':
+        case 's':
+
+            break;
+        }
+
+        usrs.push_back(currentUsr);
+        */
+
         //open file to store registration information
         ofstream file;
         file.open("records.txt", ios::in | ios::app);
@@ -330,8 +353,8 @@ void Login::registration()const {
 
         //store memeber registration information in records.txt
         if (file.is_open()) {
-            //file << "Name: " << fName << " " << lName << "\tAddress: " << address << "\tPhone: " << phoneNum << "\tEmail: " << email
-              //  << "\tPosition: " << pos << "\tID: " << id << "\tLibrary Login: " << libID << "\tPassword: " << password << "\t" << endl;
+
+
             file << "Name: " << fName << " " << lName << "\nAddress: " << address << "\nPhone: " << phoneNum << "\nEmail: " << email
                 << "\nPosition: " << pos << "\nID: " << id << "\nLibraryID: " << libID << "\nPassword: " << password << endl;
             file << endl;
@@ -587,12 +610,5 @@ void Login::myMedia()const{
     system("cls");
     cout << "Show list of books checked out to this user." << endl;
 }
-//void Login::borrow(){}
-//void Login::placeHold(){}
-//void Login::renew(){}
-//void Login::checkout(){}
-//void Login::returnBook(){}
-
-
 
 #endif // !MAINLOGIN_CPP

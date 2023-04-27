@@ -1,47 +1,125 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="CheckedoutMedia.cpp" />
-    <ClCompile Include="ConferenceJournal.cpp" />
-    <ClCompile Include="Date.cpp" />
-    <ClCompile Include="FinalProject.cpp" />
-    <ClCompile Include="InventoryScreen.cpp" />
-    <ClCompile Include="LibraryMedia.cpp" />
-    <ClCompile Include="Newspaper.cpp" />
-    <ClCompile Include="Publisher.cpp" />
-    <ClCompile Include="LibraryLinkedList.cpp" />
-    <ClCompile Include="MainLogin.cpp" />
-    <ClCompile Include="CurrentSessionInfo.cpp" />
-    <ClCompile Include="Book.cpp" />
-    <ClCompile Include="Periodical.cpp" />
-    <ClCompile Include="Author.cpp" />
-    <ClCompile Include="GuestLogin.cpp" />
-    <ClCompile Include="User.cpp" />
-    <ClCompile Include="FacultyMember.cpp" />
-    <ClCompile Include="Staff.cpp" />
-    <ClCompile Include="Student.cpp" />
-    <ClCompile Include="Guest.cpp" />
+    <ClCompile Include="Author.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Book.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckedoutMedia.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="ConferenceJournal.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="CurrentSessionInfo.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Date.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="FacultyMember.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="FinalProject.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Guest.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="GuestLogin.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="InventoryScreen.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="LibraryLinkedList.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="LibraryMedia.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="MainLogin.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Newspaper.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Periodical.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Publisher.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Staff.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Student.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="User.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CheckedoutMedia.h" />
-    <ClInclude Include="ConferenceJournal.h" />
-    <ClInclude Include="Date.h" />
-    <ClInclude Include="InventoryScreen.h" />
-    <ClInclude Include="LibraryMedia.h" />
-    <ClInclude Include="Newspaper.h" />
-    <ClInclude Include="Publisher.h" />
-    <ClInclude Include="LibraryLinkedList.h" />
-    <ClInclude Include="MainLogin.h" />
-    <ClInclude Include="CurrentSessionInfo.h" />
-    <ClInclude Include="Book.h" />
-    <ClInclude Include="Periodical.h" />
-    <ClInclude Include="Author.h" />
-    <ClInclude Include="GuestLogin.h" />
-    <ClInclude Include="User.h" />
-    <ClInclude Include="FacultyMember.h" />
-    <ClInclude Include="Staff.h" />
-    <ClInclude Include="Student.h" />
-    <ClInclude Include="Guest.h" />
+    <ClInclude Include="Author.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Book.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckedoutMedia.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ConferenceJournal.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="CurrentSessionInfo.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Date.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="FacultyMember.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Guest.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="GuestLogin.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="InventoryScreen.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="LibraryLinkedList.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="LibraryMedia.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MainLogin.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Newspaper.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Periodical.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Publisher.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Staff.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Student.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="User.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="records.txt" />
@@ -52,5 +130,13 @@
     <Text Include="NewspaperRecord.txt" />
     <Text Include="JournalRecord.txt" />
     <Text Include="PeriodicalRecord.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Classes">
+      <UniqueIdentifier>{b674f16d-9b2b-4fba-a855-59594d9b7d1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{f51d6894-83f4-4e53-bdc7-7eae847e6695}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

@@ -4,14 +4,15 @@
 
 class FacultyMember : User {
 protected:
-	string status;
-	string ID;
-	string password;
+	string *status;
+	string *ID;
+	string *password;
 public:
-	FacultyMember(string fName, string lName, string address, string phone, 
-		string email, string p, string status, string ID);
+	FacultyMember(string &fName, string &lName, string &address, string &phone, 
+		string &email, string &p, string &status, string &ID);
 	FacultyMember();
 	~FacultyMember();
+	FacultyMember(const FacultyMember& newU);
 
 	// Mutators
 	void setStatus(string s);
@@ -19,9 +20,9 @@ public:
 	void setPassword(string p);
 
 	// Accessors
-	string getStatus()const;
-	string getID()const;
-	string getPassword()const;
+	string &getStatus()const;
+	string &getID()const;
+	string &getPassword()const;
 };
 
 #endif // FACULTY_MEMBER_H

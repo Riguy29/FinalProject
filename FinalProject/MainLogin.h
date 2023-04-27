@@ -7,33 +7,37 @@
 #include "GuestLogin.h"
 #include "InventoryScreen.h"
 #include "LibraryMedia.h"
+#include "User.h"
+#include "FacultyMember.h"
+#include "Student.h"
+#include "Staff.h"
 
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
 class Login {
 private:
-	//User tempUser;
 	Date date;
 	Guest guestLogin;
 	InventoryScreen invScreen;
-
+	User currentUsr;
+	vector<User> usrs;
 public:
-	Login();//default constructor
 	Login();
 	Login(Login& l);
 	~Login();
 
-	void printMenu()const;
+	void printMenu();
 	string getUsername()const;
 	string getPassword()const;
 	void setUsername(string userN);
 	void setPassword(string userP);
-	void login()const;	
-	void registration()const;
-	void guest()const;
+	void login();	
+	void registration();
+	void guest();
 	static string randomPass();
 	static string randomLibID();
 	static bool isValidName(string& name);

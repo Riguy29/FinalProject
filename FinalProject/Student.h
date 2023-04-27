@@ -4,12 +4,12 @@
 
 class Student : public User {
 protected:
-	string status;
-	string ID;
-	string password;
+	string *status;
+	string *ID;
+	string *password;
 public:
-	Student(string fName, string lName, string address, 
-		string phone, string email, string p, string status, string ID);
+	Student(string &fName, string &lName, string &address, 
+		string &phone, string &email, string &p, string &status, string &ID);
 	Student();
 	~Student();
 
@@ -19,9 +19,9 @@ public:
 	void setPassword(string p);
 
 	// Accessors
-	string getStatus()const;
-	string getID()const;
-	string getPassword()const;
+	string &getStatus()const;
+	string &getID()const;
+	string &getPassword()const;
 };
 
 #endif // STUDENT_H

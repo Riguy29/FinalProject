@@ -4,12 +4,12 @@
 
 class Staff : User {
 protected:
-	string status;
-	string ID;
-	string password;
+	string *status;
+	string *ID;
+	string *password;
 public:
-	Staff(string fName, string lName, string address, string phone, 
-		string email, string p, string status, string ID);
+	Staff(string &fName, string &lName, string &address, string &phone, 
+		string &email, string &p, string &status, string &ID);
 	Staff();
 	~Staff();
 
@@ -19,9 +19,9 @@ public:
 	void setPassword(string p);
 
 	// Accessors
-	string getStatus()const;
-	string getID()const;
-	string getPassword()const;
+	string &getStatus()const;
+	string &getID()const;
+	string &getPassword()const;
 };
 
 #endif // STAFF_H
