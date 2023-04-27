@@ -261,6 +261,7 @@ void LibraryMedia::SetPublishers()
 		tempPub.SetName();
 		tempPub.SetEmail();
 		tempPub.SetAddress();
+		CurrentSessionInfo::pubList.push_back(tempPub);
 	}
 }
 #endif // !LIBRARYMEDIA_CPP
