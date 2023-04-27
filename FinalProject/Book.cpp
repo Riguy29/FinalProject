@@ -72,12 +72,7 @@ void Book::ToString()
 	cout << endl << endl;
 }
 
-Book::~Book()
-{
-
-}
-
-
+Book::~Book() {}
 
 Book::Book() :LibraryMedia()
 {

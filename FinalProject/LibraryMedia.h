@@ -15,7 +15,7 @@ using namespace std;
 class LibraryMedia
 {
 public:
-	enum  mediaTypes
+	enum mediaTypes
 	{
 		book,
 		newspaper,
@@ -63,8 +63,6 @@ protected:
 	string* subCategory;
 	int inventoryCount;
 	string* doner;
-
-
 };
 
 #endif // !LIBRARYMEDIA_H

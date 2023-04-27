@@ -49,9 +49,7 @@ void LibraryMedia::ToString()
 	//cout << endl << endl;
 }
 
-LibraryMedia::~LibraryMedia()
-{
-}
+LibraryMedia::~LibraryMedia() {}
 
 LibraryMedia::LibraryMedia(const LibraryMedia& mediaToCopy)
 {

@@ -14,19 +14,9 @@
 
 int main()
 {
-	//CurrentSessionInfo::GenerateDummyData();
 	CurrentSessionInfo::LoadAllData();
-	//CurrentSessionInfo::authorList.at(0).name;
-	/*
-	//TEST
-	cout << endl;
-	cout << CurrentSessionInfo::mediaList.size();
-	//END TEST
-	*/
+
 	Login login;
-	GuestLogin guest;
-	//guest.receipt();
 
 	login.printMenu();
-	return 0;
 }

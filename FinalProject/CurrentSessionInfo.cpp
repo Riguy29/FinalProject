@@ -5,10 +5,12 @@ bool CurrentSessionInfo::isUserAdmin = false;
 vector<Publisher> CurrentSessionInfo::pubList;
 vector<Author> CurrentSessionInfo::authorList;
 vector<LibraryMedia*> CurrentSessionInfo::mediaList;
+vector<User*> CurrentSessionInfo::userList;
 string CurrentSessionInfo::BOOK_FILE_PATH = "BookRecord.txt";
 string CurrentSessionInfo::NEWS_FILE_PATH = "NewspaperRecord.txt";
 string CurrentSessionInfo::JOURNAL_FILE_PATH = "JournalRecord.txt";
 string CurrentSessionInfo::PERIODICAL_FILE_PATH = "PeriodicalRecord.txt";
+string CurrentSessionInfo::USER_FILE_PATH = "Users.txt";
 User CurrentSessionInfo::currUser;
 
 void CurrentSessionInfo::GenerateDummyData()
@@ -57,32 +59,32 @@ void CurrentSessionInfo::GenerateDummyData()
 		stream.write(reinterpret_cast<char*> (&p1), sizeof(Periodical));
 	}
 	stream.close();
-
-	//stream.open("JournalRecord.txt", ios::binary | ios::out);
-
-	//if (stream.is_open()) {
-	//	Date d1(2, 23, 2001);
-	//	ConferenceJournal Journal1(5, "On Computer Science", 25, "Comp Sci", "AI", 2, "Riley","UWGB",d1);
-	//	stream.write(reinterpret_cast<char*> (&Journal1), sizeof(ConferenceJournal));
-	//}
-	//stream.close();
 }
+
 vector<LibraryMedia*> CurrentSessionInfo::GetLibraryInventory()
 {
 	return mediaList;
 }
+
+vector<User*> CurrentSessionInfo::GetUsersVector() 
+{
+	return userList;
+}
+
 void CurrentSessionInfo::LoadAllData()
 {
 	LoadData<Publisher>("PublisherRecord.txt", pubList);
 	LoadData<Author>("AuthorRecord.txt", authorList);
 
-	LoadData<Book>("BookRecord.txt");
-	LoadData<Newspaper>("NewspaperRecord.txt");
-	LoadData<Periodical>("PeriodicalRecord.txt");
-	//LoadData<ConferenceJournal>("JournalRecord.txt");
+	LoadMediaData<Book>("BookRecord.txt");
+	LoadMediaData<Newspaper>("NewspaperRecord.txt");
+	LoadMediaData<Periodical>("PeriodicalRecord.txt");
 
-	
+	LoadUserData<User>("Users.txt");
+
+	//LoadData<ConferenceJournal>("JournalRecord.txt");
 }
+
 void CurrentSessionInfo::SaveAllData()
 {
 	SaveData<Publisher>("PublisherRecord.txt", pubList);
@@ -90,6 +92,7 @@ void CurrentSessionInfo::SaveAllData()
 
 	SaveData();
 }
+
 template<typename T>
 void CurrentSessionInfo::LoadData(string fileName, vector<T>& list)
 {
@@ -106,9 +109,9 @@ void CurrentSessionInfo::LoadData(string fileName, vector<T>& list)
 	inStream.close();
 }
 
-
+// Loads Media Data
 template<typename T>
-void CurrentSessionInfo::LoadData(string fileName)
+void CurrentSessionInfo::LoadMediaData(string fileName)
 {
 	fstream inStream;
 	inStream.open(fileName, ios::binary | ios::in);
@@ -120,8 +123,27 @@ void CurrentSessionInfo::LoadData(string fileName)
 			mediaList.emplace_back(new T(temp));
 		}
 	}
-	else cout << "Error: Could not load data, make sure filepath is correct";
 
+	else cout << "Error: Could not load media data, make sure filepath is correct";
+	inStream.close();
+}
+
+// Load User Data
+template<typename T>
+void CurrentSessionInfo::LoadUserData(string fileName)
+{
+	fstream inStream;
+	inStream.open(fileName, ios::binary | ios::in);
+	T temp;
+
+	if (inStream.is_open()) {
+		while (inStream.read(reinterpret_cast<char*>(&temp), sizeof(T)))
+		{
+			userList.emplace_back(new T(temp));
+		}
+	}
+
+	else cout << "Error: Could not load user data, make sure filepath is correct";
 	inStream.close();
 }
 
@@ -144,12 +166,13 @@ void CurrentSessionInfo::SaveData(string fileName, vector<T>& list)
 
 void CurrentSessionInfo::SaveData()
 {
-	fstream bookOut,newspaperOut,periodicalOut,journalOut;
+	fstream bookOut,newspaperOut,periodicalOut,journalOut, userOut;
 	bookOut.open(BOOK_FILE_PATH, ios::binary | ios::in);
 	newspaperOut.open(NEWS_FILE_PATH, ios::binary | ios::in);
 	periodicalOut.open(PERIODICAL_FILE_PATH, ios::binary | ios::in);
 	journalOut.open(JOURNAL_FILE_PATH, ios::binary | ios::in);
-	if (bookOut.is_open() && periodicalOut.is_open() && journalOut.is_open() && newspaperOut.is_open()) {
+	userOut.open(USER_FILE_PATH, ios::binary | ios::in);
+	if (bookOut.is_open() && periodicalOut.is_open() && journalOut.is_open() && newspaperOut.is_open() && userOut.is_open()) {
 		for (int i = 0; i < mediaList.size(); i++)
 		{
 			switch (mediaList.at(i)->GetMediaType())
@@ -171,6 +194,11 @@ void CurrentSessionInfo::SaveData()
 				break;
 			}
 		}
+
+		for (int i = 0; i < userList.size(); i++) 
+		{
+			userOut.write(reinterpret_cast<char*>(&userList.at(i)), sizeof(User));
+		}
 	}
 	else cout << "Error: Could not load data, make sure filepath is correct";
 
@@ -178,6 +206,4 @@ void CurrentSessionInfo::SaveData()
 	newspaperOut.close();
 	periodicalOut.close();
 	journalOut.close();
-
-	
 }

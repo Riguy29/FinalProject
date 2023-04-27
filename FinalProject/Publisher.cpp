@@ -117,6 +117,10 @@ Publisher::Publisher(int id, const string& newName, const string& newAddress, co
 	email = new string(newEmail);
 }
 
+Publisher::Publisher(int id) {
+	bookId = id;
+}
+
 void Publisher::PrintInfo()
 {
 	cout << "Publisher Info--Name: " << GetName() << " Address: " << GetAddress() << " Email: " << GetEmail();
