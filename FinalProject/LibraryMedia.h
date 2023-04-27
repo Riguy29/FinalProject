@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include "Publisher.h"
-//#include "LibraryLinkedList.cpp"
+#include "Author.h"
 #include <random>
 #include <iostream>
 
@@ -23,25 +23,33 @@ public:
 		periodical
 	};
 
-	void SetTitle();
+	//Accesors
 	string& GetTitle();
-	void SetMediaType(mediaTypes mediaType);
-	mediaTypes GetMediaType();
-	void SetPrice();
+	mediaTypes GetMediaType(); //No set method since media type should never change
 	double GetPrice();
-	void SetCategory();
 	string& GetCategory();
-	void SetSubCategory();
 	string& GetSubCategory();
-
-	void SetInventoryCount(int newCount);
 	int GetInventoryCount();
-
-	void SetDoner();
 	string& GetDoner();
+	//0 for author search string, 1 for publisher name search string, 2 for publisher address search string
+	string GetSearchString(int searchParm);
+	int GetMediaID(); //No set method since the id is auto generated;
+
+	//Mutators
+	void SetTitle();
+	void SetMediaType(mediaTypes mediaType); //Not really sure if you should even be able to set media type
+	void SetPrice();
+	void SetCategory();
+	void SetSubCategory();
+	void SetInventoryCount();
+	void SetDoner();
+
 
 	//We will want to disp
-	void ToString();
+	virtual void ToString();
+
+	~LibraryMedia();
+	LibraryMedia(const LibraryMedia& mediaToCopy);
 	LibraryMedia();
 	LibraryMedia(int id, const string& mediaTitle, mediaTypes typeOfMedia, double mediaPrice, const string& mediaCat, const string& mediaSubCat, int mediaCount, const string& mediaDoner);
 protected:
@@ -53,6 +61,7 @@ protected:
 	string* subCategory;
 	int inventoryCount;
 	string* doner;
+
 
 };
 

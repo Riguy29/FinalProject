@@ -150,6 +150,7 @@
     <ClInclude Include="Date.h" />
     <ClInclude Include="GuestLogin.h" />
     <ClInclude Include="InventoryScreen.h" />
+    <ClInclude Include="Invoice.h" />
     <ClInclude Include="LibraryMedia.h" />
     <ClInclude Include="Newspaper.h" />
     <ClInclude Include="Periodical.h" />
@@ -163,7 +164,12 @@
   <ItemGroup>
     <Text Include="AuthorRecord.txt" />
     <Text Include="BookRecord.txt" />
+    <Text Include="currentUser.txt" />
+    <Text Include="JournalRecord.txt" />
+    <Text Include="NewspaperRecord.txt" />
+    <Text Include="PeriodicalRecord.txt" />
     <Text Include="PublisherRecord.txt" />
+    <Text Include="PurchaseList.txt" />
     <Text Include="records.txt" />
     <Text Include="userpass.txt" />
   </ItemGroup>

@@ -3,13 +3,20 @@
 class Newspaper : public LibraryMedia
 {
 public:
-	enum PublishRate {
+	void ToString();
+	enum NewspaperPublishRates {
 		daily = 0,
 		weekly,
 	};
-	void SetPublishRate(PublishRate rate);
-	PublishRate GetPublishRate();
+	void SetPublishRate(NewspaperPublishRates rate);
+	NewspaperPublishRates GetPublishRate();
+
+	~Newspaper();
+	Newspaper();
+	Newspaper(Newspaper& copy);
+	Newspaper(int id, const string& mediaTitle, double mediaPrice, const string& mediaCat, const string& mediaSubCat, int mediaCount,
+		const string& mediaDoner, NewspaperPublishRates newspaperPublishRate);
 private:
-	PublishRate publishRate;
+	NewspaperPublishRates publishRate;
 	
 };

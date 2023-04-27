@@ -23,15 +23,20 @@ public:
 	void SearchForMedia()const;
 	void CheckoutBook();
 	void printMenu()const;
-	void SearchByTitle(LibraryMedia::mediaTypes type);
-	void SearchByAuthor(string targetAuthor);
-
-	void PrintMatchingMedia(vector<Book*> mediaList);
-	void PrintMatchingMedia(vector<ConferenceJournal> mediaList);
-	void PrintMatchingMedia(vector<Newspaper> mediaList);
-	void PrintMatchingMedia(vector<Periodical> mediaList);
+	void SearchByTitle() const;
+	void SearchByAuthor() const;
+	void SearchByDepartment() const;
+	void SearchBySubject() const;
+	void SearchByPublisherName() const;
+	void SearchByPrice() const;
+	void SearchByPublisherAddress() const;
+	void ConfirmMediaCheckout() const;
+	void MediaInteractionMenu(LibraryMedia& selectedMedia);
+	void PrintMatchingMedia(vector<LibraryMedia*> mediaList) const;
+	void EditMedia(LibraryMedia* selectedMedia) const;
 private:
 	string recordTxtFile = "InventoryRecord.txt";
+	vector<int> MediaID;
 };
 
 #endif

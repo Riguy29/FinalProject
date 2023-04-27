@@ -57,6 +57,9 @@ void Login::printMenu()const {
     case 2:
         system("cls");
         guestLogin.printMenu();
+        invScreen.SearchForMedia();
+        //guestLogin.printMenu();
+        //guest();
         break;
     case 3:
         system("cls");
@@ -132,7 +135,7 @@ void Login::loginMenu()const {
     currUser.close();
   
 }
-
+/*
 //patron menu of options FIX ME: need to 
 void Login::patronMenu()const {
     int choice;
@@ -209,6 +212,7 @@ void Login::adminMenu()const {
 }
 
 // TODO: Integrate User object in here and registration function
+*/
 //login() allows user to login to borrow books if they have a username and password
 void Login::login()const {
     string username;
@@ -255,7 +259,7 @@ void Login::login()const {
     }
    
 }
-  
+  /*
 //guest() allows user to be a guest and use material from the library for 2 hours
 void Login::guest()const {
     string gName;
@@ -314,6 +318,7 @@ void Login::guest()const {
 }
 
 // TODO: Integrate User object
+*/
 //registration() allows user to register for an account if they don't have one already
 void Login::registration()const {
     string fName, lName, address, phoneNum, email, id, libID, password;
