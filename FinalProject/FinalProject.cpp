@@ -13,24 +13,20 @@
 
 
 int main()
-{/*
-	//TEST
-	CurrentSessionInfo::GenerateDummyData();
+{
+	//CurrentSessionInfo::GenerateDummyData();
 	CurrentSessionInfo::LoadAllData();
-	//cout << CurrentSessionInfo::pubList.size() << endl;
-	//cout << *CurrentSessionInfo::authorList.at(1).name << endl;
-	CurrentSessionInfo::mediaList.at(3)->ToString();
+	//CurrentSessionInfo::authorList.at(0).name;
+	/*
+	//TEST
 	cout << endl;
-	//cout << CurrentSessionInfo::mediaList.size();
+	cout << CurrentSessionInfo::mediaList.size();
 	//END TEST
 	*/
 	Login login;
-	Guest guest;
+	GuestLogin guest;
 	//guest.receipt();
 
 	login.printMenu();
-
-
-	CurrentSessionInfo::SaveAllData();
 	return 0;
 }

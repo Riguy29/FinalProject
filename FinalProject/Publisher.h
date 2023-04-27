@@ -15,13 +15,14 @@ public:
 	string& GetEmail();
 	string& GetAddress();
 
-	void SetName(string newName);
-	void SetEmail(string newEmail);
-	void SetAddress(string newAddress);
+	void SetName();
+	void SetEmail();
+	void SetAddress();
 	void SetBookId(int bookId);
 
 	Publisher();
 	Publisher(int id, const string& newName, const string& newAddress, const string& newEmail);
+	Publisher(int id); //Used when creating a new publisher as id is auto set
 
 	void PrintInfo();
 };

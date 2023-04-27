@@ -120,10 +120,10 @@
     <ClInclude Include="User.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Invoice.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="records.txt" />
-    <Text Include="BookRecord.txt" />
     <Text Include="AuthorRecord.txt" />
     <Text Include="PublisherRecord.txt" />
     <Text Include="userpass.txt" />
@@ -132,6 +132,7 @@
     <Text Include="PeriodicalRecord.txt" />
     <Text Include="PurchaseList.txt" />
     <Text Include="currentUser.txt" />
+    <Text Include="BookRecord.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

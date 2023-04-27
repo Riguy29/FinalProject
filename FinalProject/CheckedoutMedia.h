@@ -7,6 +7,7 @@ using namespace std;
 class CheckedoutMedia
 {
 private:
+	int userId;
 	int bookId;
 	double lateFee;
 	Date checkoutDate;

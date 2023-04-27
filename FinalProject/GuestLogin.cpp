@@ -1,15 +1,22 @@
 #include "GuestLogin.h"
 
-Guest::Guest(){
 
+
+GuestLogin::GuestLogin()
+{
 }
-Guest::~Guest(){}
 
+GuestLogin::~GuestLogin()
+{
+}
 
-void Guest::buy() {}
+void GuestLogin::buy() {}
 
-void Guest::receipt()const {
-	
+void GuestLogin::receipt()const {
+	string fullName;
+	cout << "Enter your name: " << endl;
+	getline(cin, fullName);
+	system("cls");
 
 	fstream purchase;
 	purchase.open("PurchaseList.txt", ios::in | ios::out);

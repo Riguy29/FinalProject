@@ -4,19 +4,13 @@
 bool CurrentSessionInfo::isUserAdmin = false;
 vector<Publisher> CurrentSessionInfo::pubList;
 vector<Author> CurrentSessionInfo::authorList;
-vector<Book> CurrentSessionInfo::bookList;
 vector<LibraryMedia*> CurrentSessionInfo::mediaList;
 string CurrentSessionInfo::BOOK_FILE_PATH = "BookRecord.txt";
 string CurrentSessionInfo::NEWS_FILE_PATH = "NewspaperRecord.txt";
 string CurrentSessionInfo::JOURNAL_FILE_PATH = "JournalRecord.txt";
 string CurrentSessionInfo::PERIODICAL_FILE_PATH = "PeriodicalRecord.txt";
+User CurrentSessionInfo::currUser;
 
-void CurrentSessionInfo::SetAdmin(bool isAdmin) { isUserAdmin = isAdmin; }
-
-bool CurrentSessionInfo::CheckIfAdmin()
-{
-	return isUserAdmin;
-}
 void CurrentSessionInfo::GenerateDummyData()
 {
 	fstream stream;
@@ -63,14 +57,22 @@ void CurrentSessionInfo::GenerateDummyData()
 		stream.write(reinterpret_cast<char*> (&p1), sizeof(Periodical));
 	}
 	stream.close();
+
+	//stream.open("JournalRecord.txt", ios::binary | ios::out);
+
+	//if (stream.is_open()) {
+	//	Date d1(2, 23, 2001);
+	//	ConferenceJournal Journal1(5, "On Computer Science", 25, "Comp Sci", "AI", 2, "Riley","UWGB",d1);
+	//	stream.write(reinterpret_cast<char*> (&Journal1), sizeof(ConferenceJournal));
+	//}
+	//stream.close();
 }
-//vector<LibraryMedia*> CurrentSessionInfo::GetLibraryInventory()
-//{
-//	return mediaList;
-//}
+vector<LibraryMedia*> CurrentSessionInfo::GetLibraryInventory()
+{
+	return mediaList;
+}
 void CurrentSessionInfo::LoadAllData()
 {
-	//LoadData<Book>("BookRecord.txt", bookList);
 	LoadData<Publisher>("PublisherRecord.txt", pubList);
 	LoadData<Author>("AuthorRecord.txt", authorList);
 
@@ -153,11 +155,18 @@ void CurrentSessionInfo::SaveData()
 			switch (mediaList.at(i)->GetMediaType())
 			{
 			case LibraryMedia::book:
+				//Book writeOutBook = dynamic_cast<Book>(*mediaList.at(i));
 				bookOut.write(reinterpret_cast<char*>(&mediaList.at(i)), sizeof(Book));
-					break;
+				break;
 			case LibraryMedia::newspaper:
+				newspaperOut.write(reinterpret_cast<char*>(&mediaList.at(i)), sizeof(Newspaper));
+				break;
 			case LibraryMedia::conferenceJournal:
+				journalOut.write(reinterpret_cast<char*>(&mediaList.at(i)), sizeof(ConferenceJournal));
+				break;
 			case LibraryMedia::periodical:
+				periodicalOut.write(reinterpret_cast<char*>(&mediaList.at(i)), sizeof(Periodical));
+				break;
 			default:
 				break;
 			}
@@ -169,4 +178,6 @@ void CurrentSessionInfo::SaveData()
 	newspaperOut.close();
 	periodicalOut.close();
 	journalOut.close();
+
+	
 }

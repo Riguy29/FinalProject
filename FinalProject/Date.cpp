@@ -16,7 +16,18 @@ using namespace std;
  **************************************************************/
 
 #include "Date.h"
-Date::Date() {};
+Date::Date() {
+    day = 1;
+    month = 1;
+    year = 1970;
+}
+Date::Date(const Date& copyDate)
+{
+    month = copyDate.month;
+    day = copyDate.day;
+    year = copyDate.year;
+}
+;
 
 Date::Date(int m, int d, int y)
     : month(m), day(d), year(y) {

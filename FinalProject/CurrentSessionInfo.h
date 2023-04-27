@@ -1,5 +1,4 @@
 #pragma once
-#include "LibraryLinkedList.h"
 #include "Book.h"
 #include "LibraryMedia.h"
 #include "Newspaper.h"
@@ -7,6 +6,7 @@
 #include "ConferenceJournal.h"
 #include "Author.h"
 #include  "Publisher.h"
+#include "User.h"
 #include <vector>
 
 #include <fstream>
@@ -21,20 +21,17 @@ private:
 	static string NEWS_FILE_PATH;
 	static string PERIODICAL_FILE_PATH;
 	static string JOURNAL_FILE_PATH;
-	//User currUser;
+	static User currUser;
 public:
 	static vector<LibraryMedia*> mediaList;
 	static vector<Author> authorList;
 	static vector<Publisher> pubList;
-	static vector<Book> bookList;
-	static void SetAdmin(bool isAdmin);
-	static bool CheckIfAdmin();
 	//void SetUser();
 	//User GetCurrUser();
 	static void LoadAllData();
 	static void SaveAllData();
 	static void GenerateDummyData();
-	static vector<unique_ptr<LibraryMedia>> GetLibraryInventory();
+	static vector<LibraryMedia*> GetLibraryInventory();
 
 	template<typename T>
 	static void LoadData(string fileName, vector<T>& list);
@@ -43,6 +40,7 @@ public:
 	template<typename T>
 	static void LoadData(string fileName);
 
+	//This function is used to save data for publishers, authors, and users
 	template<typename T>
 	static void SaveData(string fileName, vector<T>& list);
 

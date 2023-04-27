@@ -10,6 +10,7 @@ public:
 	string& GetISBN();
 	void SetEdition();
 	int GetEdition();
+
 	void ToString() override;
 	~Book();
 	Book();

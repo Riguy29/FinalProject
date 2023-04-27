@@ -2,7 +2,7 @@
 
 // Default Constructor
 Guest::Guest():
-	User("", "", "", "", ""), status("") {}
+	User(), status("") {}
 
 // Overloaded Constructor
 Guest::Guest(string fName, string lName, string address, string phone, string email, string s):
