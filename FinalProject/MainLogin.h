@@ -24,7 +24,7 @@ using namespace std;
 class Login {
 private:
 	Date date;
-	Guest guestLogin;
+	GuestLogin guestLogin;
 	InventoryScreen invScreen;
 	User currentUsr;
 	vector<User> usrs;
@@ -49,7 +49,7 @@ public:
 	static bool formatPhone(string& phone);
 	string isValidAddress()const;
 
-	void loginMenu()const;
+	void userHomeMenu()const;
 	void updateInfo()const;
 	void myMedia()const;
 };

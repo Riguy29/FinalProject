@@ -4,19 +4,13 @@
 bool CurrentSessionInfo::isUserAdmin = false;
 vector<Publisher> CurrentSessionInfo::pubList;
 vector<Author> CurrentSessionInfo::authorList;
-vector<Book> CurrentSessionInfo::bookList;
 vector<LibraryMedia*> CurrentSessionInfo::mediaList;
 string CurrentSessionInfo::BOOK_FILE_PATH = "BookRecord.txt";
 string CurrentSessionInfo::NEWS_FILE_PATH = "NewspaperRecord.txt";
 string CurrentSessionInfo::JOURNAL_FILE_PATH = "JournalRecord.txt";
 string CurrentSessionInfo::PERIODICAL_FILE_PATH = "PeriodicalRecord.txt";
+User CurrentSessionInfo::currUser;
 
-void CurrentSessionInfo::SetAdmin(bool isAdmin) { isUserAdmin = isAdmin; }
-
-bool CurrentSessionInfo::CheckIfAdmin()
-{
-	return isUserAdmin;
-}
 void CurrentSessionInfo::GenerateDummyData()
 {
 	fstream stream;

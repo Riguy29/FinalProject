@@ -12,13 +12,14 @@
 User::User():firstName(new string("")), lastName(new string("")), address(new string("")), phoneNum(new string("")), email(new string("")) {}
 
 // Overloaded Constructor
-User::User(string &fName, string &lName, string &a, string &p, string &e):
+User::User(const string &fName, const string &lName,const  string &a, const string &p,const  string &e):
 	firstName(new string(fName)), lastName(new string(lName)), address(new string(a)), phoneNum(new string(p)), email(new string(e)) {}
 
 // Copy constructor
-User::User(User& u):isAdmin(u.isAdmin), isGuest(u.isGuest), statusLevel(u.statusLevel), 
-	firstName(u.firstName), lastName(u.lastName), username(u.username), password(u.password),
-	userID(u.userID) {}
+// 
+//User::User(User& u):isAdmin(u.isAdmin), isGuest(u.isGuest), statusLevel(u.statusLevel), 
+//	firstName(u.firstName), lastName(u.lastName), username(u.username), password(u.password),
+//	userID(u.userID) {}
 
 // Destructor
 User::~User() { cout << "User object destroyed: Please remove this before deployment!" << endl; }

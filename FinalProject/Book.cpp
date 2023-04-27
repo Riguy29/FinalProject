@@ -6,11 +6,33 @@ void Book::SetISBN()
 	bool isValid = true;
 	do
 	{
-		isValid = true;
-		cout << "Enter the ISBN: ";
-		cin >> newISBN;
-		//Validate data
-		if (newISBN.size() != 10) isValid = false;
+		try
+		{
+			isValid = true;
+			cout << "Enter the ISBN: ";
+			cin >> newISBN;
+			if (newISBN.length() != 10) throw(1);
+			for (char stringChar : newISBN) {
+				if (isalpha(stringChar)) {
+					throw(2);
+				}
+			}
+		}
+		catch (int errorCode)
+		{
+			system("cls");
+			switch (errorCode)
+			{
+			case 1:
+				cout << "ISBN must be exactly 10 digits long" << endl;
+				break;
+			case 2:
+				cout << "ISBN must only contain numbers" << endl;
+			default:
+				break;
+			}
+			isValid = false;
+		}
 
 	} while (!isValid);
 	ISBN = new string(newISBN);

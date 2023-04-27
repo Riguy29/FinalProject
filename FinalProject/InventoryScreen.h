@@ -18,25 +18,26 @@ using namespace std;
 class InventoryScreen 
 {
 public:
-	void UpdateMedia();
-	void AddMedia();
-	void SearchForMedia()const;
-	void CheckoutBook();
-	void printMenu()const;
-	void SearchByTitle() const;
-	void SearchByAuthor() const;
-	void SearchByDepartment() const;
-	void SearchBySubject() const;
-	void SearchByPublisherName() const;
-	void SearchByPrice() const;
-	void SearchByPublisherAddress() const;
-	void ConfirmMediaCheckout() const;
-	void MediaInteractionMenu(LibraryMedia& selectedMedia);
-	void PrintMatchingMedia(vector<LibraryMedia*> mediaList) const;
-	void EditMedia(LibraryMedia* selectedMedia) const;
+	static void UpdateMedia();
+	static void AddMedia();
+	static void SearchForMedia();
+	static void CheckoutBook();
+	static void printMenu();
+	static void SearchByTitle();
+	static void SearchByAuthor();
+	static void SearchByDepartment();
+	static void SearchBySubject() ;
+	static void SearchByPublisherName() ;
+	static void SearchByPrice() ;
+	static void SearchByPublisherAddress();
+	static void ConfirmMediaCheckout();
+	static void MediaInteractionMenu(LibraryMedia* selectedMedia);
+	static void PrintMatchingMedia(vector<LibraryMedia*> mediaList);
+	static void EditMedia(LibraryMedia* selectedMedia);
+
 private:
-	string recordTxtFile = "InventoryRecord.txt";
-	vector<int> MediaID;
+	static string recordTxtFile;
+	static vector<LibraryMedia*> mediaToCheckout;
 };
 
 #endif

@@ -24,7 +24,7 @@ int main()
 	//END TEST
 	*/
 	Login login;
-	Guest guest;
+	GuestLogin guest;
 	//guest.receipt();
 
 	login.printMenu();

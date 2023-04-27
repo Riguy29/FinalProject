@@ -13,13 +13,13 @@
 #include <cstring>
 
 
-class Guest 
+class GuestLogin
 {
 private:
 	Date date;
 public:
-	Guest();
-	~Guest();
+	GuestLogin();
+	~GuestLogin();
 	static void buy();
 	void receipt()const;
 

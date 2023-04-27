@@ -2,6 +2,8 @@
 #define INVENTORYSCREEN_CPP
 #include "InventoryScreen.h"
 
+vector<LibraryMedia*> InventoryScreen::mediaToCheckout;
+string InventoryScreen::recordTxtFile;
 void InventoryScreen::AddMedia()
 {
 	int choice =0;
@@ -17,7 +19,7 @@ void InventoryScreen::AddMedia()
 		cout << "2. Newspaper" << endl;
 		cout << "3. Journal" << endl;
 		cout << "4. Periodical" << endl;
-		cout << "5. Return" << endl;
+		cout << "0. Return" << endl;
 		cin >> choice;
 		switch (choice)
 		{
@@ -32,6 +34,8 @@ void InventoryScreen::AddMedia()
 			book->SetISBN();
 			book->SetPrice();
 			CurrentSessionInfo::mediaList.push_back(book);
+			system("cls");
+			cout << "New Book added!" << endl;
 			break;
 		case 2:
 			newspaper = new Newspaper();
@@ -42,7 +46,7 @@ void InventoryScreen::AddMedia()
 			newspaper->SetInventoryCount();
 			newspaper->SetDoner();
 			//newspaper->SetPublishRate();
-		case 5:
+		case 0:
 			return;
 		default:
 			break;
@@ -52,13 +56,11 @@ void InventoryScreen::AddMedia()
 
 
 }
-//FIXME: the switch in second do while loop needs to be finished.  it will send to appropriate search function
-void InventoryScreen::SearchForMedia()const
+void InventoryScreen::SearchForMedia()
 {
 	system("cls");	
 	int choice;
 	bool validChoice = false;
-	//Commented this out because I think we can now search by all media at a single time
 	do {
 		system("cls");
 		cout << setfill('-') << setw(115) << "" << endl;
@@ -87,7 +89,7 @@ void InventoryScreen::SearchForMedia()const
 			cout << setfill(' ') << setw(72) << "8. Search By Publisher Address" << endl;
 			//CurrentSessionInfo::SetAdmin(true);
 		}
-		cout << setfill(' ') << setw(53) << "9. Return\t\n" << endl;
+		cout << setfill(' ') << setw(53) << "0. Return\t\n" << endl;
 		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 		cin >> choice;
 		system("cls");
@@ -116,7 +118,7 @@ void InventoryScreen::SearchForMedia()const
 		case 8:
 			SearchByPublisherAddress();
 			break;
-		case 9:
+		case 0:
 			return;
 			break;
 		default:
@@ -126,7 +128,7 @@ void InventoryScreen::SearchForMedia()const
 
 	} while (!validChoice);
 }
-void InventoryScreen::printMenu()const {
+void InventoryScreen::printMenu() {
 	int choice =0;
 	bool validChoice;
 	
@@ -153,12 +155,7 @@ void InventoryScreen::printMenu()const {
 		//user.close();
 
 		if (username.at(0) == 'M') {
-			cout << setfill(' ') << setw(57) << "3. Edit Media" << endl;
-			cout << setfill(' ') << setw(54) << "4. Return\n" << endl;
-
-		}
-		else {
-
+			cout << setfill(' ') << setw(57) << "3. Add Media" << endl;
 		}
 		user.close();
 		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
@@ -167,61 +164,28 @@ void InventoryScreen::printMenu()const {
 		validChoice = true; //Assume choice is valid
 		switch (choice)
 		{
+		case 0:
+
+			//Delete all pointers and then clear vector
+			for (LibraryMedia* mediaPointer : mediaToCheckout)
+			{
+				delete mediaPointer;
+			}
+			mediaToCheckout.clear();
+			return;
 		case 1:
 			system("cls");
 			SearchForMedia();			
 			break;
-		case 2: //If a user is not an admin and selects 2, make choice invlaid
+		case 2:
 			system("cls");
 			cout << setfill(' ') << setw(50)<< "Ready for checkout?" << endl;
 			//CheckoutBook();
-			if (CurrentSessionInfo::CheckIfAdmin()) SearchForMedia();
-			else cout << "Invalid selection, try again" << endl;
 			break;
-		case 3:
+		case 3: //If a user is not an admin and selects 2, make choice invlaid
 			system("cls");
-			if (username.at(0) == 'M') {
-				int editChoice;
-				cout << setfill('-') << setw(115) << "" << endl;
-				cout << setfill('-') << setw(115) << "" << endl;
-				cout << setfill('-') << setw(116) << "\n" << endl;
-				cout << setfill(' ') << setw(68) << "What would you like to do?\n" << endl;
-				cout << setfill(' ') << setw(54) << "1. Edit Media" << endl;
-				cout << setfill(' ') << setw(53) << "2. Add Media" << endl;
-				cout << setfill(' ') << setw(56) << "3. Delete Media" << endl;
-				cout << setfill(' ') << setw(51) << "4. Return\n" << endl;
-				cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
-
-				cin >> editChoice;
-
-				switch (editChoice) {
-				case 1:
-					system("cls");
-					//editMedia();
-					break;
-				case 2:
-					system("cls");
-					//addMedia
-					break;
-				case 3:
-					system("cls");
-					//deleteMedia
-					break;
-				case 4:
-					system("cls");
-					return;
-				default:
-					cout << "Invalid selection, try again" << endl;
-				}
-			}
-			
-				system("cls");
-				return;				
-				//cout << "needs to go back to patronMenu in MainLogin" << endl;
-			
-			
-			//cout << "Invalid selection, try again" << endl;
-			//break;
+			AddMedia();
+			break;
 		case 4:
 			system("cls");
 			break;
@@ -233,7 +197,7 @@ void InventoryScreen::printMenu()const {
 	
 
 }
-void InventoryScreen::SearchByTitle() const
+void InventoryScreen::SearchByTitle() 
 {
 	string searchTitle;
 	cout << "Enter the title of the media you are looking for" << endl;
@@ -263,7 +227,7 @@ void InventoryScreen::SearchByTitle() const
 
 
 }
-void InventoryScreen::SearchByAuthor() const
+void InventoryScreen::SearchByAuthor() 
 {
 	string searchAuthor;
 	cout << "Enter the author of the media you are looking for" << endl;
@@ -291,7 +255,7 @@ void InventoryScreen::SearchByAuthor() const
 		PrintMatchingMedia(matchingList);
 	}
 }
-void InventoryScreen::SearchByDepartment() const
+void InventoryScreen::SearchByDepartment() 
 {
 	string searchDep;
 	cout << "Enter the Department of the media you are looking for" << endl;
@@ -314,7 +278,7 @@ void InventoryScreen::SearchByDepartment() const
 		PrintMatchingMedia(matchingList);
 	}
 }
-void InventoryScreen::SearchBySubject() const
+void InventoryScreen::SearchBySubject() 
 {
 	string searchSub;
 	cout << "Enter the Department of the media you are looking for" << endl;
@@ -337,7 +301,7 @@ void InventoryScreen::SearchBySubject() const
 		PrintMatchingMedia(matchingList);
 	}
 }
-void InventoryScreen::SearchByPublisherName() const
+void InventoryScreen::SearchByPublisherName()
 {
 	string searchName;
 	cout << "Enter the publisher's name of the media you are looking for" << endl;
@@ -360,7 +324,7 @@ void InventoryScreen::SearchByPublisherName() const
 		PrintMatchingMedia(matchingList);
 	}
 }
-void InventoryScreen::SearchByPrice() const
+void InventoryScreen::SearchByPrice()
 {
 	double searchPrice;
 	cout << "Enter the Price of the media you are looking for" << endl;
@@ -383,7 +347,7 @@ void InventoryScreen::SearchByPrice() const
 		PrintMatchingMedia(matchingList);
 	}
 }
-void InventoryScreen::SearchByPublisherAddress() const
+void InventoryScreen::SearchByPublisherAddress()
 {
 	string searchAdd;
 	cout << "Enter the publisher's address of the media you are looking for" << endl;
@@ -406,7 +370,7 @@ void InventoryScreen::SearchByPublisherAddress() const
 		PrintMatchingMedia(matchingList);
 	}
 }
-void InventoryScreen::PrintMatchingMedia(vector<LibraryMedia*> mediaList) const
+void InventoryScreen::PrintMatchingMedia(vector<LibraryMedia*> mediaList) 
 {
 	
 	LibraryMedia* selectedMedia;
@@ -424,8 +388,8 @@ void InventoryScreen::PrintMatchingMedia(vector<LibraryMedia*> mediaList) const
 		cin >> choice;
 		if (choice == 0) return;
 		else if (mediaList.at(choice - 1) != NULL) {
-			selectedMedia = mediaList.at(choice - 1);
-			//Open up a option to edit the book
+			//Open up Media interaction menu
+			MediaInteractionMenu(mediaList.at(choice - 1));
 		}
 		else cout << "Invalid Selection, try again" << endl;
 
@@ -434,9 +398,9 @@ void InventoryScreen::PrintMatchingMedia(vector<LibraryMedia*> mediaList) const
 	} while (true); //MAKE THIS NOT A WHILE TRUE
 }
 
-void InventoryScreen::MediaInteractionMenu(LibraryMedia& selectedMedia) {
+void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia) {
 	cout << "Selected Media";
-	selectedMedia.ToString();
+	selectedMedia->ToString();
 	cout << setfill('-') << setw(115) << "" << endl;
 	cout << setfill('-') << setw(115) << "" << endl;
 	cout << setfill('-') << setw(116) << "\n" << endl;
@@ -444,7 +408,7 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia& selectedMedia) {
 	cout << setfill(' ') << setw(54) << "1. Add to cart " << endl; //FIXME: Make this buy if they are guest, if they are no copies and they are guest then print 
 	
 	//FIXME:: Only print these options if current user is admin
-	cout << setfill(' ') << setw(53) << "2. EditMedia" << endl;
+	cout << setfill(' ') << setw(53) << "2. Edit Media" << endl;
 	cout << setfill(' ') << setw(56) << "3. Delete Media" << endl;
 	//END ADMIN SECTION
 	cout << setfill(' ') << setw(51) << "0. Return\n" << endl;
@@ -456,8 +420,8 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia& selectedMedia) {
 		choice = -1;
 		switch (choice) {
 		case 1:
-			//FIXME:: If normal user add to cart, unless no inventory then call, if guest only buy
-			//MediaID.push_back(selectedMedia.GetMediaID());
+
+			mediaToCheckout.emplace_back(new LibraryMedia(*selectedMedia));
 			break;
 		case 2:
 			//CHECK IF ADMIN
@@ -473,8 +437,28 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia& selectedMedia) {
 	
 }
 
-void InventoryScreen::ConfirmMediaCheckout()const {
-	//print list of mediaID vector
+void InventoryScreen::ConfirmMediaCheckout() {
+	system("cls");
+	for (LibraryMedia* media : mediaToCheckout) {
+		media->ToString();
+		cout << endl;
+	}
+
+	int choice;
+	do
+	{
+		cout << "Does this look correct?" << endl;
+		cout << "1.Yes" << endl;
+		cout << "2.No, clears cart" << endl;
+
+		cin >> choice;
+		if (choice == 1) {
+			//Checkout Media
+		}
+		else if (choice == 2) {
+			//Clears cart and returns
+		}
+	} while (choice != 1 || choice != 2); //If the user enter numbers other than 1 or 2
 	//confirm media y/n
 	//if y then deduct from inventory count add books to user vector of checked out books
 	//print list of books with return date

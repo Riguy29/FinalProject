@@ -25,57 +25,55 @@ Login::~Login() {}
 // printMenu() prints the menu options for the login screen
 void Login::printMenu() {
     int choice;
-    date.printDate();
-    cout << setfill('-') << setw(115) << "" << endl;
-    cout << setfill('-') << setw(56) << " LIBRARY LOGIN " << setfill('-') << setw(59) << "" << endl;
-    cout << setfill('-') << setw(115) << "" << endl;
-    cout << setfill(' ') << setw(53) <<"WELCOME!\n"<< endl;
-    cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
-    cout << setfill(' ') << setw(66) << "1. Login to Your Account" << endl;
-    cout << setfill(' ') << setw(56) << "2. Guest Login" << endl;
-    cout << setfill(' ') << setw(65) << "3. Register for Account" << endl;
-    cout << setfill(' ') << setw(50) << "4. Exit\n" << endl;
-    cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+    bool isValidChoice = true;
+    do
+    {
+        date.printDate();
+        cout << setfill('-') << setw(115) << "" << endl;
+        cout << setfill('-') << setw(56) << " LIBRARY LOGIN " << setfill('-') << setw(59) << "" << endl;
+        cout << setfill('-') << setw(115) << "" << endl;
+        cout << setfill(' ') << setw(53) << "WELCOME!\n" << endl;
+        cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
+        cout << setfill(' ') << setw(66) << "1. Login to Your Account" << endl;
+        cout << setfill(' ') << setw(56) << "2. Guest Login" << endl;
+        cout << setfill(' ') << setw(65) << "3. Register for Account" << endl;
+        cout << setfill(' ') << setw(50) << "4. Exit\n" << endl;
+        cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 
-    do {
         cin >> choice;
-        if (choice > 4 || choice < 1) {
-            cout << "Invalid choice. Please try again." << endl;
+        switch (choice) {
+        case 1:
+            system("cls");
+            login();
+            break;
+        case 2:
+            system("cls");
+            InventoryScreen::SearchForMedia();
+            //guestLogin.printMenu();
+            //guest();
+            break;
+        case 3:
+            system("cls");
+            registration();
+            break;
+        case 4:
+            system("cls");
+            CurrentSessionInfo::SaveAllData(); //Before we exit save all our data
+            exit(0);
+            break;
+        default:
+            system("cls");
+            cout << "Invalid Choice...Please Try Again...\n" << endl;
+            break;
         }
-    } while (choice > 4 || choice < 1);
+    } while (true);
 
-    switch (choice) {
-    case 1:
-        system("cls");
-        login();
-        break;
-    case 2:
-        system("cls");
-        guestLogin.printMenu();
-        invScreen.SearchForMedia();
-        //guestLogin.printMenu();
-        //guest();
-        break;
-    case 3:
-        system("cls");
-        registration();
-        break;
-    case 4:
-        system("cls");
-        CurrentSessionInfo::SaveAllData(); //Before we exit save all our data
-        exit(0);
-        break;
-    default:
-        system("cls");
-        cout << "Invalid Choice...Please Try Again...\n" << endl;
-        printMenu();
-        break;
-    }
 
 }
 
-void Login::loginMenu()const {   
+void Login::userHomeMenu()const {   
     int choice;
+    bool validChoice = true;
     ifstream currUser;
     string username;
     currUser.open("currentUser.txt");
@@ -84,51 +82,45 @@ void Login::loginMenu()const {
         cout << "File open was not successful :(";
     }
     getline(currUser, username);
-    do {
+
+    while (true)//Using a while true loop so that when a user comes back from a submenu it reprints this menu
+    {
+        cout << setfill('-') << setw(115) << "" << endl;
         if (username.at(0) == 'E' || username.at(0) == 'S') {
-            cout << setfill('-') << setw(115) << "" << endl;
             cout << setfill('-') << setw(65) << " WELCOME TO YOUR ACCOUNT" << setfill('-') << setw(50) << "" << endl;
-            cout << setfill('-') << setw(116) << "\n" << endl;
-            cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
-            cout << setfill(' ') << setw(60) << "1. Search Library" << endl;
-            cout << setfill(' ') << setw(58) << "2. View Account" << endl;
         }
         else {
-            cout << setfill('-') << setw(115) << "" << endl;
             cout << setfill('-') << setw(65) << " WELCOME ADMINISTRATOR " << setfill('-') << setw(50) << "" << endl;
-            cout << setfill('-') << setw(116) << "\n" << endl;
-            cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
-            cout << setfill(' ') << setw(55) << "1. Inventory" << endl;
-            cout << setfill(' ') << setw(59) << "2. View Accounts" << endl;
         }
-        cout << setfill(' ') << setw(51) << "3. Exit\n" << endl;
+        cout << setfill('-') << setw(116) << "\n" << endl;
+        cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
+        cout << setfill(' ') << setw(60) << "1. Access Library" << endl;
+        cout << setfill(' ') << setw(58) << "2. View Account" << endl;
+        cout << setfill(' ') << setw(51) << "0. Log out\n" << endl;
         cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
-        do {
-            cin >> choice;
-            if (choice > 3 || choice < 1) {
-                cout << "Invalid choice. Please try again." << endl;
-            }
-        } while (choice > 3 || choice < 1); 
-        
+
+        cin >> choice;
+
+        validChoice = true;
         switch (choice) {
         case 1:
             system("cls");
-            invScreen.printMenu();
+            InventoryScreen::printMenu();
             break;
         case 2:
             system("cls");
             cout << "Need to open Account information." << endl;//view account should view list of users and allow admin to update infor via  update()
             break;
-        case 3:
+        case 0: //On Log out 
             system("cls");
-            exit(0);
-            break;
+            currUser.close(); //Close txt file
+            return; //Changed this so it goes back to login screen instead of closing program
         default:
-            cout << "Invalid Choice...Please Try Again...\n" << endl;
-            cin >> choice;
+            system("cls");
+            cout << "Invalid choice please try again" << endl;
+            break;
         }
-    } while (true);
-    currUser.close();
+    }
   
 }
 
@@ -170,9 +162,9 @@ void Login::login() {
         }
         userInfo << username << endl;
         userInfo.close();      
-        loginMenu();
+        userHomeMenu();
        
-        system("PAUSE");
+        //system("PAUSE");
         system("cls");
         return;
     }

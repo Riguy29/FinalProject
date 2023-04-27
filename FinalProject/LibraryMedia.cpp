@@ -146,10 +146,12 @@ void LibraryMedia::SetInventoryCount()
 	do
 	{
 		isValid = true;
+		cout << "What is the new inventory of this media?" << endl;
 		cin >> newCount;
 		if (newCount < 0) isValid = false; //Can't enter negative number of media
 	} while (!isValid);
-	cout << "What is the new inventory of this media?" << endl;
+	inventoryCount = newCount;
+	
 }
 void LibraryMedia::SetTitle()
 {
