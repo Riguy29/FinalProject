@@ -3,11 +3,11 @@
 class Book :public LibraryMedia
 {
 private:
-	string* ISBN;
+	char ISBN[11]; //Only have it set to be 10 + /0 because an ISBN can only be 10 characters
 	int edition;
 public:
 	void SetISBN();
-	string& GetISBN();
+	string GetISBN();
 	void SetEdition();
 	int GetEdition();
 

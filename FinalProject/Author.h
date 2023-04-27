@@ -6,7 +6,7 @@ class Author
 {
 public:
 	int bookId;
-	string* name;
+	char name[100];
 
 
 	void SetName();

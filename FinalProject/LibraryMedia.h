@@ -24,13 +24,13 @@ public:
 	};
 
 	//Accesors
-	string& GetTitle();
+	string GetTitle();
 	mediaTypes GetMediaType(); //No set method since media type should never change
 	double GetPrice();
-	string& GetCategory();
-	string& GetSubCategory();
+	string GetCategory();
+	string GetSubCategory();
 	int GetInventoryCount();
-	string& GetDoner();
+	string GetDoner();
 	//0 for author search string, 1 for publisher name search string, 2 for publisher address search string
 	string GetSearchString(int searchParm);
 	int GetMediaID(); //No set method since the id is auto generated;
@@ -53,16 +53,16 @@ public:
 	virtual ~LibraryMedia();
 	LibraryMedia(const LibraryMedia& mediaToCopy);
 	LibraryMedia();
-	LibraryMedia(int id, const string& mediaTitle, mediaTypes typeOfMedia, double mediaPrice, const string& mediaCat, const string& mediaSubCat, int mediaCount, const string& mediaDoner);
+	LibraryMedia(int id, string mediaTitle, mediaTypes typeOfMedia, double mediaPrice, string mediaCat, string mediaSubCat, int mediaCount, string mediaDoner);
 protected:
 	int mediaID;
-	string* title;
+	char title[50];
 	mediaTypes mediaType;
 	double price;
-	string* category;
-	string* subCategory;
+	char category[50];
+	char subCategory[50];
 	int inventoryCount;
-	string* doner;
+	char doner[50];
 
 
 };

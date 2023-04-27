@@ -15,7 +15,7 @@ void Author::SetName()
 				if (isdigit(nameChar)) throw(1);
 			}
 			//If we throw no errors set name
-			name = new string(tempName);
+			strncpy_s(name, tempName.c_str(), sizeof(name));
 		}
 		catch (int errorCode)
 		{
@@ -33,17 +33,17 @@ void Author::SetName()
 Author::Author()
 {
 	bookId = -1;
-	name = new string("");
+	strncpy_s(name, "Not Set", sizeof(name));
 }
 
-Author::Author(int id, const string& name)
+Author::Author(int id, const string& n)
 {
 	bookId = id;
-	this->name = new string(name);
+	strncpy_s(name, n.c_str(), sizeof(name));
 }
 
 Author::Author(int id)
 {
 	bookId = id;
-	name = new string("");
+	strncpy_s(name, "Not Set", sizeof(name));
 }

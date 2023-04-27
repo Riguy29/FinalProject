@@ -16,7 +16,8 @@ int main()
 {
 	//CurrentSessionInfo::GenerateDummyData();
 	CurrentSessionInfo::LoadAllData();
-	//CurrentSessionInfo::authorList.at(0).name;
+	CurrentSessionInfo::pubList;
+	CurrentSessionInfo::mediaList;
 	/*
 	//TEST
 	cout << endl;

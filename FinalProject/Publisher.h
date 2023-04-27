@@ -6,14 +6,14 @@ class Publisher
 {
 private:
 	int bookId;
-	string* address;
-	string* email;
-	string* name;
+	char address[50];
+	char email[50];
+	char name[50];
 public:
 	int GetBookId();
-	string& GetName();
-	string& GetEmail();
-	string& GetAddress();
+	string GetName();
+	string GetEmail();
+	string GetAddress();
 
 	void SetName();
 	void SetEmail();

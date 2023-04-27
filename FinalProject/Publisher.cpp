@@ -5,19 +5,19 @@ int Publisher::GetBookId()
 	return bookId;
 }
 
-string& Publisher::GetName()
+string Publisher::GetName()
 {
-	return *name;
+	return name;
 }
 
-string& Publisher::GetEmail()
+string Publisher::GetEmail()
 {
-	return *email;
+	return email;
 }
 
-string& Publisher::GetAddress()
+string Publisher::GetAddress()
 {
-	return *address;
+	return address;
 }
 
 void Publisher::SetName()
@@ -35,7 +35,7 @@ void Publisher::SetName()
 				if (isdigit(nameChar)) throw(1);
 			}
 			//If we throw no errors set name
-			name = new string(tempName);
+			strncpy_s(name, tempName.c_str(), sizeof(name));
 		}
 		catch (int errorCode)
 		{
@@ -62,7 +62,7 @@ void Publisher::SetEmail()
 			cin >> tempEmail;
 			cout << "Enter the name of the publisher" << endl;
 			//FIXME: Validate Data
-			email = new string(tempEmail);
+			strncpy_s(email, tempEmail.c_str(), sizeof(email));
 		}
 		catch (int errorCode)
 		{
@@ -86,7 +86,7 @@ void Publisher::SetAddress()
 			cin >> tempAddress;
 			cout << "Enter the name of the publisher" << endl;
 			//Validate Data
-			address = new string(tempAddress);
+			strncpy_s(address, tempAddress.c_str(), sizeof(address));
 		}
 		catch (int errorCode)
 		{
@@ -104,17 +104,25 @@ void Publisher::SetAddress()
 Publisher::Publisher()
 {
 	bookId = -1;
-	name = new string(" ");
-	address = new string(" ");
-	email = new string(" ");
+	strncpy_s(name, "Not set", sizeof(name));
+	strncpy_s(email, "Not set", sizeof(email));
+	strncpy_s(address, "Not set", sizeof(address));
 }
 
 Publisher::Publisher(int id, const string& newName, const string& newAddress, const string& newEmail)
 {
 	bookId = id;
-	name = new string(newName);
-	address = new string(newAddress);
-	email = new string(newEmail);
+	strncpy_s(name, newName.c_str(), sizeof(name));
+	strncpy_s(email, newAddress.c_str() , sizeof(email));
+	strncpy_s(address, newEmail.c_str(), sizeof(address));
+}
+
+Publisher::Publisher(int id)
+{
+	bookId = id;
+	strncpy_s(name, "Not set", sizeof(name));
+	strncpy_s(email, "Not set", sizeof(email));
+	strncpy_s(address, "Not set", sizeof(address));
 }
 
 void Publisher::PrintInfo()

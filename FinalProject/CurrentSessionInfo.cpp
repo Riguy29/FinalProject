@@ -88,7 +88,7 @@ void CurrentSessionInfo::SaveAllData()
 	SaveData<Publisher>("PublisherRecord.txt", pubList);
 	SaveData<Author>("AuthorRecord.txt", authorList);
 
-	SaveData();
+	//SaveData();
 }
 template<typename T>
 void CurrentSessionInfo::LoadData(string fileName, vector<T>& list)
