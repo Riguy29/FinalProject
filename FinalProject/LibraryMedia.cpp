@@ -50,20 +50,18 @@ void LibraryMedia::ToString()
 	//cout << endl << endl;
 }
 
-LibraryMedia::~LibraryMedia()
-{
-}
+LibraryMedia::~LibraryMedia() {}
 
 LibraryMedia::LibraryMedia(const LibraryMedia& mediaToCopy)
 {
 	mediaID = mediaToCopy.mediaID;
-	title = new string(*mediaToCopy.title);
+	strncpy_s(title, mediaToCopy.title,sizeof(title));
 	mediaType = mediaToCopy.mediaType;
-	category = new string(*mediaToCopy.category);
-	subCategory = new string(*mediaToCopy.subCategory);
+	strncpy_s(category, mediaToCopy.category, sizeof(category));
+	strncpy_s(subCategory, mediaToCopy.subCategory, sizeof(subCategory));
 	price = mediaToCopy.price;
 	inventoryCount = mediaToCopy.inventoryCount;
-	doner = new string(*mediaToCopy.doner);
+	strncpy_s(doner, mediaToCopy.doner,sizeof(doner));
 }
 
 LibraryMedia::LibraryMedia()
@@ -73,25 +71,25 @@ LibraryMedia::LibraryMedia()
 	uniform_int_distribution<int> distribution(10, 1000000);
 	mediaID = distribution(generator);
 	//FIXME:: Make sure it doesn't generate an already in use id
-	title = new string("");
+	strncpy_s(title, "Not Set", sizeof(title));
 	mediaType = book;
-	category = new string("");
-	subCategory = new string("");
-	inventoryCount = 0;
+	strncpy_s(category, "Not Set", sizeof(category));
+	strncpy_s(subCategory, "Not Set", sizeof(subCategory));
 	price = 0;
-	doner = new string("");
+	inventoryCount = 0;
+	strncpy_s(doner, "Not Set", sizeof(doner));
 }
 
-LibraryMedia::LibraryMedia(int id, const string& _title, mediaTypes typeOfMedia, double _price, const string& _category, const string& _subCategory, int count, const string& _newDoner)
+LibraryMedia::LibraryMedia(int id, string _title, mediaTypes typeOfMedia, double _price,  string _category, string _subCategory, int count, string _newDoner)
 {
 	mediaID = id;
-	title = new string(_title);
+	strncpy_s(title, _title.c_str(), sizeof(title));
 	mediaType = typeOfMedia;
+	strncpy_s(category, _category.c_str(), sizeof(category));
+	strncpy_s(subCategory, _subCategory.c_str() , sizeof(subCategory));
 	price = _price;
-	category = new string(_category);
-	subCategory = new string(_subCategory);
 	inventoryCount = count;
-	doner = new string(_newDoner);
+	strncpy_s(doner, _newDoner.c_str(), sizeof(doner));
 }
 
 // Accessors
@@ -100,10 +98,10 @@ LibraryMedia::mediaTypes LibraryMedia::GetMediaType() { return mediaType; }
 double LibraryMedia::GetPrice() { return price; }
 
 int LibraryMedia::GetInventoryCount() { return inventoryCount; }
-string& LibraryMedia::GetCategory() { return *category; }
-string& LibraryMedia::GetSubCategory(){	return *subCategory;}
+string LibraryMedia::GetCategory() { return category; }
+string LibraryMedia::GetSubCategory(){	return subCategory;}
 int LibraryMedia::GetMediaID(){return mediaID;}
-string& LibraryMedia::GetDoner(){return *doner;}
+string LibraryMedia::GetDoner(){return doner;}
 
 string LibraryMedia::GetSearchString(int searchParm)
 {
@@ -164,13 +162,13 @@ void LibraryMedia::SetTitle()
 		cin >> newTitle;
 		// FIX ME:: Validate data
 	} while (!isValid);
-	title = new string(newTitle);
+	strncpy_s(title, newTitle.c_str(), sizeof(title));
 
 }
 
-string& LibraryMedia::GetTitle()
+string LibraryMedia::GetTitle()
 {
-	return *title;
+	return title;
 }
 
 void LibraryMedia::SetMediaType(mediaTypes mediaType)
@@ -205,7 +203,7 @@ void LibraryMedia::SetCategory()
 		cin >> newCat;
 		// FIX ME:: Validate data
 	} while (!isValid);
-	category = new string(newCat);
+	strncpy_s(category,newCat.c_str(), sizeof(category));
 
 }
 
@@ -222,7 +220,7 @@ void LibraryMedia::SetSubCategory()
 		cin >> newCat;
 		// FIX ME:: Validate data
 	} while (!isValid);
-	category = new string(newCat);
+	strncpy_s(category, newCat.c_str(), sizeof(category));
 }
 
 
@@ -236,7 +234,7 @@ void LibraryMedia::SetDoner()
 		cin >> newDoner;
 		// FIX ME:: Validate data
 	} while (!isValid);
-	category = new string(newDoner);
+	strncpy_s(doner, newDoner.c_str(), sizeof(doner));
 }
 void LibraryMedia::SetAuthors()
 {

@@ -35,7 +35,7 @@ Newspaper::Newspaper() : LibraryMedia()
     publishRate = weekly;
 }
 
-Newspaper::Newspaper(Newspaper& copy): LibraryMedia(copy.mediaID, *copy.title, copy.mediaType, copy.price, *copy.category, *copy.subCategory, copy.inventoryCount, *copy.doner)
+Newspaper::Newspaper(Newspaper& copy): LibraryMedia(copy.mediaID, copy.title, copy.mediaType, copy.price, copy.category, copy.subCategory, copy.inventoryCount, copy.doner)
 {
     publishRate = copy.publishRate;
 }

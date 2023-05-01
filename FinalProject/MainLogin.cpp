@@ -172,7 +172,6 @@ void Login::login() {
    
 }
 
-  /*
 //guest() allows user to be a guest and use material from the library for 2 hours
 void Login::guest() {
     string gName;
@@ -229,7 +228,6 @@ void Login::guest() {
     }
 
 }
-*/
 
 // TODO: reformat using User classes & sub-classes
 // DO NOT FORGET!! Add exception handling in these classes!!!!!
@@ -323,25 +321,6 @@ void Login::registration() {
     case 'Y':
     case'y':    
     {
-        /*
-        switch (pos) {
-        case 'M':
-        case 'm':
-            FacultyMember tmpF(fName, lName, address, phoneNum, email, password, *(new string("M")), id);
-            break;
-        case 'E':
-        case 'e':
-
-            break;
-        case 'S':
-        case 's':
-
-            break;
-        }
-
-        usrs.push_back(currentUsr);
-        */
-
         //open file to store registration information
         ofstream file;
         file.open("records.txt", ios::in | ios::app);
@@ -359,8 +338,6 @@ void Login::registration() {
 
         }
         file.close();
-
-        
 
         //open file to store username and password
         ofstream userpassList;

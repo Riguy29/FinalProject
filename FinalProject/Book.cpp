@@ -35,12 +35,12 @@ void Book::SetISBN()
 		}
 
 	} while (!isValid);
-	ISBN = new string(newISBN);
+	strncpy_s(ISBN, newISBN.c_str(), sizeof(ISBN));
 }
 
-string& Book::GetISBN()
+string Book::GetISBN()
 {
-	return *ISBN;
+	return ISBN;
 }
 
 void Book::SetEdition()
@@ -72,17 +72,12 @@ void Book::ToString()
 	cout << endl << endl;
 }
 
-Book::~Book()
-{
-
-}
-
-
+Book::~Book() {}
 
 Book::Book() :LibraryMedia()
 {
 	mediaType = book;
-	this->ISBN = new string("");
+	strncpy_s(ISBN,"Not Set", sizeof(ISBN));
 	this->edition = 1;
 
 }
@@ -90,7 +85,7 @@ Book::Book() :LibraryMedia()
 //Try to figure out a way to upcast to parent for copy constructor
 Book::Book(const Book& newB) : LibraryMedia(newB)
 {
-	ISBN = new string(*newB.ISBN);
+	strncpy_s(ISBN, newB.ISBN, sizeof(ISBN));
 	edition = newB.edition;
 }
 
@@ -98,6 +93,6 @@ Book::Book(int id, const string& mediaTitle, double mediaPrice, const string& me
 	const string& mediaDoner, const string& bookISBN, int bookEdition) : LibraryMedia(id,mediaTitle,book,mediaPrice,mediaCat,mediaSubCat,mediaCount,mediaDoner)
 {
 
-	ISBN = new string(bookISBN);
+	strncpy_s(ISBN, bookISBN.c_str(), sizeof(ISBN));
 	edition = bookEdition;
 }

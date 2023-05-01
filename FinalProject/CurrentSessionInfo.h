@@ -1,4 +1,9 @@
 #pragma once
+
+#include <vector>
+#include <fstream>
+
+#include "User.h"
 #include "Book.h"
 #include "LibraryMedia.h"
 #include "Newspaper.h"
@@ -6,10 +11,6 @@
 #include "ConferenceJournal.h"
 #include "Author.h"
 #include  "Publisher.h"
-#include "User.h"
-#include <vector>
-
-#include <fstream>
 
 /*This class is meant to store information that will be used throughout the users session
 and to load and save data from our txt files into linked lists of apporitate types*/
@@ -21,9 +22,11 @@ private:
 	static string NEWS_FILE_PATH;
 	static string PERIODICAL_FILE_PATH;
 	static string JOURNAL_FILE_PATH;
+	static string USER_FILE_PATH;
 	static User currUser;
 public:
 	static vector<LibraryMedia*> mediaList;
+	static vector<User*> userList;
 	static vector<Author> authorList;
 	static vector<Publisher> pubList;
 	//void SetUser();
@@ -32,13 +35,18 @@ public:
 	static void SaveAllData();
 	static void GenerateDummyData();
 	static vector<LibraryMedia*> GetLibraryInventory();
+	static vector<User*> GetUsersVector();
 
 	template<typename T>
 	static void LoadData(string fileName, vector<T>& list);
 
 	//Overload so we can load in all of our media into 1 list
 	template<typename T>
-	static void LoadData(string fileName);
+	static void LoadMediaData(string fileName);
+
+	// Load Users into vector
+	template<typename T>
+	static void LoadUserData(string fileName);
 
 	//This function is used to save data for publishers, authors, and users
 	template<typename T>
