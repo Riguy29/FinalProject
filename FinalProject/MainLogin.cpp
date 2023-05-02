@@ -15,6 +15,8 @@
 #include <regex>
 #include <iomanip>
 
+#include "CurrentSessionInfo.h"
+
 using namespace std;
 
 // Default constructor
@@ -67,9 +69,7 @@ void Login::printMenu() {
             break;
         }
     } while (true);
-
-
-}
+    }
 
 void Login::userHomeMenu()const {   
     int choice;
@@ -81,16 +81,18 @@ void Login::userHomeMenu()const {
     if (!currUser.is_open()) {
         cout << "File open was not successful :(";
     }
-    getline(currUser, username);
 
     while (true)//Using a while true loop so that when a user comes back from a submenu it reprints this menu
     {
         cout << setfill('-') << setw(115) << "" << endl;
         if (username.at(0) == 'E' || username.at(0) == 'S') {
+            cout << setfill('-') << setw(115) << "" << endl;
             cout << setfill('-') << setw(65) << " WELCOME TO YOUR ACCOUNT" << setfill('-') << setw(50) << "" << endl;
         }
         else {
             cout << setfill('-') << setw(65) << " WELCOME ADMINISTRATOR " << setfill('-') << setw(50) << "" << endl;
+           // cout << setfill(' ') << setw(68) << CurrentSessionInfo::currUser.getFirstName() << " " << CurrentSessionInfo::currUser.getLastName() << endl;
+
         }
         cout << setfill('-') << setw(116) << "\n" << endl;
         cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
@@ -109,7 +111,8 @@ void Login::userHomeMenu()const {
             break;
         case 2:
             system("cls");
-            cout << "Need to open Account information." << endl;//view account should view list of users and allow admin to update infor via  update()
+            // currUser.printMenu();
+            //cout << "Need to open Account information." << endl;//view account should view list of users and allow admin to update infor via  update()
             break;
         case 0: //On Log out 
             system("cls");
@@ -160,11 +163,10 @@ void Login::login() {
         if (!userInfo.is_open()) {
             cout << "File open was not successful";
         }
-        userInfo << username << endl;
+        //userInfo << username << endl;
         userInfo.close();      
         userHomeMenu();
        
-        //system("PAUSE");
         system("cls");
         return;
     }
@@ -239,15 +241,7 @@ void Login::registration() {
 
     cout << "Press 1 to return to Main Menu or" << endl;
     
-    do {
-        cout << "\nEnter your first name: \t" << endl;
-        cin.ignore();
-        getline(cin, fName);
-        if (fName._Equal("1")) {
-            system("cls");
-            printMenu();
-        }        
-    } while (isValidName(fName) != true);
+    
 
     do {
         cout << "\nEnter your last name: \t" << endl;
@@ -480,8 +474,8 @@ bool Login::formatPhone(string &phone) {
 // Limit first and last name to less than 20 letters and only allow letters
 // FIXME not working yet.
 bool Login::isValidName(string &name) {
-    const int NUM_LENGTH = 20;
-
+    const int NUM_LENGTH = 20;   
+    
     if (name.length() >= NUM_LENGTH || name.length() == 0) {
         cout << "Invalid input. Please try again." << endl;
        for (int i = 0; i < name.length(); i++) {
@@ -493,7 +487,7 @@ bool Login::isValidName(string &name) {
    } 
     else {
         return true;
-    }
+    }   
 
 }
  
@@ -546,48 +540,6 @@ string Login::isValidAddress()const {
 
     return address;
 
-}
-
-// Update user info
-void Login::updateInfo()const {
-    system("cls");
-    int choice;
-    string name, address, email, phone;
-    cout << "Get user info" << endl;//FIX ME
-    cout << "What would you like to update?" << endl;
-    cout << setfill(' ') << setw(68) << "1. Name" << endl;
-    cout << setfill(' ') << setw(68) << "2. Address" << endl;
-    cout << setfill(' ') << setw(68) << "3. Email" << endl;
-    cout << setfill(' ') << setw(68) << "4. Phone" << endl;
-    cout << setfill(' ') << setw(68) << "5. Return" << endl;
-    cin >> choice;
-    switch (choice) {
-    case 1:
-        cin >> name;
-        break;
-    case 2:
-        cin >> address;
-        break;
-    case 3:
-        cin >> email;
-        break;
-    case 4:
-        cin >> phone;
-        break;
-    case 5:
-        system("cls");
-        exit(0);
-        break;
-    default:
-        cout << "Invalid choice. Please try again." << endl;
-        cin >> choice;
-    }
-
-}
-
-void Login::myMedia()const{
-    system("cls");
-    cout << "Show list of books checked out to this user." << endl;
 }
 
 #endif // !MAINLOGIN_CPP

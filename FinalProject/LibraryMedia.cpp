@@ -1,6 +1,7 @@
 #include "LibraryMedia.h"
 #include "LibraryLinkedList.h"
 #include "CurrentSessionInfo.h"
+#include <iomanip>
 #ifndef LIBRARYMEDIA_CPP
 #define LIBRARYMEDIA_CPP
 void LibraryMedia::ToString()
@@ -27,7 +28,7 @@ void LibraryMedia::ToString()
 		break;
 	}
 	cout << " Category: " << GetCategory();
-	cout << " Authors: ";
+	cout << " Authors: " ;
 
 	//Access our static author list, and search the list for any authors that match our book id
 	for (int i = 0; i < CurrentSessionInfo::authorList.size(); i++) {
@@ -189,7 +190,7 @@ void LibraryMedia::SetPrice()
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		isValid = true; // Assume data is valid
-		cout << "Enter the price: ";
+		cout << setfill(' ') << setw(57) << "Enter the price: ";
 		cin >> newPrice;
 		// FIX ME: Validate data
 		if (newPrice <= 0) isValid = false;

@@ -14,6 +14,7 @@
 #include "FacultyMember.h"
 #include "Student.h"
 #include "Staff.h"
+#include "CurrentSessionInfo.h"
 
 #include <iostream>
 #include <string>
@@ -26,8 +27,7 @@ private:
 	Date date;
 	GuestLogin guestLogin;
 	InventoryScreen invScreen;
-	User currentUsr;
-	vector<User> usrs;
+	CurrentSessionInfo currSession;
 public:
 	Login();
 	Login(Login& l);
@@ -50,8 +50,7 @@ public:
 	string isValidAddress()const;
 
 	void userHomeMenu()const;
-	void updateInfo()const;
-	void myMedia()const;
+	
 };
 
 #endif // !MAINLOGIN_H

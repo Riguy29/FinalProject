@@ -11,7 +11,6 @@ string CurrentSessionInfo::NEWS_FILE_PATH = "NewspaperRecord.txt";
 string CurrentSessionInfo::JOURNAL_FILE_PATH = "JournalRecord.txt";
 string CurrentSessionInfo::PERIODICAL_FILE_PATH = "PeriodicalRecord.txt";
 string CurrentSessionInfo::USER_FILE_PATH = "Users.txt";
-User CurrentSessionInfo::currUser;
 
 void CurrentSessionInfo::GenerateDummyData()
 {

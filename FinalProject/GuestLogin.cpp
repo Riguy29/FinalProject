@@ -51,7 +51,7 @@ void GuestLogin::receipt()const {
 	date.printDate();
 
 	
-	cout << setfill(' ') << left << setw(25) << fullName << endl;
+	//cout << setfill(' ') << left << setw(25) << fullName << endl;
 	cout << setfill(' ') << setw(30) << "Thank you for you Purchase!" << endl;
 
 	cout << setfill(' ') << setw(35) << left << "Item" << "Price" << endl;
