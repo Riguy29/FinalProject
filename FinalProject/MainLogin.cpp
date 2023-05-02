@@ -69,9 +69,6 @@ void Login::printMenu() {
     } while (true);
     }
 
-
-}
-
 void Login::userHomeMenu()const {   
     int choice;
     bool validChoice = true;
@@ -92,6 +89,8 @@ void Login::userHomeMenu()const {
         }
         else {
             cout << setfill('-') << setw(65) << " WELCOME ADMINISTRATOR " << setfill('-') << setw(50) << "" << endl;
+           // cout << setfill(' ') << setw(68) << CurrentSessionInfo::currUser.getFirstName() << " " << CurrentSessionInfo::currUser.getLastName() << endl;
+
         }
         cout << setfill('-') << setw(116) << "\n" << endl;
         cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
@@ -110,7 +109,8 @@ void Login::userHomeMenu()const {
             break;
         case 2:
             system("cls");
-            cout << "Need to open Account information." << endl;//view account should view list of users and allow admin to update infor via  update()
+            currentUsr.printMenu();
+            //cout << "Need to open Account information." << endl;//view account should view list of users and allow admin to update infor via  update()
             break;
         case 0: //On Log out 
             system("cls");
@@ -161,11 +161,10 @@ void Login::login() {
         if (!userInfo.is_open()) {
             cout << "File open was not successful";
         }
-        userInfo << username << endl;
+        //userInfo << username << endl;
         userInfo.close();      
         userHomeMenu();
        
-        //system("PAUSE");
         system("cls");
         return;
     }

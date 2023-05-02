@@ -206,8 +206,8 @@ void InventoryScreen::printMenu() {
 			//}
 			cout << setfill(' ') << setw(50)<< fullName << ", Ready for checkout?" << endl;
 			//CheckoutBook();
-			if (CurrentSessionInfo::CheckIfAdmin()) SearchForMedia();
-			else cout << "Invalid selection, try again" << endl;
+			//if (CurrentSessionInfo::CheckIfAdmin()) SearchForMedia();
+			//else cout << "Invalid selection, try again" << endl;
 			break;
 		case 3: //If a user is not an admin and selects 2, make choice invlaid
 			system("cls");
@@ -499,7 +499,7 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia) {
 			//MediaID.push_back(selectedMedia.GetMediaID());
 			// }
 			//else{ // if (isGuest){
-			MediaPrice.push_back(selectedMedia.GetPrice());
+			/*MediaPrice.push_back(selectedMedia.GetPrice());
 			MediaTitle.push_back(selectedMedia.GetTitle());
 			{
 				ofstream buyList("PurchaseList.txt", ios::in | ios::out);
@@ -512,7 +512,7 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia) {
 				copy(MediaPrice.begin(), MediaPrice.end(), output_iterator);
 				buyList.close();
 			}
-
+			*/
 			break;
 		case 2:
 			//CHECK IF ADMIN

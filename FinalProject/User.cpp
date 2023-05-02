@@ -50,3 +50,151 @@ void User::setAddress(const char* a) { address = a; }
 void User::setPhoneNumber(const char* p) { phoneNum = p; }
 void User::setEmail(const char* e) { email = e; }
 void User::setUserType(userTypes type) { userType = type; }
+
+void User::printMenu()const {
+    
+    int accountChoice;
+    cout << setfill('-') << setw(116) << "\n" << endl;
+    cout << setfill(' ') << setw(68) << CurrentSessionInfo::currUser << endl;//FIXME: Do I need all the getters and setters or does it print all the information without those?
+    cout << setfill('-') << setw(116) << "\n" << endl;
+    cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
+    cout << setfill(' ') << setw(60) << "1. Update Personal Information" << endl;
+    cout << setfill(' ') << setw(58) << "2. View My Books" << endl;
+    cout << setfill(' ') << setw(51) << "0. Return\n" << endl;
+    cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+    cin >> accountChoice;
+    switch (accountChoice) {
+    case 0:
+        return;
+    case 1:
+        int updateChoice;
+        cout << setfill(' ') << setw(60) << "What would you like to update?" << endl;
+        cout << setfill(' ') << setw(60) << "1. First Name" << endl;
+        cout << setfill(' ') << setw(60) << "2. Last Name" << endl;
+        cout << setfill(' ') << setw(60) << "3. Address" << endl;
+        cout << setfill(' ') << setw(60) << "4. Phone Number" << endl;
+        cout << setfill(' ') << setw(60) << "5. Email" << endl;
+        cout << setfill(' ') << setw(60) << "0. Return\n" << endl;
+        cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+        cin >> updateChoice;
+        switch (updateChoice) {
+        case 1:
+            updateFName();
+            break;
+        case 2:
+            updateLName();
+            break;
+        case 3:
+            updateAddress();
+            break;
+        case 4:
+            updatePhoneNumber();
+            break;
+        case 5:
+            updateEmail();
+            break;
+        case 0:
+            return;
+        default:
+            cout << "Invalid Choice" << endl;
+        }
+
+        break;
+    case 2:
+        //FIXME: open currentUser bookList
+        cout << "Books you currently have checked out are: " << endl;
+        for (int i = 0; i < CurrentSessionInfo::MediaList; i++) {
+            cout << CurrentSessionInfor::MediaList.at(i) << endl;
+        }
+        cout << endl;
+        int returnInput;
+        do {
+            cout << "Press 0 to return to previous screen" << endl;
+            cin >> returnInput;
+        } while (cin != 1);
+        break;
+    default:
+        cout << "Invalid Choice" << endl;
+    }
+    
+}
+
+//functions for updating user information
+void User::updateFirstName()const {
+    const char* userFName = CurrentSessionInfo::currUser.getFirstName(); //set search name to current Users first name
+    cout << "Enter New First Name: " << endl;
+    const char* newFName;
+    cin >> newFName;
+
+    for (int i = 0; i < usrs.size(); i++) {
+        if (usrs.at(i)->GetFirstName() == userFName) {
+            usrs.at(i) = newFName;
+            //SetFirstName();
+        }
+    }
+}
+void User::updateLastName()const {
+    const char* userLName = CurrentSessionInfo::currUser.getLastName();
+    cout << "Enter New Last Name: " << endl;
+    const char* newLName;
+    cin >> newLName;
+
+    for (int i = 0; i < usrs.size(); i++) {
+        if (usrs.at(i)->GetLastName() == userLName) {
+            usrs.at(i) = newLName;
+            //SetLastName();
+        }
+    }
+}
+void User::updateAddress()const {
+    const char* userAddress = CurrentSessionInfo::currUser.getAddress(); //FIXME: set userAddress to current user first name
+    cout << "Enter New Address: " << endl;
+    const char* newAddress;
+    cin >> newAddress;
+
+    for (int i = 0; i < usrs.size(); i++) {
+        if (usrs.at(i)->GetAddress() == userAddress) {
+            usrs.at(i) = newAddress;
+            //SetLastName();
+        }
+    }
+}
+void User::updatePhoneNumber()const {
+    const char* userPhone = CurrentSessionInfo::currUser.getPhoneNumber(); //FIXME: set userAddress to current user first name
+    cout << "Enter New Phone Number: " << endl;
+    const char* newPhone;
+    cin >> newPhone;
+
+    for (int i = 0; i < usrs.size(); i++) {
+        if (usrs.at(i)->GetPhoneNumber() == userPhone) {
+            usrs.at(i) = newPhone;
+            //SetLastName();
+        }
+    }
+}
+void User::updateEmail()const {
+    const char* userEmail = CurrentSessionInfo::currUser.getEmail(); //FIXME: set userAddress to current user first name
+    cout << "Enter New Email: " << endl;
+    const char* newEmail;
+    cin >> newEmail;
+
+    for (int i = 0; i < usrs.size(); i++) {
+        if (usrs.at(i)->GetEmail() == userEmail) {
+            usrs.at(i) = newEmail;
+            //SetLastName();
+        }
+    }
+}
+void User::updateUserType()const {
+    const char* userType = CurrentSessionInfo::currUser.getUserType(); //FIXME: set userAddress to current user first name
+    cout << "Enter New User Type: " << endl;
+    const char* newUserType;
+    cin >> newUserType;
+
+    for (int i = 0; i < usrs.size(); i++) {
+        if (usrs.at(i)->getUserType() == userType) {
+            usrs.at(i) = newUserType;
+            //SetLastName();
+        }
+    }
+}
