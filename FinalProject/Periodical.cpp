@@ -25,6 +25,50 @@ void Periodical::ToString()
 
 void Periodical::SetPublishRate()
 {
+    bool isValid;
+    int choice;
+    do
+    {
+        cout << "How often is this periodical published?" << endl;
+        cout << "1. Monthly" << endl;
+        cout << "2. BiMonthly" << endl;
+        cout << "3. Half Yearly" << endl;
+        cout << "4. Yearly" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+        try
+        {
+            switch (choice)
+            {
+            case 1:
+                publishRate = Periodical::monthly;
+                return; //If input is valid, return
+                break;
+            case 2:
+                publishRate = Periodical::bimonthly;
+                return; //If valid input, return
+                break;
+            case 3:
+                publishRate = Periodical::halfYearly;
+                return; //If valid input, return
+                break;
+            case 4:
+                publishRate = Periodical::yearly;
+                return; //If valid input, return
+                break;
+            default:
+                throw(0);
+                break;
+            }
+        }
+        catch (int errorCode)
+        {
+            if (errorCode == 0) {
+                system("cls");
+                cout << "Invalid Input, try again";
+            }
+        }
+    } while (true);
 }
 
 Periodical::PeriodicalPublishRates Periodical::GetPublishRate()

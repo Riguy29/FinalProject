@@ -17,8 +17,42 @@ void Newspaper::ToString()
     }
 }
 
-void Newspaper::SetPublishRate(NewspaperPublishRates rate)
+void Newspaper::SetPublishRate()
 {
+    bool isValid;
+    int choice;
+    do
+    {
+        cout << "How often is this newspaper published?" << endl;
+        cout << "1. Daily" << endl;
+        cout << "2. Weekly" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+        try
+        {
+            switch (choice)
+            {
+            case 1:
+                publishRate = Newspaper::daily;
+                return; //If input is valid, return
+                break;
+            case 2:
+                publishRate = Newspaper::weekly;
+                return; //If valid input, return
+                break;
+            default:
+                throw(0);
+                break;
+            }
+        }
+        catch (int errorCode)
+        {
+            if (errorCode == 0) {
+                system("cls");
+                cout << "Invalid Input, try again";
+            }
+        }
+    } while (true);
 }
 
 Newspaper::NewspaperPublishRates Newspaper::GetPublishRate()

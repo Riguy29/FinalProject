@@ -8,10 +8,10 @@ public:
 		daily = 0,
 		weekly,
 	};
-	void SetPublishRate(NewspaperPublishRates rate);
+	void SetPublishRate();
 	NewspaperPublishRates GetPublishRate();
 
-	~Newspaper();
+	virtual ~Newspaper();
 	Newspaper();
 	Newspaper(Newspaper& copy);
 	Newspaper(int id, const string& mediaTitle, double mediaPrice, const string& mediaCat, const string& mediaSubCat, int mediaCount,

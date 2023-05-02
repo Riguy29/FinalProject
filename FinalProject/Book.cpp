@@ -2,12 +2,15 @@
 
 void Book::SetISBN()
 {
+
 	string newISBN;
 	bool isValid = true;
 	do
 	{
 		try
 		{
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			isValid = true;
 			cout << "Enter the ISBN: ";
 			cin >> newISBN;
@@ -49,6 +52,8 @@ void Book::SetEdition()
 	bool isValid = true;
 	do
 	{
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cout << "Enter the Edition as an int: ";
 		cin >> newEdition;
 

@@ -180,6 +180,7 @@
     <Text Include="PurchaseList.txt" />
     <Text Include="records.txt" />
     <Text Include="userpass.txt" />
+    <Text Include="Users.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

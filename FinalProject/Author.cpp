@@ -9,8 +9,10 @@ void Author::SetName()
 		try
 		{
 			string tempName;
-			cout << "Enter the name of the author" << endl;
-			cin >> tempName;
+			cout << "Enter the name of the author: ";
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			getline(cin, tempName);
 			for (char nameChar : tempName) {
 				if (isdigit(nameChar)) throw(1);
 			}

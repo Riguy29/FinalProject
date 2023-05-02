@@ -8,9 +8,7 @@ void InventoryScreen::AddMedia()
 {
 	int choice =0;
 	bool isValid = true;
-	Book* book;
-	Newspaper* newspaper;
-	ConferenceJournal* journal;
+
 	
 	do
 	{
@@ -21,38 +19,58 @@ void InventoryScreen::AddMedia()
 		cout << "4. Periodical" << endl;
 		cout << "0. Return" << endl;
 		cin >> choice;
-		switch (choice)
-		{
-		case 1:
-			book = new Book();
-			book->SetTitle();
-			book->SetMediaType(LibraryMedia::book);
-			book->SetAuthors();
-			book->SetPublishers();
-			book->SetCategory();
-			book->SetSubCategory();
-			book->SetInventoryCount();
-			book->SetDoner();
-			book->SetISBN();
-			book->SetPrice();
-			CurrentSessionInfo::mediaList.push_back(book);
+		
+		LibraryMedia* newMedia;
+		if (choice == 1)  newMedia = new Book();
+		else if (choice == 2) newMedia = new Newspaper();
+		else if (choice == 3) newMedia = new ConferenceJournal();
+		else if (choice == 4) newMedia = new Periodical();
+		else if (choice == 0){
 			system("cls");
-			cout << "New Book added!" << endl;
-			break;
-		case 2:
-			newspaper = new Newspaper();
-			newspaper->SetTitle();
-			newspaper->SetMediaType(LibraryMedia::newspaper);
-			newspaper->SetCategory();
-			newspaper->SetSubCategory();
-			newspaper->SetInventoryCount();
-			newspaper->SetDoner();
-			//newspaper->SetPublishRate();
-		case 0:
-			system("cls");//Clear screen before we return
 			return;
-		default:
-			break;
+		}
+		else {
+			system("cls");
+			cout << "Invalid Selection,try again" << endl;
+			continue;
+		}
+
+		newMedia->SetTitle();
+		newMedia->SetAuthors();
+		newMedia->SetPublishers();
+		newMedia->SetInventoryCount();
+		newMedia->SetPrice();
+		newMedia->SetCategory();
+		newMedia->SetSubCategory();
+		newMedia->SetDoner();
+		if (choice == 1)
+		{
+			Book* book = dynamic_cast<Book*>(newMedia);
+			book->SetMediaType(LibraryMedia::book);
+			book->SetISBN();
+			book->SetEdition();
+			CurrentSessionInfo::mediaList.emplace_back(new Book(*book));
+			delete book;
+			system("cls");
+			cout << "New Book Added" << endl;
+		}
+		else if (choice == 2) {
+			Newspaper* newspaper = dynamic_cast<Newspaper*>(newMedia);
+			newspaper->SetMediaType(LibraryMedia::newspaper);
+			newspaper->SetPublishRate();
+			CurrentSessionInfo::mediaList.emplace_back(new Newspaper(*newspaper));
+			delete newspaper;
+			system("cls");
+			cout << "New newspaper added" << endl;
+		}
+		else if (choice == 4) {
+			Periodical* period = dynamic_cast<Periodical*>(newMedia);
+			period->SetMediaType(LibraryMedia::periodical);
+			period->SetPublishRate();
+			CurrentSessionInfo::mediaList.emplace_back(new Periodical(*period));
+			delete period;
+			system("cls");
+			cout << "New Periodical added" << endl;
 		}
 	} while (true);
 
@@ -61,11 +79,11 @@ void InventoryScreen::AddMedia()
 }
 void InventoryScreen::SearchForMedia()
 {
-	system("cls");	
+	system("cls"); //Don't 
 	int choice;
 	bool validChoice = false;
 	do {
-		system("cls");
+		
 		cout << setfill('-') << setw(115) << "" << endl;
 		cout << setfill('-') << setw(56) << " SEARCH " << setfill('-') << setw(59) << "" << endl;
 		cout << setfill('-') << setw(115) << "" << endl;
@@ -94,8 +112,15 @@ void InventoryScreen::SearchForMedia()
 		}
 		cout << setfill(' ') << setw(53) << "0. Return\t\n" << endl;
 		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cin >> choice;
 		system("cls");
+		if (!cin) { //If they enter a a non integer value go to next loop
+			cout << "Invalid selection, try again" << endl;
+			continue;
+		}
 		switch (choice) {
 		case 1:
 			SearchByTitle();
@@ -127,7 +152,6 @@ void InventoryScreen::SearchForMedia()
 			break;
 		default:
 			cout << "Invalid selection, try again" << endl;
-
 		}
 
 	} while (!validChoice);
@@ -201,9 +225,11 @@ void InventoryScreen::printMenu() {
 }
 void InventoryScreen::SearchByTitle() 
 {
+	cin.clear();
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	string searchTitle;
 	cout << "Enter the title of the media you are looking for" << endl;
-	cin >> searchTitle;
+	getline(cin, searchTitle);
 
 	//Create vector of pointers that will point to the memory of matching books found in BookList();
 	vector<LibraryMedia*> matchingList;
@@ -231,9 +257,11 @@ void InventoryScreen::SearchByTitle()
 }
 void InventoryScreen::SearchByAuthor() 
 {
+	cin.clear();
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	string searchAuthor;
 	cout << "Enter the author of the media you are looking for" << endl;
-	cin >> searchAuthor;
+	getline(cin,searchAuthor);
 
 	//Create vector of pointers that will point to the memory of matching books found in BookList();
 	vector<LibraryMedia*> matchingList;
@@ -259,9 +287,11 @@ void InventoryScreen::SearchByAuthor()
 }
 void InventoryScreen::SearchByDepartment() 
 {
+	cin.clear();
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	string searchDep;
 	cout << "Enter the Department of the media you are looking for" << endl;
-	cin >> searchDep;
+	getline(cin, searchDep);
 	vector<LibraryMedia*> matchingList;//Create vector of pointers that will point to the memory of matching books found in BookList();
 	for (int i = 0; i < CurrentSessionInfo::mediaList.size(); i++)//Goes through Book list and checks for title that contain the user input
 	{
@@ -388,7 +418,10 @@ void InventoryScreen::PrintMatchingMedia(vector<LibraryMedia*> mediaList)
 		}
 		cout << "0. Return" << endl;
 		cin >> choice;
-		if (choice == 0) return;
+		if (choice == 0) {
+			system("cls");
+			return;
+		}
 		else if (mediaList.at(choice - 1) != NULL) {
 			//Open up Media interaction menu
 			MediaInteractionMenu(mediaList.at(choice - 1));

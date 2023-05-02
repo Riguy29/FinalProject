@@ -139,6 +139,8 @@ string LibraryMedia::GetSearchString(int searchParm)
 // Mutators
 void LibraryMedia::SetInventoryCount()
 {
+	cin.clear();
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	bool isValid = true;
 	int newCount;
 	do
@@ -157,8 +159,10 @@ void LibraryMedia::SetTitle()
 	bool isValid = true;
 	do
 	{
+		cin.clear();
+		cin.ignore();
 		cout << "Enter the title: ";
-		cin >> newTitle;
+		getline(cin, newTitle);
 		// FIX ME:: Validate data
 	} while (!isValid);
 	strncpy_s(title, newTitle.c_str(), sizeof(title));
@@ -177,10 +181,13 @@ void LibraryMedia::SetMediaType(mediaTypes mediaType)
 
 void LibraryMedia::SetPrice()
 {
+
 	double newPrice = 0;
 	bool isValid = true;
 	do
 	{
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		isValid = true; // Assume data is valid
 		cout << "Enter the price: ";
 		cin >> newPrice;
@@ -193,13 +200,15 @@ void LibraryMedia::SetPrice()
 
 void LibraryMedia::SetCategory()
 {
+	cin.clear();
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	string newCat;
 	bool isValid = true;
 	do
 	{
 		isValid = true;
 		cout << "Enter the category: ";
-		cin >> newCat;
+		getline(cin, newCat);
 		// FIX ME:: Validate data
 	} while (!isValid);
 	strncpy_s(category,newCat.c_str(), sizeof(category));
@@ -210,33 +219,39 @@ void LibraryMedia::SetCategory()
 
 void LibraryMedia::SetSubCategory()
 {
+	cin.clear();
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	string newCat;
 	bool isValid = true;
 	do
 	{
 		isValid = true;
 		cout << "Enter the Sub Category: ";
-		cin >> newCat;
+		getline(cin, newCat);
 		// FIX ME:: Validate data
 	} while (!isValid);
-	strncpy_s(category, newCat.c_str(), sizeof(category));
+	strncpy_s(subCategory, newCat.c_str(), sizeof(subCategory));
 }
 
 
 void LibraryMedia::SetDoner()
 {
+	cin.clear();
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	string newDoner;
 	bool isValid = true;
 	do
 	{
 		cout << "Enter the Doner's name: ";
-		cin >> newDoner;
+		getline(cin, newDoner);
 		// FIX ME:: Validate data
 	} while (!isValid);
 	strncpy_s(doner, newDoner.c_str(), sizeof(doner));
 }
 void LibraryMedia::SetAuthors()
 {
+	cin.clear();
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	int numAuthors;
 	cout << "How many authors does this media have?" << endl;
 	cin >> numAuthors;
@@ -250,6 +265,8 @@ void LibraryMedia::SetAuthors()
 }
 void LibraryMedia::SetPublishers()
 {
+	cin.clear();
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	int numPublishers;
 	cout << "How many publishers does this media have" << endl;
 	cin >> numPublishers;

@@ -90,7 +90,7 @@ void CurrentSessionInfo::SaveAllData()
 	SaveData<Publisher>("PublisherRecord.txt", pubList);
 	SaveData<Author>("AuthorRecord.txt", authorList);
 
-	//SaveData();
+	SaveData();
 }
 
 template<typename T>
@@ -172,38 +172,46 @@ void CurrentSessionInfo::SaveData()
 	periodicalOut.open(PERIODICAL_FILE_PATH, ios::binary | ios::in);
 	journalOut.open(JOURNAL_FILE_PATH, ios::binary | ios::in);
 	userOut.open(USER_FILE_PATH, ios::binary | ios::in);
+
+	Book* b3 = new Book(7, "MockingJay", 15, "Fiction", "Dystopia", 5, "Amber", "89239123", 3);
+	mediaList.emplace_back(b3);
 	if (bookOut.is_open() && periodicalOut.is_open() && journalOut.is_open() && newspaperOut.is_open() && userOut.is_open()) {
+		
+		Book* writeOutBook{};
 		for (int i = 0; i < mediaList.size(); i++)
 		{
-			switch (mediaList.at(i)->GetMediaType())
-			{
-			case LibraryMedia::book:
-				//Book writeOutBook = dynamic_cast<Book>(*mediaList.at(i));
-				bookOut.write(reinterpret_cast<char*>(&mediaList.at(i)), sizeof(Book));
-				break;
-			case LibraryMedia::newspaper:
-				newspaperOut.write(reinterpret_cast<char*>(&mediaList.at(i)), sizeof(Newspaper));
-				break;
-			case LibraryMedia::conferenceJournal:
-				journalOut.write(reinterpret_cast<char*>(&mediaList.at(i)), sizeof(ConferenceJournal));
-				break;
-			case LibraryMedia::periodical:
-				periodicalOut.write(reinterpret_cast<char*>(&mediaList.at(i)), sizeof(Periodical));
-				break;
-			default:
-				break;
+			
+			LibraryMedia::mediaTypes currType = mediaList.at(i)->GetMediaType();
+			if (currType == LibraryMedia::book) {
+				writeOutBook = dynamic_cast<Book*>(mediaList.at(i));
+				Book temp(*writeOutBook);
+				bookOut.exceptions(std::ios::failbit);
+				bookOut.write(reinterpret_cast<char*>(&temp), sizeof(Book));
+			}
+			else if (currType == LibraryMedia::newspaper) {
+
+			}
+			else if (currType == LibraryMedia::conferenceJournal) {
+
+			}
+			else if (currType == LibraryMedia::periodical) {
+
 			}
 		}
-
+		delete writeOutBook;
 		for (int i = 0; i < userList.size(); i++) 
 		{
 			userOut.write(reinterpret_cast<char*>(&userList.at(i)), sizeof(User));
 		}
+
 	}
+
 	else cout << "Error: Could not load data, make sure filepath is correct";
+
 
 	bookOut.close();
 	newspaperOut.close();
 	periodicalOut.close();
 	journalOut.close();
+	userOut.close();
 }

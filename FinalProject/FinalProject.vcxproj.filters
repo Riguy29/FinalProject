@@ -127,6 +127,7 @@
     <Text Include="PurchaseList.txt" />
     <Text Include="currentUser.txt" />
     <Text Include="BookRecord.txt" />
+    <Text Include="Users.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

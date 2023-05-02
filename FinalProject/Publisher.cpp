@@ -22,6 +22,8 @@ string Publisher::GetAddress()
 
 void Publisher::SetName()
 {
+	cin.clear();
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	bool valid= true;
 	do
 	{
@@ -29,8 +31,8 @@ void Publisher::SetName()
 		string tempName;
 		try
 		{
-			cin >> tempName;
-			cout << "Enter the name of the publisher" << endl;
+			cout << "Enter the name of the publisher: " ;
+			getline(cin, tempName);
 			for (char nameChar : tempName) {
 				if (isdigit(nameChar)) throw(1);
 			}
@@ -52,6 +54,8 @@ void Publisher::SetName()
 
 void Publisher::SetEmail()
 {
+	cin.clear();
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	bool valid = true;
 	do
 	{
@@ -59,14 +63,17 @@ void Publisher::SetEmail()
 		string tempEmail;
 		try
 		{
-			cin >> tempEmail;
-			cout << "Enter the name of the publisher" << endl;
+			cout << "Enter the email of the publisher: ";
+			getline(cin, tempEmail);
 			//FIXME: Validate Data
 			strncpy_s(email, tempEmail.c_str(), sizeof(email));
 		}
 		catch (int errorCode)
 		{
 			system("cls");
+			if (errorCode == 1) {
+				cout << "Publisher Name is too Long" << endl;
+			}
 			//Print error codes here
 			valid = false;
 
@@ -76,6 +83,8 @@ void Publisher::SetEmail()
 
 void Publisher::SetAddress()
 {
+	cin.clear();
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	bool valid = true;
 	do
 	{
@@ -83,8 +92,8 @@ void Publisher::SetAddress()
 		string tempAddress;
 		try
 		{
-			cin >> tempAddress;
-			cout << "Enter the name of the publisher" << endl;
+			cout << "Enter the address of the publisher: " ;
+			getline(cin, tempAddress, '\n');
 			//Validate Data
 			strncpy_s(address, tempAddress.c_str(), sizeof(address));
 		}
@@ -123,10 +132,6 @@ Publisher::Publisher(int id)
 	strncpy_s(name, "Not set", sizeof(name));
 	strncpy_s(email, "Not set", sizeof(email));
 	strncpy_s(address, "Not set", sizeof(address));
-}
-
-Publisher::Publisher(int id) {
-	bookId = id;
 }
 
 void Publisher::PrintInfo()
