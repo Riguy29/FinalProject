@@ -15,6 +15,8 @@
 #include <regex>
 #include <iomanip>
 
+#include "CurrentSessionInfo.h"
+
 using namespace std;
 
 // Default constructor
@@ -109,7 +111,7 @@ void Login::userHomeMenu()const {
             break;
         case 2:
             system("cls");
-            currentUsr.printMenu();
+            // currUser.printMenu();
             //cout << "Need to open Account information." << endl;//view account should view list of users and allow admin to update infor via  update()
             break;
         case 0: //On Log out 
@@ -239,15 +241,7 @@ void Login::registration() {
 
     cout << "Press 1 to return to Main Menu or" << endl;
     
-    do {
-        cout << "\nEnter your first name: \t" << endl;
-        cin.ignore();
-        getline(cin, fName);
-        if (fName._Equal("1")) {
-            system("cls");
-            printMenu();
-        }        
-    } while (isValidName(fName) != true);
+    
 
     do {
         cout << "\nEnter your last name: \t" << endl;

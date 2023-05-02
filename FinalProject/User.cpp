@@ -44,25 +44,47 @@ const char* User::getEmail()const { return email; }
 User::userTypes User::getUserType() { return userType; }
 
 // Mutators TODO: Implement error checking for user creation and mod
-void User::setFirstName(const char* firstName) { this->firstName = firstName; }
-void User::setLastName(const char* lastName) { this->lastName = lastName; }
-void User::setAddress(const char* a) { address = a; }
-void User::setPhoneNumber(const char* p) { phoneNum = p; }
-void User::setEmail(const char* e) { email = e; }
+void User::setFirstName() {
+    cout << "Enter First Name: " << endl;
+    string fName;
+    const int NAME_MAX_LENGTH = 20;
+    getline(cin, fName);
+
+    
+}
+
+void User::setLastName() { 
+
+}
+
+void User::setAddress() { 
+
+}
+
+void User::setPhoneNumber() {
+
+}
+
+void User::setEmail() { 
+
+}
+
 void User::setUserType(userTypes type) { userType = type; }
 
-void User::printMenu()const {
-    
+// Print user menu
+void User::printMenu() {
     int accountChoice;
     cout << setfill('-') << setw(116) << "\n" << endl;
-    cout << setfill(' ') << setw(68) << CurrentSessionInfo::currUser << endl;//FIXME: Do I need all the getters and setters or does it print all the information without those?
+    cout << setfill(' ') << setw(68) << getFirstName() << endl;
     cout << setfill('-') << setw(116) << "\n" << endl;
     cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
     cout << setfill(' ') << setw(60) << "1. Update Personal Information" << endl;
     cout << setfill(' ') << setw(58) << "2. View My Books" << endl;
     cout << setfill(' ') << setw(51) << "0. Return\n" << endl;
     cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+
     cin >> accountChoice;
+
     switch (accountChoice) {
     case 0:
         return;
@@ -79,19 +101,14 @@ void User::printMenu()const {
         cin >> updateChoice;
         switch (updateChoice) {
         case 1:
-            updateFName();
             break;
         case 2:
-            updateLName();
             break;
         case 3:
-            updateAddress();
             break;
         case 4:
-            updatePhoneNumber();
             break;
         case 5:
-            updateEmail();
             break;
         case 0:
             return;
@@ -103,15 +120,16 @@ void User::printMenu()const {
     case 2:
         //FIXME: open currentUser bookList
         cout << "Books you currently have checked out are: " << endl;
-        for (int i = 0; i < CurrentSessionInfo::MediaList; i++) {
-            cout << CurrentSessionInfor::MediaList.at(i) << endl;
+        for (int i = 0; i < CurrentSessionInfo::mediaList.size(); i++) {
+            cout << CurrentSessionInfo::mediaList.at(i) << endl;
         }
         cout << endl;
+
         int returnInput;
         do {
             cout << "Press 0 to return to previous screen" << endl;
             cin >> returnInput;
-        } while (cin != 1);
+        } while (returnInput != 0);
         break;
     default:
         cout << "Invalid Choice" << endl;
@@ -119,9 +137,9 @@ void User::printMenu()const {
     
 }
 
+/*
 //functions for updating user information
 void User::updateFirstName()const {
-    const char* userFName = CurrentSessionInfo::currUser.getFirstName(); //set search name to current Users first name
     cout << "Enter New First Name: " << endl;
     const char* newFName;
     cin >> newFName;
@@ -198,3 +216,4 @@ void User::updateUserType()const {
         }
     }
 }
+*/

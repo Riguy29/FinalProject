@@ -27,9 +27,7 @@ private:
 	Date date;
 	GuestLogin guestLogin;
 	InventoryScreen invScreen;
-	User currentUsr;
 	CurrentSessionInfo currSession;
-	vector<User> usrs;
 public:
 	Login();
 	Login(Login& l);

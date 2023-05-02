@@ -34,11 +34,11 @@ public:
 	~User();
 
 	// Mutators
-	void setFirstName(const char* firstName);
-	void setLastName(const char* lastName);
-	void setAddress(const char* a);
-	void setPhoneNumber(const char* p);
-	void setEmail(const char* e);
+	void setFirstName();
+	void setLastName();
+	void setAddress();
+	void setPhoneNumber();
+	void setEmail();
 	void setUserType(userTypes type);
 
 	// Accessors 
@@ -48,8 +48,8 @@ public:
 	const char* getPhoneNumber()const;
 	const char* getEmail()const;
 	userTypes getUserType();
-	bool getAdminStatus() const {};
 
+	void printMenu();
 protected:
 	userTypes userType;
 	const char* firstName;
@@ -57,17 +57,6 @@ protected:
 	const char* address;
 	const char* phoneNum;
 	const char* email;
-
-public:
-	// Functions to update user information
-	void updateFirstName()const;
-	void updateLastName()const;
-	void updateAddress()const;
-	void updatePhoneNumber()const;
-	void updateEmail()const;
-	void updateUserType()const;
-	void printMenu()const;
-	
 };
 
 #endif // USER_H

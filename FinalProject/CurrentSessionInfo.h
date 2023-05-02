@@ -23,7 +23,7 @@ private:
 	static string PERIODICAL_FILE_PATH;
 	static string JOURNAL_FILE_PATH;
 	static string USER_FILE_PATH;
-	static User currUser;
+	User currUser;
 public:
 	static vector<LibraryMedia*> mediaList;
 	static vector<User*> userList;
