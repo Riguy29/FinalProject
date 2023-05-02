@@ -8,6 +8,74 @@ void ConferenceJournal::ToString()
 	cout << endl << endl;
 }
 
+string ConferenceJournal::GetDateOfConference()
+{
+	return string();
+}
+
+string ConferenceJournal::GetPlaceOfConference()
+{
+	return string();
+}
+
+void ConferenceJournal::SetPlaceOfConference()
+{
+	string newPlace;
+	bool isValid = true;
+	do
+	{
+		try
+		{
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			isValid = true;
+			cout << "Enter the Location Of the Confrence: ";
+			cin >> newPlace;
+			//Validate Data
+		}
+		catch (int errorCode)
+		{
+			system("cls");
+			switch (errorCode)
+			{
+				//TO BE DONE POSSIBLY
+			}
+			isValid = false;
+		}
+
+	} while (!isValid);
+	strncpy_s(placeOfConfrence, newPlace.c_str(), sizeof(placeOfConfrence));
+}
+
+void ConferenceJournal::SetDateOfConference()
+{
+	string newDate;
+	bool isValid = true;
+	do
+	{
+		try
+		{
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			isValid = true;
+			cout << "Enter the Date Of the Confrence: ";
+			cin >> newDate;
+			//Validate Data
+		}
+		catch (int errorCode)
+		{
+			system("cls");
+			switch (errorCode)
+			{
+				//TO BE DONE POSSIBLY
+			}
+			isValid = false;
+		}
+
+	} while (!isValid);
+	strncpy_s(dateOfConfrence, newDate.c_str(), sizeof(dateOfConfrence));
+}
+
 ConferenceJournal::~ConferenceJournal()
 {
 }

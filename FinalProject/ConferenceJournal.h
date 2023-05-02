@@ -17,7 +17,7 @@ public:
 	string GetPlaceOfConference();
 	//Mutators
 	void SetPlaceOfConference();
-	void SetDateOfConference(const Date& date);
+	void SetDateOfConference();
 
 
 	~ConferenceJournal();
