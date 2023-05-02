@@ -22,7 +22,6 @@ public:
 		conferenceJournal,
 		periodical
 	};
-
 	//Accesors
 	string GetTitle();
 	mediaTypes GetMediaType(); //No set method since media type should never change

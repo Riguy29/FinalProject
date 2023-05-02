@@ -498,4 +498,38 @@ void InventoryScreen::ConfirmMediaCheckout() {
 	//if y then deduct from inventory count add books to user vector of checked out books
 	//print list of books with return date
 }
+
+void InventoryScreen::EditMediaDataMenu(LibraryMedia* selectedMedia) {
+	int choice;
+	do
+	{
+		cout << "Editing: ";
+		selectedMedia->ToString();
+		cout << endl;
+
+		cout << "0. Return" << endl;
+		cout << "1. Change Title" << endl;
+		cout << "2. Change Authors" << endl;
+		cout << "3. Change Publishers" << endl;
+		cout << "4. Change Category" << endl;
+		cout << "5. Change SubCateogory" << endl;
+		cout << "6. Change Price" << endl;
+		cout << "7. Change Doner" << endl;
+		cout << "8. Change Iventory Count" << endl;
+
+		switch (selectedMedia->GetMediaType())
+		{
+		case LibraryMedia::book:
+			break;
+		case LibraryMedia::conferenceJournal:
+			break;
+		case LibraryMedia::newspaper:
+			break;
+		case LibraryMedia::periodical:
+			break;
+		default:
+			break;
+		}
+	} while (true);
+}
 #endif // !INVENTORYSCREEN_CPP

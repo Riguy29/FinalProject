@@ -1,5 +1,15 @@
 #include "Author.h"
 
+int Author::GetBookId()
+{
+	return bookId;
+}
+
+string Author::GetName()
+{
+	return name;
+}
+
 void Author::SetName()
 {
 	bool isValid = true;

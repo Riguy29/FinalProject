@@ -31,8 +31,8 @@ void LibraryMedia::ToString()
 
 	//Access our static author list, and search the list for any authors that match our book id
 	for (int i = 0; i < CurrentSessionInfo::authorList.size(); i++) {
-		if (mediaID == CurrentSessionInfo::authorList.at(i).bookId) {
-			cout << *CurrentSessionInfo::authorList.at(i).name;
+		if (mediaID == CurrentSessionInfo::authorList.at(i).GetBookId()) {
+			cout << CurrentSessionInfo::authorList.at(i).GetName();
 		}
 	}
 
@@ -107,8 +107,8 @@ string LibraryMedia::GetSearchString(int searchParm)
 	string returnString = "";
 	if (searchParm == 0) { //Generate Author Search String
 		for (int i = 0; i < CurrentSessionInfo::authorList.size(); i++) {
-			if (mediaID == CurrentSessionInfo::authorList.at(i).bookId) {
-				returnString += *CurrentSessionInfo::authorList.at(i).name;
+			if (mediaID == CurrentSessionInfo::authorList.at(i).GetBookId()) {
+				returnString += CurrentSessionInfo::authorList.at(i).GetName();
 				returnString += " ";
 			}
 		}
