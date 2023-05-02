@@ -60,13 +60,13 @@ protected:
 
 public:
 	// Functions to update user information
-	void updateFirstName()const;
-	void updateLastName()const;
-	void updateAddress()const;
-	void updatePhoneNumber()const;
-	void updateEmail()const;
-	void updateUserType()const;
-	void printMenu()const;
+	void updateFirstName();
+	void updateLastName();
+	void updateAddress();
+	void updatePhoneNumber();
+	void updateEmail();
+	void updateUserType();
+	void printMenu();
 	
 };
 

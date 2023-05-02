@@ -51,7 +51,7 @@ void User::setPhoneNumber(const char* p) { phoneNum = p; }
 void User::setEmail(const char* e) { email = e; }
 void User::setUserType(userTypes type) { userType = type; }
 
-void User::printMenu()const {
+void User::printMenu() {
     
     int accountChoice;
     cout << setfill('-') << setw(116) << "\n" << endl;
@@ -120,81 +120,52 @@ void User::printMenu()const {
 }
 
 //functions for updating user information
-void User::updateFirstName()const {
-    const char* userFName = CurrentSessionInfo::currUser.getFirstName(); //set search name to current Users first name
+void User::updateFirstName() {
     cout << "Enter New First Name: " << endl;
     const char* newFName;
-    cin >> newFName;
-
-    for (int i = 0; i < usrs.size(); i++) {
-        if (usrs.at(i)->GetFirstName() == userFName) {
-            usrs.at(i) = newFName;
-            //SetFirstName();
-        }
-    }
+    do {
+        cin >> newFName;
+        Login::isValidName(newFName);
+    } while (!true);
+    setFirstName(newFName);        
 }
-void User::updateLastName()const {
-    const char* userLName = CurrentSessionInfo::currUser.getLastName();
+void User::updateLastName() {
     cout << "Enter New Last Name: " << endl;
     const char* newLName;
-    cin >> newLName;
-
-    for (int i = 0; i < usrs.size(); i++) {
-        if (usrs.at(i)->GetLastName() == userLName) {
-            usrs.at(i) = newLName;
-            //SetLastName();
-        }
-    }
+    do {
+        cin >> newLName;
+        Login::isValidName(newLName);
+    } while (!true);
+    setLastName(newLName);   
 }
-void User::updateAddress()const {
-    const char* userAddress = CurrentSessionInfo::currUser.getAddress(); //FIXME: set userAddress to current user first name
+void User::updateAddress() {
     cout << "Enter New Address: " << endl;
-    const char* newAddress;
-    cin >> newAddress;
-
-    for (int i = 0; i < usrs.size(); i++) {
-        if (usrs.at(i)->GetAddress() == userAddress) {
-            usrs.at(i) = newAddress;
-            //SetLastName();
-        }
-    }
+    const char* newAddress = isValidAddress();
+    setAddress(newAddress);
 }
-void User::updatePhoneNumber()const {
-    const char* userPhone = CurrentSessionInfo::currUser.getPhoneNumber(); //FIXME: set userAddress to current user first name
+void User::updatePhoneNumber() {
     cout << "Enter New Phone Number: " << endl;
     const char* newPhone;
-    cin >> newPhone;
-
-    for (int i = 0; i < usrs.size(); i++) {
-        if (usrs.at(i)->GetPhoneNumber() == userPhone) {
-            usrs.at(i) = newPhone;
-            //SetLastName();
-        }
-    }
+    do {
+        cin >> newPhone;
+        formatPhone(newPhone);
+    } while (!true);
+    setPhoneNumber(newPhone);
 }
 void User::updateEmail()const {
-    const char* userEmail = CurrentSessionInfo::currUser.getEmail(); //FIXME: set userAddress to current user first name
     cout << "Enter New Email: " << endl;
     const char* newEmail;
-    cin >> newEmail;
-
-    for (int i = 0; i < usrs.size(); i++) {
-        if (usrs.at(i)->GetEmail() == userEmail) {
-            usrs.at(i) = newEmail;
-            //SetLastName();
-        }
-    }
+    do {
+        cin >> newEmail;
+        isEmailValid(newEmail);
+    } while (!valid);
+    setEmail(newEmail);
 }
-void User::updateUserType()const {
-    const char* userType = CurrentSessionInfo::currUser.getUserType(); //FIXME: set userAddress to current user first name
+void User::updateUserType() {
     cout << "Enter New User Type: " << endl;
     const char* newUserType;
-    cin >> newUserType;
-
-    for (int i = 0; i < usrs.size(); i++) {
-        if (usrs.at(i)->getUserType() == userType) {
-            usrs.at(i) = newUserType;
-            //SetLastName();
-        }
-    }
+    do {
+        cin >> newUserType;
+    } while (newUserType != "facultyMember" || newUserType != "student" || newUserType != "staff");
+    setUserType(newUserType);
 }
