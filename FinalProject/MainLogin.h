@@ -14,6 +14,7 @@
 #include "FacultyMember.h"
 #include "Student.h"
 #include "Staff.h"
+#include "CurrentSessionInfo.h"
 
 #include <iostream>
 #include <string>
@@ -27,6 +28,7 @@ private:
 	GuestLogin guestLogin;
 	InventoryScreen invScreen;
 	User currentUsr;
+	CurrentSessionInfo currSession;
 	vector<User> usrs;
 public:
 	Login();

@@ -8,13 +8,17 @@
 #pragma once
 #ifndef USER_H
 #define USER_H
+#include "CurrentSessionInfo.h"
 
 #include <iostream>
+#include <iomanip>
+
 
 using namespace std;
 
 class User {
 public:
+	
 	// User type enum
 	enum userTypes
 	{
@@ -53,6 +57,17 @@ protected:
 	const char* address;
 	const char* phoneNum;
 	const char* email;
+
+public:
+	// Functions to update user information
+	void updateFirstName()const;
+	void updateLastName()const;
+	void updateAddress()const;
+	void updatePhoneNumber()const;
+	void updateEmail()const;
+	void updateUserType()const;
+	void printMenu()const;
+	
 };
 
 #endif // USER_H
