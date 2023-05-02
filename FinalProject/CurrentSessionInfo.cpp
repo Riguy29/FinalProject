@@ -167,38 +167,40 @@ void CurrentSessionInfo::SaveData(string fileName, vector<T>& list)
 void CurrentSessionInfo::SaveData()
 {
 	fstream bookOut,newspaperOut,periodicalOut,journalOut, userOut;
-	bookOut.open(BOOK_FILE_PATH, ios::binary | ios::in);
-	newspaperOut.open(NEWS_FILE_PATH, ios::binary | ios::in);
-	periodicalOut.open(PERIODICAL_FILE_PATH, ios::binary | ios::in);
-	journalOut.open(JOURNAL_FILE_PATH, ios::binary | ios::in);
-	userOut.open(USER_FILE_PATH, ios::binary | ios::in);
+	bookOut.open(BOOK_FILE_PATH, ios::binary | ios::out);
+	newspaperOut.open(NEWS_FILE_PATH, ios::binary | ios::out);
+	periodicalOut.open(PERIODICAL_FILE_PATH, ios::binary | ios::out);
+	journalOut.open(JOURNAL_FILE_PATH, ios::binary | ios::out);
+	userOut.open(USER_FILE_PATH, ios::binary | ios::out);
 
-	Book* b3 = new Book(7, "MockingJay", 15, "Fiction", "Dystopia", 5, "Amber", "89239123", 3);
-	mediaList.emplace_back(b3);
 	if (bookOut.is_open() && periodicalOut.is_open() && journalOut.is_open() && newspaperOut.is_open() && userOut.is_open()) {
 		
-		Book* writeOutBook{};
 		for (int i = 0; i < mediaList.size(); i++)
 		{
 			
 			LibraryMedia::mediaTypes currType = mediaList.at(i)->GetMediaType();
 			if (currType == LibraryMedia::book) {
-				writeOutBook = dynamic_cast<Book*>(mediaList.at(i));
-				Book temp(*writeOutBook);
-				bookOut.exceptions(std::ios::failbit);
-				bookOut.write(reinterpret_cast<char*>(&temp), sizeof(Book));
+				Book* temp = dynamic_cast<Book*>(mediaList.at(i));
+				bookOut.write(reinterpret_cast<char*>(&*temp), sizeof(Book));
+				delete temp;
 			}
 			else if (currType == LibraryMedia::newspaper) {
-
+				Newspaper* temp = dynamic_cast<Newspaper*>(mediaList.at(i));
+				newspaperOut.write(reinterpret_cast<char*>(&*temp), sizeof(Newspaper));
+				delete temp;
 			}
 			else if (currType == LibraryMedia::conferenceJournal) {
-
+				ConferenceJournal* temp = dynamic_cast<ConferenceJournal*>(mediaList.at(i));
+				journalOut.write(reinterpret_cast<char*>(&*temp), sizeof(ConferenceJournal));
+				delete temp;
 			}
 			else if (currType == LibraryMedia::periodical) {
-
+				Periodical* temp = dynamic_cast<Periodical*>(mediaList.at(i));
+				periodicalOut.write(reinterpret_cast<char*>(&*temp), sizeof(Periodical));
+				delete temp;
 			}
 		}
-		delete writeOutBook;
+		
 		for (int i = 0; i < userList.size(); i++) 
 		{
 			userOut.write(reinterpret_cast<char*>(&userList.at(i)), sizeof(User));

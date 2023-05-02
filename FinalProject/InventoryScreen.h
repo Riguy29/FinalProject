@@ -33,7 +33,8 @@ public:
 	static void ConfirmMediaCheckout();
 	static void MediaInteractionMenu(LibraryMedia* selectedMedia);
 	static void PrintMatchingMedia(vector<LibraryMedia*> mediaList);
-	static void EditMedia(LibraryMedia* selectedMedia);
+
+	static void EditMediaDataMenu(LibraryMedia* selectedMedia);
 
 private:
 	static string recordTxtFile;

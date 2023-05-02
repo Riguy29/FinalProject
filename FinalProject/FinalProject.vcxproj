@@ -178,7 +178,6 @@
     <Text Include="PeriodicalRecord.txt" />
     <Text Include="PublisherRecord.txt" />
     <Text Include="PurchaseList.txt" />
-    <Text Include="records.txt" />
     <Text Include="userpass.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -7,19 +7,22 @@ using namespace std;
 class ConferenceJournal : public LibraryMedia
 {
 private:
-	long dateOfConference;
-	string* placeOfConference;
+	char dateOfConfrence[100];
+	char placeOfConfrence[100];
 public:
 	void ToString() override;
-	void SetDateOfConference(const Date& date);
-	Date& GetDateOfConference() const;
 
-	void SetPlaceOfConference(const string& place);
-	string& GetPlaceOfConference() const;
+	//Accessors
+	string GetDateOfConference();
+	string GetPlaceOfConference();
+	//Mutators
+	void SetPlaceOfConference();
+	void SetDateOfConference(const Date& date);
+
 
 	~ConferenceJournal();
 	ConferenceJournal();
 	ConferenceJournal(const ConferenceJournal& copy);
-	ConferenceJournal(int id, const string& mediaTitle, double mediaPrice, const string& mediaCat, const string& mediaSubCat, int mediaCount, const string& mediaDoner, const string& conferenceLocation, const Date& conferenceDate);
+	ConferenceJournal(int id, string mediaTitle, double mediaPrice, string mediaCat, string mediaSubCat, int mediaCount, string mediaDoner, string conferenceLocation, string conferenceDate);
 };
 
