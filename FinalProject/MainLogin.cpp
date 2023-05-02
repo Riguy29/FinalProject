@@ -474,8 +474,8 @@ bool Login::formatPhone(string &phone) {
 // Limit first and last name to less than 20 letters and only allow letters
 // FIXME not working yet.
 bool Login::isValidName(string &name) {
-    const int NUM_LENGTH = 20;
-
+    const int NUM_LENGTH = 20;   
+    
     if (name.length() >= NUM_LENGTH || name.length() == 0) {
         cout << "Invalid input. Please try again." << endl;
        for (int i = 0; i < name.length(); i++) {
@@ -487,7 +487,7 @@ bool Login::isValidName(string &name) {
    } 
     else {
         return true;
-    }
+    }   
 
 }
  
@@ -540,48 +540,6 @@ string Login::isValidAddress()const {
 
     return address;
 
-}
-
-// Update user info
-void Login::updateInfo()const {
-    system("cls");
-    int choice;
-    string name, address, email, phone;
-    cout << "Get user info" << endl;//FIX ME
-    cout << "What would you like to update?" << endl;
-    cout << setfill(' ') << setw(68) << "1. Name" << endl;
-    cout << setfill(' ') << setw(68) << "2. Address" << endl;
-    cout << setfill(' ') << setw(68) << "3. Email" << endl;
-    cout << setfill(' ') << setw(68) << "4. Phone" << endl;
-    cout << setfill(' ') << setw(68) << "5. Return" << endl;
-    cin >> choice;
-    switch (choice) {
-    case 1:
-        cin >> name;
-        break;
-    case 2:
-        cin >> address;
-        break;
-    case 3:
-        cin >> email;
-        break;
-    case 4:
-        cin >> phone;
-        break;
-    case 5:
-        system("cls");
-        exit(0);
-        break;
-    default:
-        cout << "Invalid choice. Please try again." << endl;
-        cin >> choice;
-    }
-
-}
-
-void Login::myMedia()const{
-    system("cls");
-    cout << "Show list of books checked out to this user." << endl;
 }
 
 #endif // !MAINLOGIN_CPP

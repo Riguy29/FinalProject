@@ -50,8 +50,7 @@ public:
 	string isValidAddress()const;
 
 	void userHomeMenu()const;
-	void updateInfo()const;
-	void myMedia()const;
+	
 };
 
 #endif // !MAINLOGIN_H

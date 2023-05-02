@@ -57,6 +57,17 @@ protected:
 	const char* address;
 	const char* phoneNum;
 	const char* email;
+
+public:
+	// Functions to update user information
+	void updateFirstName();
+	void updateLastName();
+	void updateAddress();
+	void updatePhoneNumber();
+	void updateEmail();
+	void updateUserType();
+	void printMenu();
+	
 };
 
 #endif // USER_H
