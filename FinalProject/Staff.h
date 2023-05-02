@@ -12,7 +12,7 @@ public:
 		const char* email, const char* p, const char* status, const char* ID);
 	Staff();
 	Staff(const Staff& sTmp);
-	~Staff();
+	virtual ~Staff();
 
 	// Mutators
 	void setStatus(const char* s);

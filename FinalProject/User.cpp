@@ -47,10 +47,11 @@ User::userTypes User::getUserType() { return userType; }
 void User::setFirstName() {
     cout << "Enter First Name: " << endl;
     string fName;
-    const int NAME_MAX_LENGTH = 20;
     getline(cin, fName);
-
     
+    if (fName.length() > 20 || fName.length() == 0) {
+
+    }
 }
 
 void User::setLastName() { 
@@ -120,9 +121,7 @@ void User::printMenu() {
     case 2:
         //FIXME: open currentUser bookList
         cout << "Books you currently have checked out are: " << endl;
-        for (int i = 0; i < CurrentSessionInfo::mediaList.size(); i++) {
-            cout << CurrentSessionInfo::mediaList.at(i) << endl;
-        }
+        
         cout << endl;
 
         int returnInput;
@@ -134,10 +133,9 @@ void User::printMenu() {
     default:
         cout << "Invalid Choice" << endl;
     }
-    
 }
 
-
+/*
 //functions for updating user information
 void User::updateFirstName() {
     cout << "Enter New First Name: " << endl;
@@ -188,3 +186,4 @@ void User::updateUserType() {
     } while (newUserType != "facultyMember" || newUserType != "student" || newUserType != "staff");
     setUserType(newUserType);
 }
+*/
