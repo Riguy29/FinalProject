@@ -583,7 +583,7 @@ void InventoryScreen::ConfirmMediaCheckout() {
 		else if (choice == 2) {
 			//Clears cart and returns
 		}
-	} while (choice != 1 || choice != 2); //If the user enter numbers other than 1 or 2
+	} while (choice != 1 && choice != 2); //If the user enter numbers other than 1 or 2
 	//confirm media y/n
 	//if y then deduct from inventory count add books to user vector of checked out books
 	//print list of books with return date

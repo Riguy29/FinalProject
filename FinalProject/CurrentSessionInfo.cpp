@@ -6,6 +6,7 @@ vector<Publisher> CurrentSessionInfo::pubList;
 vector<Author> CurrentSessionInfo::authorList;
 vector<LibraryMedia*> CurrentSessionInfo::mediaList;
 vector<User*> CurrentSessionInfo::userList;
+User CurrentSessionInfo::currUser;
 string CurrentSessionInfo::BOOK_FILE_PATH = "BookRecord.txt";
 string CurrentSessionInfo::NEWS_FILE_PATH = "NewspaperRecord.txt";
 string CurrentSessionInfo::JOURNAL_FILE_PATH = "JournalRecord.txt";

@@ -233,39 +233,11 @@ void Login::guest() {
 // TODO: reformat using User classes & sub-classes
 // DO NOT FORGET!! Add exception handling in these classes!!!!!
 void Login::registration() {
-    string fName, lName, address, phoneNum, email, id, libID, password;
-    char pos;
+    string libID, password, id, fName, lName, address, phoneNum, email;
     int choice;
+    char pos;
 
-    User tmpUsr;
-
-    cout << "Press 1 to return to Main Menu or" << endl;
-    
-    
-
-    do {
-        cout << "\nEnter your last name: \t" << endl;
-        getline(cin, lName);
-    } while (isValidName(lName) != true);
-
-    address = isValidAddress();
-   
-    do {//make sure phone number is valid
-        cout << "\nEnter your phone number: \t" << endl;
-        getline(cin, phoneNum);
-    } while (formatPhone(phoneNum) != true);
-    if (true) {
-        phoneNum.insert(0, "(");
-        phoneNum.insert(4, ")");
-        phoneNum.insert(8, "-");
-    }
-
-    do {//make sure email is valid
-        cout << "\nEnter your email: \t" << endl;
-        getline(cin, email);
-    }while(isEmailValid(email) != true);    
-    cout << endl;
-
+    // Get user type first...
     do {
         cout << "Enter your position(M/E/S)" << endl;
         cout << "Staff member M\nEmployee E\nStudent S \t" << endl;
@@ -302,6 +274,9 @@ void Login::registration() {
     getline(cin, id);
     cout << endl;
     char correct;
+
+    CurrentSessionInfo::currUser.setFirstName();
+    CurrentSessionInfo::currUser.setLastName();
 
     //check that information entered is correct, if it is save to file if it is not, enter new information  
     //FIXME write switch to allow user to pick which part is incorrect and only update that?
@@ -469,7 +444,6 @@ bool Login::formatPhone(string &phone) {
         return true;
     }
 }       
-      
 
 // Limit first and last name to less than 20 letters and only allow letters
 // FIXME not working yet.

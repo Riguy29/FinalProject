@@ -12,7 +12,7 @@ public:
 		const char* phone, const char* email, const char* p, const char* status, const char* ID);
 	Student();
 	Student(const Student& sTmp);
-	~Student();
+	virtual ~Student();
 
 	// Mutators
 	void setStatus(const char* s);

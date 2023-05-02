@@ -23,19 +23,17 @@ private:
 	static string PERIODICAL_FILE_PATH;
 	static string JOURNAL_FILE_PATH;
 	static string USER_FILE_PATH;
-	User currUser;
 public:
 	static vector<LibraryMedia*> mediaList;
 	static vector<User*> userList;
 	static vector<Author> authorList;
 	static vector<Publisher> pubList;
-	//void SetUser();
-	//User GetCurrUser();
 	static void LoadAllData();
 	static void SaveAllData();
 	static void GenerateDummyData();
 	static vector<LibraryMedia*> GetLibraryInventory();
 	static vector<User*> GetUsersVector();
+	static User currUser;
 
 	template<typename T>
 	static void LoadData(string fileName, vector<T>& list);
