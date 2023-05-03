@@ -249,13 +249,36 @@ void User::printData()const {
 /*
 //functions for updating user information
 void User::updateFirstName() {
-    cout << "Enter New First Name: " << endl;
-    const char* newFName;
-    do {
-        cin >> newFName;
-        Login::isValidName(newFName);
-    } while (!true);
-    setFirstName(newFName);        
+if(isAdmin == true){
+    string userUsername;
+    cout << "Enter username for account you want to access"<< endl;
+    cin >> userUsername;
+
+    for(int i = 0; i < CurrentSessionInfo::userList.size(); i++){
+        if(CurrentSessionInfo::userList.at(i)->GetUsername().find(userUsername)!=string::npos){
+            cout << userList.at(i)->getFirstName() << " " << userList.at(i)->getLastName();
+
+            cout << "Enter New First Name: " << endl;
+            const char* newFName;    
+            do {
+               cin >> newFName;
+               Login::isValidName(newFName);
+            } while (!true);
+               setFirstName(newFName);
+               cout << "New Name: " << userList.at(i)->getFirstName() << " " << userList.at(i)->getLastName();
+         }
+     }
+ }
+ else {
+   cout << "Enter New First Name: " << endl;
+            const char* newFName;    
+            do {
+                cin >> newFName;
+               Login::isValidName(newFName);
+            } while (!true);
+                 setFirstName(newFName);
+                 cout << "New Name: " << getFirstName() << " " << getLastName();
+
 }
 void User::updateLastName() {
     cout << "Enter New Last Name: " << endl;

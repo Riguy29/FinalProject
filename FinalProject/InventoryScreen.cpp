@@ -68,6 +68,16 @@ void InventoryScreen::AddMedia()
 			system("cls");
 			cout << "New newspaper added" << endl;
 		}
+		else if (choice == 3) {
+			ConferenceJournal* journal = dynamic_cast<ConferenceJournal*>(newMedia);
+			journal->SetMediaType(LibraryMedia::conferenceJournal);
+			journal->SetDateOfConference();
+			journal->SetPlaceOfConference();
+			CurrentSessionInfo::mediaList.emplace_back(new ConferenceJournal(*journal));
+			delete journal;
+			system("cls");
+			cout << "New Journal added" << endl;
+		}
 		else if (choice == 4) {
 			Periodical* period = dynamic_cast<Periodical*>(newMedia);
 			period->SetMediaType(LibraryMedia::periodical);

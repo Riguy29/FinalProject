@@ -139,7 +139,7 @@ void Login::login() {
     cout << endl;
 
     do {
-        
+
         cout << "\nEnter your username: \t" << endl;
         cin >> username;
         if (!username._Equal("1")) {
@@ -150,8 +150,8 @@ void Login::login() {
             system("cls");
             printMenu();
         }
-       
-    } while (isLoginValid(username, password) != true);
+
+      } while (isLoginValid(username, password) != true);
 
     if (true) {
         system("cls");
@@ -324,12 +324,11 @@ bool Login::isLoginValid(string &inUser, string &inPass) {
         if (inUser == username && inPass == password) {
             return true;
         }
+        
     }
     system("cls");
     cout << "\nUsername or Password not found.  Please try again." << endl;
-    system("PAUSE");
-    system("cls");
-
+    
     return false;
     read.close();
 }    
