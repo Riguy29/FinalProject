@@ -138,7 +138,7 @@ void Login::login() {
     cout << endl;
 
     do {
-        
+
         cout << "\nEnter your username: \t" << endl;
         cin >> username;
         if (!username._Equal("1")) {
@@ -149,8 +149,8 @@ void Login::login() {
             system("cls");
             printMenu();
         }
-       
-    } while (isLoginValid(username, password) != true);
+
+      } while (isLoginValid(username, password) != true);
 
     if (true) {
         system("cls");
@@ -404,12 +404,11 @@ bool Login::isLoginValid(string &inUser, string &inPass) {
         if (inUser == username && inPass == password) {
             return true;
         }
+        
     }
     system("cls");
     cout << "\nUsername or Password not found.  Please try again." << endl;
-    system("PAUSE");
-    system("cls");
-
+    
     return false;
     read.close();
 }
@@ -432,17 +431,17 @@ bool Login::isEmailValid(string &email) {
 bool Login::formatPhone(string &phone) {
     const int NUM_LENGTH = 10;
 
-    if (phone.length() != NUM_LENGTH) {
-        cout << "Phone number must contain only 10 digits starting with the area code" << endl;
-        for (char ch : phone) {
-            if (!isdigit(ch)) {
-                return false;
+        if (phone.length() != NUM_LENGTH) {
+            cout << "Phone number must contain only 10 digits starting with the area code" << endl;
+            for (char ch : phone) {
+                if (!isdigit(ch)) {
+                    return false;
+                }
             }
         }
-    }
-    else {
-        return true;
-    }
+        else {
+            return true;
+        }    
 }       
 
 // Limit first and last name to less than 20 letters and only allow letters
@@ -450,19 +449,19 @@ bool Login::formatPhone(string &phone) {
 bool Login::isValidName(string &name) {
     const int NUM_LENGTH = 20;   
     
-    if (name.length() >= NUM_LENGTH || name.length() == 0) {
-        cout << "Invalid input. Please try again." << endl;
-       for (int i = 0; i < name.length(); i++) {
-            if (!isalpha(name.at(i))) {
-                break;
+        if (name.length() >= NUM_LENGTH || name.length() == 0) {
+            cout << "Invalid input. Please try again." << endl;
+            for (int i = 0; i < name.length(); i++) {
+                if (!isalpha(name.at(i))) {
+                    break;
+                }
             }
-         }  
-       return false;
-   } 
-    else {
-        return true;
-    }   
-
+            return false;
+        }
+        else {
+            return true;
+        }
+    
 }
  
 // Asks for address information

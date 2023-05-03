@@ -41,6 +41,7 @@ public:
 	~Date();
 	void print() const;
 	static void TimeFunction();
+	//static void CalculateFee(time_t checkedOut, time_t dueDate, time_t currentTime);
 	void printDate()const;
 };
 
