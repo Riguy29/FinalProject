@@ -1,34 +1,52 @@
 #include "Student.h"
 
 // Default constructor
-Student::Student():User(student, "", "", "", "", ""), status(""), ID(""), password("") {}
-
-// Overloaded constructor
-Student::Student(const char* fName, const char* lName, const char* address, 
-	const char* phone, const char* email, const char* p, const char* s, const char* ID):
-	User(student, fName, lName, address, phone, email), status(s), ID(ID), password(p) {}
+Student::Student():User() {
+	userType = student;
+	strcpy_s(ID, sizeof(ID), "");
+	strcpy_s(password, sizeof(password), "");
+}
 
 // Copy Constructor
-Student::Student(const Student& sTmp) {
-	firstName = sTmp.firstName;
-	lastName = sTmp.lastName;
-	address = sTmp.address;
-	phoneNum = sTmp.phoneNum;
-	email = sTmp.email;
-	status = sTmp.status;
-	ID = sTmp.ID;
-	password = sTmp.password;
+Student::Student(const Student& sTmp) : User(sTmp) {
+	strcpy_s(ID, sizeof(ID), sTmp.ID);
+	strcpy_s(password, sizeof(password), sTmp.password);
 }
 
 // Destructor
 Student::~Student() {}
 
-// Mutators
-void Student::setStatus(const char* s) {}
-void Student::setID(const char* id) {}
-void Student::setPassword(const char* p) {}
+// Mutators TODO: Add stuff
+void Student::setID() {
+
+}
+
+void Student::setPassword() {
+    string p;
+    bool valid = false;
+
+    do {
+        cout << "Enter Password: " << endl;
+        getline(cin, p);
+
+        // Limit user address to 50 chars
+        if (p.length() > 50 || p.length() == 0) {
+            system("cls");
+            cout << "Password must be greater than 0 and less than 50 characters long!" << endl;
+        }
+        else { // Use regex here, just takes string thats less than 200 and greater than 0 atm for testing purposes
+            strcpy_s(password, sizeof(password), p.c_str());
+            valid = true;
+        }
+
+    } while (!valid);
+}
 
 // Accessors
-const char* Student::getStatus()const { return status; }
-const char* Student::getID()const { return ID; }
-const char* Student::getPassword()const { return password; }
+string Student::getID()const { return ID; }
+string Student::getPassword()const { return password; }
+
+void Student::printData()const {
+	User::printData();
+	cout << "Student ID: " << getID() << endl;
+}

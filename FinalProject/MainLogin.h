@@ -41,11 +41,8 @@ public:
 	void login();	
 	void registration();
 	void guest();
-	static string randomPass();
-	static string randomLibID();
 	static bool isValidName(string& name);
 	static bool isLoginValid(string& inUser, string& inPass);
-	static bool isEmailValid(string& email);
 	static bool formatPhone(string& phone);
 	string isValidAddress()const;
 

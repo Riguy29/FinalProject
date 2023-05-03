@@ -4,12 +4,12 @@
 
 vector<LibraryMedia*> InventoryScreen::mediaToCheckout;
 string InventoryScreen::recordTxtFile;
+
 void InventoryScreen::AddMedia()
 {
 	int choice =0;
 	bool isValid = true;
 
-	
 	do
 	{
 		cout << setfill('-') << setw(115) << "" << endl;
@@ -25,7 +25,7 @@ void InventoryScreen::AddMedia()
 		cin >> choice;
 		
 		LibraryMedia* newMedia;
-		if (choice == 1)  newMedia = new Book();
+		if (choice == 1) newMedia = new Book();
 		else if (choice == 2) newMedia = new Newspaper();
 		else if (choice == 3) newMedia = new ConferenceJournal();
 		else if (choice == 4) newMedia = new Periodical();
@@ -47,6 +47,7 @@ void InventoryScreen::AddMedia()
 		newMedia->SetCategory();
 		newMedia->SetSubCategory();
 		newMedia->SetDoner();
+
 		if (choice == 1)
 		{
 			Book* book = dynamic_cast<Book*>(newMedia);
@@ -77,10 +78,8 @@ void InventoryScreen::AddMedia()
 			cout << "New Periodical added" << endl;
 		}
 	} while (true);
-
-
-
 }
+
 void InventoryScreen::SearchForMedia()
 {
 	system("cls"); //Don't 
@@ -166,7 +165,6 @@ void InventoryScreen::printMenu() {
 	system("cls");
 	do
 	{
-		
 		cout << setfill('-') << setw(115) << "" << endl;
 		cout << setfill('-') << setw(115)<<"" << endl; //setw(62) <<  " INVENTORY SCREEN " << setfill('-') << setw(53) << "" << endl;
 		cout << setfill('-') << setw(116) << "\n" << endl;
@@ -280,6 +278,7 @@ void InventoryScreen::printMenu() {
 	} while (true);
 	
 }
+
 void InventoryScreen::SearchByTitle() 
 {
 	cin.clear();
