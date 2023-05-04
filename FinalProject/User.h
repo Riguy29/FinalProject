@@ -2,7 +2,7 @@
 	User.h
 	This header file defines all of the User object functions.
 	This also defines the following variables:
-	isAdmin, isGuest, statusLevel, firstName, lastName, username, password, and userID
+	firstName, lastName, username, password, and userID
 */
 
 #pragma once
@@ -12,6 +12,7 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include <regex>
 
 using namespace std;
 
@@ -27,9 +28,8 @@ public:
 
 	// Constructors
 	User();
-	User(userTypes typeOfUsr,const char* fName, const char* lName, const char* address, const char* phoneNum, const char* email);
 	User(const User& newU);
-	~User();
+	virtual ~User();
 
 	// Mutators
 	void setFirstName();
@@ -37,24 +37,31 @@ public:
 	void setAddress();
 	void setPhoneNumber();
 	void setEmail();
+	void setLibID(int libID);
 	void setUserType(userTypes type);
 
 	// Accessors 
-	const char* getFirstName()const;
-	const char* getLastName()const;
-	const char* getAddress()const;
-	const char* getPhoneNumber()const;
-	const char* getEmail()const;
+	string getFirstName()const;
+	string getLastName()const;
+	string getAddress()const;
+	string getPhoneNumber()const;
+	string getEmail()const;
+	int getLibID()const;
 	userTypes getUserType();
 
+	// Misc
+	bool containsOnlyLetters(string const& str);
 	void printMenu();
+	virtual void printData()const;
+
 protected:
 	userTypes userType;
-	const char* firstName;
-	const char* lastName;
-	const char* address;
-	const char* phoneNum;
-	const char* email;
+	char firstName[50];
+	char lastName[50];
+	char address[200];
+	char phoneNum[50];
+	char email[200];
+	int libID;
 
 /*
 public:

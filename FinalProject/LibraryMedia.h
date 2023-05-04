@@ -62,8 +62,6 @@ protected:
 	char subCategory[50];
 	int inventoryCount;
 	char doner[50];
-
-
 };
 
 #endif // !LIBRARYMEDIA_H

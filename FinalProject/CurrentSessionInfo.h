@@ -3,7 +3,6 @@
 #include <vector>
 #include <fstream>
 
-#include "User.h"
 #include "Book.h"
 #include "LibraryMedia.h"
 #include "Newspaper.h"
@@ -11,6 +10,11 @@
 #include "ConferenceJournal.h"
 #include "Author.h"
 #include  "Publisher.h"
+
+#include "User.h"
+#include "Staff.h"
+#include "FacultyMember.h"
+#include "Student.h"
 
 /*This class is meant to store information that will be used throughout the users session
 and to load and save data from our txt files into linked lists of apporitate types*/

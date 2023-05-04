@@ -30,6 +30,7 @@ void Login::printMenu() {
     bool isValidChoice = true;
     do
     {
+        system("cls");
         date.printDate();
         cout << setfill('-') << setw(115) << "" << endl;
         cout << setfill('-') << setw(56) << " LIBRARY LOGIN " << setfill('-') << setw(59) << "" << endl;
@@ -39,7 +40,8 @@ void Login::printMenu() {
         cout << setfill(' ') << setw(66) << "1. Login to Your Account" << endl;
         cout << setfill(' ') << setw(56) << "2. Guest Login" << endl;
         cout << setfill(' ') << setw(65) << "3. Register for Account" << endl;
-        cout << setfill(' ') << setw(50) << "4. Exit\n" << endl;
+        cout << setfill(' ') << setw(49) << "4. Exit" << endl;
+        cout << setfill(' ') << setw(108) << "5. List all Registered Accounts (Please remove before submission)\n" << endl;
         cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 
         cin >> choice;
@@ -62,6 +64,17 @@ void Login::printMenu() {
             system("cls");
             CurrentSessionInfo::SaveAllData(); //Before we exit save all our data
             exit(0);
+            break;
+        case 5:
+            system("cls");
+
+            for (int i = 0; i < CurrentSessionInfo::userList.size(); i++) {
+                CurrentSessionInfo::userList.at(i)->printData();
+            }
+
+            system("PAUSE");
+            cin.get();
+
             break;
         default:
             system("cls");
@@ -138,7 +151,7 @@ void Login::login() {
     cout << endl;
 
     do {
-        
+
         cout << "\nEnter your username: \t" << endl;
         cin >> username;
         if (!username._Equal("1")) {
@@ -149,8 +162,8 @@ void Login::login() {
             system("cls");
             printMenu();
         }
-       
-    } while (isLoginValid(username, password) != true);
+
+      } while (isLoginValid(username, password) != true);
 
     if (true) {
         system("cls");
@@ -230,13 +243,12 @@ void Login::guest() {
 
 }
 
-// TODO: reformat using User classes & sub-classes
-// DO NOT FORGET!! Add exception handling in these classes!!!!!
+// Called to register a user and emplace said user to the end of the userList vector
 void Login::registration() {
-    string libID, password, id, fName, lName, address, phoneNum, email;
-    int choice;
+    User* tmpUsr;
     char pos;
 
+    // Reference InventoryScreen.cpp AddMedia function on how to determine what obj they are
     // Get user type first...
     do {
         cout << "Enter your position(M/E/S)" << endl;
@@ -244,150 +256,62 @@ void Login::registration() {
         cin >> pos;
     } while (pos != 'M' && pos != 'E' && pos != 'S' && pos != 'm' && pos != 'e' && pos != 's');
 
-    //check positon and issue username and password
-    switch (pos) {
-    case 'M':
-    case 'm':
-        cout << "\nEnter your staff ID: \t" << endl;
-        libID = "M" + randomLibID();
-        password = randomPass();
-        break;
-    case 'E':
-    case 'e':
-        cout << "\nEnter your employee ID: \t" << endl;
-        libID = "E" + randomLibID();
-        password = randomPass();
-        break;
-    case 'S':
-    case 's':
-        cout << "\nEnter your student ID: \t" << endl;
-        libID = "S" + randomLibID();
-        password = randomPass();
-        break;
-    default:
-        cout << "\nNot a valid entry." << endl;
-        cout << "Enter your position(M/E/S)" << endl;
-        cout << "Staff member M\nEmployee E\nStudent S \t" << endl;
-        cin >> pos;
+    //check positon and set object type
+    if (pos == 'M') tmpUsr = new Staff();
+    else if (pos == 'E') tmpUsr = new FacultyMember();
+    else tmpUsr = new Student();
+
+    tmpUsr->setFirstName();
+    tmpUsr->setLastName();
+    tmpUsr->setAddress();
+    tmpUsr->setPhoneNumber();
+    tmpUsr->setEmail();
+    tmpUsr->setLibID(1000 + CurrentSessionInfo::userList.size());
+
+    if (pos == 'M') {
+        Staff* st = dynamic_cast<Staff*>(tmpUsr);
+        st->setUserType(User::staff);
+        st->setID();
+        st->setPassword();
+        CurrentSessionInfo::userList.emplace_back(new Staff(*st));
+        delete st;
+        system("cls");
+        cout << "New Staff User Added" << endl;
     }
-    cin.ignore();
-    getline(cin, id);
+    else if (pos == 'E') {
+        FacultyMember* fm = dynamic_cast<FacultyMember*>(tmpUsr);
+        fm->setUserType(User::facultyMember);
+        fm->setID();
+        fm->setPassword();
+        CurrentSessionInfo::userList.emplace_back(new FacultyMember(*fm));
+        delete fm;
+        system("cls");
+        cout << "New Faculty Member User Added" << endl;
+    } 
+    else {
+        Student* st = dynamic_cast<Student*>(tmpUsr);
+        st->setUserType(User::student);
+        st->setID();
+        st->setPassword();
+        CurrentSessionInfo::userList.emplace_back(new Student(*st));
+        delete st;
+        system("cls");
+        cout << "New Student User Added" << endl;
+    }
+
     cout << endl;
+
     char correct;
 
-    CurrentSessionInfo::currUser.setFirstName();
-    CurrentSessionInfo::currUser.setLastName();
-
     //check that information entered is correct, if it is save to file if it is not, enter new information  
-    //FIXME write switch to allow user to pick which part is incorrect and only update that?
-    // TODO : Change this part to store data into MainLogin Vector instead of file
     cout << "Is the information correct? Y/N" << endl;
-    cout << "Name: " << fName << " " << lName << "\nAddress: " << address << "\nPhone: " << phoneNum << "\nEmail: " << email
-        << "\nPosition: " << pos << "\nID: " << id << endl;
+    CurrentSessionInfo::userList.back()->printData();
     cin >> correct;
-    switch (correct) {
-    case 'Y':
-    case'y':    
-    {
-        //open file to store registration information
-        ofstream file;
-        file.open("records.txt", ios::in | ios::app);
-        if (!file.is_open()) {
-            cout << "File open unsuccessful" << endl;
-        }
 
-        //store memeber registration information in records.txt
-        if (file.is_open()) {
-
-
-            file << "Name: " << fName << " " << lName << "\nAddress: " << address << "\nPhone: " << phoneNum << "\nEmail: " << email
-                << "\nPosition: " << pos << "\nID: " << id << "\nLibraryID: " << libID << "\nPassword: " << password << endl;
-            file << endl;
-
-        }
-        file.close();
-
-        //open file to store username and password
-        ofstream userpassList;
-        userpassList.open("userpass.txt", ios::in | ios::app);
-        if (!userpassList.is_open()) {
-            cout << "File open unsuccessful" << endl;
-        }
-        //store username and password in userpassList.txt
-        if (userpassList.is_open()) {
-            userpassList << libID << "\t" << password << endl;
-        }
-        userpassList.close();
-
-        system("cls");
-        cout << "\nRegistration is successful!" << endl;
-        cout << "\nYour Library ID is: \t" << libID << endl;
-        cout << "\nYour Password is: \t" << password << endl;
-        cout << endl;
-        cout << "\nPress 1 to return to Main Menu" << endl;
-        cout << "\nPress 2 to exit" << endl;
-        cin >> choice;
-        switch (choice) {
-        case 1:
-            system("cls");
-            printMenu();
-            break;
-        case 2:
-            system("cls");
-            cout << "Thank you!  Have a great day." << endl;
-            system("PAUSE");
-            printMenu();
-            break;
-        default:
-            system("cls");
-            cout << "Invalid Choice...Please Try Again...\n" << endl;
-            break;
-        }
-    }
-        break;
-    case 'N':
-    case 'n':
-        system("cls");
+    if (correct == 'N') {
+        CurrentSessionInfo::userList.pop_back();
         registration();
-        break;
-    default:
-        cout << "Not a valid entry." << endl;
     }
-
-}
-
-//assigns a random libID to new members
-string Login::randomLibID() {
-    srand(time(0));
-    int IDLength = 4;
-    static const char IDNum[] =
-        "0123456789";
-    string libID;
-    libID.reserve(IDLength);
-
-    for (int i = 0; i < IDLength; i++) {
-        libID += IDNum[rand() % (sizeof(IDNum) - 1)];
-    }
-
-    return libID;
-}
-   
-//assigns a random password to new members
-string Login::randomPass() {
-    srand(time(0));
-    int passLength = 5;
-    static const char alphanum[] =
-        "0123456789"
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        "abcdefghijklmnopqrstuvwxyz";
-    string pass;
-    pass.reserve(passLength);
-
-    for (int i = 0; i < passLength; i++) {
-        pass += alphanum[rand() % (sizeof(alphanum) - 1)];
-    }
-
-    return pass;
 }
 
 //validate username and password match to login
@@ -405,67 +329,18 @@ bool Login::isLoginValid(string &inUser, string &inPass) {
             read.close();
             return true;
         }
+        
     }
     system("cls");
     cout << "\nUsername or Password not found.  Please try again." << endl;
-    system("PAUSE");
-    system("cls");
-
+    
     return false;
     read.close();
 }
 
-//validate email format
-bool Login::isEmailValid(string &email) {
-    //create regex variable pattern with requirements for valid email
-    const regex pattern("(\\w+)(\\.|_)?(\\w*)@(\\w+)(\\.(\\w+))+");
-    //match the email passed in to the regex pattern and return true if it matches
 
-    bool valid = regex_match(email, pattern);
-    if (!valid) {
-        cout << "\nEnter a valid email.";
-    }
-    return valid;
-
-}
-
-//format phone number
-bool Login::formatPhone(string &phone) {
-    const int NUM_LENGTH = 10;
-
-    if (phone.length() != NUM_LENGTH) {
-        cout << "Phone number must contain only 10 digits starting with the area code" << endl;
-        for (char ch : phone) {
-            if (!isdigit(ch)) {
-                return false;
-            }
-        }
-    }
-    else {
-        return true;
-    }
-}       
-
-// Limit first and last name to less than 20 letters and only allow letters
-// FIXME not working yet.
-bool Login::isValidName(string &name) {
-    const int NUM_LENGTH = 20;   
-    
-    if (name.length() >= NUM_LENGTH || name.length() == 0) {
-        cout << "Invalid input. Please try again." << endl;
-       for (int i = 0; i < name.length(); i++) {
-            if (!isalpha(name.at(i))) {
-                break;
-            }
-         }  
-       return false;
-   } 
-    else {
-        return true;
-    }   
-
-}
  
+/*
 // Asks for address information
 string Login::isValidAddress()const {
     string street;
@@ -516,5 +391,6 @@ string Login::isValidAddress()const {
     return address;
 
 }
+*/
 
 #endif // !MAINLOGIN_CPP

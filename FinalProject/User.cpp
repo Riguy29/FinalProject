@@ -9,67 +9,162 @@
 #include "User.h"
 
 // Default Constructor
-User::User():userType(student), firstName(""), lastName(""),
-address(""), phoneNum(""), email("") {}
+User::User() {
+    userType = student;
+    libID = 0;
 
-// Overloaded Constructor
-User::User(userTypes typeOfUser, const char* fName, const char* lName, const char* a, const char* p, const char* e) {
-	userType = typeOfUser;
-	firstName = fName;
-	lastName = lName;
-	address = a;
-	phoneNum = p;
-	email = e;
+    strcpy_s(firstName, sizeof(firstName), "");
+    strcpy_s(lastName, sizeof(lastName), "");
+    strcpy_s(address, sizeof(address), "");
+    strcpy_s(phoneNum, sizeof(phoneNum), "");
+    strcpy_s(email, sizeof(email), "");
 }
 
 // Copy Constructor
 User::User(const User& cUsr) {
 	userType = cUsr.userType;
-	firstName = cUsr.firstName;
-	lastName = cUsr.lastName;
-	address = cUsr.address;
-	phoneNum = cUsr.phoneNum;
-	email = cUsr.email;
+    libID = cUsr.libID;
+
+    strcpy_s(firstName, sizeof(firstName), cUsr.firstName);
+    strcpy_s(lastName, sizeof(lastName), cUsr.lastName);
+    strcpy_s(address, sizeof(address), cUsr.address);
+    strcpy_s(phoneNum, sizeof(phoneNum), cUsr.phoneNum);
+    strcpy_s(email, sizeof(email), cUsr.email);
 }
 
 // Destructor
-User::~User() { cout << "User object destroyed: Please remove this before deployment!" << endl; }
+User::~User() {}
 
 // Accessors
-const char* User::getFirstName()const { return firstName; }
-const char* User::getLastName()const { return lastName; }
-const char* User::getAddress()const { return address; }
-const char* User::getPhoneNumber()const { return phoneNum; }
-const char* User::getEmail()const { return email; }
+string User::getFirstName()const { return firstName; }
+string User::getLastName()const { return lastName; }
+string User::getAddress()const { return address; }
+string User::getPhoneNumber()const { return phoneNum; }
+string User::getEmail()const { return email; }
 User::userTypes User::getUserType() { return userType; }
+
+int User::getLibID()const { return libID; }
 
 // Mutators TODO: Implement error checking for user creation and mod
 void User::setFirstName() {
-    cout << "Enter First Name: " << endl;
     string fName;
-    getline(cin, fName);
+    bool valid = false;
     
-    if (fName.length() > 20 || fName.length() == 0) {
+    do {
+        cout << "Enter First Name: " << endl;
+        getline(cin, fName);
 
-    }
+        // First name greater than 20 or 0
+        if (fName.length() > 20 || fName.length() == 0) {
+            system("cls");
+            cout << "Name must have a length less than 20 and greater than 0 characters!" << endl;
+        } else if (!containsOnlyLetters(fName)) { // Must only contain characters
+            system("cls");
+            cout << "Name must only contain letters!" << endl;
+        } else {
+            strcpy_s(firstName, sizeof(firstName), fName.c_str());
+            valid = true;
+        }
+    } while (!valid);
 }
 
 void User::setLastName() { 
+    string lName;
+    bool valid = false;
 
+    do {
+        cout << "Enter Last Name: " << endl;
+        getline(cin, lName);
+
+        // First name greater than 20 or 0
+        if (lName.length() > 20 || lName.length() == 0) {
+            system("cls");
+            cout << "Name must have a length less than 20 and greater than 0 characters!" << endl;
+        }
+        else if (!containsOnlyLetters(lName)) { // Must only contain characters
+            system("cls");
+            cout << "Name must only contain letters!" << endl;
+        }
+        else {
+            strcpy_s(lastName, sizeof(lastName), lName.c_str());
+            valid = true;
+        }
+    } while (!valid);
 }
 
 void User::setAddress() { 
+    string ad;
+    bool valid = false;
+    
+    do {
+        cout << "Enter Address: " << endl;
+        getline(cin, ad);
 
+        // Limit user address to 200 chars
+        if (ad.length() > 200 || ad.length() == 0) {
+            system("cls");
+            cout << "Address must be greater than 0 and less than 200 characters long!" << endl;
+        }
+        else { // Use regex here, just takes string thats less than 200 and greater than 0 atm for testing purposes
+            strcpy_s(address, sizeof(address), ad.c_str());
+            valid = true;
+        }
+
+    } while (!valid);
 }
 
 void User::setPhoneNumber() {
+    string tmpStr;
+    bool valid = false;
+    
+    // Will be used later in function to compare number format :)
+    regex r("[[:digit:]]{3}-[[:digit:]]{3}-[[:digit:]]{4}");
 
+    do {
+        cout << "Enter Phone Number in format (920-123-4567): " << endl;
+        getline(cin, tmpStr);
+
+        // Try if user entered correct format
+        if (regex_match(tmpStr, r)) {
+            strcpy_s(phoneNum, tmpStr.size() + 1, tmpStr.c_str());
+            valid = true;
+        }
+        else {
+            system("cls");
+            cout << "Phone Number must be in format (920-123-4567)!" << endl;
+        }
+       
+    } while (!valid);
 }
 
 void User::setEmail() { 
+    string em;
+    bool valid = false;
 
+    regex r("(\\w+)(\\.|_)?(\\w*)@(\\w+)(\\.(\\w+))+");
+
+    do {
+        cout << "Enter Email Address: " << endl;
+        getline(cin, em);
+
+        // Limit user address to 200 chars
+        if (em.length() > 200 || em.length() == 0) {
+            system("cls");
+            cout << "Email Address must be greater than 0 and less than 200 characters long!" << endl;
+        }
+        else if (!regex_match(em, r)) {
+            system("cls");
+            cout << "Email Address must be formatted as Example@example.example" << endl;
+        }
+        else {
+            strcpy_s(email, sizeof(em), em.c_str());
+            valid = true;
+        }
+
+    } while (!valid);
 }
 
+void User::setLibID(int i) { libID = i; }
 void User::setUserType(userTypes type) { userType = type; }
 
 void User::printMenu() {
@@ -135,16 +230,54 @@ void User::printMenu() {
     }
 }
 
+// Checks if the passed in string contains only letters
+bool User::containsOnlyLetters(string const& str) {
+    return std::regex_match(str, std::regex("^[A-Za-z]+$"));
+}
+
+// Prints all the data
+void User::printData()const {
+    cout << endl;
+    cout << "Name: " << getFirstName() << " " << getLastName() << endl;
+    cout << "Address: " << getAddress() << endl;
+    cout << "Phone Number: " << getPhoneNumber() << endl;
+    cout << "Email: " << getEmail() << endl;
+    cout << "Library ID: " << getLibID() << endl;
+}
+
 /*
 //functions for updating user information
 void User::updateFirstName() {
-    cout << "Enter New First Name: " << endl;
-    const char* newFName;
-    do {
-        cin >> newFName;
-        Login::isValidName(newFName);
-    } while (!true);
-    setFirstName(newFName);        
+if(isAdmin == true){
+    string userUsername;
+    cout << "Enter username for account you want to access"<< endl;
+    cin >> userUsername;
+
+    for(int i = 0; i < CurrentSessionInfo::userList.size(); i++){
+        if(CurrentSessionInfo::userList.at(i)->GetUsername().find(userUsername)!=string::npos){
+            cout << userList.at(i)->getFirstName() << " " << userList.at(i)->getLastName();
+
+            cout << "Enter New First Name: " << endl;
+            const char* newFName;    
+            do {
+               cin >> newFName;
+               Login::isValidName(newFName);
+            } while (!true);
+               setFirstName(newFName);
+               cout << "New Name: " << userList.at(i)->getFirstName() << " " << userList.at(i)->getLastName();
+         }
+     }
+ }
+ else {
+   cout << "Enter New First Name: " << endl;
+            const char* newFName;    
+            do {
+                cin >> newFName;
+               Login::isValidName(newFName);
+            } while (!true);
+                 setFirstName(newFName);
+                 cout << "New Name: " << getFirstName() << " " << getLastName();
+
 }
 void User::updateLastName() {
     cout << "Enter New Last Name: " << endl;

@@ -211,7 +211,22 @@ void CurrentSessionInfo::SaveData()
 	if (userOut.is_open()) {
 		for (int i = 0; i < userList.size(); i++)
 		{
-			userOut.write(reinterpret_cast<char*>(&userList.at(i)), sizeof(User));
+			User::userTypes currType = userList.at(i)->getUserType();
+			if (currType == User::facultyMember) {
+				FacultyMember* temp = dynamic_cast<FacultyMember*>(userList.at(i));
+				userOut.write(reinterpret_cast<char*>(&*temp), sizeof(FacultyMember));
+				delete temp;
+			}
+			else if (currType == User::staff) {
+				Staff* temp = dynamic_cast<Staff*>(userList.at(i));
+				userOut.write(reinterpret_cast<char*>(&*temp), sizeof(Staff));
+				delete temp;
+			}
+			else if (currType == User::student) {
+				Student* temp = dynamic_cast<Student*>(userList.at(i));
+				userOut.write(reinterpret_cast<char*>(&*temp), sizeof(Student));
+				delete temp;
+			}
 		}
 	}
 	else cout << "Error: Could Not save user data, make sure filepath is correct";

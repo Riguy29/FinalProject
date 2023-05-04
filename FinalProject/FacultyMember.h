@@ -2,27 +2,24 @@
 #define FACULTY_MEMBER_H
 #include "User.h"
 
-class FacultyMember : User {
+class FacultyMember : public User {
 protected:
-	const char* status;
-	const char* ID;
-	const char* password;
+	char ID[100];
+	char password[50];
 public:
-	FacultyMember(const char* fName, const char* lName, const char* address, const char* phone, 
-		const char* email, const char* p, const char* status, const char* ID);
 	FacultyMember();
-	~FacultyMember();
 	FacultyMember(const FacultyMember& newU);
+	virtual ~FacultyMember();
 
 	// Mutators
-	void setStatus(const char* s);
-	void setID(const char* id);
-	void setPassword(const char* p);
+	void setID();
+	void setPassword();
 
 	// Accessors
-	const char* getStatus()const;
-	const char* getID()const;
-	const char* getPassword()const;
+	string getID()const;
+	string getPassword()const;
+
+	virtual void printData()const;
 };
 
 #endif // FACULTY_MEMBER_H
