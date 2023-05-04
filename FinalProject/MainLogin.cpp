@@ -40,7 +40,8 @@ void Login::printMenu() {
         cout << setfill(' ') << setw(66) << "1. Login to Your Account" << endl;
         cout << setfill(' ') << setw(56) << "2. Guest Login" << endl;
         cout << setfill(' ') << setw(65) << "3. Register for Account" << endl;
-        cout << setfill(' ') << setw(50) << "4. Exit\n" << endl;
+        cout << setfill(' ') << setw(49) << "4. Exit" << endl;
+        cout << setfill(' ') << setw(108) << "5. List all Registered Accounts (Please remove before submission)\n" << endl;
         cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 
         cin >> choice;
@@ -63,6 +64,17 @@ void Login::printMenu() {
             system("cls");
             CurrentSessionInfo::SaveAllData(); //Before we exit save all our data
             exit(0);
+            break;
+        case 5:
+            system("cls");
+
+            for (int i = 0; i < CurrentSessionInfo::userList.size(); i++) {
+                CurrentSessionInfo::userList.at(i)->printData();
+            }
+
+            system("PAUSE");
+            cin.get();
+
             break;
         default:
             system("cls");
@@ -254,15 +266,7 @@ void Login::registration() {
     tmpUsr->setAddress();
     tmpUsr->setPhoneNumber();
     tmpUsr->setEmail();
-    
-    // Set Users given library ID
-    // This needs to be done outside of obj due to vector being in currentsessioninfo
-    for (int i = 0; i < CurrentSessionInfo::userList.size() + 1; i++) {
-        if (CurrentSessionInfo::userList.at(i)->getLibID() != i + 1000) {
-            tmpUsr->setLibID(i + 1000);
-            break;
-        }
-    }
+    tmpUsr->setLibID(1000 + CurrentSessionInfo::userList.size());
 
     if (pos == 'M') {
         Staff* st = dynamic_cast<Staff*>(tmpUsr);
@@ -331,7 +335,9 @@ bool Login::isLoginValid(string &inUser, string &inPass) {
     
     return false;
     read.close();
-}    
+}
+
+
  
 /*
 // Asks for address information

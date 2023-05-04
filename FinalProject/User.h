@@ -56,8 +56,8 @@ public:
 
 protected:
 	userTypes userType;
-	char firstName[20];
-	char lastName[20];
+	char firstName[50];
+	char lastName[50];
 	char address[200];
 	char phoneNum[50];
 	char email[200];

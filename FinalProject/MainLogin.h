@@ -41,13 +41,9 @@ public:
 	void login();	
 	void registration();
 	void guest();
-	static bool isValidName(string& name);
 	static bool isLoginValid(string& inUser, string& inPass);
-	static bool formatPhone(string& phone);
-	string isValidAddress()const;
 
 	void userHomeMenu()const;
-	
 };
 
 #endif // !MAINLOGIN_H

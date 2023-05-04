@@ -141,8 +141,7 @@ void User::setEmail() {
     string em;
     bool valid = false;
 
-    regex r(
-        "(\\w+)(\\.|_)?(\\w*)@(\\w+)(\\.(\\w+))+");
+    regex r("(\\w+)(\\.|_)?(\\w*)@(\\w+)(\\.(\\w+))+");
 
     do {
         cout << "Enter Email Address: " << endl;
@@ -158,7 +157,7 @@ void User::setEmail() {
             cout << "Email Address must be formatted as Example@example.example" << endl;
         }
         else {
-            strcpy_s(email, sizeof(email), em.c_str());
+            strcpy_s(email, sizeof(em), em.c_str());
             valid = true;
         }
 
