@@ -18,7 +18,6 @@ using namespace std;
 class InventoryScreen 
 {
 public:
-	static void UpdateMedia();
 	static void AddMedia();
 	static void SearchForMedia();
 	static void CheckoutBook();

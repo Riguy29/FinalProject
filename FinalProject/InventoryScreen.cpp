@@ -235,51 +235,9 @@ void InventoryScreen::printMenu() {
 			//if (CurrentSessionInfo::CheckIfAdmin()) SearchForMedia();
 			//else cout << "Invalid selection, try again" << endl;
 			break;
-		case 3: //If a user is not an admin and selects 2, make choice invlaid
+		case 3: //If a user is not an admin and selects 3, make choice invlaid
+			//TODO Check if Admin
 			system("cls");
-			/*
-			if (username.at(0) == 'M') {
-				int editChoice;
-				cout << setfill('-') << setw(115) << "" << endl;
-				cout << setfill('-') << setw(115) << "" << endl;
-				cout << setfill('-') << setw(116) << "\n" << endl;
-				cout << setfill(' ') << setw(68) << "What would you like to do?\n" << endl;
-				cout << setfill(' ') << setw(54) << "1. Edit Media" << endl;
-				cout << setfill(' ') << setw(53) << "2. Add Media" << endl;
-				cout << setfill(' ') << setw(56) << "3. Delete Media" << endl;
-				cout << setfill(' ') << setw(51) << "4. Return\n" << endl;
-				cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
-
-				cin >> editChoice;
-
-				switch (editChoice) {
-				case 1:
-					system("cls");
-					//editMedia();
-					break;
-				case 2:
-					system("cls");
-					//addMedia
-					break;
-				case 3:
-					system("cls");
-					//deleteMedia
-					break;
-				case 4:
-					system("cls");
-					return;
-				default:
-					cout << "Invalid selection, try again" << endl;
-				}
-			}
-			
-				system("cls");
-				//return;				
-				//cout << "needs to go back to patronMenu in MainLogin" << endl;
-			
-			
-			//cout << "Invalid selection, try again" << endl;
-			*/
 			AddMedia();
 			break;
 		default:
@@ -403,9 +361,11 @@ void InventoryScreen::SearchBySubject()
 }
 void InventoryScreen::SearchByPublisherName()
 {
+	cin.clear();
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	string searchName;
 	cout << "Enter the publisher's name of the media you are looking for" << endl;
-	cin >> searchName;
+	getline(cin, searchName);
 	vector<LibraryMedia*> matchingList;//Create vector of pointers that will point to the memory of matching books found in BookList();
 	for (int i = 0; i < CurrentSessionInfo::mediaList.size(); i++)//Goes through Book list and checks for title that contain the user input
 	{
@@ -449,9 +409,11 @@ void InventoryScreen::SearchByPrice()
 }
 void InventoryScreen::SearchByPublisherAddress()
 {
+	cin.clear();
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	string searchAdd;
 	cout << "Enter the publisher's address of the media you are looking for" << endl;
-	cin >> searchAdd;
+	getline(cin, searchAdd);
 	vector<LibraryMedia*> matchingList;//Create vector of pointers that will point to the memory of matching books found in BookList();
 	for (int i = 0; i < CurrentSessionInfo::mediaList.size(); i++)//Goes through Book list and checks for title that contain the user input
 	{
@@ -473,7 +435,6 @@ void InventoryScreen::SearchByPublisherAddress()
 void InventoryScreen::PrintMatchingMedia(vector<LibraryMedia*> mediaList) 
 {
 	
-	LibraryMedia* selectedMedia;
 	int choice=0;
 	do
 	{
@@ -482,7 +443,6 @@ void InventoryScreen::PrintMatchingMedia(vector<LibraryMedia*> mediaList)
 		{
 			cout << i << ". ";
 			mediaList.at(i-1)->ToString();
-			cout << endl;
 		}
 		cout << "0. Return" << endl;
 		cin >> choice;
@@ -551,10 +511,10 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia) {
 			break;
 		case 2:
 			//CHECK IF ADMIN
-			//if(!isAdmin){
-			//cout << "Invalid choice." << endl;
-			//}else{
-			//UpdateMedia();
+			//if(CurrentSessionInfo::currUser.ge){
+			//	cout << "Invalid choice." << endl;
+			//}else{}
+			EditMediaDataMenu(selectedMedia);
 			break;
 		case 3:
 			//CHECK IF ADMIN DON'T ALLOW IF NOT ADMIN
@@ -601,6 +561,7 @@ void InventoryScreen::ConfirmMediaCheckout() {
 
 void InventoryScreen::EditMediaDataMenu(LibraryMedia* selectedMedia) {
 	int choice;
+	LibraryMedia::mediaTypes selectedMediaType = selectedMedia->GetMediaType();
 	do
 	{
 		cout << "Editing: ";
@@ -617,18 +578,56 @@ void InventoryScreen::EditMediaDataMenu(LibraryMedia* selectedMedia) {
 		cout << "7. Change Doner" << endl;
 		cout << "8. Change Iventory Count" << endl;
 
-		switch (selectedMedia->GetMediaType())
+		switch (selectedMediaType)
 		{
 		case LibraryMedia::book:
+			cout << "9. Change Edition" << endl;
+			cout << "10. Change ISBN" << endl;
 			break;
 		case LibraryMedia::conferenceJournal:
+			cout << "9. Change Date Of Conference" << endl;
+			cout << "10. Change Place Of Conference" << endl;
 			break;
 		case LibraryMedia::newspaper:
+			cout << "9. Change Publish Rate" << endl;
 			break;
 		case LibraryMedia::periodical:
+			cout << "9. Change Publish Rate" << endl;
 			break;
 		default:
 			break;
+		}
+		cout << "Enter Your Choice: ";
+		cin >> choice;
+
+		//Using a if else block instead of a switch statment so we can dymamically cast inside the else if blocks
+		if (choice == 1) selectedMedia->SetTitle();
+		else if (choice == 2) selectedMedia->SetAuthors();
+		else if (choice == 3) selectedMedia->SetPublishers();
+		else if (choice == 4) selectedMedia->SetCategory();
+		else if (choice == 5) selectedMedia->SetSubCategory();
+		else if (choice == 6) selectedMedia->SetPrice();
+		else if (choice == 7) selectedMedia->SetDoner();
+		else if (choice == 8) selectedMedia->SetInventoryCount();
+		else if (choice == 9) {
+			if (selectedMediaType == LibraryMedia::book) {
+				dynamic_cast<Book*>(selectedMedia)->SetEdition();
+			}
+			else if (selectedMediaType == LibraryMedia::newspaper) {
+				Newspaper* temp = dynamic_cast<Newspaper*>(selectedMedia);
+				temp->SetPublishRate();
+				delete temp;
+			}			
+			else if (selectedMediaType == LibraryMedia::conferenceJournal) {
+				ConferenceJournal* temp = dynamic_cast<ConferenceJournal*>(selectedMedia);
+				temp->SetDateOfConference();
+				delete temp;
+			}
+			else if (selectedMediaType == LibraryMedia::periodical) {
+				Periodical* temp = dynamic_cast<Periodical*>(selectedMedia);
+				temp->SetPublishRate();
+				delete temp;
+			}
 		}
 	} while (true);
 }

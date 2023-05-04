@@ -46,11 +46,12 @@ public:
 	template<typename T>
 	static void LoadUserData(string fileName);
 
-	//This function is used to save data for publishers, authors, and users
+	//This function is used to save data for publishers, authors
 	template<typename T>
 	static void SaveData(string fileName, vector<T>& list);
 
 	//Overloading function so that we can save multiple types of library media in one list
+	//Also save saves the different types of users out to a file
 	static void SaveData(); //This is to save our media data, since we need special logic for it
 };
 

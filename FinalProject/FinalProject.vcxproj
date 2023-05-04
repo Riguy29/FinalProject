@@ -160,14 +160,10 @@
     <ClInclude Include="Newspaper.h" />
     <ClInclude Include="Periodical.h" />
     <ClInclude Include="Publisher.h" />
-    <ClCompile Include="LibraryLinkedList.cpp" />
     <ClInclude Include="MainLogin.h" />
     <ClInclude Include="Staff.h" />
     <ClInclude Include="Student.h" />
     <ClInclude Include="User.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="LibraryLinkedList.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="AuthorRecord.txt" />

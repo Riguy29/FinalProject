@@ -58,6 +58,8 @@ void CurrentSessionInfo::GenerateDummyData()
 		Periodical p1(4, "Monthy Science",25,"Science","Cool Science",2,"John Wick", Periodical::monthly);
 		stream.write(reinterpret_cast<char*> (&p1), sizeof(Periodical));
 	}
+
+	//TODO Generate Some Dummy users and an admin so we can log in
 	stream.close();
 }
 
@@ -173,7 +175,7 @@ void CurrentSessionInfo::SaveData()
 	journalOut.open(JOURNAL_FILE_PATH, ios::binary | ios::out);
 	userOut.open(USER_FILE_PATH, ios::binary | ios::out);
 
-	if (bookOut.is_open() && periodicalOut.is_open() && journalOut.is_open() && newspaperOut.is_open() && userOut.is_open()) {
+	if (bookOut.is_open() && periodicalOut.is_open() && journalOut.is_open() && newspaperOut.is_open()) {
 		
 		for (int i = 0; i < mediaList.size(); i++)
 		{
@@ -201,14 +203,18 @@ void CurrentSessionInfo::SaveData()
 			}
 		}
 		
-		for (int i = 0; i < userList.size(); i++) 
+
+
+	}
+	else cout << "Error: Could not save media data, make sure filepath is correct";
+
+	if (userOut.is_open()) {
+		for (int i = 0; i < userList.size(); i++)
 		{
 			userOut.write(reinterpret_cast<char*>(&userList.at(i)), sizeof(User));
 		}
-
 	}
-
-	else cout << "Error: Could not load data, make sure filepath is correct";
+	else cout << "Error: Could Not save user data, make sure filepath is correct";
 
 
 	bookOut.close();

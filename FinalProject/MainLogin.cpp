@@ -402,6 +402,7 @@ bool Login::isLoginValid(string &inUser, string &inPass) {
 
     while (read >> username >> password) {//check to see if password exists
         if (inUser == username && inPass == password) {
+            read.close();
             return true;
         }
     }
