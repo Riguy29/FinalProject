@@ -26,7 +26,9 @@ private:
 	static string NEWS_FILE_PATH;
 	static string PERIODICAL_FILE_PATH;
 	static string JOURNAL_FILE_PATH;
-	static string USER_FILE_PATH;
+	static string FACULTY_FILE_PATH;
+	static string STAFF_FILE_PATH;
+	static string STUDENT_FILE_PATH;
 public:
 	static vector<LibraryMedia*> mediaList;
 	static vector<User*> userList;

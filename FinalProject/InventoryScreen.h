@@ -1,5 +1,4 @@
-#ifndef INVENTORYSCREEN_H
-#define INVENTORYSCEEN_H
+#pragma once
 
 #include <iostream>
 #include <string>
@@ -12,12 +11,12 @@
 #include <vector>
 #include <fstream>
 
-
 using namespace std; 
 
-class InventoryScreen 
-{
+class InventoryScreen {
 public:
+	InventoryScreen();
+	virtual ~InventoryScreen();
 	static void UpdateMedia();
 	static void AddMedia();
 	static void SearchForMedia();
@@ -40,5 +39,3 @@ private:
 	static string recordTxtFile;
 	static vector<LibraryMedia*> mediaToCheckout;
 };
-
-#endif

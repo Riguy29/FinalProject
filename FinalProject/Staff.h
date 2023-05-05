@@ -8,7 +8,8 @@ protected:
 	char password[50];
 public:
 	Staff();
-	Staff(string _id, string _password);
+	Staff(userTypes _userType, int libID, string _firstName, string _lastName,
+		string _address, string _phoneNum, string _email, string _id, string _password);
 	Staff(const Staff& sTmp);
 	virtual ~Staff();
 

@@ -3,21 +3,22 @@
 // Default Constructor
 FacultyMember::FacultyMember():User() {
     userType = facultyMember;
-    strncpy_s(ID, "Not Set", sizeof(ID));
-    strncpy_s(password, "Not Set", sizeof(password));
+    strncpy_s(ID, "Not Set", 100);
+    strncpy_s(password, "Not Set", 50);
 }
 
 // Overloaded Default Constructor
-FacultyMember::FacultyMember(string _id, string _password):User() {
-    userType = facultyMember;
-    strncpy_s(ID, _id.c_str(), sizeof(ID));
-    strncpy_s(password, _password.c_str(), sizeof(password));
+FacultyMember::FacultyMember(userTypes _userType, int libID, string _firstName, string _lastName,
+    string _address, string _phoneNum, string _email, string _id, string _password):User(
+    facultyMember, libID, _firstName, _lastName, _address, _phoneNum, _email) {
+    strncpy_s(ID, _id.c_str(), 100);
+    strncpy_s(password, _password.c_str(), 50);
 }
 
 // Copy Constructor
 FacultyMember::FacultyMember(const FacultyMember& cFMem):User(cFMem) {
-    strncpy_s(ID, cFMem.ID, sizeof(ID));
-    strncpy_s(password, cFMem.password, sizeof(password));
+    strncpy_s(ID, cFMem.ID, 100);
+    strncpy_s(password, cFMem.password, 50);
 }
 
 // Destructor
