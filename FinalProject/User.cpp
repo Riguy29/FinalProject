@@ -261,6 +261,7 @@ if(isAdmin == true){
     string userUsername;
     cout << "Enter username for account you want to access"<< endl;
     cin >> userUsername;
+    bool isValidChoice = true;
 
     for(int i = 0; i < CurrentSessionInfo::userList.size(); i++){
         if(CurrentSessionInfo::userList.at(i)->GetUsername().find(userUsername)!=string::npos){
@@ -271,8 +272,8 @@ if(isAdmin == true){
             do {
                cin >> newFName;
                Login::isValidName(newFName);
-            } while (!true);
-               setFirstName(newFName);
+            } while (!isValidChoice);
+               userList.at(i)->setFirstName(newFName);
                cout << "New Name: " << userList.at(i)->getFirstName() << " " << userList.at(i)->getLastName();
          }
      }
@@ -283,9 +284,10 @@ if(isAdmin == true){
             do {
                 cin >> newFName;
                Login::isValidName(newFName);
-            } while (!true);
+            } while (!isValidChocie);
                  setFirstName(newFName);
                  cout << "New Name: " << getFirstName() << " " << getLastName();
+                 
 
 }
 void User::updateLastName() {
