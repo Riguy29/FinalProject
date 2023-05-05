@@ -51,7 +51,7 @@ public:
 
 	// Misc
 	bool containsOnlyLetters(string const& str);
-	void printMenu();
+	void printMenu()const;
 	virtual void printData()const;
 
 protected:

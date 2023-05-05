@@ -10,14 +10,23 @@ GuestLogin::~GuestLogin()
 {
 }
 
-void GuestLogin::buy() {}
+bool GuestLogin::isGuest(bool guest) {
+	if (guest == true) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
 
-void GuestLogin::receipt()const {
+void GuestLogin::buy() {
 	string fullName;
 	cout << "Enter your name: " << endl;
 	getline(cin, fullName);
+	isGuest(true);
 	system("cls");
-
+	InventoryScreen::SearchForMedia();
+	
 	fstream purchase;
 	purchase.open("PurchaseList.txt", ios::in | ios::out);
 	if (!purchase.is_open()) {
@@ -59,7 +68,7 @@ void GuestLogin::receipt()const {
 		cout << setfill(' ') << fixed << setprecision(2) << setw(10) << left << nameList.at(i);
 		cout << setw(30) << right << priceList.at(i) << endl;
 
-}
+	}
 	cout << endl;
 	
 	cout << setfill('-') << setw(40) << "" << endl;
@@ -69,5 +78,5 @@ void GuestLogin::receipt()const {
 	cout << setw(30) << right << tax << endl;
 	cout << setfill(' ') << fixed << setprecision(2) << setw(10) << left << "Total: ";
 	cout << setw(30) << right << total << endl;
-
+	
 }

@@ -167,9 +167,9 @@ void User::setEmail() {
 void User::setLibID(int i) { libID = i; }
 void User::setUserType(userTypes type) { userType = type; }
 
-void User::printMenu() {
-    
+void User::printMenu() const {
     int accountChoice;
+    //if(!Admin){
     cout << setfill('-') << setw(116) << "\n" << endl;
     cout << setfill(' ') << setw(68) << getFirstName() << endl;
     cout << setfill('-') << setw(116) << "\n" << endl;
@@ -180,6 +180,10 @@ void User::printMenu() {
     cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 
     cin >> accountChoice;
+    //}
+    //else{
+    //accountChoice = 1;
+    //}
 
     switch (accountChoice) {
     case 0:
@@ -197,14 +201,19 @@ void User::printMenu() {
         cin >> updateChoice;
         switch (updateChoice) {
         case 1:
+            //updateFirstName();
             break;
         case 2:
+            //updateLastName();
             break;
         case 3:
+            //updateAddress();
             break;
         case 4:
+            //updatePhoneNumber();
             break;
         case 5:
+            //updateEmail();
             break;
         case 0:
             return;

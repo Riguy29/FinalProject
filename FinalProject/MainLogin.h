@@ -25,9 +25,10 @@ using namespace std;
 class Login {
 private:
 	Date date;
-	GuestLogin guestLogin;
-	InventoryScreen invScreen;
+	//GuestLogin guestLogin;
+	//InventoryScreen invScreen;
 	CurrentSessionInfo currSession;
+	User usr;
 public:
 	Login();
 	Login(Login& l);

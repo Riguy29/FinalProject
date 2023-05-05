@@ -2,8 +2,10 @@
 #define INVENTORYSCREEN_CPP
 #include "InventoryScreen.h"
 
+
 vector<LibraryMedia*> InventoryScreen::mediaToCheckout;
 string InventoryScreen::recordTxtFile;
+
 
 void InventoryScreen::AddMedia()
 {
@@ -223,11 +225,6 @@ void InventoryScreen::printMenu() {
 			break;
 		case 2: //If a user is not an admin and selects 2, make choice invlaid
 			system("cls");
-			//if (isGuest) {
-				cout << "Enter your name: " << endl;
-				getline(cin, fullName);
-				system("cls");
-			//}
 			cout << setfill(' ') << setw(50)<< fullName << ", Ready for checkout?" << endl;
 			//CheckoutBook();
 			//if (CurrentSessionInfo::CheckIfAdmin()) SearchForMedia();
@@ -508,11 +505,13 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia) {
 	cout << setfill('-') << setw(116) << "\n" << endl;
 	cout << setfill(' ') << setw(68) << "What would you like to do?\n" << endl;
 
-	//if(selectedMedia available quantity > 0){
-	cout << setfill(' ') << setw(54) << "1. Add to cart " << endl; //FIXME: Make this buy if they are guest, if they are no copies and they are guest then print 
-   //}else{
-   // cout<<"Media not available"<<endl;
-   // }
+	if (selectedMedia.GetInventoryCount > 0) {
+	cout << setfill(' ') << setw(54) << "1. Add to cart " << endl;  
+   }
+	else{
+		cout << setfill(' ') << setw(54) << "No Copies Available" << endl;
+		return;
+	}
 	//if(isAdmin) {
 	//FIXME:: Only print these options if current user is admin
 	cout << setfill(' ') << setw(53) << "2. Update Media" << endl;
@@ -528,26 +527,25 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia) {
 		choice = -1;
 		switch (choice) {
 		case 1:
-			//if(!isGuest){
-			//FIXME:: If normal user add to cart, unless no inventory then call, if guest only buy
-			//MediaID.push_back(selectedMedia.GetMediaID());
-			// }
-			//else{ // if (isGuest){
-			/*MediaPrice.push_back(selectedMedia.GetPrice());
-			MediaTitle.push_back(selectedMedia.GetTitle());
-			{
-				ofstream buyList("PurchaseList.txt", ios::in | ios::out);
-				if (!buyList.is_open()) {
-					cout << "File not opened successfully" << endl;
+			if(GuestLogin::isGuest(true)){
+				ofstream buyList("PurchaseList.txt", ios::in | ios::out | ios::app);
+
+				if (buyList.is_open()) {
+					buyList << selectedMedia->GetTitle() << selectedMedia->GetPrice();
+					//buyList << selectedMedia->GetPrice();
+					buyList.close();
 				}
-				ostream_iterator<string> out_iterator(buyList, "\n");
-				copy(MediaTitle.begin(), MediaTitle.end(), out_iterator);
-				ostream_iterator<double> output_iterator(buyList, "\n");
-				copy(MediaPrice.begin(), MediaPrice.end(), output_iterator);
-				buyList.close();
+				LibraryMedia->SetInventoryCount(LibraryMedia->GetInventoryCount() - 1);
+				else {
+					cout << "File not opened successfully" << endl;
+				}		
+			 }
+			else {
+				//FIXME:: If normal user add to cart, unless no inventory then call
+			//MediaID.push_back(selectedMedia.GetMediaID());
 			}
-			*/
-			break;
+
+			return;
 		case 2:
 			//CHECK IF ADMIN
 			//if(!isAdmin){

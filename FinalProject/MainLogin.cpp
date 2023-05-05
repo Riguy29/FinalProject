@@ -28,8 +28,8 @@ Login::~Login() {}
 void Login::printMenu() {
     int choice;
     bool isValidChoice = true;
-    do
-    {
+   //do
+    //{
         system("cls");
         date.printDate();
         cout << setfill('-') << setw(115) << "" << endl;
@@ -52,8 +52,8 @@ void Login::printMenu() {
             break;
         case 2:
             system("cls");
-            InventoryScreen::SearchForMedia();
-            //guestLogin.printMenu();
+            //InventoryScreen::printMenu();
+            GuestLogin::buy();
             //guest();
             break;
         case 3:
@@ -81,8 +81,8 @@ void Login::printMenu() {
             cout << "Invalid Choice...Please Try Again...\n" << endl;
             break;
         }
-    } while (true);
-    }
+   // } while (isValidChoice);
+ }
 
 void Login::userHomeMenu()const {   
     int choice;
@@ -95,7 +95,7 @@ void Login::userHomeMenu()const {
         cout << "File open was not successful :(";
     }
 
-    while (true)//Using a while true loop so that when a user comes back from a submenu it reprints this menu
+    while (validChoice)//Using a while true loop so that when a user comes back from a submenu it reprints this menu
     {
         cout << setfill('-') << setw(115) << "" << endl;
         if (username.at(0) == 'E' || username.at(0) == 'S') {
@@ -124,7 +124,7 @@ void Login::userHomeMenu()const {
             break;
         case 2:
             system("cls");
-            // currUser.printMenu();
+            usr.printMenu();
             //cout << "Need to open Account information." << endl;//view account should view list of users and allow admin to update infor via  update()
             break;
         case 0: //On Log out 
@@ -190,56 +190,21 @@ void Login::login() {
 void Login::guest() {
     string gName;
     string media;
-    vector<string>guestBorrowList;
+    vector<LibraryMedia>guestBuyList;
     int choice;
     cout << "Press 1 to return to Main Menu." << endl;
     //cout << "Enter your name: \n" << endl;
     cout << endl;
-    cout << "Enter your full name: \n" << endl;
+    cout << "Enter Guest's full name: \n" << endl;
     cin.ignore();
     getline(cin, gName);
     
-   // cin >> gName;
+    if (!gName._Equal("1")) {
+        InventoryScreen::SearchForMedia();
+    }
+
     cout << endl;
-    if (!gName._Equal("1")) {//collect list of items being borrowed
-        cout << "What will you be borrowing today?\n (press d when finished)\n" << endl;
-        //FIX ME guest should be able to search inventory and borrow.  It should reflect in the library records
-        do {
-            //cin.ignore();
-            getline(cin, media);
-            guestBorrowList.push_back(media);
-        } while (!media._Equal("d"));
-    
-        system("cls");
-        cout << "Thank you " << gName << "! You are borrowing \n" << endl;
-        
-        for (int i = 0; i < guestBorrowList.size() - 1; i++) {
-            cout << guestBorrowList.at(i) << endl;
-        }
-        cout << "\nToday is ";
-       date.printDate();
-        cout << "Please return items in 2 hours." << endl;
-        cout << endl;
-        do {
-            cout << "Press 1 to return to Main Menu" << endl;
-            cout << "Press 2 to exit" << endl;
-            cin >> choice;
-        } while (choice != 1 && choice != 2);
-        if (choice == 1) {
-            printMenu();
-        }
-        else {
-            system("cls");
-            cout << "You have exited.Thank you!" << endl;
-            system("PAUSE");
-            system("cls");
-            printMenu();
-        }
-    }
-    else {
-        system("cls");
-        printMenu();
-    }
+   
 
 }
 
