@@ -84,26 +84,18 @@ void Login::printMenu() {
             break;
         }
     } while (valid);
-
-    CurrentSessionInfo::SaveUserData();
-
-    // Empty and repopulate vector, because saving it causes an issue with the last added object otherwise
-    CurrentSessionInfo::userList.clear();
-    CurrentSessionInfo::LoadUserData<FacultyMember>("Faculty.txt");
-    CurrentSessionInfo::LoadUserData<Staff>("Staff.txt");
-    CurrentSessionInfo::LoadUserData<Student>("Students.txt");
  }
 
 void Login::userHomeMenu()const {   
-    int choice;
-    bool validChoice = true;
+    string choice;
+    bool validChoice = false;
     string fName = CurrentSessionInfo::currUser.getFirstName();
 
     // Convert fName to full uppercase
     transform(fName.begin(), fName.end(), fName.begin(), ::toupper);
 
     // Using a while true loop so that when a user comes back from a submenu it reprints this menu
-    while (validChoice)
+    while (!validChoice)
     {
         cout << setfill('-') << setw(115) << "" << endl;
         cout << setfill('-') << setw(115) << "" << endl;
@@ -113,28 +105,31 @@ void Login::userHomeMenu()const {
         cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
         cout << setfill(' ') << setw(60) << "1. Access Library" << endl;
         cout << setfill(' ') << setw(58) << "2. View Account" << endl;
-        cout << setfill(' ') << setw(51) << "0. Log out\n" << endl;
+        cout << setfill(' ') << setw(54) << "0. Log out\n" << endl;
         cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 
-        cin >> choice;
+        getline(cin, choice);
 
-        validChoice = true;
-        switch (choice) {
-        case 1:
+        if (choice == "1") {
             system("cls");
             InventoryScreen::printMenu();
-            break;
-        case 2:
+            validChoice = true;
+        }
+        else if (choice == "2") {
             system("cls");
             CurrentSessionInfo::currUser.printMenu();
-            break;
-        case 0:
+            validChoice = true;
+        }
+        else if (choice == "0") {
             system("cls");
-            return;
-        default:
+            validChoice = true;
+        }
+        else if (choice == "") {
+            system("cls");
+        }
+        else {
             system("cls");
             cout << "Invalid choice please try again" << endl;
-            break;
         }
     }
   
@@ -157,8 +152,11 @@ void Login::login() {
         if (id != 1) {
             cout << "\nEnter your password: \t" << endl;
             cin >> password;
-        }
-        else {
+            if (password._Equal("1")) {
+                system("cls");
+                printMenu();
+            }
+        } else {
             system("cls");
             printMenu();
         }
@@ -169,9 +167,10 @@ void Login::login() {
       cout << " Login Successful!" << endl;
       cout << endl;
 
+      cin.clear();
+      cin.ignore();
+
       userHomeMenu();
-      system("cls");
-   
 }
 
 // guest() allows user to be a guest and use material from the library for 2 hours
@@ -297,6 +296,14 @@ void Login::registration() {
     }
 
     cout << endl;
+
+    CurrentSessionInfo::SaveUserData();
+
+    // Empty and repopulate vector, because saving it causes an issue with the last added object otherwise
+    CurrentSessionInfo::userList.clear();
+    CurrentSessionInfo::LoadUserData<FacultyMember>("Faculty.txt");
+    CurrentSessionInfo::LoadUserData<Staff>("Staff.txt");
+    CurrentSessionInfo::LoadUserData<Student>("Students.txt");
 }
 
 //validate username and password match to login
@@ -312,7 +319,7 @@ bool Login::isLoginValid(int &inUser, string &inPass) {
     }
 
     system("cls");
-    cout << "\nLibrary ID or Password not found.  Please try again." << endl;
+    cout << "\nLibrary ID or Password not found. Please try again, or enter 0 to return." << endl;
     
     return false;
 }
