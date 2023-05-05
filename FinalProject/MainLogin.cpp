@@ -27,9 +27,9 @@ Login::~Login() {}
 // printMenu() prints the menu options for the login screen
 void Login::printMenu() {
     int choice;
-    bool isValidChoice = true;
-   //do
-    //{
+    bool valid = true;
+
+    do {
         system("cls");
         date.printDate();
         cout << setfill('-') << setw(115) << "" << endl;
@@ -83,7 +83,7 @@ void Login::printMenu() {
             cout << "Invalid Choice...Please Try Again...\n" << endl;
             break;
         }
-   // } while (isValidChoice);
+    } while (valid);
  }
 
 void Login::userHomeMenu()const {   
@@ -107,7 +107,6 @@ void Login::userHomeMenu()const {
         else {
             cout << setfill('-') << setw(65) << " WELCOME ADMINISTRATOR " << setfill('-') << setw(50) << "" << endl;
            // cout << setfill(' ') << setw(68) << CurrentSessionInfo::currUser.getFirstName() << " " << CurrentSessionInfo::currUser.getLastName() << endl;
-
         }
         cout << setfill('-') << setw(116) << "\n" << endl;
         cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;

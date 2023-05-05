@@ -13,11 +13,11 @@ User::User() {
     userType = student;
     libID = 0;
 
-    strncpy_s(firstName, "Not Set", sizeof(firstName));
-    strncpy_s(lastName, "Not Set", sizeof(lastName));
-    strncpy_s(address, "Not Set", sizeof(address));
-    strncpy_s(phoneNum, "Not Set", sizeof(phoneNum));
-    strncpy_s(email, "Not Set", sizeof(email));
+    strncpy_s(firstName, "Not Set", 50);
+    strncpy_s(lastName, "Not Set", 50);
+    strncpy_s(address, "Not Set", 200);
+    strncpy_s(phoneNum, "Not Set", 50);
+    strncpy_s(email, "Not Set", 200);
 }
 
 // Overloaded Default Constructor
@@ -25,11 +25,11 @@ User::User(userTypes _userType, int _libID, string _firstName, string _lastName,
     userType = _userType;
     libID = _libID;
 
-    strncpy_s(firstName, _firstName.c_str(), sizeof(firstName));
-    strncpy_s(lastName, _lastName.c_str(), sizeof(lastName));
-    strncpy_s(address, _address.c_str(), sizeof(address));
-    strncpy_s(phoneNum, _phoneNum.c_str(), sizeof(phoneNum));
-    strncpy_s(email, _email.c_str(), sizeof(email));
+    strncpy_s(firstName, _firstName.c_str(), 50);
+    strncpy_s(lastName, _lastName.c_str(), 50);
+    strncpy_s(address, _address.c_str(), 200);
+    strncpy_s(phoneNum, _phoneNum.c_str(), 50);
+    strncpy_s(email, _email.c_str(), 50);
 }
 
 // Copy Constructor
@@ -37,11 +37,11 @@ User::User(const User& cUsr) {
 	userType = cUsr.userType;
     libID = cUsr.libID;
 
-    strncpy_s(firstName, cUsr.firstName, sizeof(firstName));
-    strncpy_s(lastName, cUsr.lastName, sizeof(lastName));
-    strncpy_s(address, cUsr.address, sizeof(address));
-    strncpy_s(phoneNum, cUsr.phoneNum, sizeof(phoneNum));
-    strncpy_s(email, cUsr.email, sizeof(email));
+    strncpy_s(firstName, cUsr.firstName, 50);
+    strncpy_s(lastName, cUsr.lastName, 50);
+    strncpy_s(address, cUsr.address, 200);
+    strncpy_s(phoneNum, cUsr.phoneNum, 50);
+    strncpy_s(email, cUsr.email, 200);
 }
 
 // Destructor

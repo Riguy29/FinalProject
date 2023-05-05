@@ -3,21 +3,22 @@
 // Default constructor
 Staff::Staff():User() {
 	userType = staff;
-	strncpy_s(ID, "Not Set", sizeof(ID));
-	strncpy_s(password, "Not Set", sizeof(password));
+	strncpy_s(ID, "Not Set", 100);
+	strncpy_s(password, "Not Set", 50);
 }
 
 // Overloaded Default constructor
-Staff::Staff(string _id, string _password):User() {
-    userType = staff;
-    strncpy_s(ID, _id.c_str(), sizeof(ID));
-    strncpy_s(password, _password.c_str(), sizeof(password));
+Staff::Staff(userTypes _userType, int libID, string _firstName, string _lastName,
+    string _address, string _phoneNum, string _email, string _id, string _password) :User(
+        staff, libID, _firstName, _lastName, _address, _phoneNum, _email) {
+    strncpy_s(ID, _id.c_str(), 100);
+    strncpy_s(password, _password.c_str(), 50);
 }
 
 // Copy Constructor
 Staff::Staff(const Staff& sTmp):User(sTmp) {
-	strncpy_s(ID, sTmp.ID, sizeof(ID));
-	strncpy_s(password, sTmp.password, sizeof(password));
+	strncpy_s(ID, sTmp.ID, 100);
+	strncpy_s(password, sTmp.password, 50);
 }
 
 // Destructor

@@ -1,14 +1,7 @@
 #include "GuestLogin.h"
 
-
-
-GuestLogin::GuestLogin()
-{
-}
-
-GuestLogin::~GuestLogin()
-{
-}
+GuestLogin::GuestLogin() {}
+GuestLogin::~GuestLogin() {}
 
 bool GuestLogin::isGuest(bool guest) {
 	if (guest == true) {
@@ -57,7 +50,7 @@ void GuestLogin::buy() {
 
 	double total = sum + tax;
 
-	date.printDate();
+	// date->printDate();
 
 	
 	//cout << setfill(' ') << left << setw(25) << fullName << endl;

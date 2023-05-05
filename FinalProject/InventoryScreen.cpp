@@ -2,10 +2,11 @@
 #define INVENTORYSCREEN_CPP
 #include "InventoryScreen.h"
 
-
 vector<LibraryMedia*> InventoryScreen::mediaToCheckout;
 string InventoryScreen::recordTxtFile;
 
+InventoryScreen::InventoryScreen(){}
+InventoryScreen::~InventoryScreen(){}
 
 void InventoryScreen::AddMedia()
 {
@@ -505,7 +506,7 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia) {
 	cout << setfill('-') << setw(116) << "\n" << endl;
 	cout << setfill(' ') << setw(68) << "What would you like to do?\n" << endl;
 
-	if (selectedMedia.GetInventoryCount > 0) {
+	if (selectedMedia->GetInventoryCount() > 0) {
 	cout << setfill(' ') << setw(54) << "1. Add to cart " << endl;  
    }
 	else{
@@ -527,6 +528,7 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia) {
 		choice = -1;
 		switch (choice) {
 		case 1:
+			/*
 			if(GuestLogin::isGuest(true)){
 				ofstream buyList("PurchaseList.txt", ios::in | ios::out | ios::app);
 
@@ -546,6 +548,8 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia) {
 			}
 
 			return;
+			*/
+			break;
 		case 2:
 			//CHECK IF ADMIN
 			//if(!isAdmin){
