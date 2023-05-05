@@ -57,7 +57,6 @@ void Login::printMenu() {
             //guest();
             break;
         case 3:
-            system("cls");
             registration();
             break;
         case 4:
@@ -67,6 +66,7 @@ void Login::printMenu() {
             break;
         case 5:
             system("cls");
+            
 
             cout << "Total Users in vector: " << CurrentSessionInfo::userList.size() << endl;
 
@@ -74,8 +74,7 @@ void Login::printMenu() {
                 CurrentSessionInfo::userList.at(i)->printData();
             }
 
-            system("PAUSE");
-            cin.get();
+            system("pause");
 
             break;
         default:
@@ -84,6 +83,14 @@ void Login::printMenu() {
             break;
         }
     } while (valid);
+
+    CurrentSessionInfo::SaveUserData();
+
+    // Empty and repopulate vector, because saving it causes an issue with the last added object otherwise
+    CurrentSessionInfo::userList.clear();
+    CurrentSessionInfo::LoadUserData<FacultyMember>("Faculty.txt");
+    CurrentSessionInfo::LoadUserData<Staff>("Staff.txt");
+    CurrentSessionInfo::LoadUserData<Student>("Students.txt");
  }
 
 void Login::userHomeMenu()const {   
@@ -205,8 +212,6 @@ void Login::guest() {
     }
 
     cout << endl;
-   
-
 }
 
 // Called to register a user and emplace said user to the end of the userList vector
@@ -217,6 +222,7 @@ void Login::registration() {
     // Reference InventoryScreen.cpp AddMedia function on how to determine what obj they are
     // Get user type first...
     do {
+        system("cls");
         cout << "Enter your position(M/E/S)" << endl;
         cout << "Staff member M\nEmployee E\nStudent S \t" << endl;
         cin >> pos;
@@ -239,7 +245,23 @@ void Login::registration() {
         st->setUserType(User::staff);
         st->setID();
         st->setPassword();
+
+        cout << "Is the information correct? Y/N" << endl;
+        st->printData();
+
+        do {
+            pos = getchar();
+            if (pos == 'N' || pos == 'n') {
+                delete st;
+                registration();
+            }
+            else if (pos != 'Y' && pos != 'y') {
+                cout << "Please Enter only Y/N for input!" << endl;
+            }
+        } while (pos != 'N' && pos != 'n' && pos != 'Y' && pos != 'y');
+
         CurrentSessionInfo::userList.emplace_back(new Staff(*st));
+
         delete st;
         system("cls");
         cout << "New Staff User Added" << endl;
@@ -249,7 +271,23 @@ void Login::registration() {
         fm->setUserType(User::facultyMember);
         fm->setID();
         fm->setPassword();
+
+        cout << "Is the information correct? Y/N" << endl;
+        fm->printData();
+
+        do {
+            pos = getchar();
+            if (pos == 'N' || pos == 'n') {
+                delete fm;
+                registration();
+            }
+            else if (pos != 'Y' && pos != 'y') {
+                cout << "Please Enter only Y/N for input!" << endl;
+            }
+        } while (pos != 'N' && pos != 'n' && pos != 'Y' && pos != 'y');
+
         CurrentSessionInfo::userList.emplace_back(new FacultyMember(*fm));
+
         delete fm;
         system("cls");
         cout << "New Faculty Member User Added" << endl;
@@ -259,25 +297,29 @@ void Login::registration() {
         st->setUserType(User::student);
         st->setID();
         st->setPassword();
+
+        cout << "Is the information correct? Y/N" << endl;
+        st->printData();
+
+        do {
+            pos = getchar();
+            if (pos == 'N' || pos == 'n') {
+                delete st;
+                registration();
+            }
+            else if (pos != 'Y' && pos != 'y') {
+                cout << "Please Enter only Y/N for input!" << endl;
+            }
+        } while (pos != 'N' && pos != 'n' && pos != 'Y' && pos != 'y');
+
         CurrentSessionInfo::userList.emplace_back(new Student(*st));
+
         delete st;
         system("cls");
         cout << "New Student User Added" << endl;
     }
 
     cout << endl;
-
-    char correct;
-
-    //check that information entered is correct, if it is save to file if it is not, enter new information  
-    cout << "Is the information correct? Y/N" << endl;
-    CurrentSessionInfo::userList.back()->printData();
-    cin >> correct;
-
-    if (correct == 'N') {
-        CurrentSessionInfo::userList.pop_back();
-        registration();
-    }
 }
 
 //validate username and password match to login

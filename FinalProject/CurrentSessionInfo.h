@@ -52,7 +52,10 @@ public:
 	template<typename T>
 	static void LoadUserData(string fileName);
 
-	//This function is used to save data for publishers, authors, and users
+	//This function is used to save data for Staff, Students, and Faculty Members
+	static void SaveUserData();
+
+	//This function is used to save data for publishers, and authors
 	template<typename T>
 	static void SaveData(string fileName, vector<T>& list);
 
