@@ -132,12 +132,12 @@ void CurrentSessionInfo::LoadMediaData(string fileName)
 template<typename T>
 void CurrentSessionInfo::LoadUserData(string fileName)
 {
-	fstream inStream;
-	inStream.open(fileName, ios::binary | ios::in);
+	ifstream inStream;
+	inStream.open(fileName, ios::in);
 	T temp;
 
 	if (inStream.is_open()) {
-		while (inStream.read(reinterpret_cast<char*>(&temp), sizeof(T)))
+		while (inStream.read((char*)&temp, sizeof(T)))
 		{
 			userList.emplace_back(new T(temp));
 		}
@@ -206,17 +206,17 @@ void CurrentSessionInfo::SaveData()
 			User::userTypes currType = userList.at(i)->getUserType();
 			if (currType == User::facultyMember) {
 				FacultyMember* temp = dynamic_cast<FacultyMember*>(userList.at(i));
-				userOut.write(reinterpret_cast<char*>(&*temp), sizeof(FacultyMember));
+				userOut.write((char*)&*temp, sizeof(FacultyMember));
 				delete temp;
 			}
 			else if (currType == User::staff) {
 				Staff* temp = dynamic_cast<Staff*>(userList.at(i));
-				userOut.write(reinterpret_cast<char*>(&*temp), sizeof(Staff));
+				userOut.write((char*)&*temp, sizeof(Staff));
 				delete temp;
 			}
 			else if (currType == User::student) {
 				Student* temp = dynamic_cast<Student*>(userList.at(i));
-				userOut.write(reinterpret_cast<char*>(&*temp), sizeof(Student));
+				userOut.write((char*)&*temp, sizeof(Student));
 				delete temp;
 			}
 		}

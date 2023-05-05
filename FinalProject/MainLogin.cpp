@@ -68,6 +68,8 @@ void Login::printMenu() {
         case 5:
             system("cls");
 
+            cout << "Total Users in vector: " << CurrentSessionInfo::userList.size() << endl;
+
             for (int i = 0; i < CurrentSessionInfo::userList.size(); i++) {
                 CurrentSessionInfo::userList.at(i)->printData();
             }

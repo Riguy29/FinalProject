@@ -28,6 +28,7 @@ public:
 
 	// Constructors
 	User();
+	User(userTypes _userType, int libID, string _firstName, string _lastName, string _address, string _phoneNum, string _email);
 	User(const User& newU);
 	virtual ~User();
 
