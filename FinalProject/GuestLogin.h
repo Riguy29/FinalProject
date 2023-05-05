@@ -2,7 +2,7 @@
 #define GUESTLOGIN_H
 
 //#include "MainLogin.h"
-//#include "InventoryScreen.h"
+#include "InventoryScreen.h"
 //#include "LibraryMedia.h"
 #include "Date.h"
 #include <iostream>
@@ -20,8 +20,8 @@ private:
 public:
 	GuestLogin();
 	~GuestLogin();
+	static bool isGuest(bool guest);
 	static void buy();
-	void receipt()const;
 
 };
 
