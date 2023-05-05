@@ -25,8 +25,6 @@ using namespace std;
 class Login {
 private:
 	Date date;
-	//GuestLogin guestLogin;
-	//InventoryScreen invScreen;
 	CurrentSessionInfo currSession;
 	User usr;
 public:
@@ -35,14 +33,11 @@ public:
 	~Login();
 
 	void printMenu();
-	string getUsername()const;
 	string getPassword()const;
-	void setUsername(string userN);
-	void setPassword(string userP);
 	void login();	
 	void registration();
 	void guest();
-	static bool isLoginValid(string& inUser, string& inPass);
+	static bool isLoginValid(int &inUser, string &inPass);
 
 	void userHomeMenu()const;
 };

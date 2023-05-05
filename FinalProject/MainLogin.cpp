@@ -8,6 +8,7 @@
 #include "MainLogin.h"
 #include <iostream>
 #include <string>
+#include <cstring>
 #include <fstream>
 #include <stdlib.h>
 #include <vector>
@@ -96,25 +97,18 @@ void Login::printMenu() {
 void Login::userHomeMenu()const {   
     int choice;
     bool validChoice = true;
-    ifstream currUser;
-    string username;
-    currUser.open("currentUser.txt");
+    string fName = CurrentSessionInfo::currUser.getFirstName();
 
-    if (!currUser.is_open()) {
-        cout << "File open was not successful :(";
-    }
+    // Convert fName to full uppercase
+    transform(fName.begin(), fName.end(), fName.begin(), ::toupper);
 
-    while (validChoice)//Using a while true loop so that when a user comes back from a submenu it reprints this menu
+    // Using a while true loop so that when a user comes back from a submenu it reprints this menu
+    while (validChoice)
     {
         cout << setfill('-') << setw(115) << "" << endl;
-        if (username.at(0) == 'E' || username.at(0) == 'S') {
-            cout << setfill('-') << setw(115) << "" << endl;
-            cout << setfill('-') << setw(65) << " WELCOME TO YOUR ACCOUNT" << setfill('-') << setw(50) << "" << endl;
-        }
-        else {
-            cout << setfill('-') << setw(65) << " WELCOME ADMINISTRATOR " << setfill('-') << setw(50) << "" << endl;
-           // cout << setfill(' ') << setw(68) << CurrentSessionInfo::currUser.getFirstName() << " " << CurrentSessionInfo::currUser.getLastName() << endl;
-        }
+        cout << setfill('-') << setw(115) << "" << endl;
+        cout << setfill('-') << setw(65) << " WELCOME TO YOUR ACCOUNT " << fName << " " << setfill('-') << setw(49 - (fName.size())) << "" << endl;
+        
         cout << setfill('-') << setw(116) << "\n" << endl;
         cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
         cout << setfill(' ') << setw(60) << "1. Access Library" << endl;
@@ -132,13 +126,11 @@ void Login::userHomeMenu()const {
             break;
         case 2:
             system("cls");
-            usr.printMenu();
-            //cout << "Need to open Account information." << endl;//view account should view list of users and allow admin to update infor via  update()
+            CurrentSessionInfo::currUser.printMenu();
             break;
-        case 0: //On Log out 
+        case 0:
             system("cls");
-            currUser.close(); //Close txt file
-            return; //Changed this so it goes back to login screen instead of closing program
+            return;
         default:
             system("cls");
             cout << "Invalid choice please try again" << endl;
@@ -148,9 +140,9 @@ void Login::userHomeMenu()const {
   
 }
 
-//login() allows user to login to borrow books if they have a username and password
+// login() allows user to login to borrow books if they have a username and password
 void Login::login() {
-    string username;
+    int id;
     string password;
     string line;
 
@@ -160,9 +152,9 @@ void Login::login() {
 
     do {
 
-        cout << "\nEnter your username: \t" << endl;
-        cin >> username;
-        if (!username._Equal("1")) {
+        cout << "\nEnter your Library ID: \t" << endl;
+        cin >> id;
+        if (id != 1) {
             cout << "\nEnter your password: \t" << endl;
             cin >> password;
         }
@@ -171,37 +163,24 @@ void Login::login() {
             printMenu();
         }
 
-      } while (isLoginValid(username, password) != true);
+      } while (isLoginValid(id, password) != true);
 
-    if (true) {
-        system("cls");
-        cout << username << " Login Successful!" << endl;
-        cout << endl;
+      system("cls");
+      cout << " Login Successful!" << endl;
+      cout << endl;
 
-        ofstream userInfo;
-        userInfo.open("currentUser.txt");
-
-        if (!userInfo.is_open()) {
-            cout << "File open was not successful";
-        }
-        //userInfo << username << endl;
-        userInfo.close();      
-        userHomeMenu();
-       
-        system("cls");
-        return;
-    }
+      userHomeMenu();
+      system("cls");
    
 }
 
-//guest() allows user to be a guest and use material from the library for 2 hours
+// guest() allows user to be a guest and use material from the library for 2 hours
 void Login::guest() {
     string gName;
     string media;
     vector<LibraryMedia>guestBuyList;
     int choice;
     cout << "Press 1 to return to Main Menu." << endl;
-    //cout << "Enter your name: \n" << endl;
     cout << endl;
     cout << "Enter Guest's full name: \n" << endl;
     cin.ignore();
@@ -238,13 +217,13 @@ void Login::registration() {
     tmpUsr->setAddress();
     tmpUsr->setPhoneNumber();
     tmpUsr->setEmail();
+    tmpUsr->setPassword();
     tmpUsr->setLibID(1000 + CurrentSessionInfo::userList.size());
 
     if (pos == 'M') {
         Staff* st = dynamic_cast<Staff*>(tmpUsr);
         st->setUserType(User::staff);
         st->setID();
-        st->setPassword();
 
         cout << "Is the information correct? Y/N" << endl;
         st->printData();
@@ -270,7 +249,6 @@ void Login::registration() {
         FacultyMember* fm = dynamic_cast<FacultyMember*>(tmpUsr);
         fm->setUserType(User::facultyMember);
         fm->setID();
-        fm->setPassword();
 
         cout << "Is the information correct? Y/N" << endl;
         fm->printData();
@@ -296,7 +274,6 @@ void Login::registration() {
         Student* st = dynamic_cast<Student*>(tmpUsr);
         st->setUserType(User::student);
         st->setID();
-        st->setPassword();
 
         cout << "Is the information correct? Y/N" << endl;
         st->printData();
@@ -323,81 +300,22 @@ void Login::registration() {
 }
 
 //validate username and password match to login
-bool Login::isLoginValid(string &inUser, string &inPass) {
-    string username, password;
+bool Login::isLoginValid(int &inUser, string &inPass) {
 
-    ifstream read("userpass.txt");
-
-    if (!read.is_open()) {
-        cout << "File not opened successfully";
-    }
-
-    while (read >> username >> password) {//check to see if password exists
-        if (inUser == username && inPass == password) {
-            return true;
+    for (int i = 0; i < CurrentSessionInfo::userList.size(); i++) {
+        if (CurrentSessionInfo::userList.at(i)->getLibID() == inUser) {
+            if (CurrentSessionInfo::userList.at(i)->getPassword() == inPass) {
+                CurrentSessionInfo::currUser = *CurrentSessionInfo::userList.at(i);
+                return true;
+            }
         }
-        
     }
+
     system("cls");
-    cout << "\nUsername or Password not found.  Please try again." << endl;
+    cout << "\nLibrary ID or Password not found.  Please try again." << endl;
     
     return false;
-    read.close();
 }
 
-
- 
-/*
-// Asks for address information
-string Login::isValidAddress()const {
-    string street;
-    string city;
-    string state;
-    string zipCode;
-    do {
-        cout << "\nEnter your address: \nStreet:\t" << endl;
-        getline(cin, street);
-            if (street.length() > 50) {
-                cout << "Invalid Street.  Please try again." << endl;
-            }
-    } while (street.length() > 50);
-    
-    do {
-        cout << "\nCity:\t" << endl;
-        getline(cin, city);
-             if (city.length() > 25) {
-                cout << "Invalid City.  Please try again." << endl;
-             }
-    } while (city.length() > 25);
-    
-    do {
-        cout << "\nState:\t" << endl;
-        getline(cin, state);
-            if (state.length() > 30) {
-                cout << "Invalid State.  Please try again." << endl;
-            }
-    } while (state.length() > 30);
-
-    do {
-        cout << "\nZip Code:\t" << endl;
-        getline(cin, zipCode);
-        if (zipCode.length() != 5) {
-            cout << "Invalid Zip Code.  Please try again." << endl;
-        }
-        else {
-            for (char ch : zipCode) {
-                if (!isdigit(ch)) {
-                    getline(cin, zipCode);
-                }
-            }
-        }
-    } while (zipCode.length() != 5);
-
-    string address = street + " " + city + ", " + state + " " + zipCode;
-
-    return address;
-
-}
-*/
 
 #endif // !MAINLOGIN_CPP

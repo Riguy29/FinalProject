@@ -5,7 +5,6 @@
 class FacultyMember : public User {
 protected:
 	char ID[100];
-	char password[50];
 public:
 	FacultyMember();
 	FacultyMember(userTypes _userType, int libID, string _firstName, string _lastName, 
@@ -15,12 +14,9 @@ public:
 
 	// Mutators
 	void setID();
-	void setPassword();
 
 	// Accessors
 	string getID()const;
-	string getPassword()const;
-
 	virtual void printData()const;
 };
 

@@ -4,27 +4,24 @@
 Staff::Staff():User() {
 	userType = staff;
 	strncpy_s(ID, "Not Set", 100);
-	strncpy_s(password, "Not Set", 50);
 }
 
 // Overloaded Default constructor
 Staff::Staff(userTypes _userType, int libID, string _firstName, string _lastName,
     string _address, string _phoneNum, string _email, string _id, string _password) :User(
-        staff, libID, _firstName, _lastName, _address, _phoneNum, _email) {
+        staff, libID, _firstName, _lastName, _address, _phoneNum, _email, _password) {
     strncpy_s(ID, _id.c_str(), 100);
-    strncpy_s(password, _password.c_str(), 50);
 }
 
 // Copy Constructor
 Staff::Staff(const Staff& sTmp):User(sTmp) {
 	strncpy_s(ID, sTmp.ID, 100);
-	strncpy_s(password, sTmp.password, 50);
 }
 
 // Destructor
 Staff::~Staff() {}
 
-// Mutators TODO: Add stuffs
+// Mutators
 void Staff::setID() {
     string sID;
     bool valid = false;
@@ -48,83 +45,8 @@ void Staff::setID() {
     } while (!valid);
 }
 
-void Staff::setPassword() {
-    string p;
-    bool valid = false;
-    bool upper = false;
-    bool lower = false;
-    bool digit = false;
-    bool special = false;
-
-    system("cls");
-
-    do {
-        cout << "Enter Password: " << endl;
-        getline(cin, p);
-
-
-        // Check for at least one uppercase and lowercase letter, and one number
-        for (int i = 0; i < p.size(); i++) {
-            if (isupper(p[i])) {
-                upper = true;
-            }
-
-            if (isdigit(p[i])) {
-                digit = true;
-            }
-
-            if (islower(p[i])) {
-                lower = true;
-            }
-        }
-
-        // Check for special characters
-        if (p.find('$') != string::npos) {
-            special = true;
-        }
-        else if (p.find('#') != string::npos) {
-            special = true;
-        }
-        else if (p.find('%') != string::npos) {
-            special = true;
-        }
-        else if (p.find('!') != string::npos) {
-            special = true;
-        }
-
-        // Limit input to 50 chars
-        if (p.length() > 50 || p.length() == 0) {
-            system("cls");
-            cout << "Password must be greater than 0 and less than 50 characters long!" << endl;
-        }
-        else if (!upper) {
-            system("cls");
-            cout << "Password must contain at least one uppercase letter!" << endl;
-        }
-        else if (!lower) {
-            system("cls");
-            cout << "Password must contain at least one lowercase letter!" << endl;
-        }
-        else if (!digit) {
-            system("cls");
-            cout << "Password must contain at least one number!" << endl;
-        }
-        else if (!special) {
-            system("cls");
-            cout << "Password must contain at least one special character ($#%!)" << endl;
-        }
-        else {
-            strcpy_s(password, sizeof(password), p.c_str());
-            valid = true;
-        }
-
-    } while (!valid);
-}
-
 // Accessors
 string Staff::getID()const { return ID; }
-string Staff::getPassword()const { return password; }
-
 void Staff::printData()const {
 	User::printData();
 	cout << "Faculty ID: " << getID() << endl;
