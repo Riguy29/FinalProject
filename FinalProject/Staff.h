@@ -8,6 +8,7 @@ protected:
 	char password[50];
 public:
 	Staff();
+	Staff(string _id, string _password);
 	Staff(const Staff& sTmp);
 	virtual ~Staff();
 

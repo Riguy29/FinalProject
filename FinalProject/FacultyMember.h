@@ -8,6 +8,7 @@ protected:
 	char password[50];
 public:
 	FacultyMember();
+	FacultyMember(string _id, string _password);
 	FacultyMember(const FacultyMember& newU);
 	virtual ~FacultyMember();
 

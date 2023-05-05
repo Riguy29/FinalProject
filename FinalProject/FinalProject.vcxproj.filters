@@ -117,17 +117,14 @@
     <ClInclude Include="Invoice.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="records.txt" />
     <Text Include="AuthorRecord.txt" />
     <Text Include="PublisherRecord.txt" />
-    <Text Include="userpass.txt" />
     <Text Include="NewspaperRecord.txt" />
     <Text Include="JournalRecord.txt" />
     <Text Include="PeriodicalRecord.txt" />
     <Text Include="PurchaseList.txt" />
     <Text Include="currentUser.txt" />
     <Text Include="BookRecord.txt" />
-    <Text Include="Users.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

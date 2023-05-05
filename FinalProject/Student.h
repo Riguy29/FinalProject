@@ -8,6 +8,7 @@ protected:
 	char password[50];
 public:
 	Student();
+	Student(string _id, string _password);
 	Student(const Student& sTmp);
 	virtual ~Student();
 

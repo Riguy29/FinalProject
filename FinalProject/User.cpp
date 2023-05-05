@@ -13,11 +13,23 @@ User::User() {
     userType = student;
     libID = 0;
 
-    strcpy_s(firstName, sizeof(firstName), "");
-    strcpy_s(lastName, sizeof(lastName), "");
-    strcpy_s(address, sizeof(address), "");
-    strcpy_s(phoneNum, sizeof(phoneNum), "");
-    strcpy_s(email, sizeof(email), "");
+    strncpy_s(firstName, "Not Set", sizeof(firstName));
+    strncpy_s(lastName, "Not Set", sizeof(lastName));
+    strncpy_s(address, "Not Set", sizeof(address));
+    strncpy_s(phoneNum, "Not Set", sizeof(phoneNum));
+    strncpy_s(email, "Not Set", sizeof(email));
+}
+
+// Overloaded Default Constructor
+User::User(userTypes _userType, int _libID, string _firstName, string _lastName, string _address, string _phoneNum, string _email) {
+    userType = _userType;
+    libID = _libID;
+
+    strncpy_s(firstName, _firstName.c_str(), sizeof(firstName));
+    strncpy_s(lastName, _lastName.c_str(), sizeof(lastName));
+    strncpy_s(address, _address.c_str(), sizeof(address));
+    strncpy_s(phoneNum, _phoneNum.c_str(), sizeof(phoneNum));
+    strncpy_s(email, _email.c_str(), sizeof(email));
 }
 
 // Copy Constructor
@@ -25,11 +37,11 @@ User::User(const User& cUsr) {
 	userType = cUsr.userType;
     libID = cUsr.libID;
 
-    strcpy_s(firstName, sizeof(firstName), cUsr.firstName);
-    strcpy_s(lastName, sizeof(lastName), cUsr.lastName);
-    strcpy_s(address, sizeof(address), cUsr.address);
-    strcpy_s(phoneNum, sizeof(phoneNum), cUsr.phoneNum);
-    strcpy_s(email, sizeof(email), cUsr.email);
+    strncpy_s(firstName, cUsr.firstName, sizeof(firstName));
+    strncpy_s(lastName, cUsr.lastName, sizeof(lastName));
+    strncpy_s(address, cUsr.address, sizeof(address));
+    strncpy_s(phoneNum, cUsr.phoneNum, sizeof(phoneNum));
+    strncpy_s(email, cUsr.email, sizeof(email));
 }
 
 // Destructor
@@ -45,10 +57,15 @@ User::userTypes User::getUserType() { return userType; }
 
 int User::getLibID()const { return libID; }
 
-// Mutators TODO: Implement error checking for user creation and mod
+// Mutators
 void User::setFirstName() {
     string fName;
     bool valid = false;
+
+    system("cls");
+
+    cin.clear();
+    cin.ignore();
     
     do {
         cout << "Enter First Name: " << endl;
@@ -71,6 +88,8 @@ void User::setFirstName() {
 void User::setLastName() { 
     string lName;
     bool valid = false;
+
+    system("cls");
 
     do {
         cout << "Enter Last Name: " << endl;
@@ -96,18 +115,20 @@ void User::setAddress() {
     string ad;
     bool valid = false;
     
+    system("cls");
+
     do {
         cout << "Enter Address: " << endl;
         getline(cin, ad);
 
         // Limit user address to 200 chars
-        if (ad.length() > 200 || ad.length() == 0) {
-            system("cls");
-            cout << "Address must be greater than 0 and less than 200 characters long!" << endl;
-        }
-        else { // Use regex here, just takes string thats less than 200 and greater than 0 atm for testing purposes
+        if (ad.length() < 200 || ad.length() > 0) {
             strcpy_s(address, sizeof(address), ad.c_str());
             valid = true;
+        }
+        else {
+            system("cls");
+            cout << "Address must be greater than 0 and less than 200 characters long!" << endl;
         }
 
     } while (!valid);
@@ -117,6 +138,8 @@ void User::setPhoneNumber() {
     string tmpStr;
     bool valid = false;
     
+    system("cls");
+
     // Will be used later in function to compare number format :)
     regex r("[[:digit:]]{3}-[[:digit:]]{3}-[[:digit:]]{4}");
 
@@ -126,7 +149,7 @@ void User::setPhoneNumber() {
 
         // Try if user entered correct format
         if (regex_match(tmpStr, r)) {
-            strcpy_s(phoneNum, tmpStr.size() + 1, tmpStr.c_str());
+            strcpy_s(phoneNum, sizeof(phoneNum), tmpStr.c_str());
             valid = true;
         }
         else {
@@ -141,6 +164,8 @@ void User::setEmail() {
     string em;
     bool valid = false;
 
+    system("cls");
+
     regex r("(\\w+)(\\.|_)?(\\w*)@(\\w+)(\\.(\\w+))+");
 
     do {
@@ -152,13 +177,14 @@ void User::setEmail() {
             system("cls");
             cout << "Email Address must be greater than 0 and less than 200 characters long!" << endl;
         }
-        else if (!regex_match(em, r)) {
-            system("cls");
-            cout << "Email Address must be formatted as Example@example.example" << endl;
+        else if (regex_match(em, r)) {
+            strcpy_s(email, sizeof(email), em.c_str());
+            valid = true;
         }
         else {
-            strcpy_s(email, sizeof(em), em.c_str());
-            valid = true;
+            system("cls");
+            cout << "Email Address must be formatted as Example@example.example" << endl;
+            
         }
 
     } while (!valid);
