@@ -41,7 +41,6 @@ public:
 	void setPassword(string userP);
 	void login();	
 	void registration();
-	void guest();
 	static bool isLoginValid(string& inUser, string& inPass);
 
 	void userHomeMenu()const;

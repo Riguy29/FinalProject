@@ -8,6 +8,7 @@
 #include "ConferenceJournal.h"
 #include "Periodical.h"
 #include "Book.h"
+#include "GuestLogin.h"
 #include <vector>
 #include <fstream>
 

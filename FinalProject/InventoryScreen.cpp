@@ -196,9 +196,9 @@ void InventoryScreen::printMenu() {
 		}
 		user >> username;
 		//user.close();
-
-		if (username.at(0) == 'M') {
-			cout << setfill(' ') << setw(57) << "3. Add Media" << endl;
+		if(GuestLogin::isGuest(false)) {// needs to be User::isAdmin(true){
+		//if (username.at(0) == 'M') {
+			cout << setfill(' ') << setw(56) << "3. Add Media" << endl;
 		}
 		user.close();
 		
@@ -317,7 +317,7 @@ void InventoryScreen::SearchByTitle()
 		PrintMatchingMedia(matchingList);
 		
 	}
-
+	//MediaInteractionMenu(matchingList);
 
 }
 void InventoryScreen::SearchByAuthor() 
@@ -528,9 +528,12 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia) {
 		choice = -1;
 		switch (choice) {
 		case 1:
-			/*
+			/*{
 			if(GuestLogin::isGuest(true)){
-				ofstream buyList("PurchaseList.txt", ios::in | ios::out | ios::app);
+				ofstream buyList("PurchaseList.txt", ios::trunc);//open file to clear it and then close
+				buyList.close();
+
+				ofstream buyList("PurchaseList.txt", ios::in | ios::out | ios::app);//open file to write to it
 
 				if (buyList.is_open()) {
 					buyList << selectedMedia->GetTitle() << selectedMedia->GetPrice();
@@ -548,6 +551,7 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia) {
 			}
 
 			return;
+			}
 			*/
 			break;
 		case 2:

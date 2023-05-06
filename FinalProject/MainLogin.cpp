@@ -15,7 +15,7 @@
 #include <regex>
 #include <iomanip>
 
-#include "CurrentSessionInfo.h"
+
 
 using namespace std;
 
@@ -52,9 +52,8 @@ void Login::printMenu() {
             break;
         case 2:
             system("cls");
-            //InventoryScreen::printMenu();
-            GuestLogin::buy();
-            //guest();
+            //GuestLogin::buy();
+            InventoryScreen::printMenu();             
             break;
         case 3:
             system("cls");
@@ -106,7 +105,7 @@ void Login::userHomeMenu()const {
         }
         else {
             cout << setfill('-') << setw(65) << " WELCOME ADMINISTRATOR " << setfill('-') << setw(50) << "" << endl;
-           // cout << setfill(' ') << setw(68) << CurrentSessionInfo::currUser.getFirstName() << " " << CurrentSessionInfo::currUser.getLastName() << endl;
+           //cout << setfill(' ') << setw(68) << CurrentSessionInfo::currUser->getFirstName() << " " << CurrentSessionInfo::currUser->getLastName() << endl;
         }
         cout << setfill('-') << setw(116) << "\n" << endl;
         cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
@@ -185,28 +184,6 @@ void Login::login() {
         return;
     }
    
-}
-
-//guest() allows user to be a guest and use material from the library for 2 hours
-void Login::guest() {
-    string gName;
-    string media;
-    vector<LibraryMedia>guestBuyList;
-    int choice;
-    cout << "Press 1 to return to Main Menu." << endl;
-    //cout << "Enter your name: \n" << endl;
-    cout << endl;
-    cout << "Enter Guest's full name: \n" << endl;
-    cin.ignore();
-    getline(cin, gName);
-    
-    if (!gName._Equal("1")) {
-        InventoryScreen::SearchForMedia();
-    }
-
-    cout << endl;
-   
-
 }
 
 // Called to register a user and emplace said user to the end of the userList vector

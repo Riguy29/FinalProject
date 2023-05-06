@@ -291,7 +291,7 @@ if(isAdmin == true){
 
     for(int i = 0; i < CurrentSessionInfo::userList.size(); i++){
         if(CurrentSessionInfo::userList.at(i)->GetUsername().find(userUsername)!=string::npos){
-            cout << userList.at(i)->getFirstName() << " " << userList.at(i)->getLastName();
+            CurrentSessionInfo::userList.at(i)->printData();
 
             cout << "Enter New First Name: " << endl;
             const char* newFName;    
