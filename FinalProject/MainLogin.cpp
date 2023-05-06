@@ -8,6 +8,7 @@
 #include "MainLogin.h"
 #include <iostream>
 #include <string>
+#include <cstring>
 #include <fstream>
 #include <stdlib.h>
 #include <vector>
@@ -32,17 +33,17 @@ void Login::printMenu() {
     do {
         system("cls");
         date.printDate();
-        cout << setfill('-') << setw(115) << "" << endl;
-        cout << setfill('-') << setw(56) << " LIBRARY LOGIN " << setfill('-') << setw(59) << "" << endl;
-        cout << setfill('-') << setw(115) << "" << endl;
-        cout << setfill(' ') << setw(53) << "WELCOME!\n" << endl;
-        cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
+        cout << setfill('-') << setw(117) << "" << endl;
+        cout << setfill('-') << setw(63) << right << " LIBRARY LOGIN " << setfill('-') << setw(54) << "" << endl;
+        cout << setfill('-') << setw(117) << "" << endl;
+        cout << setfill(' ') << setw(61) << right << "WELCOME!\n" << endl;
+        cout << setfill(' ') << setw(72) << "Select from the options below:\n" << endl;
         cout << setfill(' ') << setw(66) << "1. Login to Your Account" << endl;
         cout << setfill(' ') << setw(56) << "2. Guest Login" << endl;
         cout << setfill(' ') << setw(65) << "3. Register for Account" << endl;
         cout << setfill(' ') << setw(49) << "4. Exit" << endl;
         cout << setfill(' ') << setw(108) << "5. List all Registered Accounts (Please remove before submission)\n" << endl;
-        cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+        cout << setfill(' ') << setw(60) << "Enter Your Choice:\t";
 
         cin >> choice;
         switch (choice) {
@@ -52,11 +53,9 @@ void Login::printMenu() {
             break;
         case 2:
             system("cls");
-            //GuestLogin::buy();
-            InventoryScreen::printMenu();             
+            GuestLogin::buy();
             break;
         case 3:
-            system("cls");
             registration();
             break;
         case 4:
@@ -73,8 +72,7 @@ void Login::printMenu() {
                 CurrentSessionInfo::userList.at(i)->printData();
             }
 
-            system("PAUSE");
-            cin.get();
+            system("pause");
 
             break;
         default:
@@ -85,64 +83,57 @@ void Login::printMenu() {
     } while (valid);
  }
 
-void Login::userHomeMenu()const {   
-    int choice;
-    bool validChoice = true;
-    ifstream currUser;
-    string username;
-    currUser.open("currentUser.txt");
+void Login::userHomeMenu() {   
+    string choice;
+    bool validChoice = false;
+    string fName = CurrentSessionInfo::currUser.getFirstName();
 
-    if (!currUser.is_open()) {
-        cout << "File open was not successful :(";
-    }
+    system("cls");
 
-    while (validChoice)//Using a while true loop so that when a user comes back from a submenu it reprints this menu
-    {
-        cout << setfill('-') << setw(115) << "" << endl;
-        if (username.at(0) == 'E' || username.at(0) == 'S') {
-            cout << setfill('-') << setw(115) << "" << endl;
-            cout << setfill('-') << setw(65) << " WELCOME TO YOUR ACCOUNT" << setfill('-') << setw(50) << "" << endl;
-        }
-        else {
-            cout << setfill('-') << setw(65) << " WELCOME ADMINISTRATOR " << setfill('-') << setw(50) << "" << endl;
-           //cout << setfill(' ') << setw(68) << CurrentSessionInfo::currUser->getFirstName() << " " << CurrentSessionInfo::currUser->getLastName() << endl;
-        }
-        cout << setfill('-') << setw(116) << "\n" << endl;
-        cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
-        cout << setfill(' ') << setw(60) << "1. Access Library" << endl;
-        cout << setfill(' ') << setw(58) << "2. View Account" << endl;
-        cout << setfill(' ') << setw(51) << "0. Log out\n" << endl;
-        cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+    // Convert fName to full uppercase
+    transform(fName.begin(), fName.end(), fName.begin(), ::toupper);
 
-        cin >> choice;
+    // Using a while true loop so that when a user comes back from a submenu it reprints this menu
+    do {
+        cout << setfill('-') << setw(117) << "" << endl;
+        cout << setfill('-') << setw(67) << " WELCOME TO YOUR ACCOUNT " << fName << " " << setfill('-') << setw(49 - (fName.size())) << "" << endl;
+        cout << setfill('-') << setw(117) << "" << endl;
+        cout << endl;
 
-        validChoice = true;
-        switch (choice) {
-        case 1:
+        cout << setfill(' ') << setw(75) << "Select from the options below:\n" << endl;
+        cout << setfill(' ') << setw(62) << "1. Access Library" << endl;
+        cout << setfill(' ') << setw(60) << "2. View Account" << endl;
+        cout << setfill(' ') << setw(56) << "0. Log out\n" << endl;
+        cout << setfill(' ') << setw(63) << "Enter Your Choice:\t";
+
+        getline(cin, choice);
+
+        if (choice == "1") {
             system("cls");
             InventoryScreen::printMenu();
-            break;
-        case 2:
+        }
+        else if (choice == "2") {
             system("cls");
-            usr.printMenu();
-            //cout << "Need to open Account information." << endl;//view account should view list of users and allow admin to update infor via  update()
-            break;
-        case 0: //On Log out 
+            CurrentSessionInfo::currUser.printMenu();
+        }
+        else if (choice == "0") {
             system("cls");
-            currUser.close(); //Close txt file
-            return; //Changed this so it goes back to login screen instead of closing program
-        default:
+            validChoice = true;
+        }
+        else if (choice == "") {
+            system("cls");
+        }
+        else {
             system("cls");
             cout << "Invalid choice please try again" << endl;
-            break;
         }
-    }
+    } while (!validChoice);
   
 }
 
-//login() allows user to login to borrow books if they have a username and password
+// login() allows user to login to borrow books if they have a username and password
 void Login::login() {
-    string username;
+    int id;
     string password;
     string line;
 
@@ -152,38 +143,55 @@ void Login::login() {
 
     do {
 
-        cout << "\nEnter your username: \t" << endl;
-        cin >> username;
-        if (!username._Equal("1")) {
+        cout << "\nEnter your Library ID: \t" << endl;
+        cin >> id;
+        if (id != 1) {
             cout << "\nEnter your password: \t" << endl;
             cin >> password;
-        }
-        else {
+            if (password._Equal("1")) {
+                system("cls");
+                printMenu();
+            }
+        } else {
             system("cls");
             printMenu();
         }
 
-      } while (isLoginValid(username, password) != true);
+      } while (isLoginValid(id, password) != true);
 
-    if (true) {
-        system("cls");
-        cout << username << " Login Successful!" << endl;
-        cout << endl;
+      system("cls");
+      cout << endl;
 
-        ofstream userInfo;
-        userInfo.open("currentUser.txt");
+      cin.clear();
+      cin.ignore();
 
-        if (!userInfo.is_open()) {
-            cout << "File open was not successful";
-        }
-        //userInfo << username << endl;
-        userInfo.close();      
-        userHomeMenu();
-       
-        system("cls");
-        return;
+      if (CurrentSessionInfo::currUser.getLibID() == 1000) {
+          // Go to admin menu :)
+          // Temp going to userHomeMenu
+          userHomeMenu();
+      }
+      else {
+          userHomeMenu();
+      }
+}
+
+// guest() allows user to be a guest and use material from the library for 2 hours
+void Login::guest() {
+    string gName;
+    string media;
+    vector<LibraryMedia>guestBuyList;
+    int choice;
+    cout << "Press 1 to return to Main Menu." << endl;
+    cout << endl;
+    cout << "Enter Guest's full name: \n" << endl;
+    cin.ignore();
+    getline(cin, gName);
+    
+    if (!gName._Equal("1")) {
+        InventoryScreen::SearchForMedia();
     }
-   
+
+    cout << endl;
 }
 
 // Called to register a user and emplace said user to the end of the userList vector
@@ -194,6 +202,7 @@ void Login::registration() {
     // Reference InventoryScreen.cpp AddMedia function on how to determine what obj they are
     // Get user type first...
     do {
+        system("cls");
         cout << "Enter your position(M/E/S)" << endl;
         cout << "Staff member M\nEmployee E\nStudent S \t" << endl;
         cin >> pos;
@@ -209,14 +218,30 @@ void Login::registration() {
     tmpUsr->setAddress();
     tmpUsr->setPhoneNumber();
     tmpUsr->setEmail();
+    tmpUsr->setPassword();
     tmpUsr->setLibID(1000 + CurrentSessionInfo::userList.size());
 
     if (pos == 'M') {
         Staff* st = dynamic_cast<Staff*>(tmpUsr);
         st->setUserType(User::staff);
         st->setID();
-        st->setPassword();
+
+        cout << "Is the information correct? Y/N" << endl;
+        st->printData();
+
+        do {
+            pos = getchar();
+            if (pos == 'N' || pos == 'n') {
+                delete st;
+                registration();
+            }
+            else if (pos != 'Y' && pos != 'y') {
+                cout << "Please Enter only Y/N for input!" << endl;
+            }
+        } while (pos != 'N' && pos != 'n' && pos != 'Y' && pos != 'y');
+
         CurrentSessionInfo::userList.emplace_back(new Staff(*st));
+
         delete st;
         system("cls");
         cout << "New Staff User Added" << endl;
@@ -225,8 +250,23 @@ void Login::registration() {
         FacultyMember* fm = dynamic_cast<FacultyMember*>(tmpUsr);
         fm->setUserType(User::facultyMember);
         fm->setID();
-        fm->setPassword();
+
+        cout << "Is the information correct? Y/N" << endl;
+        fm->printData();
+
+        do {
+            pos = getchar();
+            if (pos == 'N' || pos == 'n') {
+                delete fm;
+                registration();
+            }
+            else if (pos != 'Y' && pos != 'y') {
+                cout << "Please Enter only Y/N for input!" << endl;
+            }
+        } while (pos != 'N' && pos != 'n' && pos != 'Y' && pos != 'y');
+
         CurrentSessionInfo::userList.emplace_back(new FacultyMember(*fm));
+
         delete fm;
         system("cls");
         cout << "New Faculty Member User Added" << endl;
@@ -235,8 +275,23 @@ void Login::registration() {
         Student* st = dynamic_cast<Student*>(tmpUsr);
         st->setUserType(User::student);
         st->setID();
-        st->setPassword();
+
+        cout << "Is the information correct? Y/N" << endl;
+        st->printData();
+
+        do {
+            pos = getchar();
+            if (pos == 'N' || pos == 'n') {
+                delete st;
+                registration();
+            }
+            else if (pos != 'Y' && pos != 'y') {
+                cout << "Please Enter only Y/N for input!" << endl;
+            }
+        } while (pos != 'N' && pos != 'n' && pos != 'Y' && pos != 'y');
+
         CurrentSessionInfo::userList.emplace_back(new Student(*st));
+
         delete st;
         system("cls");
         cout << "New Student User Added" << endl;
@@ -244,95 +299,31 @@ void Login::registration() {
 
     cout << endl;
 
-    char correct;
+    CurrentSessionInfo::SaveUserData();
 
-    //check that information entered is correct, if it is save to file if it is not, enter new information  
-    cout << "Is the information correct? Y/N" << endl;
-    CurrentSessionInfo::userList.back()->printData();
-    cin >> correct;
-
-    if (correct == 'N') {
-        CurrentSessionInfo::userList.pop_back();
-        registration();
-    }
+    // Empty and repopulate vector, because saving it causes an issue with the last added object otherwise
+    CurrentSessionInfo::userList.clear();
+    CurrentSessionInfo::LoadUserData<FacultyMember>("Faculty.txt");
+    CurrentSessionInfo::LoadUserData<Staff>("Staff.txt");
+    CurrentSessionInfo::LoadUserData<Student>("Students.txt");
 }
 
 //validate username and password match to login
-bool Login::isLoginValid(string &inUser, string &inPass) {
-    string username, password;
+bool Login::isLoginValid(int &inUser, string &inPass) {
 
-    ifstream read("userpass.txt");
-
-    if (!read.is_open()) {
-        cout << "File not opened successfully";
-    }
-
-    while (read >> username >> password) {//check to see if password exists
-        if (inUser == username && inPass == password) {
-            return true;
+    for (int i = 0; i < CurrentSessionInfo::userList.size(); i++) {
+        if (CurrentSessionInfo::userList.at(i)->getLibID() == inUser) {
+            if (CurrentSessionInfo::userList.at(i)->getPassword() == inPass) {
+                CurrentSessionInfo::currUser = *CurrentSessionInfo::userList.at(i);
+                return true;
+            }
         }
-        
     }
+
     system("cls");
-    cout << "\nUsername or Password not found.  Please try again." << endl;
+    cout << "\nLibrary ID or Password not found. Please try again, or enter 0 to return." << endl;
     
     return false;
-    read.close();
 }
-
-
- 
-/*
-// Asks for address information
-string Login::isValidAddress()const {
-    string street;
-    string city;
-    string state;
-    string zipCode;
-    do {
-        cout << "\nEnter your address: \nStreet:\t" << endl;
-        getline(cin, street);
-            if (street.length() > 50) {
-                cout << "Invalid Street.  Please try again." << endl;
-            }
-    } while (street.length() > 50);
-    
-    do {
-        cout << "\nCity:\t" << endl;
-        getline(cin, city);
-             if (city.length() > 25) {
-                cout << "Invalid City.  Please try again." << endl;
-             }
-    } while (city.length() > 25);
-    
-    do {
-        cout << "\nState:\t" << endl;
-        getline(cin, state);
-            if (state.length() > 30) {
-                cout << "Invalid State.  Please try again." << endl;
-            }
-    } while (state.length() > 30);
-
-    do {
-        cout << "\nZip Code:\t" << endl;
-        getline(cin, zipCode);
-        if (zipCode.length() != 5) {
-            cout << "Invalid Zip Code.  Please try again." << endl;
-        }
-        else {
-            for (char ch : zipCode) {
-                if (!isdigit(ch)) {
-                    getline(cin, zipCode);
-                }
-            }
-        }
-    } while (zipCode.length() != 5);
-
-    string address = street + " " + city + ", " + state + " " + zipCode;
-
-    return address;
-
-}
-*/
 
 #endif // !MAINLOGIN_CPP

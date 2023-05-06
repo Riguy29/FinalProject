@@ -315,7 +315,6 @@ void InventoryScreen::SearchByTitle()
 	}
 	else {
 		PrintMatchingMedia(matchingList);
-		
 	}
 	//MediaInteractionMenu(matchingList);
 

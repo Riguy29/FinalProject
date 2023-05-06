@@ -5,7 +5,6 @@
 class Staff : public User {
 protected:
 	char ID[100];
-	char password[50];
 public:
 	Staff();
 	Staff(userTypes _userType, int libID, string _firstName, string _lastName,
@@ -13,14 +12,11 @@ public:
 	Staff(const Staff& sTmp);
 	virtual ~Staff();
 
-	// Mutators
+	// Mutator
 	void setID();
-	void setPassword();
 
 	// Accessors
 	string getID()const;
-	string getPassword()const;
-
 	virtual void printData()const;
 };
 
