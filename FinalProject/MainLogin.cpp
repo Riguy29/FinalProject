@@ -83,6 +83,100 @@ void Login::printMenu() {
     } while (valid);
  }
 
+void Login::adminMenu() {
+    string choice;
+    bool validChoice = false;
+    string fName = CurrentSessionInfo::currUser.getFirstName();
+
+    system("cls");
+
+    // Convert fName to full uppercase
+    transform(fName.begin(), fName.end(), fName.begin(), ::toupper);
+
+    // Using a while true loop so that when a user comes back from a submenu it reprints this menu
+    do {
+        cout << setfill('-') << setw(117) << "" << endl;
+        cout << setfill('-') << setw(67) << " WELCOME " << fName << " " << setfill('-') << setw(49 - (fName.size())) << "" << endl;
+        cout << setfill('-') << setw(117) << "" << endl;
+        cout << endl;
+
+        cout << setfill(' ') << setw(70) << "Select from the options below:\n" << endl;
+        cout << setfill(' ') << setw(55) << "0. Log out" << endl;
+        cout << setfill(' ') << setw(57) << "1. Inventory" << endl;
+        cout << setfill(' ') << setw(69) << "2. View Member Accounts\n" << endl;
+        cout << setfill(' ') << setw(63) << "Enter Your Choice:\t";
+
+        getline(cin, choice);
+
+        if (choice == "1") {
+            system("cls");
+            cout << "Total Items in Library: " << CurrentSessionInfo::mediaList.size() << endl;
+
+            for (int i = 0; i < CurrentSessionInfo::mediaList.size(); i++) {
+                CurrentSessionInfo::mediaList.at(i)->ToString();
+            }
+            int mediaChoice;
+            cout << setfill(' ') << setw(55) << "0. Log out" << endl;
+            cout << setfill(' ') << setw(69) << "1. Update Member Account\n" << endl;
+            cin >> mediaChoice;
+
+            switch (mediaChoice) {
+            case 0:
+                return;
+            case 1:
+               // InventoryScreen::EditMediaDataMenu();
+                break;
+            default:
+                cout << "Invalid choice" << endl;
+            }
+            //InventoryScreen::SearchForMedia();
+        }
+        else if (choice == "2") {
+            system("cls");
+
+            cout << "Total Users: " << CurrentSessionInfo::userList.size() << endl;
+
+            for (int i = 0; i < CurrentSessionInfo::userList.size(); i++) {
+                CurrentSessionInfo::userList.at(i)->printData();
+            }
+            int adminChoice;
+            cout << setfill(' ') << setw(55) << "0. Return" << endl;
+            cout << setfill(' ') << setw(70) << "1. Update Member Account" << endl;
+            cout << setfill(' ') << setw(58) << "2. Checkout\n" << endl;
+            cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+
+            cin >> adminChoice;
+            switch (adminChoice) {
+            case 0:
+                system("cls");
+                return;
+            case 1:
+                //FIX ME: access user account to update personal information
+                break;
+            case 2:
+                //CurrentSessionInfo::CheckoutBook(); //FIX ME:needs to be set up
+                break;
+            default:
+                cout << "Invalid Choice" << endl;
+            }
+
+        }
+        else if (choice == "0") {
+            system("cls");
+            validChoice = true;
+        }
+        else if (choice == "") {
+            system("cls");
+        }
+        else {
+            system("cls");
+            cout << "Invalid choice please try again" << endl;
+        }
+    } while (!validChoice);
+
+}
+
+
 void Login::userHomeMenu() {   
     string choice;
     bool validChoice = false;
@@ -101,9 +195,9 @@ void Login::userHomeMenu() {
         cout << endl;
 
         cout << setfill(' ') << setw(75) << "Select from the options below:\n" << endl;
+        cout << setfill(' ') << setw(55) << "0. Log out" << endl;
         cout << setfill(' ') << setw(62) << "1. Access Library" << endl;
-        cout << setfill(' ') << setw(60) << "2. View Account" << endl;
-        cout << setfill(' ') << setw(56) << "0. Log out\n" << endl;
+        cout << setfill(' ') << setw(61) << "2. View Account\n" << endl;
         cout << setfill(' ') << setw(63) << "Enter Your Choice:\t";
 
         getline(cin, choice);
@@ -166,9 +260,7 @@ void Login::login() {
       cin.ignore();
 
       if (CurrentSessionInfo::currUser.getLibID() == 1000) {
-          // Go to admin menu :)
-          // Temp going to userHomeMenu
-          userHomeMenu();
+          adminMenu();
       }
       else {
           userHomeMenu();

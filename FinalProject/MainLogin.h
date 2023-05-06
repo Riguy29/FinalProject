@@ -38,6 +38,7 @@ public:
 	void registration();
 	void guest();
 	bool isLoginValid(int &inUser, string &inPass);
+	void adminMenu();
 
 	static void userHomeMenu();
 };

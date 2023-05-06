@@ -109,18 +109,8 @@ void InventoryScreen::SearchForMedia()
 		cout << setfill(' ') << setw(64) << "3. Search By Publisher" << endl;
 		cout << setfill(' ') << setw(65) << "4. Search By Department" << endl;
 		cout << setfill(' ') << setw(62) << "5. Search By Subject" << endl;
-/*
-		ifstream user;
-		string username;
-		user.open("currentUser.txt");
-
-		if (!user.is_open()) {
-			cout << "File open was not successful";
-		}
-		user >> username;
-		user.close();
-		*/
-		//if (username.at(0) == 'M') {// if user isAdmin
+		
+		//if (admin.isUserAdmin == true) {
 			cout << setfill(' ') << setw(61) << "6. Search By Course" << endl;
 			cout << setfill(' ') << setw(60) << "7. Search By Price" << endl;
 			cout << setfill(' ') << setw(73) << "8. Search By Publisher Address\n" << endl;
@@ -129,7 +119,7 @@ void InventoryScreen::SearchForMedia()
 		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 
 		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		//cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cin >> choice;
 		system("cls");
 		if (!cin) { //If they enter a a non integer value go to next loop

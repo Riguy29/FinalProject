@@ -35,7 +35,7 @@ public:
 	static void PrintMatchingMedia(vector<LibraryMedia*> mediaList);
 
 	static void EditMediaDataMenu(LibraryMedia* selectedMedia);
-
+	
 private:
 	static string recordTxtFile;
 	static vector<LibraryMedia*> mediaToCheckout;

@@ -205,7 +205,7 @@ void User::setPassword() {
     system("cls");
 
     do {
-        cout << "Enter Password: " << endl;
+        cout << "Enter Password (must contain at least 1 uppercase and lowercase letter, 1 number and 1 special character): " << endl;
         getline(cin, p);
 
         // Check for at least one uppercase and lowercase letter, and one number
