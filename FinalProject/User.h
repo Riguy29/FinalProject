@@ -28,6 +28,7 @@ public:
 
 	// Constructors
 	User();
+	User(userTypes _userType, int libID, string _firstName, string _lastName, string _address, string _phoneNum, string _email, string _password);
 	User(const User& newU);
 	virtual ~User();
 
@@ -39,6 +40,7 @@ public:
 	void setEmail();
 	void setLibID(int libID);
 	void setUserType(userTypes type);
+	void setPassword();
 
 	// Accessors 
 	string getFirstName()const;
@@ -48,6 +50,7 @@ public:
 	string getEmail()const;
 	int getLibID()const;
 	userTypes getUserType();
+	string getPassword()const;
 
 	// Misc
 	bool containsOnlyLetters(string const& str);
@@ -61,19 +64,8 @@ protected:
 	char address[200];
 	char phoneNum[50];
 	char email[200];
+	char password[50];
 	int libID;
-
-/*
-public:
-	// Functions to update user information
-	void updateFirstName();
-	void updateLastName();
-	void updateAddress();
-	void updatePhoneNumber();
-	void updateEmail();
-	void updateUserType();
-*/
-
 };
 
 #endif // USER_H

@@ -1,5 +1,4 @@
-#ifndef INVENTORYSCREEN_H
-#define INVENTORYSCEEN_H
+#pragma once
 
 #include <iostream>
 #include <string>
@@ -9,14 +8,13 @@
 #include "ConferenceJournal.h"
 #include "Periodical.h"
 #include "Book.h"
+#include "GuestLogin.h"
 #include <vector>
 #include <fstream>
 
-
 using namespace std; 
 
-class InventoryScreen 
-{
+class InventoryScreen {
 public:
 	static void AddMedia();
 	static void SearchForMedia();
@@ -34,7 +32,7 @@ public:
 	static void PrintMatchingMedia(vector<LibraryMedia*> mediaList);
 
 	static void EditMediaDataMenu(LibraryMedia* selectedMedia);
-
+	
 private:
 	static string recordTxtFile;
 	static vector<LibraryMedia*> mediaToCheckoutOrBuy;

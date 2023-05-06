@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Author" Collapsed="true">
+    <Position X="10.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAgAAAAAgAAAAAAAAAAEAAAAAAAAQAAABAA=</HashCode>
+      <FileName>Author.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Book" Collapsed="true">
+    <Position X="6.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAABEAAABEAAAAAAAAAAAAAQBAAAAAEA=</HashCode>
+      <FileName>Book.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CheckedoutMedia" Collapsed="true">
+    <Position X="8.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAACCAgAAAAACBAAIAAAAgAAACIAIAAAAAAAIAA=</HashCode>
+      <FileName>CheckedoutMedia.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConferenceJournal" Collapsed="true">
+    <Position X="11.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAEAAAAAAADABEQAAAAAAAAAAABAIA=</HashCode>
+      <FileName>ConferenceJournal.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CurrentSessionInfo" Collapsed="true">
+    <Position X="10.75" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>QIAIQAAEEAAQAABAYIAAABAQIBAAAAAAAACgAAQAgAA=</HashCode>
+      <FileName>CurrentSessionInfo.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Date" Collapsed="true">
+    <Position X="4.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQkAAAAAAAAAAAAACAAAAAAAAQAAAIBCAAAAAAAAAA=</HashCode>
+      <FileName>Date.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FacultyMember" Collapsed="true">
+    <Position X="2.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgACAACAIABAAAAAAAAAAAAAIAgAACIA=</HashCode>
+      <FileName>FacultyMember.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GuestLogin" Collapsed="true">
+    <Position X="5.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAACAAAAAAAAAAAAAAAAIAAAAAAAAAAAAQAgAAA=</HashCode>
+      <FileName>GuestLogin.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InventoryScreen" Collapsed="true">
+    <Position X="6.75" Y="4" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAEAAQAAASAAIAAAAAAB0AAABQAAABAQBAAEQgAAAAI=</HashCode>
+      <FileName>InventoryScreen.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LibraryMedia" Collapsed="true">
+    <Position X="8.75" Y="0.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="LibraryMedia::mediaTypes" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>LibraryMedia.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAARCBAFRAIIAAAFEAAIAAAgBCCggggAAABIAAAAQAA=</HashCode>
+      <FileName>LibraryMedia.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Newspaper" Collapsed="true">
+    <Position X="9.75" Y="2" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="Newspaper::NewspaperPublishRates">
+        <TypeIdentifier>
+          <NewMemberFileName>Newspaper.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAGAAAAAAAAAAAAgAAAAAAAAgAgAAA=</HashCode>
+      <FileName>Newspaper.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Periodical" Collapsed="true">
+    <Position X="8" Y="2" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="Periodical::PeriodicalPublishRates">
+        <TypeIdentifier>
+          <NewMemberFileName>Periodical.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAEAAAAAAAAgAAAAAAAAAAAAgAgIAA=</HashCode>
+      <FileName>Periodical.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Publisher" Collapsed="true">
+    <Position X="8.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACACCKgAAAAgCEAAAAAAAAIEAAACAAAAQAAABAA=</HashCode>
+      <FileName>Publisher.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Staff" Collapsed="true">
+    <Position X="4" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgACAACQIAAAAACAAAAAAAAAAAgAACIA=</HashCode>
+      <FileName>Staff.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Student" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAgACABCAIAAAAAAAAAAAAAAAAAgAACIA=</HashCode>
+      <FileName>Student.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="User" Collapsed="true">
+    <Position X="2.25" Y="1" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="User::userTypes">
+        <TypeIdentifier>
+          <NewMemberFileName>User.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAABAAAAIAFgAAyhAiAAgAAAAAIAAAAgAAoACsABMAA=</HashCode>
+      <FileName>User.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Login" Collapsed="true">
+    <Position X="3" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAEAABAAAAAAAAAIgAEQAAAAEAAAAAQQCggAEIA=</HashCode>
+      <FileName>Login.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

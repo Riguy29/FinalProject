@@ -12,8 +12,9 @@ string CurrentSessionInfo::BOOK_FILE_PATH = "BookRecord.txt";
 string CurrentSessionInfo::NEWS_FILE_PATH = "NewspaperRecord.txt";
 string CurrentSessionInfo::JOURNAL_FILE_PATH = "JournalRecord.txt";
 string CurrentSessionInfo::PERIODICAL_FILE_PATH = "PeriodicalRecord.txt";
-string CurrentSessionInfo::USER_FILE_PATH = "Users.txt";
-string CurrentSessionInfo::BORROWERDMEDIA_FILE_PATH= "BorrowedMediaRecord.txt";
+string CurrentSessionInfo::FACULTY_FILE_PATH = "Faculty.txt";
+string CurrentSessionInfo::STAFF_FILE_PATH = "Staff.txt";
+string CurrentSessionInfo::STUDENT_FILE_PATH = "Students.txt";
 
 void CurrentSessionInfo::GenerateDummyData()
 {
@@ -85,7 +86,9 @@ void CurrentSessionInfo::LoadAllData()
 	LoadMediaData<Newspaper>("NewspaperRecord.txt");
 	LoadMediaData<Periodical>("PeriodicalRecord.txt");
 
-	LoadUserData<User>("Users.txt");
+	LoadUserData<FacultyMember>("Faculty.txt");
+	LoadUserData<Staff>("Staff.txt");
+	LoadUserData<Student>("Students.txt");
 
 	//LoadData<ConferenceJournal>("JournalRecord.txt");
 }
@@ -96,6 +99,7 @@ void CurrentSessionInfo::SaveAllData()
 	SaveData<Author>("AuthorRecord.txt", authorList);
 
 	SaveData();
+	SaveUserData();
 }
 
 template<typename T>
@@ -133,22 +137,20 @@ void CurrentSessionInfo::LoadMediaData(string fileName)
 	inStream.close();
 }
 
-// Load User Data
+
 template<typename T>
 void CurrentSessionInfo::LoadUserData(string fileName)
 {
 	fstream inStream;
 	inStream.open(fileName, ios::binary | ios::in);
 	T temp;
-
 	if (inStream.is_open()) {
 		while (inStream.read(reinterpret_cast<char*>(&temp), sizeof(T)))
 		{
 			userList.emplace_back(new T(temp));
 		}
 	}
-
-	else cout << "Error: Could not load user data, make sure filepath is correct";
+	else cout << "Error: Could not load data, make sure filepath is correct";
 	inStream.close();
 }
 
@@ -167,16 +169,48 @@ void CurrentSessionInfo::SaveData(string fileName, vector<T>& list)
 
 	outStream.close();
 }
+void CurrentSessionInfo::SaveUserData()
+{
+	ofstream fOut, stOut, sOut;
+	fOut.open(FACULTY_FILE_PATH, ios::binary | ios::out);
+	stOut.open(STAFF_FILE_PATH, ios::binary | ios::out);
+	sOut.open(STUDENT_FILE_PATH, ios::binary | ios::out);
 
+	if (fOut.is_open() && stOut.is_open() && sOut.is_open()) {
+		for (int i = 0; i < userList.size(); i++)
+		{
+			User::userTypes currType = userList.at(i)->getUserType();
+			if (currType == User::facultyMember) {
+				FacultyMember* temp = dynamic_cast<FacultyMember*>(userList.at(i));
+				fOut.write(reinterpret_cast<char*>(temp), sizeof(FacultyMember));
+				delete temp;
+			}
+			else if (currType == User::staff) {
+				Staff* temp = dynamic_cast<Staff*>(userList.at(i));
+				stOut.write(reinterpret_cast<char*>(temp), sizeof(Staff));
+				delete temp;
+			}
+			else if (currType == User::student) {
+				Student* temp = dynamic_cast<Student*>(userList.at(i));
+				sOut.write(reinterpret_cast<char*>(temp), sizeof(Student));
+				delete temp;
+			}
+		}
+	}
+
+	else cout << "Error: Could not load data, make sure filepath is correct";
+	fOut.close();
+	stOut.close();
+	sOut.close();
+}
 
 void CurrentSessionInfo::SaveData()
 {
-	fstream bookOut,newspaperOut,periodicalOut,journalOut, userOut;
+	fstream bookOut,newspaperOut,periodicalOut,journalOut;
 	bookOut.open(BOOK_FILE_PATH, ios::binary | ios::out);
 	newspaperOut.open(NEWS_FILE_PATH, ios::binary | ios::out);
 	periodicalOut.open(PERIODICAL_FILE_PATH, ios::binary | ios::out);
 	journalOut.open(JOURNAL_FILE_PATH, ios::binary | ios::out);
-	userOut.open(USER_FILE_PATH, ios::binary | ios::out);
 
 	if (bookOut.is_open() && periodicalOut.is_open() && journalOut.is_open() && newspaperOut.is_open()) {
 		
@@ -206,38 +240,11 @@ void CurrentSessionInfo::SaveData()
 			}
 		}
 		
-
-
-	}
-	else cout << "Error: Could not save media data, make sure filepath is correct";
-
-	if (userOut.is_open()) {
-		for (int i = 0; i < userList.size(); i++)
-		{
-			User::userTypes currType = userList.at(i)->getUserType();
-			if (currType == User::facultyMember) {
-				FacultyMember* temp = dynamic_cast<FacultyMember*>(userList.at(i));
-				userOut.write(reinterpret_cast<char*>(&*temp), sizeof(FacultyMember));
-				delete temp;
-			}
-			else if (currType == User::staff) {
-				Staff* temp = dynamic_cast<Staff*>(userList.at(i));
-				userOut.write(reinterpret_cast<char*>(&*temp), sizeof(Staff));
-				delete temp;
-			}
-			else if (currType == User::student) {
-				Student* temp = dynamic_cast<Student*>(userList.at(i));
-				userOut.write(reinterpret_cast<char*>(&*temp), sizeof(Student));
-				delete temp;
-			}
-		}
 	}
 	else cout << "Error: Could Not save user data, make sure filepath is correct";
-
 
 	bookOut.close();
 	newspaperOut.close();
 	periodicalOut.close();
 	journalOut.close();
-	userOut.close();
 }

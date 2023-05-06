@@ -25,25 +25,22 @@ using namespace std;
 class Login {
 private:
 	Date date;
-	GuestLogin guestLogin;
-	InventoryScreen invScreen;
 	CurrentSessionInfo currSession;
+	User usr;
 public:
 	Login();
 	Login(Login& l);
 	~Login();
 
 	void printMenu();
-	string getUsername()const;
 	string getPassword()const;
-	void setUsername(string userN);
-	void setPassword(string userP);
 	void login();	
 	void registration();
 	void guest();
-	static bool isLoginValid(string& inUser, string& inPass);
+	bool isLoginValid(int &inUser, string &inPass);
+	void adminMenu();
 
-	void userHomeMenu()const;
+	static void userHomeMenu();
 };
 
 #endif // !MAINLOGIN_H

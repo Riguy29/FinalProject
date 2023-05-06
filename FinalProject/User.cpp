@@ -13,11 +13,25 @@ User::User() {
     userType = student;
     libID = 0;
 
-    strcpy_s(firstName, sizeof(firstName), "");
-    strcpy_s(lastName, sizeof(lastName), "");
-    strcpy_s(address, sizeof(address), "");
-    strcpy_s(phoneNum, sizeof(phoneNum), "");
-    strcpy_s(email, sizeof(email), "");
+    strncpy_s(firstName, "Not Set", 50);
+    strncpy_s(lastName, "Not Set", 50);
+    strncpy_s(address, "Not Set", 200);
+    strncpy_s(phoneNum, "Not Set", 50);
+    strncpy_s(email, "Not Set", 200);
+    strncpy_s(password, "Not Set", 50);
+}
+
+// Overloaded Default Constructor
+User::User(userTypes _userType, int _libID, string _firstName, string _lastName, string _address, string _phoneNum, string _email, string _password) {
+    userType = _userType;
+    libID = _libID;
+
+    strncpy_s(firstName, _firstName.c_str(), 50);
+    strncpy_s(lastName, _lastName.c_str(), 50);
+    strncpy_s(address, _address.c_str(), 200);
+    strncpy_s(phoneNum, _phoneNum.c_str(), 50);
+    strncpy_s(email, _email.c_str(), 50);
+    strncpy_s(password, _password.c_str(), 50);
 }
 
 // Copy Constructor
@@ -25,11 +39,12 @@ User::User(const User& cUsr) {
 	userType = cUsr.userType;
     libID = cUsr.libID;
 
-    strcpy_s(firstName, sizeof(firstName), cUsr.firstName);
-    strcpy_s(lastName, sizeof(lastName), cUsr.lastName);
-    strcpy_s(address, sizeof(address), cUsr.address);
-    strcpy_s(phoneNum, sizeof(phoneNum), cUsr.phoneNum);
-    strcpy_s(email, sizeof(email), cUsr.email);
+    strncpy_s(firstName, cUsr.firstName, 50);
+    strncpy_s(lastName, cUsr.lastName, 50);
+    strncpy_s(address, cUsr.address, 200);
+    strncpy_s(phoneNum, cUsr.phoneNum, 50);
+    strncpy_s(email, cUsr.email, 200);
+    strncpy_s(password, cUsr.password, 50);
 }
 
 // Destructor
@@ -41,14 +56,20 @@ string User::getLastName()const { return lastName; }
 string User::getAddress()const { return address; }
 string User::getPhoneNumber()const { return phoneNum; }
 string User::getEmail()const { return email; }
-User::userTypes User::getUserType() { return userType; }
+string User::getPassword()const { return password; }
 
+User::userTypes User::getUserType() { return userType; }
 int User::getLibID()const { return libID; }
 
-// Mutators TODO: Implement error checking for user creation and mod
+// Mutators
 void User::setFirstName() {
     string fName;
     bool valid = false;
+
+    system("cls");
+
+    cin.clear();
+    cin.ignore();
     
     do {
         cout << "Enter First Name: " << endl;
@@ -71,6 +92,8 @@ void User::setFirstName() {
 void User::setLastName() { 
     string lName;
     bool valid = false;
+
+    system("cls");
 
     do {
         cout << "Enter Last Name: " << endl;
@@ -96,18 +119,20 @@ void User::setAddress() {
     string ad;
     bool valid = false;
     
+    system("cls");
+
     do {
         cout << "Enter Address: " << endl;
         getline(cin, ad);
 
         // Limit user address to 200 chars
-        if (ad.length() > 200 || ad.length() == 0) {
-            system("cls");
-            cout << "Address must be greater than 0 and less than 200 characters long!" << endl;
-        }
-        else { // Use regex here, just takes string thats less than 200 and greater than 0 atm for testing purposes
+        if (ad.length() < 200 || ad.length() > 0) {
             strcpy_s(address, sizeof(address), ad.c_str());
             valid = true;
+        }
+        else {
+            system("cls");
+            cout << "Address must be greater than 0 and less than 200 characters long!" << endl;
         }
 
     } while (!valid);
@@ -117,6 +142,8 @@ void User::setPhoneNumber() {
     string tmpStr;
     bool valid = false;
     
+    system("cls");
+
     // Will be used later in function to compare number format :)
     regex r("[[:digit:]]{3}-[[:digit:]]{3}-[[:digit:]]{4}");
 
@@ -126,7 +153,7 @@ void User::setPhoneNumber() {
 
         // Try if user entered correct format
         if (regex_match(tmpStr, r)) {
-            strcpy_s(phoneNum, tmpStr.size() + 1, tmpStr.c_str());
+            strcpy_s(phoneNum, sizeof(phoneNum), tmpStr.c_str());
             valid = true;
         }
         else {
@@ -141,6 +168,8 @@ void User::setEmail() {
     string em;
     bool valid = false;
 
+    system("cls");
+
     regex r("(\\w+)(\\.|_)?(\\w*)@(\\w+)(\\.(\\w+))+");
 
     do {
@@ -152,12 +181,84 @@ void User::setEmail() {
             system("cls");
             cout << "Email Address must be greater than 0 and less than 200 characters long!" << endl;
         }
-        else if (!regex_match(em, r)) {
-            system("cls");
-            cout << "Email Address must be formatted as Example@example.example" << endl;
+        else if (regex_match(em, r)) {
+            strcpy_s(email, sizeof(email), em.c_str());
+            valid = true;
         }
         else {
-            strcpy_s(email, sizeof(em), em.c_str());
+            system("cls");
+            cout << "Email Address must be formatted as Example@example.example" << endl;
+            
+        }
+
+    } while (!valid);
+}
+
+void User::setPassword() {
+    string p;
+    bool valid = false;
+    bool upper = false;
+    bool lower = false;
+    bool digit = false;
+    bool special = false;
+
+    system("cls");
+
+    do {
+        cout << "Enter Password (must contain at least 1 uppercase and lowercase letter, 1 number and 1 special character): " << endl;
+        getline(cin, p);
+
+        // Check for at least one uppercase and lowercase letter, and one number
+        for (int i = 0; i < p.size(); i++) {
+            if (isupper(p[i])) {
+                upper = true;
+            }
+
+            if (isdigit(p[i])) {
+                digit = true;
+            }
+
+            if (islower(p[i])) {
+                lower = true;
+            }
+        }
+
+        if (p.find('$') != string::npos) {
+            special = true;
+        }
+        else if (p.find('#') != string::npos) {
+            special = true;
+        }
+        else if (p.find('%') != string::npos) {
+            special = true;
+        }
+        else if (p.find('!') != string::npos) {
+            special = true;
+        }
+
+        // Limit input to 50 chars
+        if (p.length() > 50 || p.length() == 0) {
+            system("cls");
+            cout << "Password must be greater than 0 and less than 50 characters long!" << endl;
+        }
+        else if (!upper) {
+            system("cls");
+            cout << "Password must contain at least one uppercase letter!" << endl;
+        }
+        else if (!lower) {
+            system("cls");
+            cout << "Password must contain at least one lowercase letter!" << endl;
+        }
+        else if (!digit) {
+            system("cls");
+            cout << "Password must contain at least one number!" << endl;
+        }
+        else if (!special) {
+            system("cls");
+            cout << "Password must contain at least one special character ($#%!)" << endl;
+        }
+        else {
+            strcpy_s(password, sizeof(password), p.c_str());
             valid = true;
         }
 
@@ -168,66 +269,82 @@ void User::setLibID(int i) { libID = i; }
 void User::setUserType(userTypes type) { userType = type; }
 
 void User::printMenu() {
-    
     int accountChoice;
-    cout << setfill('-') << setw(116) << "\n" << endl;
-    cout << setfill(' ') << setw(68) << getFirstName() << endl;
-    cout << setfill('-') << setw(116) << "\n" << endl;
-    cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
-    cout << setfill(' ') << setw(60) << "1. Update Personal Information" << endl;
-    cout << setfill(' ') << setw(58) << "2. View My Books" << endl;
-    cout << setfill(' ') << setw(51) << "0. Return\n" << endl;
-    cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+    bool valid = false;
 
-    cin >> accountChoice;
-
-    switch (accountChoice) {
-    case 0:
-        return;
-    case 1:
-        int updateChoice;
-        cout << setfill(' ') << setw(60) << "What would you like to update?" << endl;
-        cout << setfill(' ') << setw(60) << "1. First Name" << endl;
-        cout << setfill(' ') << setw(60) << "2. Last Name" << endl;
-        cout << setfill(' ') << setw(60) << "3. Address" << endl;
-        cout << setfill(' ') << setw(60) << "4. Phone Number" << endl;
-        cout << setfill(' ') << setw(60) << "5. Email" << endl;
-        cout << setfill(' ') << setw(60) << "0. Return\n" << endl;
-        cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
-        cin >> updateChoice;
-        switch (updateChoice) {
-        case 1:
-            break;
-        case 2:
-            break;
-        case 3:
-            break;
-        case 4:
-            break;
-        case 5:
-            break;
-        case 0:
-            return;
-        default:
-            cout << "Invalid Choice" << endl;
-        }
-
-        break;
-    case 2:
-        //FIXME: open currentUser bookList
-        cout << "Books you currently have checked out are: " << endl;
+    do {
+        cout << setfill('-') << setw(117) << "" << endl;
+        cout << setfill('-') << setw(50) << " CURRENT USER: " << getFirstName() << " " << getLastName() 
+            << " " << setfill('-') << setw(52 - (getFirstName().size())) << "" << endl;
         
+        cout << setfill('-') << setw(117) << "" << endl;
         cout << endl;
 
-        int returnInput;
-        do {
-            cout << "Press 0 to return to previous screen" << endl;
-            cin >> returnInput;
-        } while (returnInput != 0);
-        break;
-    default:
-        cout << "Invalid Choice" << endl;
-    }
+        cout << setfill(' ') << setw(75) << "Select from the options below:\n" << endl;
+        cout << setfill(' ') << setw(55) << "0. Return" << endl;
+        cout << setfill(' ') << setw(75) << "1. Update Personal Information" << endl;
+        cout << setfill(' ') << setw(61) << "2. View My Books\n" << endl;
+        cout << setfill(' ') << setw(63) << "Enter Your Choice:\t";
+
+        cin >> accountChoice;
+        
+        switch (accountChoice) {
+        case 0:
+            valid = true;
+            system("cls");
+            break;
+        case 1:
+            system("cls");
+            int updateChoice;
+            cout << setfill(' ') << setw(70) << "What would you like to update?" << endl;
+            cout << setfill(' ') << setw(56) << "0. Return" << endl;
+            cout << setfill(' ') << setw(60) << "1. First Name" << endl;
+            cout << setfill(' ') << setw(59) << "2. Last Name" << endl;
+            cout << setfill(' ') << setw(57) << "3. Address" << endl;
+            cout << setfill(' ') << setw(62) << "4. Phone Number" << endl;
+            cout << setfill(' ') << setw(56) << "5. Email\n" << endl;
+            cout << setfill(' ') << setw(63) << "Enter Your Choice:\t";
+            cin >> updateChoice;
+            switch (updateChoice) {
+            case 1:
+                setFirstName();
+                break;
+            case 2:
+                setLastName();
+                break;
+            case 3:
+                setAddress();
+                break;
+            case 4:
+                setPhoneNumber();
+                break;
+            case 5:
+                setEmail();
+                break;
+            case 0:
+                break;
+            default:
+                cout << "Invalid Choice" << endl;
+            }
+
+            break;
+        case 2:
+            //FIXME: open currentUser bookList
+            cout << "Books you currently have checked out are: " << endl;
+
+            cout << endl;
+
+            int returnInput;
+            do {
+                cout << "Press 0 to return to previous screen" << endl;
+                cin >> returnInput;
+            } while (returnInput != 0);
+            break;
+        default:
+            cout << "Invalid Choice" << endl;
+            break;
+        }
+    } while (!valid);
 }
 
 // Checks if the passed in string contains only letters
@@ -244,79 +361,3 @@ void User::printData()const {
     cout << "Email: " << getEmail() << endl;
     cout << "Library ID: " << getLibID() << endl;
 }
-
-/*
-//functions for updating user information
-void User::updateFirstName() {
-if(isAdmin == true){
-    string userUsername;
-    cout << "Enter username for account you want to access"<< endl;
-    cin >> userUsername;
-
-    for(int i = 0; i < CurrentSessionInfo::userList.size(); i++){
-        if(CurrentSessionInfo::userList.at(i)->GetUsername().find(userUsername)!=string::npos){
-            cout << userList.at(i)->getFirstName() << " " << userList.at(i)->getLastName();
-
-            cout << "Enter New First Name: " << endl;
-            const char* newFName;    
-            do {
-               cin >> newFName;
-               Login::isValidName(newFName);
-            } while (!true);
-               setFirstName(newFName);
-               cout << "New Name: " << userList.at(i)->getFirstName() << " " << userList.at(i)->getLastName();
-         }
-     }
- }
- else {
-   cout << "Enter New First Name: " << endl;
-            const char* newFName;    
-            do {
-                cin >> newFName;
-               Login::isValidName(newFName);
-            } while (!true);
-                 setFirstName(newFName);
-                 cout << "New Name: " << getFirstName() << " " << getLastName();
-
-}
-void User::updateLastName() {
-    cout << "Enter New Last Name: " << endl;
-    const char* newLName;
-    do {
-        cin >> newLName;
-        Login::isValidName(newLName);
-    } while (!true);
-    setLastName(newLName);   
-}
-void User::updateAddress() {
-    cout << "Enter New Address: " << endl;
-    const char* newAddress = isValidAddress();
-    setAddress(newAddress);
-}
-void User::updatePhoneNumber() {
-    cout << "Enter New Phone Number: " << endl;
-    const char* newPhone;
-    do {
-        cin >> newPhone;
-        formatPhone(newPhone);
-    } while (!true);
-    setPhoneNumber(newPhone);
-}
-void User::updateEmail()const {
-    cout << "Enter New Email: " << endl;
-    const char* newEmail;
-    do {
-        cin >> newEmail;
-        isEmailValid(newEmail);
-    } while (!valid);
-    setEmail(newEmail);
-}
-void User::updateUserType() {
-    cout << "Enter New User Type: " << endl;
-    const char* newUserType;
-    do {
-        cin >> newUserType;
-    } while (newUserType != "facultyMember" || newUserType != "student" || newUserType != "staff");
-    setUserType(newUserType);
-}
-*/

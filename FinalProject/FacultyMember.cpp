@@ -2,40 +2,43 @@
 
 // Default Constructor
 FacultyMember::FacultyMember():User() {
-	userType = facultyMember;
-	strcpy_s(ID, sizeof(ID), "");
-	strcpy_s(password, sizeof(password), "");
+    userType = facultyMember;
+    strncpy_s(ID, "Not Set", 100);
+}
+
+// Overloaded Default Constructor
+FacultyMember::FacultyMember(userTypes _userType, int libID, string _firstName, string _lastName,
+    string _address, string _phoneNum, string _email, string _id, string _password):User(
+    facultyMember, libID, _firstName, _lastName, _address, _phoneNum, _email, _password) {
+    strncpy_s(ID, _id.c_str(), 100);
 }
 
 // Copy Constructor
-FacultyMember::FacultyMember(const FacultyMember& cFMem) : User(cFMem) {
-	strcpy_s(ID, sizeof(ID), cFMem.ID);
-	strcpy_s(password, sizeof(password), cFMem.password);
+FacultyMember::FacultyMember(const FacultyMember& cFMem):User(cFMem) {
+    strncpy_s(ID, cFMem.ID, 100);
 }
 
 // Destructor
 FacultyMember::~FacultyMember() {}
 
-// Mutators TODO: Implement Exception handling for adding and mod of FacultyMembers
+// Mutators 
 void FacultyMember::setID() {
-
-}
-
-void FacultyMember::setPassword() {
-    string p;
+    string fID;
     bool valid = false;
 
-    do {
-        cout << "Enter Password: " << endl;
-        getline(cin, p);
+    system("cls");
 
-        // Limit user address to 50 chars
-        if (p.length() > 50 || p.length() == 0) {
+    do {
+        cout << "Enter Faculty ID: " << endl;
+        getline(cin, fID);
+
+        // Limit input to 50 chars
+        if (fID.length() > 50 || fID.length() == 0) {
             system("cls");
-            cout << "Password must be greater than 0 and less than 50 characters long!" << endl;
+            cout << "Faculty ID must be greater than 0 and less than 50 characters long!" << endl;
         }
-        else { // Use regex here, just takes string thats less than 200 and greater than 0 atm for testing purposes
-            strcpy_s(password, sizeof(password), p.c_str());
+        else {
+            strcpy_s(ID, sizeof(ID), fID.c_str());
             valid = true;
         }
 
@@ -44,8 +47,6 @@ void FacultyMember::setPassword() {
 
 // Accessors
 string FacultyMember::getID()const { return ID; }
-string FacultyMember::getPassword()const { return password; }
-
 void FacultyMember::printData()const {
 	User::printData();
 	cout << "Faculty ID: " << getID() << endl;

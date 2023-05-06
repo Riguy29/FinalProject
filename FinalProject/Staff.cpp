@@ -3,39 +3,42 @@
 // Default constructor
 Staff::Staff():User() {
 	userType = staff;
-	strcpy_s(ID, sizeof(ID), "");
-	strcpy_s(password, sizeof(password), "");
+	strncpy_s(ID, "Not Set", 100);
+}
+
+// Overloaded Default constructor
+Staff::Staff(userTypes _userType, int libID, string _firstName, string _lastName,
+    string _address, string _phoneNum, string _email, string _id, string _password) :User(
+        staff, libID, _firstName, _lastName, _address, _phoneNum, _email, _password) {
+    strncpy_s(ID, _id.c_str(), 100);
 }
 
 // Copy Constructor
-Staff::Staff(const Staff& sTmp) : User(sTmp) {
-	strcpy_s(ID, sizeof(ID), sTmp.ID);
-	strcpy_s(password, sizeof(password), sTmp.password);
+Staff::Staff(const Staff& sTmp):User(sTmp) {
+	strncpy_s(ID, sTmp.ID, 100);
 }
 
 // Destructor
 Staff::~Staff() {}
 
-// Mutators TODO: Add stuffs
+// Mutators
 void Staff::setID() {
-
-}
-
-void Staff::setPassword() {
-    string p;
+    string sID;
     bool valid = false;
 
+    system("cls");
+
     do {
-        cout << "Enter Password: " << endl;
-        getline(cin, p);
+        cout << "Enter Staff ID: " << endl;
+        getline(cin, sID);
 
         // Limit user address to 50 chars
-        if (p.length() > 50 || p.length() == 0) {
+        if (sID.length() > 50 || sID.length() == 0) {
             system("cls");
-            cout << "Password must be greater than 0 and less than 50 characters long!" << endl;
+            cout << "Staff ID must be greater than 0 and less than 50 characters long!" << endl;
         }
-        else { // Use regex here, just takes string thats less than 200 and greater than 0 atm for testing purposes
-            strcpy_s(password, sizeof(password), p.c_str());
+        else {
+            strcpy_s(ID, sizeof(ID), sID.c_str());
             valid = true;
         }
 
@@ -44,8 +47,6 @@ void Staff::setPassword() {
 
 // Accessors
 string Staff::getID()const { return ID; }
-string Staff::getPassword()const { return password; }
-
 void Staff::printData()const {
 	User::printData();
 	cout << "Faculty ID: " << getID() << endl;

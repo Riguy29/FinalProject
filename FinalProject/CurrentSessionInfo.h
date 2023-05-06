@@ -27,8 +27,9 @@ private:
 	static string NEWS_FILE_PATH;
 	static string PERIODICAL_FILE_PATH;
 	static string JOURNAL_FILE_PATH;
-	static string USER_FILE_PATH;
-	static string BORROWERDMEDIA_FILE_PATH;
+	static string FACULTY_FILE_PATH;
+	static string STAFF_FILE_PATH;
+	static string STUDENT_FILE_PATH;
 public:
 	static vector<LibraryMedia*> mediaList;
 	static vector<User*> userList;
@@ -53,7 +54,10 @@ public:
 	template<typename T>
 	static void LoadUserData(string fileName);
 
-	//This function is used to save data for publishers, authors
+	//This function is used to save data for Staff, Students, and Faculty Members
+	static void SaveUserData();
+
+	//This function is used to save data for publishers, and authors
 	template<typename T>
 	static void SaveData(string fileName, vector<T>& list);
 

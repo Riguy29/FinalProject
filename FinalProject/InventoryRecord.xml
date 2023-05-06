@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<file>
+  
+  <inventory>
+    <books>
+      <book>
+        <title>Lord of the Rings </title>
+        <isbn>145123512352</isbn>
+        <price>24.50</price>
+      </book>
+
+      <book>
+        <title>A Song of Ice and Fire</title>
+        <isbn> 145123512352</isbn>
+        <price> 24.50 </price>
+      </book>
+
+      <book>
+        <title>Jack and the bean stalk</title>
+        <isbn>145123512352</isbn>
+        <price>24.50</price>
+      </book>
+    </books>
+
+    <newspapers>
+      <newspaper>
+        <title>Daily Report</title>
+      </newspaper>
+
+      <newspaper>
+        <title>Weekly Report</title>
+      </newspaper>
+    </newspapers>
+
+  </inventory>
+  
+  
+</file>

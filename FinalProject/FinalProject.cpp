@@ -1,9 +1,10 @@
 
-#include "LibraryLinkedList.cpp"
+//#include "LibraryLinkedList.cpp"
 #include "LibraryMedia.h"
 #include "CurrentSessionInfo.h"
 #include "MainLogin.h"
 #include "GuestLogin.h"
+#include "InventoryScreen.h"
 
 #include <string>
 #include <cstdlib>
@@ -16,8 +17,8 @@ int main()
 {
 	CurrentSessionInfo::GenerateDummyData();
 	CurrentSessionInfo::LoadAllData();
-
+	
+	//InventoryScreen::SearchForMedia();
 	Login login;
-
 	login.printMenu();
 }
