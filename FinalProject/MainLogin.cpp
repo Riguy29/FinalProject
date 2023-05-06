@@ -111,25 +111,7 @@ void Login::adminMenu() {
         if (choice == "1") {
             system("cls");
             cout << "Total Items in Library: " << CurrentSessionInfo::mediaList.size() << endl;
-
-            for (int i = 0; i < CurrentSessionInfo::mediaList.size(); i++) {
-                CurrentSessionInfo::mediaList.at(i)->ToString();
-            }
-            int mediaChoice;
-            cout << setfill(' ') << setw(55) << "0. Log out" << endl;
-            cout << setfill(' ') << setw(69) << "1. Update Member Account\n" << endl;
-            cin >> mediaChoice;
-
-            switch (mediaChoice) {
-            case 0:
-                return;
-            case 1:
-               // InventoryScreen::EditMediaDataMenu();
-                break;
-            default:
-                cout << "Invalid choice" << endl;
-            }
-            //InventoryScreen::SearchForMedia();
+            InventoryScreen::SearchForMedia();
         }
         else if (choice == "2") {
             system("cls");
@@ -139,10 +121,11 @@ void Login::adminMenu() {
             for (int i = 0; i < CurrentSessionInfo::userList.size(); i++) {
                 CurrentSessionInfo::userList.at(i)->printData();
             }
+            cout << endl;
+
             int adminChoice;
             cout << setfill(' ') << setw(55) << "0. Return" << endl;
             cout << setfill(' ') << setw(70) << "1. Update Member Account" << endl;
-            cout << setfill(' ') << setw(58) << "2. Checkout\n" << endl;
             cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 
             cin >> adminChoice;
@@ -151,10 +134,45 @@ void Login::adminMenu() {
                 system("cls");
                 return;
             case 1:
-                //FIX ME: access user account to update personal information
-                break;
-            case 2:
-                //CurrentSessionInfo::CheckoutBook(); //FIX ME:needs to be set up
+                int userLibID;
+                int userUpdateChoice;
+                cout << "Enter LibID of user you want to update: " << endl;
+                for (int i = 0; i < CurrentSessionInfo::userList.size(); i++) {
+                    if (CurrentSessionInfo::userList.at(i)->GetLibID().find(userLibID) != string::npos) {
+                        cout << setfill(' ') << setw(70) << "What would you like to update?" << endl;
+                        cout << setfill(' ') << setw(56) << "0. Return" << endl;
+                        cout << setfill(' ') << setw(60) << "1. First Name" << endl;
+                        cout << setfill(' ') << setw(59) << "2. Last Name" << endl;
+                        cout << setfill(' ') << setw(57) << "3. Address" << endl;
+                        cout << setfill(' ') << setw(62) << "4. Phone Number" << endl;
+                        cout << setfill(' ') << setw(56) << "5. Email\n" << endl;
+                        cout << setfill(' ') << setw(63) << "Enter Your Choice:\t";
+                        cin >> userUpdateChoice;
+                        switch (userUpdateChoice) {
+                        case 1:
+                            CurrentSessionInfo::userList.at(i)->setFirstName();
+                            break;
+                        case 2:
+                            CurrentSessionInfo::userList.at(i)->setLastName(); ();
+                            break;
+                        case 3:
+                            CurrentSessionInfo::userList.at(i)->setAddress(); ();
+                            break;
+                        case 4:
+                            CurrentSessionInfo::userList.at(i)->setPhoneNumber();
+                            break;
+                        case 5:
+                            CurrentSessionInfo::userList.at(i)->setEmail();
+                            break;
+                        case 0:
+                            break;
+                        default:
+                            cout << "Invalid Choice" << endl;
+                        }
+
+                    }
+                }
+                
                 break;
             default:
                 cout << "Invalid Choice" << endl;

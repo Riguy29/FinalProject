@@ -45,6 +45,7 @@ public:
 	void SetAuthors();
 	void SetPublishers();
 
+	void UpdateMedia();
 	void ChangeCount(int changeAmt);
 	virtual void ToString();
 

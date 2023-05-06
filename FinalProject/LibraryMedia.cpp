@@ -308,4 +308,54 @@ void LibraryMedia::SetPublishers()
 		CurrentSessionInfo::pubList.push_back(tempPub);
 	}
 }
+
+void UpdateMedia() {
+	bool isValidChoice = false;
+	int updateChoice;
+	do {
+		cout << setfill(' ') << setw(51) << "0. Return" << endl;
+		cout << setfill(' ') << setw(60) << "1. Update Title" << endl;
+		cout << setfill(' ') << setw(61) << "2. Update Author" << endl;
+		cout << setfill(' ') << setw(64) << "3. Update Publisher" << endl;
+		cout << setfill(' ') << setw(65) << "4. Update Category" << endl;
+		cout << setfill(' ') << setw(62) << "5. Update SubCategory" << endl;
+		cout << setfill(' ') << setw(73) << "6. Update Price" << endl;
+		cout << setfill(' ') << setw(73) << "7. Update Media Type\n" << endl;
+
+
+		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+		cin >> updateChoice;
+		switch (updateChoice) {
+		case 0:
+			//returnToPrevMenu = true;
+			//break;
+			return;
+		case 1:
+			SetTitle();
+			break;
+		case 2:
+			SetAuthors();
+			break;
+		case 3:
+			SetPublishers();
+			break;
+		case 4:
+			SetCategory();
+			break;
+		case 5:
+			SetSubCategory();
+			break;
+		case 6:
+			SetPrice();
+			break;
+		case 7:
+			SetMediaType();
+			break;
+		default:
+			system("cls");
+			cout << "Invalid selection, try again" << endl;
+		}
+		}
+	} while (!isValidChoice);
+}
 #endif // !LIBRARYMEDIA_CPP
