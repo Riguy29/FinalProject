@@ -270,70 +270,79 @@ void User::setUserType(userTypes type) { userType = type; }
 
 void User::printMenu() {
     int accountChoice;
-    //if(!Admin){
-    cout << setfill('-') << setw(116) << "\n" << endl;
-    cout << setfill(' ') << setw(68) << getFirstName() << endl;
-    cout << setfill('-') << setw(116) << "\n" << endl;
-    cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
-    cout << setfill(' ') << setw(60) << "1. Update Personal Information" << endl;
-    cout << setfill(' ') << setw(58) << "2. View My Books" << endl;
-    cout << setfill(' ') << setw(51) << "0. Return\n" << endl;
-    cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+    bool valid = false;
 
-    cin >> accountChoice;
-
-    switch (accountChoice) {
-    case 0:
-        return;
-    case 1:
-        int updateChoice;
-        cout << setfill(' ') << setw(60) << "What would you like to update?" << endl;
-        cout << setfill(' ') << setw(60) << "1. First Name" << endl;
-        cout << setfill(' ') << setw(60) << "2. Last Name" << endl;
-        cout << setfill(' ') << setw(60) << "3. Address" << endl;
-        cout << setfill(' ') << setw(60) << "4. Phone Number" << endl;
-        cout << setfill(' ') << setw(60) << "5. Email" << endl;
-        cout << setfill(' ') << setw(60) << "0. Return\n" << endl;
-        cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
-        cin >> updateChoice;
-        switch (updateChoice) {
-        case 1:
-            setFirstName();
-            break;
-        case 2:
-            setLastName();
-            break;
-        case 3:
-            setAddress();
-            break;
-        case 4:
-            setPhoneNumber();
-            break;
-        case 5:
-            setEmail();
-            break;
-        case 0:
-            return;
-        default:
-            cout << "Invalid Choice" << endl;
-        }
-
-        break;
-    case 2:
-        //FIXME: open currentUser bookList
-        cout << "Books you currently have checked out are: " << endl;
+    do {
+        cout << setfill('-') << setw(117) << "" << endl;
+        cout << setfill('-') << setw(59) << " CURRENT USER: " << getFirstName() << " " << getLastName() 
+            << " " << setfill('-') << setw(52 - (getFirstName().size())) << "" << endl;
         
+        cout << setfill('-') << setw(117) << "" << endl;
         cout << endl;
 
-        int returnInput;
-        do {
-            cout << "Press 0 to return to previous screen" << endl;
-            cin >> returnInput;
-        } while (returnInput != 0);
-        break;
-    default:
-        cout << "Invalid Choice" << endl;
-    }
+        cout << setfill(' ') << setw(75) << "Select from the options below:\n" << endl;
+        cout << setfill(' ') << setw(75) << "1. Update Personal Information" << endl;
+        cout << setfill(' ') << setw(61) << "2. View My Books" << endl;
+        cout << setfill(' ') << setw(55) << "0. Return\n" << endl;
+        cout << setfill(' ') << setw(63) << "Enter Your Choice:\t";
+
+        cin >> accountChoice;
+
+        switch (accountChoice) {
+        case 0:
+            valid = true;
+            break;
+        case 1:
+            int updateChoice;
+            cout << setfill(' ') << setw(60) << "What would you like to update?" << endl;
+            cout << setfill(' ') << setw(60) << "1. First Name" << endl;
+            cout << setfill(' ') << setw(60) << "2. Last Name" << endl;
+            cout << setfill(' ') << setw(60) << "3. Address" << endl;
+            cout << setfill(' ') << setw(60) << "4. Phone Number" << endl;
+            cout << setfill(' ') << setw(60) << "5. Email" << endl;
+            cout << setfill(' ') << setw(60) << "0. Return\n" << endl;
+            cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+            cin >> updateChoice;
+            switch (updateChoice) {
+            case 1:
+                setFirstName();
+                break;
+            case 2:
+                setLastName();
+                break;
+            case 3:
+                setAddress();
+                break;
+            case 4:
+                setPhoneNumber();
+                break;
+            case 5:
+                setEmail();
+                break;
+            case 0:
+                break;
+            default:
+                cout << "Invalid Choice" << endl;
+            }
+
+            break;
+        case 2:
+            //FIXME: open currentUser bookList
+            cout << "Books you currently have checked out are: " << endl;
+
+            cout << endl;
+
+            int returnInput;
+            do {
+                cout << "Press 0 to return to previous screen" << endl;
+                cin >> returnInput;
+            } while (returnInput != 0);
+            break;
+        default:
+            cout << "Invalid Choice" << endl;
+            break;
+        }
+    } while (!valid);
 }
 
 // Checks if the passed in string contains only letters

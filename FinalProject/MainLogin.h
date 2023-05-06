@@ -37,9 +37,9 @@ public:
 	void login();	
 	void registration();
 	void guest();
-	static bool isLoginValid(int &inUser, string &inPass);
+	bool isLoginValid(int &inUser, string &inPass);
 
-	void userHomeMenu()const;
+	static void userHomeMenu();
 };
 
 #endif // !MAINLOGIN_H

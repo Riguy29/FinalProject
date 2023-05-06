@@ -33,17 +33,17 @@ void Login::printMenu() {
     do {
         system("cls");
         date.printDate();
-        cout << setfill('-') << setw(115) << "" << endl;
-        cout << setfill('-') << setw(56) << " LIBRARY LOGIN " << setfill('-') << setw(59) << "" << endl;
-        cout << setfill('-') << setw(115) << "" << endl;
-        cout << setfill(' ') << setw(53) << "WELCOME!\n" << endl;
-        cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
+        cout << setfill('-') << setw(117) << "" << endl;
+        cout << setfill('-') << setw(63) << right << " LIBRARY LOGIN " << setfill('-') << setw(54) << "" << endl;
+        cout << setfill('-') << setw(117) << "" << endl;
+        cout << setfill(' ') << setw(61) << right << "WELCOME!\n" << endl;
+        cout << setfill(' ') << setw(72) << "Select from the options below:\n" << endl;
         cout << setfill(' ') << setw(66) << "1. Login to Your Account" << endl;
         cout << setfill(' ') << setw(56) << "2. Guest Login" << endl;
         cout << setfill(' ') << setw(65) << "3. Register for Account" << endl;
         cout << setfill(' ') << setw(49) << "4. Exit" << endl;
         cout << setfill(' ') << setw(108) << "5. List all Registered Accounts (Please remove before submission)\n" << endl;
-        cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+        cout << setfill(' ') << setw(60) << "Enter Your Choice:\t";
 
         cin >> choice;
         switch (choice) {
@@ -53,9 +53,7 @@ void Login::printMenu() {
             break;
         case 2:
             system("cls");
-            //InventoryScreen::printMenu();
             GuestLogin::buy();
-            //guest();
             break;
         case 3:
             registration();
@@ -67,7 +65,6 @@ void Login::printMenu() {
             break;
         case 5:
             system("cls");
-            
 
             cout << "Total Users in vector: " << CurrentSessionInfo::userList.size() << endl;
 
@@ -86,39 +83,38 @@ void Login::printMenu() {
     } while (valid);
  }
 
-void Login::userHomeMenu()const {   
+void Login::userHomeMenu() {   
     string choice;
     bool validChoice = false;
     string fName = CurrentSessionInfo::currUser.getFirstName();
+
+    system("cls");
 
     // Convert fName to full uppercase
     transform(fName.begin(), fName.end(), fName.begin(), ::toupper);
 
     // Using a while true loop so that when a user comes back from a submenu it reprints this menu
-    while (!validChoice)
-    {
-        cout << setfill('-') << setw(115) << "" << endl;
-        cout << setfill('-') << setw(115) << "" << endl;
-        cout << setfill('-') << setw(65) << " WELCOME TO YOUR ACCOUNT " << fName << " " << setfill('-') << setw(49 - (fName.size())) << "" << endl;
-        
-        cout << setfill('-') << setw(116) << "\n" << endl;
-        cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
-        cout << setfill(' ') << setw(60) << "1. Access Library" << endl;
-        cout << setfill(' ') << setw(58) << "2. View Account" << endl;
-        cout << setfill(' ') << setw(54) << "0. Log out\n" << endl;
-        cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+    do {
+        cout << setfill('-') << setw(117) << "" << endl;
+        cout << setfill('-') << setw(67) << " WELCOME TO YOUR ACCOUNT " << fName << " " << setfill('-') << setw(49 - (fName.size())) << "" << endl;
+        cout << setfill('-') << setw(117) << "" << endl;
+        cout << endl;
+
+        cout << setfill(' ') << setw(75) << "Select from the options below:\n" << endl;
+        cout << setfill(' ') << setw(62) << "1. Access Library" << endl;
+        cout << setfill(' ') << setw(60) << "2. View Account" << endl;
+        cout << setfill(' ') << setw(56) << "0. Log out\n" << endl;
+        cout << setfill(' ') << setw(63) << "Enter Your Choice:\t";
 
         getline(cin, choice);
 
         if (choice == "1") {
             system("cls");
             InventoryScreen::printMenu();
-            validChoice = true;
         }
         else if (choice == "2") {
             system("cls");
             CurrentSessionInfo::currUser.printMenu();
-            validChoice = true;
         }
         else if (choice == "0") {
             system("cls");
@@ -131,7 +127,7 @@ void Login::userHomeMenu()const {
             system("cls");
             cout << "Invalid choice please try again" << endl;
         }
-    }
+    } while (!validChoice);
   
 }
 
@@ -164,13 +160,19 @@ void Login::login() {
       } while (isLoginValid(id, password) != true);
 
       system("cls");
-      cout << " Login Successful!" << endl;
       cout << endl;
 
       cin.clear();
       cin.ignore();
 
-      userHomeMenu();
+      if (CurrentSessionInfo::currUser.getLibID() == 1000) {
+          // Go to admin menu :)
+          // Temp going to userHomeMenu
+          userHomeMenu();
+      }
+      else {
+          userHomeMenu();
+      }
 }
 
 // guest() allows user to be a guest and use material from the library for 2 hours
@@ -323,6 +325,5 @@ bool Login::isLoginValid(int &inUser, string &inPass) {
     
     return false;
 }
-
 
 #endif // !MAINLOGIN_CPP
