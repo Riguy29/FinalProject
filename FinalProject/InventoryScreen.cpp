@@ -2,13 +2,12 @@
 #define INVENTORYSCREEN_CPP
 #include "InventoryScreen.h"
 
-vector<LibraryMedia*> InventoryScreen::mediaToCheckout;
+vector<LibraryMedia*> InventoryScreen::mediaToCheckoutOrBuy;
 string InventoryScreen::recordTxtFile;
 
 void InventoryScreen::AddMedia()
 {
 	int choice =0;
-	bool isValid = true;
 
 	do
 	{
@@ -24,6 +23,7 @@ void InventoryScreen::AddMedia()
 		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 		cin >> choice;
 		
+		if (!cin) continue; //If user enters a non integer value go to next loop
 		LibraryMedia* newMedia;
 		if (choice == 1) newMedia = new Book();
 		else if (choice == 2) newMedia = new Newspaper();
@@ -87,14 +87,14 @@ void InventoryScreen::AddMedia()
 			system("cls");
 			cout << "New Periodical added" << endl;
 		}
-	} while (true);
+	} while (choice != 0);
 }
 
 void InventoryScreen::SearchForMedia()
 {
 	system("cls"); //Don't 
 	int choice;
-	bool validChoice = false;
+	bool returnToPrevMenu = false;
 	do {
 		
 		cout << setfill('-') << setw(115) << "" << endl;
@@ -136,7 +136,7 @@ void InventoryScreen::SearchForMedia()
 		}
 		switch (choice) {
 		case 0:
-			return;
+			returnToPrevMenu = true;
 			break;
 		case 1:
 			SearchByTitle();
@@ -163,10 +163,11 @@ void InventoryScreen::SearchForMedia()
 			SearchByPublisherAddress();
 			break;		
 		default:
+			system("cls");
 			cout << "Invalid selection, try again" << endl;
 		}
 		
-	} while (!validChoice);
+	} while (!returnToPrevMenu);
 }
 void InventoryScreen::printMenu() {
 	int choice =0;
@@ -210,11 +211,11 @@ void InventoryScreen::printMenu() {
 		case 0:
 
 			//Delete all pointers and then clear vector
-			for (LibraryMedia* mediaPointer : mediaToCheckout)
+			for (LibraryMedia* mediaPointer : mediaToCheckoutOrBuy)
 			{
 				delete mediaPointer;
 			}
-			mediaToCheckout.clear();
+			mediaToCheckoutOrBuy.clear();
 			system("cls");
 			return;
 		case 1:
@@ -339,6 +340,8 @@ void InventoryScreen::SearchBySubject()
 {
 	string searchSub;
 	cout << "Enter the Department of the media you are looking for" << endl;
+	cin.clear();
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	cin >> searchSub;
 	vector<LibraryMedia*> matchingList;//Create vector of pointers that will point to the memory of matching books found in BookList();
 	for (int i = 0; i < CurrentSessionInfo::mediaList.size(); i++)//Goes through Book list and checks for title that contain the user input
@@ -444,6 +447,8 @@ void InventoryScreen::PrintMatchingMedia(vector<LibraryMedia*> mediaList)
 			mediaList.at(i-1)->ToString();
 		}
 		cout << "0. Return" << endl;
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cin >> choice;
 		if (choice == 0) {
 			system("cls");
@@ -461,32 +466,44 @@ void InventoryScreen::PrintMatchingMedia(vector<LibraryMedia*> mediaList)
 }
 
 void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia) {
-	cout << "Selected Media";
-	selectedMedia->ToString();
-	cout << setfill('-') << setw(115) << "" << endl;
-	cout << setfill('-') << setw(115) << "" << endl;
-	cout << setfill('-') << setw(116) << "\n" << endl;
-	cout << setfill(' ') << setw(68) << "What would you like to do?\n" << endl;
-
-	//if(selectedMedia available quantity > 0){
-	cout << setfill(' ') << setw(54) << "1. Add to cart " << endl; //FIXME: Make this buy if they are guest, if they are no copies and they are guest then print 
-   //}else{
-   // cout<<"Media not available"<<endl;
-   // }
-	//if(isAdmin) {
-	//FIXME:: Only print these options if current user is admin
-	cout << setfill(' ') << setw(53) << "2. Update Media" << endl;
-	cout << setfill(' ') << setw(56) << "3. Delete Media" << endl;
-	//END ADMIN SECTION
-	//}
-	cout << setfill(' ') << setw(51) << "0. Return\n" << endl;
-	cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+	system("cls");
 
 	int choice;
+	bool goBack = false;
 	do
 	{
-		choice = -1;
+		cout << "Selected Media";
+		selectedMedia->ToString();
+		cout << setfill('-') << setw(115) << "" << endl;
+		cout << setfill('-') << setw(115) << "" << endl;
+		cout << setfill('-') << setw(116) << "\n" << endl;
+		cout << setfill(' ') << setw(68) << "What would you like to do?\n" << endl;
+
+		if (selectedMedia->GetInventoryCount() > 0) {
+			cout << setfill(' ') << setw(54) << "1. Add to cart " << endl; //FIXME: Make this buy if they are guest, if they are no copies and they are guest then print 
+		}
+		else {
+			//if() //Check if user is a borrower, if not then they can't call for media and it should say media is out of stock
+			cout << "1. Call For Media" << endl; //Not sure if a guest should be able to call for media
+		}
+		//if(isAdmin) {
+		//FIXME:: Only print these options if current user is admin
+		cout << setfill(' ') << setw(53) << "2. Update Media" << endl;
+		cout << setfill(' ') << setw(56) << "3. Delete Media" << endl;
+		//END ADMIN SECTION
+		//}
+		cout << setfill(' ') << setw(51) << "0. Return\n" << endl;
+		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+
+
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cin >> choice;
+		if (!cin) continue;
 		switch (choice) {
+		case 0:
+			goBack = true;
+			break;
 		case 1:
 			//if(!isGuest){
 			//FIXME:: If normal user add to cart, unless no inventory then call, if guest only buy
@@ -520,20 +537,21 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia) {
 			//if(!isAdmin){
 			//cout << "Invalid choice." << endl;
 			//}else{
-			// delete selected MediaID
+			//Delete the media and all associated data
 			//}
 			break;
-		case 0:
-			return;
+		default:
+			system("cls");
+			cout << "Invalid Input, try again" << endl;
 		}
 
-	} while (choice != -1);
+	} while (!goBack);
 	
 }
 
 void InventoryScreen::ConfirmMediaCheckout() {
 	system("cls");
-	for (LibraryMedia* media : mediaToCheckout) {
+	for (LibraryMedia* media : mediaToCheckoutOrBuy) {
 		media->ToString();
 		cout << endl;
 	}
@@ -544,25 +562,47 @@ void InventoryScreen::ConfirmMediaCheckout() {
 		cout << "Does this look correct?" << endl;
 		cout << "1.Yes" << endl;
 		cout << "2.No, clears cart" << endl;
+		
 
+
+		//Show them a preview of their cart
+		for (LibraryMedia* media : mediaToCheckoutOrBuy)
+		{
+			cout << media->GetMediaType() << "---" << media->GetTitle() << endl;
+		}
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cin >> choice;
 		if (choice == 1) {
+			//If user is not a guest
 			//Checkout Media
+			for (LibraryMedia* media : mediaToCheckoutOrBuy)
+			{
+				media->ChangeCount(-1); //Removing one from the count
+				CheckedoutMedia temp(CurrentSessionInfo::currUser.getLibID(), media->GetMediaID());
+				CurrentSessionInfo::borrowedMediaList.push_back(temp);
+				delete media; //Delete the pointer after we are done with it
+			}
+			mediaToCheckoutOrBuy.clear();
 		}
 		else if (choice == 2) {
 			//Clears cart and returns
+			//Deletes all pointers and then clears the vector
+			for (LibraryMedia* mediaP : mediaToCheckoutOrBuy) {
+				delete mediaP;
+			}
+			mediaToCheckoutOrBuy.clear();
 		}
 	} while (choice != 1 && choice != 2); //If the user enter numbers other than 1 or 2
-	//confirm media y/n
-	//if y then deduct from inventory count add books to user vector of checked out books
-	//print list of books with return date
 }
 
 void InventoryScreen::EditMediaDataMenu(LibraryMedia* selectedMedia) {
 	int choice;
+	bool goBack = false;
 	LibraryMedia::mediaTypes selectedMediaType = selectedMedia->GetMediaType();
 	do
 	{
+		system("cls");
 		cout << "Editing: ";
 		selectedMedia->ToString();
 		cout << endl;
@@ -597,10 +637,14 @@ void InventoryScreen::EditMediaDataMenu(LibraryMedia* selectedMedia) {
 			break;
 		}
 		cout << "Enter Your Choice: ";
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cin >> choice;
 
+		if (!cin) continue;
 		//Using a if else block instead of a switch statment so we can dymamically cast inside the else if blocks
-		if (choice == 1) selectedMedia->SetTitle();
+		if (choice == 0) goBack = true;
+		else if (choice == 1) selectedMedia->SetTitle();
 		else if (choice == 2) selectedMedia->SetAuthors();
 		else if (choice == 3) selectedMedia->SetPublishers();
 		else if (choice == 4) selectedMedia->SetCategory();
@@ -613,21 +657,32 @@ void InventoryScreen::EditMediaDataMenu(LibraryMedia* selectedMedia) {
 				dynamic_cast<Book*>(selectedMedia)->SetEdition();
 			}
 			else if (selectedMediaType == LibraryMedia::newspaper) {
-				Newspaper* temp = dynamic_cast<Newspaper*>(selectedMedia);
-				temp->SetPublishRate();
-				delete temp;
+				dynamic_cast<Newspaper*>(selectedMedia)->SetPublishRate();
 			}			
 			else if (selectedMediaType == LibraryMedia::conferenceJournal) {
-				ConferenceJournal* temp = dynamic_cast<ConferenceJournal*>(selectedMedia);
-				temp->SetDateOfConference();
-				delete temp;
+				dynamic_cast<ConferenceJournal*>(selectedMedia)->SetDateOfConference();
 			}
 			else if (selectedMediaType == LibraryMedia::periodical) {
-				Periodical* temp = dynamic_cast<Periodical*>(selectedMedia);
-				temp->SetPublishRate();
-				delete temp;
+				dynamic_cast<Periodical*>(selectedMedia)->SetPublishRate();
 			}
 		}
-	} while (true);
+		else if (choice == 10) {
+			if (selectedMediaType == LibraryMedia::book) {
+				dynamic_cast<Book*>(selectedMedia)->SetISBN();
+			}
+			else if (selectedMediaType == LibraryMedia::conferenceJournal) {
+				dynamic_cast<ConferenceJournal*>(selectedMedia)->SetPlaceOfConference();
+			}
+			else {//If users selectes 10 and the media is not either of the two above its an error
+				system("cls");
+				cout << "Invalid input, try again" << endl;
+			}
+		}
+		else { //If user does not select a number from 0 to 10, tell them its invalid inputt
+			system("cls");
+			cout << "Invalid input, try again" << endl;
+		}
+	} while (!goBack);
+	//SelectedMedia pointer might need to be deleted
 }
 #endif // !INVENTORYSCREEN_CPP

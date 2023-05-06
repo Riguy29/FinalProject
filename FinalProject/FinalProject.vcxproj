@@ -168,6 +168,7 @@
   <ItemGroup>
     <Text Include="AuthorRecord.txt" />
     <Text Include="BookRecord.txt" />
+    <Text Include="BorrowedMediaRecord.txt" />
     <Text Include="currentUser.txt" />
     <Text Include="JournalRecord.txt" />
     <Text Include="NewspaperRecord.txt" />

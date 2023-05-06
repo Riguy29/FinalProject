@@ -14,7 +14,7 @@
 
 int main()
 {
-	//CurrentSessionInfo::GenerateDummyData();
+	CurrentSessionInfo::GenerateDummyData();
 	CurrentSessionInfo::LoadAllData();
 
 	Login login;

@@ -31,9 +31,6 @@
     <ClCompile Include="InventoryScreen.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
-    <ClCompile Include="LibraryLinkedList.cpp">
-      <Filter>Classes</Filter>
-    </ClCompile>
     <ClCompile Include="LibraryMedia.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
@@ -87,9 +84,6 @@
     <ClInclude Include="InventoryScreen.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="LibraryLinkedList.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="LibraryMedia.h">
       <Filter>Headers</Filter>
     </ClInclude>
@@ -117,7 +111,6 @@
     <ClInclude Include="Invoice.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="records.txt" />
     <Text Include="AuthorRecord.txt" />
     <Text Include="PublisherRecord.txt" />
     <Text Include="userpass.txt" />
@@ -127,7 +120,7 @@
     <Text Include="PurchaseList.txt" />
     <Text Include="currentUser.txt" />
     <Text Include="BookRecord.txt" />
-    <Text Include="Users.txt" />
+    <Text Include="BorrowedMediaRecord.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

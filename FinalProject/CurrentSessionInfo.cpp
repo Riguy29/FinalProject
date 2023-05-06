@@ -6,12 +6,14 @@ vector<Publisher> CurrentSessionInfo::pubList;
 vector<Author> CurrentSessionInfo::authorList;
 vector<LibraryMedia*> CurrentSessionInfo::mediaList;
 vector<User*> CurrentSessionInfo::userList;
+vector<CheckedoutMedia> CurrentSessionInfo::borrowedMediaList;
 User CurrentSessionInfo::currUser;
 string CurrentSessionInfo::BOOK_FILE_PATH = "BookRecord.txt";
 string CurrentSessionInfo::NEWS_FILE_PATH = "NewspaperRecord.txt";
 string CurrentSessionInfo::JOURNAL_FILE_PATH = "JournalRecord.txt";
 string CurrentSessionInfo::PERIODICAL_FILE_PATH = "PeriodicalRecord.txt";
 string CurrentSessionInfo::USER_FILE_PATH = "Users.txt";
+string CurrentSessionInfo::BORROWERDMEDIA_FILE_PATH= "BorrowedMediaRecord.txt";
 
 void CurrentSessionInfo::GenerateDummyData()
 {
@@ -77,6 +79,7 @@ void CurrentSessionInfo::LoadAllData()
 {
 	LoadData<Publisher>("PublisherRecord.txt", pubList);
 	LoadData<Author>("AuthorRecord.txt", authorList);
+	LoadData<CheckedoutMedia>(BORROWERDMEDIA_FILE_PATH, borrowedMediaList);
 
 	LoadMediaData<Book>("BookRecord.txt");
 	LoadMediaData<Newspaper>("NewspaperRecord.txt");

@@ -86,16 +86,16 @@ void Login::printMenu() {
 
 void Login::userHomeMenu()const {   
     int choice;
-    bool validChoice = true;
+    bool returnToPrevMenu= false;
     ifstream currUser;
-    string username;
+    string username = "A"; //Temporialy settings this to admin so I can test my code
     currUser.open("currentUser.txt");
 
     if (!currUser.is_open()) {
         cout << "File open was not successful :(";
     }
 
-    while (true)//Using a while true loop so that when a user comes back from a submenu it reprints this menu
+    while (!returnToPrevMenu)
     {
         cout << setfill('-') << setw(115) << "" << endl;
         if (username.at(0) == 'E' || username.at(0) == 'S') {
@@ -116,8 +116,12 @@ void Login::userHomeMenu()const {
 
         cin >> choice;
 
-        validChoice = true;
+
         switch (choice) {
+        case 0: //On Log out 
+            system("cls");
+            currUser.close(); //Close txt file
+            returnToPrevMenu = true;
         case 1:
             system("cls");
             InventoryScreen::printMenu();
@@ -127,10 +131,6 @@ void Login::userHomeMenu()const {
             // currUser.printMenu();
             //cout << "Need to open Account information." << endl;//view account should view list of users and allow admin to update infor via  update()
             break;
-        case 0: //On Log out 
-            system("cls");
-            currUser.close(); //Close txt file
-            return; //Changed this so it goes back to login screen instead of closing program
         default:
             system("cls");
             cout << "Invalid choice please try again" << endl;
@@ -176,7 +176,7 @@ void Login::login() {
         if (!userInfo.is_open()) {
             cout << "File open was not successful";
         }
-        //userInfo << username << endl;
+        userInfo << username << endl; //Uncommented this so the code works, replace this with need admin system
         userInfo.close();      
         userHomeMenu();
        

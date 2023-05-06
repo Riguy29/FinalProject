@@ -15,6 +15,7 @@
 #include "Staff.h"
 #include "FacultyMember.h"
 #include "Student.h"
+#include "CheckedoutMedia.h"
 
 /*This class is meant to store information that will be used throughout the users session
 and to load and save data from our txt files into linked lists of apporitate types*/
@@ -27,11 +28,13 @@ private:
 	static string PERIODICAL_FILE_PATH;
 	static string JOURNAL_FILE_PATH;
 	static string USER_FILE_PATH;
+	static string BORROWERDMEDIA_FILE_PATH;
 public:
 	static vector<LibraryMedia*> mediaList;
 	static vector<User*> userList;
 	static vector<Author> authorList;
 	static vector<Publisher> pubList;
+	static vector<CheckedoutMedia> borrowedMediaList;
 	static void LoadAllData();
 	static void SaveAllData();
 	static void GenerateDummyData();

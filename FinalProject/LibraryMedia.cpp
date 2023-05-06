@@ -4,6 +4,11 @@
 #include <iomanip>
 #ifndef LIBRARYMEDIA_CPP
 #define LIBRARYMEDIA_CPP
+void LibraryMedia::ChangeCount(int changeAmt)
+{
+	inventoryCount += changeAmt;
+	if (inventoryCount < 0) inventoryCount = 0;
+}
 void LibraryMedia::ToString()
 {
 	//cout << "MediaId: " << GetMediaID();
@@ -243,9 +248,32 @@ void LibraryMedia::SetDoner()
 	bool isValid = true;
 	do
 	{
-		cout << "Enter the Doner's name: ";
-		getline(cin, newDoner);
-		// FIX ME:: Validate data
+		try
+		{
+			cout << "Enter the Doner's name: ";
+			getline(cin, newDoner);
+			if (newDoner.length() > size(doner)) throw(1);
+			for (char c : newDoner)
+			{
+				if (isdigit(c)) throw(2); //If we find a digit in the name throw and error
+			}
+
+		}
+		catch (int errorCode)
+		{
+			system("cls");
+			switch (errorCode)
+			{
+			case 1:
+				cout << "Name is too long" << endl;
+				break;
+			case 2:
+				cout << "Name must only contain letters" << endl;
+			default:
+				break;
+			}
+			isValid = false;
+		}
 	} while (!isValid);
 	strncpy_s(doner, newDoner.c_str(), sizeof(doner));
 }

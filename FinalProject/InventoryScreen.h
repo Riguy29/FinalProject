@@ -37,7 +37,7 @@ public:
 
 private:
 	static string recordTxtFile;
-	static vector<LibraryMedia*> mediaToCheckout;
+	static vector<LibraryMedia*> mediaToCheckoutOrBuy;
 };
 
 #endif

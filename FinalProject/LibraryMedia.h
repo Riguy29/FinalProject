@@ -45,9 +45,9 @@ public:
 	void SetAuthors();
 	void SetPublishers();
 
-
-	//We will want to disp
+	void ChangeCount(int changeAmt);
 	virtual void ToString();
+
 
 	virtual ~LibraryMedia();
 	LibraryMedia(const LibraryMedia& mediaToCopy);
