@@ -11,17 +11,14 @@ bool GuestLogin::isGuest(bool guest) {
 		return false;
 	}
 }
-
 void GuestLogin::buy() {
-	
-		string fullName;
-		cout << "Enter your name: " << endl;
-		getline(cin, fullName);
-		isGuest(true);
+	{
+		string name;
+		cout << "Enter Name:";
+		cin.ignore();
+		getline(cin, name);
+
 		system("cls");
-
-		//InventoryScreen::printMenu();// SearchForMedia();
-
 		fstream purchase;
 		purchase.open("PurchaseList.txt", ios::in | ios::out);
 		if (!purchase.is_open()) {
@@ -42,7 +39,7 @@ void GuestLogin::buy() {
 
 			nameList.push_back(mediaName);
 			priceList.push_back(price);
-			//sum += price;
+
 		}
 		for (int i = 0; i < priceList.size(); i++) {
 			sum += priceList.at(i);
@@ -55,7 +52,7 @@ void GuestLogin::buy() {
 		//date.printDate();
 
 
-		//cout << setfill(' ') << left << setw(25) << fullName << endl;
+		cout << setfill(' ') << left << setw(25) << name << endl;
 		cout << setfill(' ') << setw(30) << "Thank you for you Purchase!" << endl;
 
 		cout << setfill(' ') << setw(35) << left << "Item" << "Price" << endl;
@@ -73,6 +70,7 @@ void GuestLogin::buy() {
 		cout << setw(30) << right << tax << endl;
 		cout << setfill(' ') << fixed << setprecision(2) << setw(10) << left << "Total: ";
 		cout << setw(30) << right << total << endl;
-	
-	
+	}
 }
+
+

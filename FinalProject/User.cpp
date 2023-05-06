@@ -274,34 +274,36 @@ void User::printMenu() {
 
     do {
         cout << setfill('-') << setw(117) << "" << endl;
-        cout << setfill('-') << setw(59) << " CURRENT USER: " << getFirstName() << " " << getLastName() 
+        cout << setfill('-') << setw(50) << " CURRENT USER: " << getFirstName() << " " << getLastName() 
             << " " << setfill('-') << setw(52 - (getFirstName().size())) << "" << endl;
         
         cout << setfill('-') << setw(117) << "" << endl;
         cout << endl;
 
         cout << setfill(' ') << setw(75) << "Select from the options below:\n" << endl;
+        cout << setfill(' ') << setw(55) << "0. Return" << endl;
         cout << setfill(' ') << setw(75) << "1. Update Personal Information" << endl;
-        cout << setfill(' ') << setw(61) << "2. View My Books" << endl;
-        cout << setfill(' ') << setw(55) << "0. Return\n" << endl;
+        cout << setfill(' ') << setw(61) << "2. View My Books\n" << endl;
         cout << setfill(' ') << setw(63) << "Enter Your Choice:\t";
 
         cin >> accountChoice;
-
+        
         switch (accountChoice) {
         case 0:
             valid = true;
+            system("cls");
             break;
         case 1:
+            system("cls");
             int updateChoice;
-            cout << setfill(' ') << setw(60) << "What would you like to update?" << endl;
+            cout << setfill(' ') << setw(70) << "What would you like to update?" << endl;
+            cout << setfill(' ') << setw(56) << "0. Return" << endl;
             cout << setfill(' ') << setw(60) << "1. First Name" << endl;
-            cout << setfill(' ') << setw(60) << "2. Last Name" << endl;
-            cout << setfill(' ') << setw(60) << "3. Address" << endl;
-            cout << setfill(' ') << setw(60) << "4. Phone Number" << endl;
-            cout << setfill(' ') << setw(60) << "5. Email" << endl;
-            cout << setfill(' ') << setw(60) << "0. Return\n" << endl;
-            cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+            cout << setfill(' ') << setw(59) << "2. Last Name" << endl;
+            cout << setfill(' ') << setw(57) << "3. Address" << endl;
+            cout << setfill(' ') << setw(62) << "4. Phone Number" << endl;
+            cout << setfill(' ') << setw(56) << "5. Email\n" << endl;
+            cout << setfill(' ') << setw(63) << "Enter Your Choice:\t";
             cin >> updateChoice;
             switch (updateChoice) {
             case 1:

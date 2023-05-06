@@ -95,11 +95,10 @@ void InventoryScreen::AddMedia()
 
 void InventoryScreen::SearchForMedia()
 {
-	system("cls"); //Don't 
+	system("cls"); 
 	int choice;
 	bool validChoice = false;
 	do {
-		
 		cout << setfill('-') << setw(115) << "" << endl;
 		cout << setfill('-') << setw(56) << " SEARCH " << setfill('-') << setw(59) << "" << endl;
 		cout << setfill('-') << setw(115) << "" << endl;
@@ -110,7 +109,7 @@ void InventoryScreen::SearchForMedia()
 		cout << setfill(' ') << setw(64) << "3. Search By Publisher" << endl;
 		cout << setfill(' ') << setw(65) << "4. Search By Department" << endl;
 		cout << setfill(' ') << setw(62) << "5. Search By Subject" << endl;
-
+/*
 		ifstream user;
 		string username;
 		user.open("currentUser.txt");
@@ -120,13 +119,13 @@ void InventoryScreen::SearchForMedia()
 		}
 		user >> username;
 		user.close();
-
-		if (username.at(0) == 'M') {// if user isAdmin
+		*/
+		//if (username.at(0) == 'M') {// if user isAdmin
 			cout << setfill(' ') << setw(61) << "6. Search By Course" << endl;
 			cout << setfill(' ') << setw(60) << "7. Search By Price" << endl;
 			cout << setfill(' ') << setw(73) << "8. Search By Publisher Address\n" << endl;
 			//CurrentSessionInfo::SetAdmin(true);
-		}
+		//}
 		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 
 		cin.clear();
@@ -140,7 +139,6 @@ void InventoryScreen::SearchForMedia()
 		switch (choice) {
 		case 0:
 			return;
-			break;
 		case 1:
 			SearchByTitle();
 			break;
@@ -173,7 +171,7 @@ void InventoryScreen::SearchForMedia()
 }
 void InventoryScreen::printMenu() {
 	int choice =0;
-	bool validChoice;
+	bool validChoice = true;
 	
 	system("cls");
 	do
@@ -226,10 +224,14 @@ void InventoryScreen::printMenu() {
 			break;
 		case 2: //If a user is not an admin and selects 2, make choice invlaid
 			system("cls");
-			cout << setfill(' ') << setw(50)<< fullName << ", Ready for checkout?" << endl;
+			if (GuestLogin::isGuest(true)) {
+				GuestLogin::buy();
+			}
+			
 			//CheckoutBook();
 			//if (CurrentSessionInfo::CheckIfAdmin()) SearchForMedia();
 			//else cout << "Invalid selection, try again" << endl;
+			
 			break;
 		case 3: //If a user is not an admin and selects 2, make choice invlaid
 			system("cls");
@@ -283,7 +285,7 @@ void InventoryScreen::printMenu() {
 			break;
 		}
 		
-	} while (true);
+	} while (validChoice);
 	
 }
 
@@ -310,13 +312,13 @@ void InventoryScreen::SearchByTitle()
 		}
 	}
 	if (matchingList.size() == 0) { //IF we dont find any media, print out statement and then return
-		cout << "No Matching Media Found";
+		system("cls");
+		cout << "No Matching Media Found" <<endl;
 		return;
 	}
 	else {
 		PrintMatchingMedia(matchingList);
 	}
-	//MediaInteractionMenu(matchingList);
 
 }
 void InventoryScreen::SearchByAuthor() 
@@ -342,6 +344,7 @@ void InventoryScreen::SearchByAuthor()
 		}
 	}
 	if (matchingList.size() == 0) { //IF we dont find any media, print out statement and then return
+		system("cls");
 		cout << "No Matching Media Found";
 		return;
 	}
@@ -367,6 +370,7 @@ void InventoryScreen::SearchByDepartment()
 		}
 	}
 	if (matchingList.size() == 0) { //IF we dont find any media, print out statement and then return
+		system("cls");
 		cout << "No Matching Media Found";
 		return;
 	}
@@ -390,6 +394,7 @@ void InventoryScreen::SearchBySubject()
 		}
 	}
 	if (matchingList.size() == 0) { //IF we dont find any media, print out statement and then return
+		system("cls");
 		cout << "No Matching Media Found";
 		return;
 	}
@@ -413,6 +418,7 @@ void InventoryScreen::SearchByPublisherName()
 		}
 	}
 	if (matchingList.size() == 0) { //IF we dont find any media, print out statement and then return
+		system("cls");
 		cout << "No Matching Media Found";
 		return;
 	}
@@ -436,6 +442,7 @@ void InventoryScreen::SearchByPrice()
 		}
 	}
 	if (matchingList.size() == 0) { //IF we dont find any media, print out statement and then return
+		system("cls");
 		cout << "No Matching Media Found";
 		return;
 	}
@@ -459,6 +466,7 @@ void InventoryScreen::SearchByPublisherAddress()
 		}
 	}
 	if (matchingList.size() == 0) { //IF we dont find any media, print out statement and then return
+		system("cls");
 		cout << "No Matching Media Found";
 		return;
 	}
@@ -471,6 +479,7 @@ void InventoryScreen::PrintMatchingMedia(vector<LibraryMedia*> mediaList)
 	
 	LibraryMedia* selectedMedia;
 	int choice=0;
+	bool valid = true;
 	do
 	{
 		cout << "Select a media" << endl;
@@ -494,7 +503,7 @@ void InventoryScreen::PrintMatchingMedia(vector<LibraryMedia*> mediaList)
 
 		
 
-	} while (true); //MAKE THIS NOT A WHILE TRUE
+	} while (valid); 
 }
 
 void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia) {
@@ -527,10 +536,10 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia) {
 		choice = -1;
 		switch (choice) {
 		case 1:
-			/*{
+			{
 			if(GuestLogin::isGuest(true)){
-				ofstream buyList("PurchaseList.txt", ios::trunc);//open file to clear it and then close
-				buyList.close();
+				ofstream clearBuyList("PurchaseList.txt", ios::trunc);//open file to clear it and then close
+				clearBuyList.close();
 
 				ofstream buyList("PurchaseList.txt", ios::in | ios::out | ios::app);//open file to write to it
 
@@ -539,7 +548,7 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia) {
 					//buyList << selectedMedia->GetPrice();
 					buyList.close();
 				}
-				LibraryMedia->SetInventoryCount(LibraryMedia->GetInventoryCount() - 1);
+				//mediaToCheckout->SetInventoryCount(mediaToCheckout->GetInventoryCount() - 1);
 				else {
 					cout << "File not opened successfully" << endl;
 				}		
@@ -551,7 +560,7 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia) {
 
 			return;
 			}
-			*/
+			
 			break;
 		case 2:
 			//CHECK IF ADMIN

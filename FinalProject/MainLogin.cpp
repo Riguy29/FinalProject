@@ -53,7 +53,7 @@ void Login::printMenu() {
             break;
         case 2:
             system("cls");
-            GuestLogin::buy();
+            InventoryScreen::printMenu();
             break;
         case 3:
             registration();
@@ -175,24 +175,6 @@ void Login::login() {
       }
 }
 
-// guest() allows user to be a guest and use material from the library for 2 hours
-void Login::guest() {
-    string gName;
-    string media;
-    vector<LibraryMedia>guestBuyList;
-    int choice;
-    cout << "Press 1 to return to Main Menu." << endl;
-    cout << endl;
-    cout << "Enter Guest's full name: \n" << endl;
-    cin.ignore();
-    getline(cin, gName);
-    
-    if (!gName._Equal("1")) {
-        InventoryScreen::SearchForMedia();
-    }
-
-    cout << endl;
-}
 
 // Called to register a user and emplace said user to the end of the userList vector
 void Login::registration() {
