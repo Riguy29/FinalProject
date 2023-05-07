@@ -35,20 +35,23 @@ void UserInfoAccessScreen::printUserDataMenu()
 {
     int accountChoice;
     bool valid = false;
+    string fName = CurrentSessionInfo::currUser.getFirstName();
+    string lName = CurrentSessionInfo::currUser.getLastName();
+    int userLibID = CurrentSessionInfo::currUser.getLibID();
 
     do {
 
         cout << setfill('-') << setw(117) << "" << endl;
-        cout << setfill('-') << setw(50) << " CURRENT USER: " << CurrentSessionInfo::currUser.getFirstName() << " " << CurrentSessionInfo::currUser.getLastName()
-            << " " << setfill('-') << setw(52 - (CurrentSessionInfo::currUser.getFirstName().size())) << "" << endl;
+        cout << setfill('-') << setw(65 - (fName.size())) << " CURRENT USER: " << fName << " " << lName
+            << " " << setfill('-') << setw(53 - (fName.size() + lName.size())) << "" << endl;
 
         cout << setfill('-') << setw(117) << "" << endl;
         cout << endl;
 
         cout << setfill(' ') << setw(75) << "Select from the options below:\n" << endl;
-        cout << setfill(' ') << setw(55) << "0. Return" << endl;
+        cout << setfill(' ') << setw(54) << "0. Logout" << endl;
         cout << setfill(' ') << setw(75) << "1. Update Personal Information" << endl;
-        cout << setfill(' ') << setw(61) << "2. View My Books\n" << endl;
+        cout << setfill(' ') << setw(62) << "2. View My Books\n" << endl;
         cout << setfill(' ') << setw(63) << "Enter Your Choice:\t";
 
         cin >> accountChoice;
@@ -118,6 +121,119 @@ void UserInfoAccessScreen::printUserDataMenu()
     } while (!valid);
 }
 
-void UserInfoAccessScreen::SearchForUsers()
-{
+// Prints the main admin menu
+void UserInfoAccessScreen::printAdminMenu() {
+    string choice;
+    bool goBack = false;
+    string fName = CurrentSessionInfo::currUser.getFirstName();
+
+    system("cls");
+
+    // Convert fName to full uppercase
+    transform(fName.begin(), fName.end(), fName.begin(), ::toupper);
+
+    // Using a while true loop so that when a user comes back from a submenu it reprints this menu
+    do {
+        cout << setfill('-') << setw(117) << "" << endl;
+        cout << setfill('-') << setw(57 + fName.size()) << " WELCOME ADMIN " << fName << " " << setfill('-') << setw(53 - (fName.size())) << "" << endl;
+        cout << setfill('-') << setw(117) << "" << endl;
+        cout << endl;
+
+        cout << setfill(' ') << setw(70) << "Select from the options below:\n" << endl;
+        cout << setfill(' ') << setw(55) << "0. Log out" << endl;
+        cout << setfill(' ') << setw(57) << "1. Access Inventory" << endl;
+        cout << setfill(' ') << setw(69) << "2. View Member Accounts\n" << endl;
+        cout << setfill(' ') << setw(63) << "Enter Your Choice:\t";
+
+        getline(cin, choice);
+
+        if (choice == "1") {
+            system("cls");
+            cout << "Total Items in Library: " << CurrentSessionInfo::mediaList.size() << endl;
+            InventoryScreen::SearchForMedia();
+        }
+        else if (choice == "2") {
+            system("cls");
+
+            cout << "Total Users: " << CurrentSessionInfo::userList.size() << endl;
+
+            for (int i = 0; i < CurrentSessionInfo::userList.size(); i++) {
+                CurrentSessionInfo::userList.at(i)->printData();
+            }
+            cout << endl;
+
+            int adminChoice;
+            cout << setfill(' ') << setw(55) << "0. Return" << endl;
+            cout << setfill(' ') << setw(70) << "1. Update Member Account" << endl;
+            cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+
+            cin >> adminChoice;
+            switch (adminChoice) {
+            case 0:
+                system("cls");
+                return;
+            case 1:
+                int userLibID;
+                int userUpdateChoice;
+                cout << "Enter LibID of user you want to update: " << endl;
+
+                cin >> userLibID;
+
+                for (int i = 0; i < CurrentSessionInfo::userList.size(); i++) {
+                    if (CurrentSessionInfo::userList.at(i)->getLibID() == userLibID) {
+                        string fName = CurrentSessionInfo::userList.at(i)->getFirstName();
+                        string lName = CurrentSessionInfo::userList.at(i)->getLastName();
+
+                        cout << setfill(' ') << setw(70) << "Current User Selected: " << fName << " " << lName;
+                        cout << setfill(' ') << setw(70) << "What would you like to update?" << endl;
+                        cout << setfill(' ') << setw(56) << "0. Return" << endl;
+                        cout << setfill(' ') << setw(60) << "1. First Name" << endl;
+                        cout << setfill(' ') << setw(59) << "2. Last Name" << endl;
+                        cout << setfill(' ') << setw(57) << "3. Address" << endl;
+                        cout << setfill(' ') << setw(62) << "4. Phone Number" << endl;
+                        cout << setfill(' ') << setw(56) << "5. Email\n" << endl;
+                        cout << setfill(' ') << setw(63) << "Enter Your Choice:\t";
+                        cin >> userUpdateChoice;
+                        switch (userUpdateChoice) {
+                        case 1:
+                            CurrentSessionInfo::userList.at(i)->setFirstName();
+                            break;
+                        case 2:
+                            CurrentSessionInfo::userList.at(i)->setLastName();
+                            break;
+                        case 3:
+                            CurrentSessionInfo::userList.at(i)->setAddress();
+                            break;
+                        case 4:
+                            CurrentSessionInfo::userList.at(i)->setPhoneNumber();
+                            break;
+                        case 5:
+                            CurrentSessionInfo::userList.at(i)->setEmail();
+                            break;
+                        case 0:
+                            break;
+                        default:
+                            cout << "Invalid Choice" << endl;
+                        }
+                    }
+                }
+                break;
+            default:
+                cout << "Invalid Choice" << endl;
+            }
+        }
+        else if (choice == "0") {
+            system("cls");
+            goBack = true;
+        }
+        else if (choice == "") {
+            system("cls");
+        }
+        else {
+            system("cls");
+            cout << "Invalid choice please try again" << endl;
+        }
+    } while (!goBack);
 }
+
+void UserInfoAccessScreen::SearchForUsers() {}
