@@ -1,5 +1,5 @@
 #include "UserInfoAccessScreen.h"
-vector<CheckedoutMedia> UserInfoAccessScreen::usersCheckedoutMedia;
+vector<reference_wrapper<CheckedoutMedia>> UserInfoAccessScreen::usersCheckedoutMedia;
 
 void UserInfoAccessScreen::DisplayCheckedoutMedia()
 {
@@ -12,7 +12,7 @@ void UserInfoAccessScreen::DisplayCheckedoutMedia()
         for (int i = 1; i <= usersCheckedoutMedia.size(); i++)
         {
             cout << i << ". ";
-            usersCheckedoutMedia.at(i - 1).PrintInfo();
+            usersCheckedoutMedia.at(i - 1).get().PrintInfo();
             cout << endl;
 
             cin.clear();
@@ -112,6 +112,7 @@ void UserInfoAccessScreen::printUserDataMenu()
         switch (accountChoice) {
         case 0:
             valid = true;
+            usersCheckedoutMedia.clear();
             system("cls");
             break;
         case 1:
@@ -185,6 +186,8 @@ void UserInfoAccessScreen::CheckoutMediaInteractionMenu(CheckedoutMedia& selecte
             break;
         case 2:
             selectedMedia.ReturnMedia();
+          
+            mediaReturned = true;
             break;
         default:
             break;

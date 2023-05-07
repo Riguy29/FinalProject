@@ -76,6 +76,28 @@ int CheckedoutMedia::GetBookId()
 	return bookId;
 }
 
+void CheckedoutMedia::Renew()
+{
+}
+
+//Function to return the media to the library, increases inventory count by 1 and remove the checkedout media object from list in currentSessionInfo
+void CheckedoutMedia::ReturnMedia()
+{
+	for (LibraryMedia* media : CurrentSessionInfo::mediaList) {
+		if (media->GetMediaID() == bookId) {
+			media->ChangeCount(1); //Adding the copy back to the library
+		}
+	}
+	for (int i = 0; i < CurrentSessionInfo::borrowedMediaList.size(); i++)
+	{
+		//Finds the matching user and media id to find the right media and then removes that media from the list
+		if (CurrentSessionInfo::borrowedMediaList.at(i).GetBookId() == bookId && CurrentSessionInfo::borrowedMediaList.at(i).GetUserId() == userId) {
+			CurrentSessionInfo::borrowedMediaList.erase(CurrentSessionInfo::borrowedMediaList.begin() + i);
+		}
+	}
+
+}
+
 void CheckedoutMedia::PrintInfo()
 {
 	for (LibraryMedia* media : CurrentSessionInfo::mediaList) {

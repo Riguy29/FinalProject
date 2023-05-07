@@ -15,7 +15,7 @@
 
 int main()
 {
-	CurrentSessionInfo::GenerateDummyData();
+	//CurrentSessionInfo::GenerateDummyData();
 	CurrentSessionInfo::LoadAllData();
 	
 	//InventoryScreen::SearchForMedia();

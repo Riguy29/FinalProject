@@ -9,7 +9,7 @@ And if admins want to find other users and change their information*/
 class UserInfoAccessScreen 
 {
 private:
-	static vector<CheckedoutMedia> usersCheckedoutMedia;
+	static vector<reference_wrapper<CheckedoutMedia>> usersCheckedoutMedia;
 public:
 	static void DisplayCheckedoutMedia();
 	static void printMainMenu();
