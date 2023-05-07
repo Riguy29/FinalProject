@@ -234,6 +234,7 @@ void UserInfoAccessScreen::updateUserInfo(int userLibID, int i) {
     default:
         cout << "Invalid Choice" << endl;
     }
+    system("cls");
 }
 
 // Delete user account
