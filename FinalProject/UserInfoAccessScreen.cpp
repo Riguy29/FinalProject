@@ -3,44 +3,45 @@ vector<reference_wrapper<CheckedoutMedia>> UserInfoAccessScreen::usersCheckedout
 
 void UserInfoAccessScreen::DisplayCheckedoutMedia()
 {
+    system("cls");
     bool goBack = false;
     int choice;
     do {
+        cout << " Enter 0 to go back" << endl;
         cout << "Books you currently have checked out are: " << endl;
-
         for (int i = 1; i <= usersCheckedoutMedia.size(); i++)
         {
             cout << i << ". ";
             usersCheckedoutMedia.at(i - 1).get().PrintInfo();
             cout << endl;
-
+        }
+        try
+        {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cin >> choice;
-            
-            try
-            {
-                if (!cin) throw(1);
-                if (choice == 0) {
-                    system("cls");
-                    goBack = true;
-                }
-                else if ((choice - 1) < usersCheckedoutMedia.size()) { //If a users selects a valid 
-                    //Open up Media interaction menu
-                    bool wasMediaReturned = false;
-                    CheckoutMediaInteractionMenu(usersCheckedoutMedia.at(i), wasMediaReturned);
-                    if (wasMediaReturned) goBack = true;
-                }
-                else {
-                    throw(1);
-                }
-            }
-            catch (int errorCode)
-            {
+            if (!cin) throw(1);
+            if (choice == 0) {
                 system("cls");
-                if(errorCode == 1) cout << "Error, invalid input" << endl;
+                goBack = true;
+            }
+            else if ((choice - 1) < usersCheckedoutMedia.size()) { //If a users selects a valid 
+                //Open up Media interaction menu
+                bool wasMediaReturned = false;
+                CheckoutMediaInteractionMenu(usersCheckedoutMedia.at(choice - 1).get(), wasMediaReturned);
+                if (wasMediaReturned) goBack = true;
+            }
+            else {
+                throw(1);
             }
         }
+        catch (int errorCode)
+        {
+            system("cls");
+            if (errorCode == 1) cout << "Error, invalid input" << endl;
+        }
+
+
     } while (!goBack);
 }
 
@@ -304,12 +305,13 @@ void UserInfoAccessScreen::SearchForUsers() {}
 
 void UserInfoAccessScreen::CheckoutMediaInteractionMenu(CheckedoutMedia& selectedMedia, bool& mediaReturned)
 {
+    system("cls");
     int choice;
     bool goBack = false;
     do
     {
         selectedMedia.PrintInfo();
-        cout << "0. Return" << endl;
+        cout << "0. Go Back" << endl;
         cout << "1. Renew" << endl;
         cout << "2. Return" << endl;
 
@@ -317,13 +319,26 @@ void UserInfoAccessScreen::CheckoutMediaInteractionMenu(CheckedoutMedia& selecte
         if (!cin) continue;
         switch (choice)
         {
+        case 0:
+            goBack = true;
+            break;
         case 1:
             selectedMedia.Renew();
             break;
         case 2:
             selectedMedia.ReturnMedia();
-          
+
+            //Reloads the users media list because an object was removed
+            usersCheckedoutMedia.clear();
+            for (CheckedoutMedia media : CurrentSessionInfo::borrowedMediaList) {
+                if (media.GetUserId() == CurrentSessionInfo::currUser.getLibID()) {
+                    usersCheckedoutMedia.push_back(media);
+                }
+            }
             mediaReturned = true;
+            goBack = true;
+            system("cls");
+            cout << "Returned Media";
             break;
         default:
             break;
