@@ -2,7 +2,9 @@
 
 #include "CurrentSessionInfo.h"
 #include "InventoryScreen.h"
+#include "CheckedoutMedia.h"
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -11,10 +13,14 @@ And if admins want to find other users and change their information*/
 
 class UserInfoAccessScreen 
 {
+private:
+	static vector<CheckedoutMedia> usersCheckedoutMedia;
 public:
+	static void DisplayCheckedoutMedia();
 	static void printMainMenu();
 	static void printUserDataMenu();
 	static void SearchForUsers();
 	static void printAdminMenu();
+	static void CheckoutMediaInteractionMenu(CheckedoutMedia& selectedMedia, bool& mediaReturned);
 };
 

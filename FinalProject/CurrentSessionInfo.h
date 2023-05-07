@@ -15,7 +15,7 @@
 #include "Staff.h"
 #include "FacultyMember.h"
 #include "Student.h"
-#include "UserInfoAccessScreen.h"
+
 
 
 /*This class is meant to store information that will be used throughout the users session

@@ -15,6 +15,7 @@
 #include "Student.h"
 #include "Staff.h"
 #include "CurrentSessionInfo.h"
+#include "UserInfoAccessScreen.h"
 
 #include <iostream>
 #include <string>
