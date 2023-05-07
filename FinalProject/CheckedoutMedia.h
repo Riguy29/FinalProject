@@ -1,6 +1,7 @@
 #pragma once
 #include "LibraryMedia.h"
 #include "CurrentSessionInfo.h"
+#include <random>
 #include <chrono>
 /*This class will be used to keep track of media that users have checked out
 It holds references to the both the id of the user that checked it out and the id of the book that was checked out*/
