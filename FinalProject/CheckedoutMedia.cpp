@@ -19,9 +19,7 @@ CheckedoutMedia::CheckedoutMedia(int IDUser, int IDbook)
 	dueDate = checkoutDate + 7 * 86400; //Standard checkout date is 7 days from now, converting 7 days into seconds and adding it to the checkoutDatee
 }
 
-CheckedoutMedia::~CheckedoutMedia()
-{
-}
+CheckedoutMedia::~CheckedoutMedia() {}
 
 CheckedoutMedia::CheckedoutMedia(const CheckedoutMedia& copy)
 {

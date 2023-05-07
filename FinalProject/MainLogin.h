@@ -20,6 +20,9 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cstring>
+#include <regex>
+#include <iomanip>
 
 using namespace std;
 
@@ -37,11 +40,7 @@ public:
 	string getPassword()const;
 	void login();	
 	void registration();
-	void guest();
 	bool isLoginValid(int &inUser, string &inPass);
-	void adminMenu();
-
-	static void userHomeMenu();
 };
 
 #endif // !MAINLOGIN_H

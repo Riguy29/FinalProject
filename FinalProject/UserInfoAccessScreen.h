@@ -1,11 +1,15 @@
 #pragma once
-using namespace std;
+
+#include "CurrentSessionInfo.h"
+#include "InventoryScreen.h"
 #include <string>
 #include <vector>
-#include "CurrentSessionInfo.h"
-#include "CheckedoutMedia.h"
+
+using namespace std;
+
 /* This class is used for when users want to access and change information about their account
 And if admins want to find other users and change their information*/
+
 class UserInfoAccessScreen 
 {
 private:
@@ -15,7 +19,7 @@ public:
 	static void printMainMenu();
 	static void printUserDataMenu();
 	static void SearchForUsers();
-
+	static void printAdminMenu();
 	static void CheckoutMediaInteractionMenu(CheckedoutMedia& selectedMedia, bool& mediaReturned);
 };
 

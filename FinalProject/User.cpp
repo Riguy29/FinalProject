@@ -83,6 +83,12 @@ void User::setFirstName() {
             system("cls");
             cout << "Name must only contain letters!" << endl;
         } else {
+            // Capitalize first name and make sure all proceeding letters are lowercase
+            fName[0] = toupper(fName[0]);
+            for (int i = 1; i < fName.size(); i++) {
+                fName[i] = tolower(fName[i]);
+            }
+
             strcpy_s(firstName, sizeof(firstName), fName.c_str());
             valid = true;
         }
@@ -109,6 +115,13 @@ void User::setLastName() {
             cout << "Name must only contain letters!" << endl;
         }
         else {
+
+            // Capitalize last name and make sure all proceeding letters are lowercase
+            lName[0] = toupper(lName[0]);
+            for (int i = 1; i < lName.size(); i++) {
+                lName[i] = tolower(lName[i]);
+            }
+
             strcpy_s(lastName, sizeof(lastName), lName.c_str());
             valid = true;
         }
@@ -118,21 +131,34 @@ void User::setLastName() {
 void User::setAddress() { 
     string ad;
     bool valid = false;
-    
+
     system("cls");
 
     do {
-        cout << "Enter Address: " << endl;
+        vector<string> tokens;
+        cout << "Enter address in format of Street, City, State, Zipcode:" << endl;
         getline(cin, ad);
 
-        // Limit user address to 200 chars
-        if (ad.length() < 200 || ad.length() > 0) {
-            strcpy_s(address, sizeof(address), ad.c_str());
-            valid = true;
+        // For validation
+        stringstream check1(ad);
+        string tmp;
+
+        while (getline(check1, tmp, ',')) {
+            tokens.push_back(tmp);
         }
-        else {
+
+        // Limit user address to 200 chars
+        if (ad.length() > 200 || ad.length() == 0) {
             system("cls");
             cout << "Address must be greater than 0 and less than 200 characters long!" << endl;
+        }
+        else if (tokens.size() != 4) {
+            system("cls");
+            cout << "Address must be in format of Street, City, State, Zipcode" << endl;
+        }
+        else {
+            strcpy_s(address, sizeof(address), ad.c_str());
+            valid = true;
         }
 
     } while (!valid);
@@ -267,10 +293,6 @@ void User::setPassword() {
 
 void User::setLibID(int i) { libID = i; }
 void User::setUserType(userTypes type) { userType = type; }
-
-void User::printMenu() {
-
-}
 
 // Checks if the passed in string contains only letters
 bool User::containsOnlyLetters(string const& str) {
