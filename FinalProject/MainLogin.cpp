@@ -128,13 +128,13 @@ void Login::registration() {
     do {
         system("cls");
         cout << "Enter your position(M/E/S)" << endl;
-        cout << "Staff member M\nEmployee E\nStudent S \t" << endl;
+        cout << "Staff member M\nEmployee E\nStudent S\t" << endl;
         cin >> pos;
     } while (pos != 'M' && pos != 'E' && pos != 'S' && pos != 'm' && pos != 'e' && pos != 's');
 
     //check positon and set object type
-    if (pos == 'M') tmpUsr = new Staff();
-    else if (pos == 'E') tmpUsr = new FacultyMember();
+    if (pos == 'M' || pos == 'm') tmpUsr = new Staff();
+    else if (pos == 'E' || pos == 'e') tmpUsr = new FacultyMember();
     else tmpUsr = new Student();
 
     tmpUsr->setFirstName();
