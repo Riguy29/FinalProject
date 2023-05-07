@@ -13,6 +13,7 @@
 #include <string>
 #include <iomanip>
 #include <regex>
+#include <sstream>
 
 using namespace std;
 
@@ -54,7 +55,6 @@ public:
 
 	// Misc
 	bool containsOnlyLetters(string const& str);
-	void printMenu();
 	virtual void printData()const;
 
 protected:
