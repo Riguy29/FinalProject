@@ -22,7 +22,7 @@ void LibraryMedia::DeleteFromLibrary()
 	for (int i = 0; i < CurrentSessionInfo::mediaList.size(); i++)
 	{
 		if (mediaID == CurrentSessionInfo::mediaList.at(i)->GetMediaID() ) {
-			delete
+			delete CurrentSessionInfo::mediaList.at(i); //Deletes the pointer and and then removes it from the list
 			CurrentSessionInfo::mediaList.erase(CurrentSessionInfo::mediaList.begin() + i);
 		}
 	}
@@ -147,7 +147,6 @@ string LibraryMedia::GetSearchString(int searchParm)
 				returnString += " ";
 			}
 		}
-		return	returnString;
 	}
 	else if (searchParm == 1) { //Generate PublisherName Search Parm
 		for (int i = 0; i < CurrentSessionInfo::pubList.size(); i++) {
@@ -156,7 +155,6 @@ string LibraryMedia::GetSearchString(int searchParm)
 				returnString += " ";
 			}
 		}
-		return	returnString;
 	}
 	else if (searchParm == 2) { //Generate Publisher Address Search Parm
 		for (int i = 0; i < CurrentSessionInfo::pubList.size(); i++) {
@@ -165,9 +163,8 @@ string LibraryMedia::GetSearchString(int searchParm)
 				returnString += " ";
 			}
 		}
-		return	returnString;
 	}
-	return string();
+	return returnString;
 }
 
 
@@ -337,58 +334,9 @@ void LibraryMedia::SetPublishers()
 		CurrentSessionInfo::pubList.push_back(tempPub);
 	}
 }
+
 void LibraryMedia::SetCallStatus(bool b)
 {
 	isCalledFor = b;
-}
-
-void UpdateMedia() {
-	bool isValidChoice = false;
-	int updateChoice;
-	do {
-		cout << setfill(' ') << setw(51) << "0. Return" << endl;
-		cout << setfill(' ') << setw(60) << "1. Update Title" << endl;
-		cout << setfill(' ') << setw(61) << "2. Update Author" << endl;
-		cout << setfill(' ') << setw(64) << "3. Update Publisher" << endl;
-		cout << setfill(' ') << setw(65) << "4. Update Category" << endl;
-		cout << setfill(' ') << setw(62) << "5. Update SubCategory" << endl;
-		cout << setfill(' ') << setw(73) << "6. Update Price" << endl;
-		cout << setfill(' ') << setw(73) << "7. Update Media Type\n" << endl;
-
-
-		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
-		cin >> updateChoice;
-		switch (updateChoice) {
-		case 0:
-			//returnToPrevMenu = true;
-			//break;
-			return;
-		case 1:
-			SetTitle();
-			break;
-		case 2:
-			SetAuthors();
-			break;
-		case 3:
-			SetPublishers();
-			break;
-		case 4:
-			SetCategory();
-			break;
-		case 5:
-			SetSubCategory();
-			break;
-		case 6:
-			SetPrice();
-			break;
-		case 7:
-			SetMediaType();
-			break;
-		default:
-			system("cls");
-			cout << "Invalid selection, try again" << endl;
-		}
-		}
-	} while (!isValidChoice);
 }
 #endif // !LIBRARYMEDIA_CPP

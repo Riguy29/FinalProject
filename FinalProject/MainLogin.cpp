@@ -49,10 +49,12 @@ void Login::printMenu() {
         switch (choice) {
         case 1:
             system("cls");
+            CurrentSessionInfo::isGuest = false;
             login();
             break;
         case 2:
             system("cls");
+            CurrentSessionInfo::isGuest = true; //Set isGuest to true if a guest logins in
             InventoryScreen::printMenu();
             break;
         case 3:
@@ -82,7 +84,7 @@ void Login::printMenu() {
         }
     } while (valid);
  }
-
+/*
 void Login::adminMenu() {
     string choice;
     bool goBack = false;
@@ -193,7 +195,7 @@ void Login::adminMenu() {
     } while (!goBack);
 
 }
-
+*/
 
 void Login::userHomeMenu() {   
     string choice;
@@ -228,14 +230,14 @@ void Login::userHomeMenu() {
         }
         else if (choice == "2") {
             system("cls");
-            CurrentSessionInfo::currUser.printMenu();
+            UserInfoAccessScreen::printUserDataMenu();
         }
         else if (choice == "0") {
             system("cls");
             goBack= true;
         }
-        else if (choice == "3") {
-
+        else if (choice == "3" && CurrentSessionInfo::currUser.getLibID() == 1000) {
+            UserInfoAccessScreen::SearchForUsers();
         }
         else if (choice == "") {
             system("cls");

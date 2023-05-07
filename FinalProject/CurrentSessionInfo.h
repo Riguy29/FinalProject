@@ -3,6 +3,7 @@
 #include <vector>
 #include <fstream>
 
+#include "CheckedoutMedia.h"
 #include "Book.h"
 #include "LibraryMedia.h"
 #include "Newspaper.h"
@@ -10,19 +11,22 @@
 #include "ConferenceJournal.h"
 #include "Author.h"
 #include  "Publisher.h"
-
 #include "User.h"
 #include "Staff.h"
 #include "FacultyMember.h"
 #include "Student.h"
-#include "CheckedoutMedia.h"
+#include "UserInfoAccessScreen.h"
+
 
 /*This class is meant to store information that will be used throughout the users session
 and to load and save data from our txt files into linked lists of apporitate types*/
+
+//Forward Declaration for checkedoutMedia
+class CheckedoutMedia;
+
 class CurrentSessionInfo
 {
 private:
-	static bool isUserAdmin;
 	static string BOOK_FILE_PATH;
 	static string NEWS_FILE_PATH;
 	static string PERIODICAL_FILE_PATH;
@@ -32,6 +36,7 @@ private:
 	static string STUDENT_FILE_PATH;
 	static string BORROWED_MEDIA_PATH;
 public:
+	static bool isGuest;
 	static vector<LibraryMedia*> mediaList;
 	static vector<User*> userList;
 	static vector<Author> authorList;

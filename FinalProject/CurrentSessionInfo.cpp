@@ -1,7 +1,6 @@
 #include "CurrentSessionInfo.h"
-
 //I guess because this is a static variable we have to define it outside of our .h file, idk thats what the internet told me and now it works so
-bool CurrentSessionInfo::isUserAdmin = false;
+bool CurrentSessionInfo::isGuest = false;
 vector<Publisher> CurrentSessionInfo::pubList;
 vector<Author> CurrentSessionInfo::authorList;
 vector<LibraryMedia*> CurrentSessionInfo::mediaList;
@@ -86,12 +85,12 @@ void CurrentSessionInfo::LoadAllData()
 	LoadMediaData<Book>("BookRecord.txt");
 	LoadMediaData<Newspaper>("NewspaperRecord.txt");
 	LoadMediaData<Periodical>("PeriodicalRecord.txt");
+	LoadMediaData<ConferenceJournal>("JournalRecord.txt");
 
 	LoadUserData<FacultyMember>("Faculty.txt");
 	LoadUserData<Staff>("Staff.txt");
 	LoadUserData<Student>("Students.txt");
 
-	//LoadData<ConferenceJournal>("JournalRecord.txt");
 }
 
 void CurrentSessionInfo::SaveAllData()

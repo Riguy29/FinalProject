@@ -95,6 +95,7 @@ void Publisher::SetAddress()
 			cout << "Enter the address of the publisher: " ;
 			getline(cin, tempAddress, '\n');
 			//Validate Data
+			if (tempAddress.length() > 50) throw(1);
 			strncpy_s(address, tempAddress.c_str(), sizeof(address));
 		}
 		catch (int errorCode)
@@ -122,8 +123,8 @@ Publisher::Publisher(int id, const string& newName, const string& newAddress, co
 {
 	bookId = id;
 	strncpy_s(name, newName.c_str(), sizeof(name));
-	strncpy_s(email, newAddress.c_str() , sizeof(email));
-	strncpy_s(address, newEmail.c_str(), sizeof(address));
+	strncpy_s(address, newAddress.c_str() , sizeof(address));
+	strncpy_s(email, newEmail.c_str(), sizeof(email));
 }
 
 Publisher::Publisher(int id)

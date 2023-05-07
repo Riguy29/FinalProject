@@ -1,5 +1,6 @@
 #include "CheckedoutMedia.h"
 
+
 CheckedoutMedia::CheckedoutMedia()
 {
 	userId = -1;
@@ -24,13 +25,66 @@ CheckedoutMedia::~CheckedoutMedia()
 
 CheckedoutMedia::CheckedoutMedia(const CheckedoutMedia& copy)
 {
+	userId = copy.userId;
+	bookId = copy.bookId;
+	lateFee = copy.lateFee;
+	checkoutDate = copy.checkoutDate;
+	dueDate = copy.dueDate;
+}
+
+double CheckedoutMedia::GetFee()
+{
+	return 0.0;
 }
 
 string CheckedoutMedia::GetCheckoutDate()
 {
-	string dateFormated;
-	int days;
-	int years;
-	int months;
-	return dateFormated;
+	time_t timeFormmated = checkoutDate;
+	struct tm timeinfo;
+	char returnString[80];
+
+	time(&timeFormmated);
+	localtime_s(&timeinfo,&timeFormmated);
+
+	strftime(returnString, 80, "%D", &timeinfo);
+
+	return returnString;
+
+}
+
+string CheckedoutMedia::GetDueDate()
+{
+	time_t timeFormmated = dueDate;
+	struct tm timeinfo;
+	char returnString[80];
+
+	time(&timeFormmated);
+	localtime_s(&timeinfo, &timeFormmated);
+
+	strftime(returnString, 80, "%D", &timeinfo);
+
+	return returnString;
+}
+
+int CheckedoutMedia::GetUserId()
+{
+	return userId;
+}
+
+int CheckedoutMedia::GetBookId()
+{
+	return bookId;
+}
+
+void CheckedoutMedia::PrintInfo()
+{
+	for (LibraryMedia* media : CurrentSessionInfo::mediaList) {
+		//If the media is equal to the media id for the checkout, print some info
+		if (media->GetMediaID() == bookId) {
+			media->ToString();
+			cout << "Checked out on :" << GetCheckoutDate() << endl;
+			cout << "Due on: " << GetDueDate() << endl;
+			cout << "Current Fee: " << GetFee() << endl;
+		}
+	}
 }

@@ -108,9 +108,9 @@ void InventoryScreen::SearchForMedia()
 		cout << setfill(' ') << setw(62) << "5. Search By Subject" << endl;
 		
 		if (CurrentSessionInfo::currUser.getLibID() == 1000) {
-			cout << setfill(' ') << setw(61) << "6. Search By Course" << endl;
-			cout << setfill(' ') << setw(60) << "7. Search By Price" << endl;
-			cout << setfill(' ') << setw(73) << "8. Search By Publisher Address\n" << endl;
+			//cout << setfill(' ') << setw(61) << "6. Search By Course" << endl;
+			cout << setfill(' ') << setw(60) << "6. Search By Price" << endl;
+			cout << setfill(' ') << setw(73) << "7. Search By Publisher Address\n" << endl;
 		}
 		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 
@@ -142,13 +142,22 @@ void InventoryScreen::SearchForMedia()
 			SearchBySubject();
 			break;
 		case 6:
-			SearchForMedia();
+			if (CurrentSessionInfo::currUser.getLibID() == 1000) {
+				SearchByPrice();
+			}
+			else {
+				system("cls");
+				cout << "Invalid selection, try again" << endl;
+			}
 			break;
 		case 7:
-			SearchByPrice();
-			break;
-		case 8:
-			SearchByPublisherAddress();
+			if (CurrentSessionInfo::currUser.getLibID() == 1000) {
+				SearchByPublisherAddress();
+			}
+			else {
+				system("cls");
+				cout << "Invalid selection, try again" << endl;
+			}
 			break;		
 		default:
 			system("cls");
@@ -157,12 +166,9 @@ void InventoryScreen::SearchForMedia()
 		
 	} while (!returnToPrevMenu);
 }
-void InventoryScreen::CheckoutBook()
-{
-}
 void InventoryScreen::printMenu() {
 	int choice =0;
-	bool validChoice = true;
+	bool goBack = false;
 	
 	system("cls");
 	do
@@ -183,9 +189,6 @@ void InventoryScreen::printMenu() {
 		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 
 		cin >> choice;
-		validChoice = true; //Assume choice is valid
-		string fullName;
-
 		switch (choice)
 		{
 		case 0:
@@ -193,22 +196,24 @@ void InventoryScreen::printMenu() {
 			//Delete all pointers and then clear vector
 			for (LibraryMedia* mediaPointer : mediaToCheckoutOrBuy)
 			{
+				mediaPointer->ChangeCount(1); //Return the copy to the library
 				delete mediaPointer;
 			}
 			mediaToCheckoutOrBuy.clear();
 			system("cls");
-			return;
+			goBack = true;
+			break;
 		case 1:
 			system("cls");
 			SearchForMedia();			
 			break;
 		case 2:
 			system("cls");
-			if (GuestLogin::isGuest(true)) {
+			if (CurrentSessionInfo::isGuest) {
 				GuestLogin::buy();
 			}
 			else {
-				CheckoutBook();
+				ConfirmMediaCheckout();
 			}			
 			break;
 		case 3: //If a user is not an admin and selects 3, make choice invlaid
@@ -218,15 +223,17 @@ void InventoryScreen::printMenu() {
 				break;
 			}
 			else {
+				system("cls");
 				cout << "Invalid selection, try again" << endl;
 			}
 
 		default:
+			system("cls");
 			cout << "Invalid selection, try again" << endl;
 			break;
 		}
 		
-	} while (validChoice);
+	} while (!goBack);
 	
 }
 
@@ -433,7 +440,8 @@ void InventoryScreen::PrintMatchingMedia(vector<LibraryMedia*> mediaList)
 		for (int i = 1; i <= mediaList.size(); i++)
 		{
 			cout << i << ". ";
-			mediaList.at(i-1)->ToString();
+			mediaList.at(i - 1)->ToString();
+
 		}
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -444,7 +452,9 @@ void InventoryScreen::PrintMatchingMedia(vector<LibraryMedia*> mediaList)
 		}
 		else if (mediaList.at(choice - 1) != NULL) {
 			//Open up Media interaction menu
-			MediaInteractionMenu(mediaList.at(choice - 1));
+			bool wasMediaDeleted = false;
+			MediaInteractionMenu(mediaList.at(choice - 1),wasMediaDeleted);
+			if (wasMediaDeleted) goBack = true;
 		}
 		else cout << "Invalid Selection, try again" << endl;
 
@@ -453,7 +463,7 @@ void InventoryScreen::PrintMatchingMedia(vector<LibraryMedia*> mediaList)
 	} while (!goBack); 
 }
 
-void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia) {
+void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia, bool& mediaDeleted) {
 	system("cls");
 
 	int choice;
@@ -492,7 +502,7 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia) {
 			break;
 		case 1:
 			{
-			if(GuestLogin::isGuest(true)){
+			if(CurrentSessionInfo::isGuest){
 				ofstream clearBuyList("PurchaseList.txt", ios::trunc);//open file to clear it and then close
 				clearBuyList.close();
 
@@ -511,6 +521,9 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia) {
 			else {//If regiestered user
 				if (selectedMedia->GetInventoryCount() > 0) {//If books are avaliable
 					mediaToCheckoutOrBuy.emplace_back(selectedMedia);
+					system("cls");
+					cout << selectedMedia->GetTitle() << " has been added to your cart" <<endl; 
+					selectedMedia->ChangeCount(-1); //Temporialy reduce count by 1
 				}
 				else {
 					//Call
@@ -535,7 +548,10 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia) {
 		case 3:
 			if (CurrentSessionInfo::currUser.getLibID() == 1000) {
 				selectedMedia->DeleteFromLibrary();
+				mediaDeleted = true;
 				goBack = true;
+				system("cls");
+				cout << "Media Deleted" << endl;
 			}
 			else {
 				cout << "Invalid choice" << endl;
@@ -552,12 +568,12 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia) {
 
 void InventoryScreen::ConfirmMediaCheckout() {
 	system("cls");
-	for (LibraryMedia* media : mediaToCheckoutOrBuy) {
-		media->ToString();
-		cout << endl;
-	}
+	//for (LibraryMedia* media : mediaToCheckoutOrBuy) {
+	//	media->ToString();
+	//	cout << endl;
+	//}
 
-	int choice;
+	string choice;
 	do
 	{
 		cout << "Does this look correct?" << endl;
@@ -573,20 +589,25 @@ void InventoryScreen::ConfirmMediaCheckout() {
 		}
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		cin >> choice;
-		if (choice == 1) {
-			//If user is not a guest
-			//Checkout Media
-			for (LibraryMedia* media : mediaToCheckoutOrBuy)
-			{
-				media->ChangeCount(-1); //Removing one from the count
-				CheckedoutMedia temp(CurrentSessionInfo::currUser.getLibID(), media->GetMediaID());
-				CurrentSessionInfo::borrowedMediaList.push_back(temp);
-				delete media; //Delete the pointer after we are done with it
+		getline(cin, choice);
+		if (choice == "1") {
+
+			if (CurrentSessionInfo::isGuest) {
+				//Buy the books
 			}
-			mediaToCheckoutOrBuy.clear();
+			else { //If regiestered user check them out
+				for (LibraryMedia* media : mediaToCheckoutOrBuy)
+				{
+					media->ChangeCount(-1); //Removing one from the count
+					CheckedoutMedia temp(CurrentSessionInfo::currUser.getLibID(), media->GetMediaID());
+					CurrentSessionInfo::borrowedMediaList.push_back(temp);
+					delete media; //Delete the pointer after we are done with it
+				}
+				mediaToCheckoutOrBuy.clear();
+			}
+
 		}
-		else if (choice == 2) {
+		else if (choice == "2") {
 			//Clears cart and returns
 			//Deletes all pointers and then clears the vector
 			for (LibraryMedia* mediaP : mediaToCheckoutOrBuy) {
@@ -594,7 +615,11 @@ void InventoryScreen::ConfirmMediaCheckout() {
 			}
 			mediaToCheckoutOrBuy.clear();
 		}
-	} while (choice != 1 && choice != 2); //If the user enter numbers other than 1 or 2
+		else {
+			system("cls");
+			cout << "Invalid Input" << endl;
+		}
+	} while (choice != "1" && choice != "2"); //If the user enter numbers other than 1 or 2
 }
 
 void InventoryScreen::EditMediaDataMenu(LibraryMedia* selectedMedia) {

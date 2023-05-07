@@ -18,7 +18,6 @@ class InventoryScreen {
 public:
 	static void AddMedia();
 	static void SearchForMedia();
-	static void CheckoutBook();
 	static void printMenu();
 	static void SearchByTitle();
 	static void SearchByAuthor();
@@ -28,7 +27,7 @@ public:
 	static void SearchByPrice() ;
 	static void SearchByPublisherAddress();
 	static void ConfirmMediaCheckout();
-	static void MediaInteractionMenu(LibraryMedia* selectedMedia);
+	static void MediaInteractionMenu(LibraryMedia* selectedMedia, bool& mediaDeleted);
 	static void PrintMatchingMedia(vector<LibraryMedia*> mediaList);
 
 	static void EditMediaDataMenu(LibraryMedia* selectedMedia);
