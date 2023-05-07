@@ -121,3 +121,7 @@ void UserInfoAccessScreen::printUserDataMenu()
 void UserInfoAccessScreen::SearchForUsers()
 {
 }
+
+void UserInfoAccessScreen::CheckoutMediaInteractionMenu()
+{
+}

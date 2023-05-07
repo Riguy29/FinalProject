@@ -10,5 +10,7 @@ public:
 	static void printMainMenu();
 	static void printUserDataMenu();
 	static void SearchForUsers();
+
+	static void CheckoutMediaInteractionMenu();
 };
 
