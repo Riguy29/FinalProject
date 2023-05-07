@@ -2,7 +2,6 @@
 
 #include "CurrentSessionInfo.h"
 #include "InventoryScreen.h"
-#include "CheckedoutMedia.h"
 #include <string>
 #include <vector>
 

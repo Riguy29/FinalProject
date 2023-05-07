@@ -1,4 +1,5 @@
 #include "UserInfoAccessScreen.h"
+
 vector<CheckedoutMedia> UserInfoAccessScreen::usersCheckedoutMedia;
 
 void UserInfoAccessScreen::DisplayCheckedoutMedia()
@@ -7,7 +8,6 @@ void UserInfoAccessScreen::DisplayCheckedoutMedia()
     int choice;
     do {
         cout << "Books you currently have checked out are: " << endl;
-
 
         for (int i = 1; i <= usersCheckedoutMedia.size(); i++)
         {
@@ -19,7 +19,6 @@ void UserInfoAccessScreen::DisplayCheckedoutMedia()
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cin >> choice;
             
-
             try
             {
                 if (!cin) throw(1);
@@ -277,9 +276,9 @@ void UserInfoAccessScreen::printAdminMenu() {
             cout << "Invalid choice please try again" << endl;
         }
     } while (!goBack);
-void UserInfoAccessScreen::SearchForUsers()
-{
 }
+
+void UserInfoAccessScreen::SearchForUsers() {}
 
 void UserInfoAccessScreen::CheckoutMediaInteractionMenu(CheckedoutMedia& selectedMedia, bool& mediaReturned)
 {
