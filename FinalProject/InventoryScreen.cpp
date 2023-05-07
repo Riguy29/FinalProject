@@ -170,22 +170,23 @@ void InventoryScreen::printMenu() {
 	int choice =0;
 	bool goBack = false;
 	
-	system("cls");
 	do
 	{
-		cout << setfill('-') << setw(115) << "" << endl;
-		cout << setfill('-') << setw(115)<<"" << endl; //setw(62) <<  " INVENTORY SCREEN " << setfill('-') << setw(53) << "" << endl;
-		cout << setfill('-') << setw(116) << "\n" << endl;
+		cout << setfill('-') << setw(117) << "" << endl;
+		cout << setfill('-') << setw(117)<< "" << endl; //setw(62) <<  " INVENTORY SCREEN " << setfill('-') << setw(53) << "" << endl;
+		cout << setfill('-') << setw(118) << "\n" << endl;
 
 		cout << setfill(' ') << setw(68) << "Select from the options below:\n" << endl;
 		cout << setfill(' ') << setw(53) << "0. Return" << endl;
 		cout << setfill(' ') << setw(59) << "1. Search Media" << endl;
 		cout << setfill(' ') << setw(55) << "2. Checkout" << endl;
 		
-		if(CurrentSessionInfo::currUser.getLibID() == 1000) {
+		if (CurrentSessionInfo::currUser.getLibID() == 1000) {
 			cout << setfill(' ') << setw(56) << "3. Add Media" << endl;
+			cout << setfill(' ') << setw(63) << "4. Total Item Count" << endl;
 		}
 		
+		cout << endl;
 		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 
 		cin >> choice;
@@ -226,7 +227,12 @@ void InventoryScreen::printMenu() {
 				system("cls");
 				cout << "Invalid selection, try again" << endl;
 			}
-
+		case 4:
+			system("cls");
+			if (CurrentSessionInfo::currUser.getLibID() == 1000) {
+				cout << "Total Items in Library: " << CurrentSessionInfo::mediaList.size() << endl;
+			}
+			break;
 		default:
 			system("cls");
 			cout << "Invalid selection, try again" << endl;

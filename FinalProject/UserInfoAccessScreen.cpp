@@ -96,8 +96,32 @@ void UserInfoAccessScreen::printUserDataMenu()
     do {
 
         cout << setfill('-') << setw(117) << "" << endl;
-        cout << setfill('-') << setw(65 - (fName.size())) << " CURRENT USER: " << fName << " " << lName
-            << " " << setfill('-') << setw(53 - (fName.size() + lName.size())) << "" << endl;
+
+        // If first name has even number of letters
+        if (fName.size() % 2 == 0) {
+            // If last name has odd number of letters
+            if (lName.size() % 2 != 0) {
+                cout << setfill('-') << setw(65 - (fName.size())) << " CURRENT USER: " << fName << " " << lName
+                    << " " << setfill('-') << setw(53 - (fName.size() + lName.size())) << "" << endl;
+            }
+            // If last name has even number of letters
+            else {
+                cout << setfill('-') << setw(65 - (fName.size())) << " CURRENT USER: " << fName << " " << lName
+                    << " " << setfill('-') << setw(53 - (fName.size() + lName.size() - 1)) << "" << endl;
+            }
+        }
+        else {
+            // If last name has odd number of letters
+            if (lName.size() % 2 != 0) {
+                cout << setfill('-') << setw(65 - (fName.size())) << " CURRENT USER: " << fName << " " << lName
+                    << " " << setfill('-') << setw(53 - (fName.size() + lName.size())) << "" << endl;
+            }
+            // If last name has even number of letters
+            else {
+                cout << setfill('-') << setw(65 - (fName.size())) << " CURRENT USER: " << fName << " " << lName
+                    << " " << setfill('-') << setw(53 - (fName.size() + lName.size() - 1)) << "" << endl;
+            }
+        }
 
         cout << setfill('-') << setw(117) << "" << endl;
         cout << endl;
@@ -177,22 +201,21 @@ void UserInfoAccessScreen::printAdminMenu() {
     // Using a while true loop so that when a user comes back from a submenu it reprints this menu
     do {
         cout << setfill('-') << setw(117) << "" << endl;
-        cout << setfill('-') << setw(57 + fName.size()) << " WELCOME ADMIN " << fName << " " << setfill('-') << setw(53 - (fName.size())) << "" << endl;
+        cout << setfill('-') << setw(65) << " WELCOME ADMIN " << setfill('-') << setw(52) << "" << endl;
         cout << setfill('-') << setw(117) << "" << endl;
         cout << endl;
 
-        cout << setfill(' ') << setw(70) << "Select from the options below:\n" << endl;
-        cout << setfill(' ') << setw(55) << "0. Log out" << endl;
-        cout << setfill(' ') << setw(57) << "1. Access Inventory" << endl;
-        cout << setfill(' ') << setw(69) << "2. View Member Accounts\n" << endl;
-        cout << setfill(' ') << setw(63) << "Enter Your Choice:\t";
+        cout << setfill(' ') << setw(73) << "Select from the options below:\n" << endl;
+        cout << setfill(' ') << setw(53) << "0. Log out" << endl;
+        cout << setfill(' ') << setw(62) << "1. Access Inventory" << endl;
+        cout << setfill(' ') << setw(67) << "2. View Member Accounts\n" << endl;
+        cout << setfill(' ') << setw(61) << "Enter Your Choice:\t";
 
         getline(cin, choice);
 
         if (choice == "1") {
             system("cls");
-            cout << "Total Items in Library: " << CurrentSessionInfo::mediaList.size() << endl;
-            InventoryScreen::SearchForMedia();
+            InventoryScreen::printMenu();
         }
         else if (choice == "2") {
             system("cls");

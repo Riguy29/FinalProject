@@ -55,7 +55,9 @@
     <ClCompile Include="User.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
-    <ClCompile Include="UserInfoAccessScreen.cpp" />
+    <ClCompile Include="UserInfoAccessScreen.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Author.h">
@@ -109,8 +111,12 @@
     <ClInclude Include="User.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Invoice.h" />
-    <ClInclude Include="UserInfoAccessScreen.h" />
+    <ClInclude Include="UserInfoAccessScreen.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Invoice.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="AuthorRecord.txt" />
