@@ -56,39 +56,16 @@ void UserInfoAccessScreen::printUserDataMenu()
     }
     int accountChoice;
     bool valid = false;
-    string fName = CurrentSessionInfo::currUser.getFirstName();
-    string lName = CurrentSessionInfo::currUser.getLastName();
+    
     int userLibID = CurrentSessionInfo::currUser.getLibID();
 
     do {
+        string fName = CurrentSessionInfo::currUser.getFirstName();
+        string lName = CurrentSessionInfo::currUser.getLastName();
 
         cout << setfill('-') << setw(117) << "" << endl;
-
-        // If first name has even number of letters
-        if (fName.size() % 2 == 0) {
-            // If last name has odd number of letters
-            if (lName.size() % 2 != 0) {
-                cout << setfill('-') << setw(65 - (fName.size())) << " CURRENT USER: " << fName << " " << lName
-                    << " " << setfill('-') << setw(53 - (fName.size() + lName.size())) << "" << endl;
-            }
-            // If last name has even number of letters
-            else {
-                cout << setfill('-') << setw(65 - (fName.size())) << " CURRENT USER: " << fName << " " << lName
-                    << " " << setfill('-') << setw(53 - (fName.size() + lName.size() - 1)) << "" << endl;
-            }
-        }
-        else {
-            // If last name has odd number of letters
-            if (lName.size() % 2 != 0) {
-                cout << setfill('-') << setw(65 - (fName.size())) << " CURRENT USER: " << fName << " " << lName
-                    << " " << setfill('-') << setw(53 - (fName.size() + lName.size())) << "" << endl;
-            }
-            // If last name has even number of letters
-            else {
-                cout << setfill('-') << setw(65 - (fName.size())) << " CURRENT USER: " << fName << " " << lName
-                    << " " << setfill('-') << setw(53 - (fName.size() + lName.size() - 1)) << "" << endl;
-            }
-        }
+        cout << setfill('-') << setw(62) << right << " CURRENT USER: " << fName << " " << lName
+            << " " << setfill('-') << setw(45) << "" << endl;
 
         cout << setfill('-') << setw(117) << "" << endl;
         cout << endl;
@@ -96,7 +73,8 @@ void UserInfoAccessScreen::printUserDataMenu()
         cout << setfill(' ') << setw(75) << "Select from the options below:\n" << endl;
         cout << setfill(' ') << setw(54) << "0. Logout" << endl;
         cout << setfill(' ') << setw(75) << "1. Update Personal Information" << endl;
-        cout << setfill(' ') << setw(62) << "2. View My Books\n" << endl;
+        cout << setfill(' ') << setw(61) << "2. View My Books" << endl;
+        cout << setfill(' ') << setw(65) << "3. Search Inventory\n" << endl;
         cout << setfill(' ') << setw(63) << "Enter Your Choice:\t";
 
         cin >> accountChoice;
@@ -123,6 +101,10 @@ void UserInfoAccessScreen::printUserDataMenu()
             break;
         case 2:
             DisplayCheckedoutMedia();
+            break;
+        case 3:
+            system("cls");
+            InventoryScreen::printMenu();
             break;
         default:
             system("cls");
