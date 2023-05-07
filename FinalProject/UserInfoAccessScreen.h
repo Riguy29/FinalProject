@@ -18,8 +18,8 @@ public:
 	static void DisplayCheckedoutMedia();
 	static void printMainMenu();
 	static void printUserDataMenu();
-	static void SearchForUsers();
 	static void printAdminMenu();
+	static void AdminAccessAllUserDataMenu();
 	static void CheckoutMediaInteractionMenu(CheckedoutMedia& selectedMedia, bool& mediaReturned);
 };
 

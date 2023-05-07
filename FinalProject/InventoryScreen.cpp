@@ -188,8 +188,9 @@ void InventoryScreen::printMenu() {
 		
 		cout << endl;
 		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
-
+		cin.clear();
 		cin >> choice;
+		if (!cin) continue;
 		switch (choice)
 		{
 		case 0:
@@ -388,6 +389,7 @@ void InventoryScreen::SearchByPrice()
 {
 	double searchPrice;
 	cout << "Enter the Price of the media you are looking for" << endl;
+	if (!cin) return;
 	cin >> searchPrice;
 	vector<LibraryMedia*> matchingList;//Create vector of pointers that will point to the memory of matching books found in BookList();
 	for (int i = 0; i < CurrentSessionInfo::mediaList.size(); i++)//Goes through Book list and checks for title that contain the user input

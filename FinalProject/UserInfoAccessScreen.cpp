@@ -68,7 +68,7 @@ void UserInfoAccessScreen::printMainMenu()
             printUserDataMenu();
 		}
         else if (choice == "2" && CurrentSessionInfo::currUser.getLibID() == 1000) {
-            SearchForUsers();
+
         }
         else {
             system("cls");
@@ -237,50 +237,7 @@ void UserInfoAccessScreen::printAdminMenu() {
                 system("cls");
                 return;
             case 1:
-                int userLibID;
-                int userUpdateChoice;
-                cout << "Enter LibID of user you want to update: " << endl;
-
-                cin >> userLibID;
-
-                for (int i = 0; i < CurrentSessionInfo::userList.size(); i++) {
-                    if (CurrentSessionInfo::userList.at(i)->getLibID() == userLibID) {
-                        string fName = CurrentSessionInfo::userList.at(i)->getFirstName();
-                        string lName = CurrentSessionInfo::userList.at(i)->getLastName();
-
-                        cout << setfill(' ') << setw(70) << "Current User Selected: " << fName << " " << lName;
-                        cout << setfill(' ') << setw(70) << "What would you like to update?" << endl;
-                        cout << setfill(' ') << setw(56) << "0. Return" << endl;
-                        cout << setfill(' ') << setw(60) << "1. First Name" << endl;
-                        cout << setfill(' ') << setw(59) << "2. Last Name" << endl;
-                        cout << setfill(' ') << setw(57) << "3. Address" << endl;
-                        cout << setfill(' ') << setw(62) << "4. Phone Number" << endl;
-                        cout << setfill(' ') << setw(56) << "5. Email\n" << endl;
-                        cout << setfill(' ') << setw(63) << "Enter Your Choice:\t";
-                        cin >> userUpdateChoice;
-                        switch (userUpdateChoice) {
-                        case 1:
-                            CurrentSessionInfo::userList.at(i)->setFirstName();
-                            break;
-                        case 2:
-                            CurrentSessionInfo::userList.at(i)->setLastName();
-                            break;
-                        case 3:
-                            CurrentSessionInfo::userList.at(i)->setAddress();
-                            break;
-                        case 4:
-                            CurrentSessionInfo::userList.at(i)->setPhoneNumber();
-                            break;
-                        case 5:
-                            CurrentSessionInfo::userList.at(i)->setEmail();
-                            break;
-                        case 0:
-                            break;
-                        default:
-                            cout << "Invalid Choice" << endl;
-                        }
-                    }
-                }
+                
                 break;
             default:
                 cout << "Invalid Choice" << endl;
@@ -300,7 +257,53 @@ void UserInfoAccessScreen::printAdminMenu() {
     } while (!goBack);
 }
 
-void UserInfoAccessScreen::SearchForUsers() {}
+void UserInfoAccessScreen::AdminAccessAllUserDataMenu()
+{
+    int userLibID;
+    int userUpdateChoice;
+    cout << "Enter LibID of user you want to update: " << endl;
+
+    cin >> userLibID;
+
+    for (int i = 0; i < CurrentSessionInfo::userList.size(); i++) {
+        if (CurrentSessionInfo::userList.at(i)->getLibID() == userLibID) {
+            string fName = CurrentSessionInfo::userList.at(i)->getFirstName();
+            string lName = CurrentSessionInfo::userList.at(i)->getLastName();
+
+            cout << setfill(' ') << setw(70) << "Current User Selected: " << fName << " " << lName;
+            cout << setfill(' ') << setw(70) << "What would you like to update?" << endl;
+            cout << setfill(' ') << setw(56) << "0. Return" << endl;
+            cout << setfill(' ') << setw(60) << "1. First Name" << endl;
+            cout << setfill(' ') << setw(59) << "2. Last Name" << endl;
+            cout << setfill(' ') << setw(57) << "3. Address" << endl;
+            cout << setfill(' ') << setw(62) << "4. Phone Number" << endl;
+            cout << setfill(' ') << setw(56) << "5. Email\n" << endl;
+            cout << setfill(' ') << setw(63) << "Enter Your Choice:\t";
+            cin >> userUpdateChoice;
+            switch (userUpdateChoice) {
+            case 1:
+                CurrentSessionInfo::userList.at(i)->setFirstName();
+                break;
+            case 2:
+                CurrentSessionInfo::userList.at(i)->setLastName();
+                break;
+            case 3:
+                CurrentSessionInfo::userList.at(i)->setAddress();
+                break;
+            case 4:
+                CurrentSessionInfo::userList.at(i)->setPhoneNumber();
+                break;
+            case 5:
+                CurrentSessionInfo::userList.at(i)->setEmail();
+                break;
+            case 0:
+                break;
+            default:
+                cout << "Invalid Choice" << endl;
+            }
+        }
+    }
+}
 
 void UserInfoAccessScreen::CheckoutMediaInteractionMenu(CheckedoutMedia& selectedMedia, bool& mediaReturned)
 {
