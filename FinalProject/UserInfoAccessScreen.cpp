@@ -1,5 +1,54 @@
 #include "UserInfoAccessScreen.h"
+vector<CheckedoutMedia> UserInfoAccessScreen::usersCheckedoutMedia;
 
+void UserInfoAccessScreen::DisplayCheckedoutMedia()
+{
+    bool goBack = false;
+    int choice;
+    do {
+        cout << "Books you currently have checked out are: " << endl;
+
+
+        for (int i = 1; i <= usersCheckedoutMedia.size(); i++)
+        {
+            cout << i << ". ";
+            usersCheckedoutMedia.at(i - 1).PrintInfo();
+            cout << endl;
+
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin >> choice;
+            
+
+            try
+            {
+                if (!cin) throw(1);
+                if (choice == 0) {
+                    system("cls");
+                    goBack = true;
+                }
+                else if ((choice - 1) < usersCheckedoutMedia.size()) { //If a users selects a valid 
+                    //Open up Media interaction menu
+                    bool wasMediaReturned = false;
+                    CheckoutMediaInteractionMenu(usersCheckedoutMedia.at(i), wasMediaReturned);
+                    if (wasMediaReturned) goBack = true;
+                }
+                else {
+                    throw(1);
+                }
+            }
+            catch (int errorCode)
+            {
+                system("cls");
+                if(errorCode == 1) cout << "Error, invalid input" << endl;
+            }
+
+
+        }
+    } while (!goBack);
+}
+
+//Might not even use this
 void UserInfoAccessScreen::printMainMenu()
 {
 	bool goBack = false;
@@ -33,6 +82,13 @@ void UserInfoAccessScreen::printMainMenu()
 
 void UserInfoAccessScreen::printUserDataMenu()
 {
+
+    //When a users logs in get there currently checkedout books and store them in a vector
+    for (CheckedoutMedia media : CurrentSessionInfo::borrowedMediaList) {
+        if (media.GetUserId() == CurrentSessionInfo::currUser.getLibID()) {
+            usersCheckedoutMedia.push_back(media);
+        }
+    }
     int accountChoice;
     bool valid = false;
 
@@ -95,20 +151,7 @@ void UserInfoAccessScreen::printUserDataMenu()
 
             break;
         case 2:
-            //FIXME: open currentUser bookList
-            cout << "Books you currently have checked out are: " << endl;
-            for (CheckedoutMedia media : CurrentSessionInfo::borrowedMediaList) {
-                if (media.GetUserId() == CurrentSessionInfo::currUser.getLibID()) {
-                    media.PrintInfo();
-                }
-            }
-            cout << endl;
-
-            int returnInput;
-            do {
-                cout << "Press 0 to return to previous screen" << endl;
-                cin >> returnInput;
-            } while (returnInput != 0);
+            DisplayCheckedoutMedia();
             break;
         default:
             system("cls");
@@ -122,6 +165,29 @@ void UserInfoAccessScreen::SearchForUsers()
 {
 }
 
-void UserInfoAccessScreen::CheckoutMediaInteractionMenu()
+void UserInfoAccessScreen::CheckoutMediaInteractionMenu(CheckedoutMedia& selectedMedia, bool& mediaReturned)
 {
+    int choice;
+    bool goBack = false;
+    do
+    {
+        selectedMedia.PrintInfo();
+        cout << "0. Return" << endl;
+        cout << "1. Renew" << endl;
+        cout << "2. Return" << endl;
+
+        cin >> choice;
+        if (!cin) continue;
+        switch (choice)
+        {
+        case 1:
+            selectedMedia.Renew();
+            break;
+        case 2:
+            selectedMedia.ReturnMedia();
+            break;
+        default:
+            break;
+        }
+    } while (!goBack);
 }
