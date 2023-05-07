@@ -33,6 +33,7 @@ public:
 	//0 for author search string, 1 for publisher name search string, 2 for publisher address search string
 	string GetSearchString(int searchParm);
 	int GetMediaID(); //No set method since the id is auto generated;
+	bool GetCalledStatus();
 
 	//Mutators
 	void SetTitle();
@@ -44,15 +45,18 @@ public:
 	void SetDoner();
 	void SetAuthors();
 	void SetPublishers();
+	void SetCallStatus(bool b);
 
-	void ChangeCount(int changeAmt);
-	virtual void ToString();
-
-
+	//Constructors and Destructors
 	virtual ~LibraryMedia();
 	LibraryMedia(const LibraryMedia& mediaToCopy);
 	LibraryMedia();
 	LibraryMedia(int id, string mediaTitle, mediaTypes typeOfMedia, double mediaPrice, string mediaCat, string mediaSubCat, int mediaCount, string mediaDoner);
+
+	//Methods
+	void DeleteFromLibrary();
+	void ChangeCount(int changeAmt);
+	virtual void ToString();
 protected:
 	int mediaID;
 	char title[50];
@@ -62,6 +66,7 @@ protected:
 	char subCategory[50];
 	int inventoryCount;
 	char doner[50];
+	bool isCalledFor;
 };
 
 #endif // !LIBRARYMEDIA_H

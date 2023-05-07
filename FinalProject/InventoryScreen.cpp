@@ -5,9 +5,6 @@
 vector<LibraryMedia*> InventoryScreen::mediaToCheckoutOrBuy;
 string InventoryScreen::recordTxtFile;
 
-InventoryScreen::InventoryScreen(){}
-InventoryScreen::~InventoryScreen(){}
-
 void InventoryScreen::AddMedia()
 {
 	int choice =0;
@@ -110,12 +107,11 @@ void InventoryScreen::SearchForMedia()
 		cout << setfill(' ') << setw(65) << "4. Search By Department" << endl;
 		cout << setfill(' ') << setw(62) << "5. Search By Subject" << endl;
 		
-		//if (admin.isUserAdmin == true) {
+		if (CurrentSessionInfo::currUser.getLibID() == 1000) {
 			cout << setfill(' ') << setw(61) << "6. Search By Course" << endl;
 			cout << setfill(' ') << setw(60) << "7. Search By Price" << endl;
 			cout << setfill(' ') << setw(73) << "8. Search By Publisher Address\n" << endl;
-			//CurrentSessionInfo::SetAdmin(true);
-		//}
+		}
 		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 
 		cin.clear();
@@ -161,6 +157,9 @@ void InventoryScreen::SearchForMedia()
 		
 	} while (!returnToPrevMenu);
 }
+void InventoryScreen::CheckoutBook()
+{
+}
 void InventoryScreen::printMenu() {
 	int choice =0;
 	bool validChoice = true;
@@ -177,20 +176,9 @@ void InventoryScreen::printMenu() {
 		cout << setfill(' ') << setw(59) << "1. Search Media" << endl;
 		cout << setfill(' ') << setw(55) << "2. Checkout" << endl;
 		
-		ifstream user;
-		string username;
-		user.open("currentUser.txt");
-
-		if (!user.is_open()) {
-			cout << "File open was not successful";
-		}
-		user >> username;
-		//user.close();
-		if(GuestLogin::isGuest(false)) {// needs to be User::isAdmin(true){
-		//if (username.at(0) == 'M') {
+		if(CurrentSessionInfo::currUser.getLibID() == 1000) {
 			cout << setfill(' ') << setw(56) << "3. Add Media" << endl;
 		}
-		user.close();
 		
 		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 
@@ -214,22 +202,25 @@ void InventoryScreen::printMenu() {
 			system("cls");
 			SearchForMedia();			
 			break;
-		case 2: //If a user is not an admin and selects 2, make choice invlaid
+		case 2:
 			system("cls");
 			if (GuestLogin::isGuest(true)) {
 				GuestLogin::buy();
 			}
-			
-			//CheckoutBook();
-			//if (CurrentSessionInfo::CheckIfAdmin()) SearchForMedia();
-			//else cout << "Invalid selection, try again" << endl;
-			
+			else {
+				CheckoutBook();
+			}			
 			break;
 		case 3: //If a user is not an admin and selects 3, make choice invlaid
-			//TODO Check if Admin
-			system("cls");
-			AddMedia();
-			break;
+			if (CurrentSessionInfo::currUser.getLibID() == 1000) {
+				system("cls");
+				AddMedia();
+				break;
+			}
+			else {
+				cout << "Invalid selection, try again" << endl;
+			}
+
 		default:
 			cout << "Invalid selection, try again" << endl;
 			break;
@@ -434,16 +425,16 @@ void InventoryScreen::PrintMatchingMedia(vector<LibraryMedia*> mediaList)
 {
 	
 	int choice=0;
-	bool valid = true;
+	bool goBack = false;
 	do
 	{
 		cout << "Select a media" << endl;
+		cout << "0. Return" << endl;
 		for (int i = 1; i <= mediaList.size(); i++)
 		{
 			cout << i << ". ";
 			mediaList.at(i-1)->ToString();
 		}
-		cout << "0. Return" << endl;
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cin >> choice;
@@ -459,7 +450,7 @@ void InventoryScreen::PrintMatchingMedia(vector<LibraryMedia*> mediaList)
 
 		
 
-	} while (valid); 
+	} while (!goBack); 
 }
 
 void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia) {
@@ -483,12 +474,10 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia) {
 			//if() //Check if user is a borrower, if not then they can't call for media and it should say media is out of stock
 			cout << "1. Call For Media" << endl; //Not sure if a guest should be able to call for media
 		}
-		//if(isAdmin) {
-		//FIXME:: Only print these options if current user is admin
+		if (CurrentSessionInfo::currUser.getLibID() == 1000) {
 		cout << setfill(' ') << setw(53) << "2. Update Media" << endl;
 		cout << setfill(' ') << setw(56) << "3. Delete Media" << endl;
-		//END ADMIN SECTION
-		//}
+		}
 		cout << setfill(' ') << setw(51) << "0. Return\n" << endl;
 		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 
@@ -519,9 +508,16 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia) {
 					cout << "File not opened successfully" << endl;
 				}		
 			 }
-			else {
-				//FIXME:: If normal user add to cart, unless no inventory then call
-			//MediaID.push_back(selectedMedia.GetMediaID());
+			else {//If regiestered user
+				if (selectedMedia->GetInventoryCount() > 0) {//If books are avaliable
+					mediaToCheckoutOrBuy.emplace_back(selectedMedia);
+				}
+				else {
+					//Call
+					selectedMedia->SetCallStatus(true);
+					system("cls");
+					cout << "Succesfully called for media" << endl;
+				}
 			}
 
 			return;
@@ -530,18 +526,20 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia) {
 			break;
 		case 2:
 			//CHECK IF ADMIN
-			//if(CurrentSessionInfo::currUser.ge){
-			//	cout << "Invalid choice." << endl;
-			//}else{}
-			EditMediaDataMenu(selectedMedia);
+			if (CurrentSessionInfo::currUser.getLibID() == 1000) {
+				EditMediaDataMenu(selectedMedia);
+			}else{
+				cout << "Invalid choice." << endl;
+			}
 			break;
 		case 3:
-			//CHECK IF ADMIN DON'T ALLOW IF NOT ADMIN
-			//if(!isAdmin){
-			//cout << "Invalid choice." << endl;
-			//}else{
-			//Delete the media and all associated data
-			//}
+			if (CurrentSessionInfo::currUser.getLibID() == 1000) {
+				selectedMedia->DeleteFromLibrary();
+				goBack = true;
+			}
+			else {
+				cout << "Invalid choice" << endl;
+			}
 			break;
 		default:
 			system("cls");

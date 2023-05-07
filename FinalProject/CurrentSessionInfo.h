@@ -30,6 +30,7 @@ private:
 	static string FACULTY_FILE_PATH;
 	static string STAFF_FILE_PATH;
 	static string STUDENT_FILE_PATH;
+	static string BORROWED_MEDIA_PATH;
 public:
 	static vector<LibraryMedia*> mediaList;
 	static vector<User*> userList;

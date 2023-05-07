@@ -4,6 +4,29 @@
 #include <iomanip>
 #ifndef LIBRARYMEDIA_CPP
 #define LIBRARYMEDIA_CPP
+void LibraryMedia::DeleteFromLibrary()
+{
+	//When a media object is deleted, delete all references to it author and publist
+	for (int i = 0; i < CurrentSessionInfo::authorList.size(); i++) {
+		if (mediaID == CurrentSessionInfo::authorList.at(i).GetBookId()) {
+			CurrentSessionInfo::authorList.erase(CurrentSessionInfo::authorList.begin() + i);
+		}
+	}
+
+	for (int i = 0; i < CurrentSessionInfo::pubList.size(); i++) {
+		if (mediaID == CurrentSessionInfo::pubList.at(i).GetBookId()) {
+			CurrentSessionInfo::pubList.erase(CurrentSessionInfo::pubList.begin() + i);
+		}
+	}
+
+	for (int i = 0; i < CurrentSessionInfo::mediaList.size(); i++)
+	{
+		if (mediaID == CurrentSessionInfo::mediaList.at(i)->GetMediaID() ) {
+			delete
+			CurrentSessionInfo::mediaList.erase(CurrentSessionInfo::mediaList.begin() + i);
+		}
+	}
+}
 void LibraryMedia::ChangeCount(int changeAmt)
 {
 	inventoryCount += changeAmt;
@@ -55,7 +78,10 @@ void LibraryMedia::ToString()
 	//cout << endl << endl;
 }
 
-LibraryMedia::~LibraryMedia() {}
+LibraryMedia::~LibraryMedia() {
+
+
+}
 
 LibraryMedia::LibraryMedia(const LibraryMedia& mediaToCopy)
 {
@@ -67,6 +93,7 @@ LibraryMedia::LibraryMedia(const LibraryMedia& mediaToCopy)
 	price = mediaToCopy.price;
 	inventoryCount = mediaToCopy.inventoryCount;
 	strncpy_s(doner, mediaToCopy.doner,sizeof(doner));
+	isCalledFor = mediaToCopy.isCalledFor;
 }
 
 LibraryMedia::LibraryMedia()
@@ -83,6 +110,7 @@ LibraryMedia::LibraryMedia()
 	price = 0;
 	inventoryCount = 0;
 	strncpy_s(doner, "Not Set", sizeof(doner));
+	isCalledFor = false;
 }
 
 LibraryMedia::LibraryMedia(int id, string _title, mediaTypes typeOfMedia, double _price,  string _category, string _subCategory, int count, string _newDoner)
@@ -106,6 +134,7 @@ int LibraryMedia::GetInventoryCount() { return inventoryCount; }
 string LibraryMedia::GetCategory() { return category; }
 string LibraryMedia::GetSubCategory(){	return subCategory;}
 int LibraryMedia::GetMediaID(){return mediaID;}
+bool LibraryMedia::GetCalledStatus(){return isCalledFor;}
 string LibraryMedia::GetDoner(){return doner;}
 
 string LibraryMedia::GetSearchString(int searchParm)
@@ -307,5 +336,9 @@ void LibraryMedia::SetPublishers()
 		tempPub.SetAddress();
 		CurrentSessionInfo::pubList.push_back(tempPub);
 	}
+}
+void LibraryMedia::SetCallStatus(bool b)
+{
+	isCalledFor = b;
 }
 #endif // !LIBRARYMEDIA_CPP

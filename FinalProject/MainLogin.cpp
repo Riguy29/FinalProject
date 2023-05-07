@@ -85,7 +85,7 @@ void Login::printMenu() {
 
 void Login::adminMenu() {
     string choice;
-    bool validChoice = false;
+    bool goBack = false;
     string fName = CurrentSessionInfo::currUser.getFirstName();
 
     system("cls");
@@ -102,7 +102,7 @@ void Login::adminMenu() {
 
         cout << setfill(' ') << setw(70) << "Select from the options below:\n" << endl;
         cout << setfill(' ') << setw(55) << "0. Log out" << endl;
-        cout << setfill(' ') << setw(57) << "1. Inventory" << endl;
+        cout << setfill(' ') << setw(57) << "1. Access Inventory" << endl;
         cout << setfill(' ') << setw(69) << "2. View Member Accounts\n" << endl;
         cout << setfill(' ') << setw(63) << "Enter Your Choice:\t";
 
@@ -112,11 +112,11 @@ void Login::adminMenu() {
             system("cls");
             cout << "Total Items in Library: " << CurrentSessionInfo::mediaList.size() << endl;
 
-            for (int i = 0; i < CurrentSessionInfo::mediaList.size(); i++) {
-                CurrentSessionInfo::mediaList.at(i)->ToString();
-            }
+            //for (int i = 0; i < CurrentSessionInfo::mediaList.size(); i++) {
+            //    CurrentSessionInfo::mediaList.at(i)->ToString();
+            //}
             int mediaChoice;
-            cout << setfill(' ') << setw(55) << "0. Log out" << endl;
+            cout << setfill(' ') << setw(55) << "0. Return" << endl;
             cout << setfill(' ') << setw(69) << "1. Update Member Account\n" << endl;
             cin >> mediaChoice;
 
@@ -124,12 +124,11 @@ void Login::adminMenu() {
             case 0:
                 return;
             case 1:
-               // InventoryScreen::EditMediaDataMenu();
+                InventoryScreen::SearchForMedia();
                 break;
             default:
                 cout << "Invalid choice" << endl;
             }
-            //InventoryScreen::SearchForMedia();
         }
         else if (choice == "2") {
             system("cls");
@@ -163,7 +162,7 @@ void Login::adminMenu() {
         }
         else if (choice == "0") {
             system("cls");
-            validChoice = true;
+            goBack = true;
         }
         else if (choice == "") {
             system("cls");
@@ -172,14 +171,14 @@ void Login::adminMenu() {
             system("cls");
             cout << "Invalid choice please try again" << endl;
         }
-    } while (!validChoice);
+    } while (!goBack);
 
 }
 
 
 void Login::userHomeMenu() {   
     string choice;
-    bool validChoice = false;
+    bool goBack = false;
     string fName = CurrentSessionInfo::currUser.getFirstName();
 
     system("cls");
@@ -187,7 +186,6 @@ void Login::userHomeMenu() {
     // Convert fName to full uppercase
     transform(fName.begin(), fName.end(), fName.begin(), ::toupper);
 
-    // Using a while true loop so that when a user comes back from a submenu it reprints this menu
     do {
         cout << setfill('-') << setw(117) << "" << endl;
         cout << setfill('-') << setw(67) << " WELCOME TO YOUR ACCOUNT " << fName << " " << setfill('-') << setw(49 - (fName.size())) << "" << endl;
@@ -198,6 +196,9 @@ void Login::userHomeMenu() {
         cout << setfill(' ') << setw(55) << "0. Log out" << endl;
         cout << setfill(' ') << setw(62) << "1. Access Library" << endl;
         cout << setfill(' ') << setw(61) << "2. View Account\n" << endl;
+        if (CurrentSessionInfo::currUser.getLibID() == 1000) {
+            cout << setfill(' ') << setw(61) << "3. View User Accounts\n" << endl;
+        }
         cout << setfill(' ') << setw(63) << "Enter Your Choice:\t";
 
         getline(cin, choice);
@@ -212,7 +213,10 @@ void Login::userHomeMenu() {
         }
         else if (choice == "0") {
             system("cls");
-            validChoice = true;
+            goBack= true;
+        }
+        else if (choice == "3") {
+
         }
         else if (choice == "") {
             system("cls");
@@ -221,7 +225,7 @@ void Login::userHomeMenu() {
             system("cls");
             cout << "Invalid choice please try again" << endl;
         }
-    } while (!validChoice);
+    } while (!goBack);
   
 }
 
@@ -259,12 +263,7 @@ void Login::login() {
       cin.clear();
       cin.ignore();
 
-      if (CurrentSessionInfo::currUser.getLibID() == 1000) {
-          adminMenu();
-      }
-      else {
-          userHomeMenu();
-      }
+      userHomeMenu();
 }
 
 

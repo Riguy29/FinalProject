@@ -15,6 +15,7 @@ string CurrentSessionInfo::PERIODICAL_FILE_PATH = "PeriodicalRecord.txt";
 string CurrentSessionInfo::FACULTY_FILE_PATH = "Faculty.txt";
 string CurrentSessionInfo::STAFF_FILE_PATH = "Staff.txt";
 string CurrentSessionInfo::STUDENT_FILE_PATH = "Students.txt";
+string CurrentSessionInfo::BORROWED_MEDIA_PATH = "BorrowedMediaRecord.txt";
 
 void CurrentSessionInfo::GenerateDummyData()
 {
@@ -80,7 +81,7 @@ void CurrentSessionInfo::LoadAllData()
 {
 	LoadData<Publisher>("PublisherRecord.txt", pubList);
 	LoadData<Author>("AuthorRecord.txt", authorList);
-	LoadData<CheckedoutMedia>(BORROWERDMEDIA_FILE_PATH, borrowedMediaList);
+	LoadData<CheckedoutMedia>(BORROWED_MEDIA_PATH, borrowedMediaList);
 
 	LoadMediaData<Book>("BookRecord.txt");
 	LoadMediaData<Newspaper>("NewspaperRecord.txt");
@@ -97,6 +98,7 @@ void CurrentSessionInfo::SaveAllData()
 {
 	SaveData<Publisher>("PublisherRecord.txt", pubList);
 	SaveData<Author>("AuthorRecord.txt", authorList);
+	SaveData<CheckedoutMedia>(BORROWED_MEDIA_PATH, borrowedMediaList);
 
 	SaveData();
 	SaveUserData();
