@@ -419,7 +419,7 @@ void InventoryScreen::SearchByPublisherAddress()
 			}
 		}
 	}
-	if (matchingList.size() == 0) { //IF we dont find any media, print out statement and then return
+	if (matchingList.size() == 0) { //If we dont find any media, print out statement and then return
 		system("cls");
 		cout << "No Matching Media Found";
 		return;
@@ -435,8 +435,10 @@ void InventoryScreen::PrintMatchingMedia(vector<LibraryMedia*> mediaList)
 	bool goBack = false;
 	do
 	{
+		system("cls");
 		cout << "Select a media" << endl;
 		cout << "0. Return" << endl;
+		cout << endl;
 		for (int i = 1; i <= mediaList.size(); i++)
 		{
 			cout << i << ". ";
@@ -502,6 +504,7 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia, bool& me
 			break;
 		case 1:
 			{
+
 			if(CurrentSessionInfo::isGuest){
 				ofstream clearBuyList("PurchaseList.txt", ios::trunc);//open file to clear it and then close
 				clearBuyList.close();
@@ -513,7 +516,7 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia, bool& me
 					//buyList << selectedMedia->GetPrice();
 					buyList.close();
 				}
-				//mediaToCheckout->SetInventoryCount(mediaToCheckout->GetInventoryCount() - 1);
+				
 				else {
 					cout << "File not opened successfully" << endl;
 				}		
@@ -612,8 +615,9 @@ void InventoryScreen::ConfirmMediaCheckout() {
 			//Deletes all pointers and then clears the vector
 			for (LibraryMedia* mediaP : mediaToCheckoutOrBuy) {
 				delete mediaP;
-			}
+			}			
 			mediaToCheckoutOrBuy.clear();
+			system("cls");
 		}
 		else {
 			system("cls");

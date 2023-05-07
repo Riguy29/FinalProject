@@ -56,8 +56,9 @@ void UserInfoAccessScreen::printMainMenu()
 	system("cls");
 	do
 	{
-		cout << "0.Return" << endl;
-		cout << "1.View Account" << endl;
+        cout << setfill(' ') << setw(75) << "Select from the options below:\n" << endl;
+        cout << setfill(' ') << setw(55) << "0.Return" << endl;
+        cout << setfill(' ') << setw(55) << "1.View Account" << endl;
 		if (CurrentSessionInfo::currUser.getLibID() == 1000) { //If admin
 			cout << "2. Find User" << endl;
 		}
@@ -103,8 +104,8 @@ void UserInfoAccessScreen::printUserDataMenu()
 
         cout << setfill(' ') << setw(75) << "Select from the options below:\n" << endl;
         cout << setfill(' ') << setw(55) << "0. Return" << endl;
-        cout << setfill(' ') << setw(75) << "1. Update Personal Information" << endl;
-        cout << setfill(' ') << setw(61) << "2. View My Books\n" << endl;
+        cout << setfill(' ') << setw(76) << "1. Update Personal Information" << endl;
+        cout << setfill(' ') << setw(63) << "2. View My Books\n" << endl;
         cout << setfill(' ') << setw(63) << "Enter Your Choice:\t";
 
         cin >> accountChoice;
@@ -130,18 +131,23 @@ void UserInfoAccessScreen::printUserDataMenu()
             switch (updateChoice) {
             case 1:
                 CurrentSessionInfo::currUser.setFirstName();
+                system("cls");
                 break;
             case 2:
                 CurrentSessionInfo::currUser.setLastName();
+                system("cls");
                 break;
             case 3:
                 CurrentSessionInfo::currUser.setAddress();
+                system("cls");
                 break;
             case 4:
                 CurrentSessionInfo::currUser.setPhoneNumber();
+                system("cls");
                 break;
             case 5:
                 CurrentSessionInfo::currUser.setEmail();
+                system("cls");
                 break;
             case 0:
                 break;
@@ -173,9 +179,9 @@ void UserInfoAccessScreen::CheckoutMediaInteractionMenu(CheckedoutMedia& selecte
     do
     {
         selectedMedia.PrintInfo();
-        cout << "0. Return" << endl;
-        cout << "1. Renew" << endl;
-        cout << "2. Return" << endl;
+        cout << setfill(' ') << setw(55) << "0. Return to previous screen" << endl;
+        cout << setfill(' ') << setw(55) << "1. Renew" << endl;
+        cout << setfill(' ') << setw(55) << "2. Back to media" << endl;
 
         cin >> choice;
         if (!cin) continue;
