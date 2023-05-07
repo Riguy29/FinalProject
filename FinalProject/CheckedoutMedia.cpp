@@ -108,6 +108,3 @@ void CheckedoutMedia::PrintInfo()
 		}
 	}
 }
-
-void CheckedoutMedia::Renew() {}
-void CheckedoutMedia::ReturnMedia() {}
