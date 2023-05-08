@@ -56,7 +56,6 @@ string CheckedoutMedia::GetDueDate()
 	struct tm timeinfo;
 	char returnString[80];
 
-	time(&timeFormmated);
 	localtime_s(&timeinfo, &timeFormmated);
 
 	strftime(returnString, 80, "%D", &timeinfo);
@@ -74,9 +73,9 @@ int CheckedoutMedia::GetBookId()
 	return bookId;
 }
 
-void CheckedoutMedia::Renew()
+void CheckedoutMedia::Renew(int days)
 {
-	dueDate += 7 * 86400; //Adds another 7 days in seco
+	dueDate += days * 86400; //Adds another 7 days in seco
 }
 
 //Function to return the media to the library, increases inventory count by 1 and remove the checkedout media object from list in currentSessionInfo

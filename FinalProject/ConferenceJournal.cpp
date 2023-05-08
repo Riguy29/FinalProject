@@ -30,15 +30,18 @@ void ConferenceJournal::SetPlaceOfConference()
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			isValid = true;
 			cout << "Enter the Location Of the Confrence: ";
-			cin >> newPlace;
+			getline(cin, newPlace);
 			//Validate Data
+			if (newPlace.length() > 100) throw(1);
 		}
 		catch (int errorCode)
 		{
 			system("cls");
 			switch (errorCode)
 			{
-				//TO BE DONE POSSIBLY
+			case 1:
+				cout << "Place is too long" << endl;
+				break;
 			}
 			isValid = false;
 		}
@@ -59,15 +62,18 @@ void ConferenceJournal::SetDateOfConference()
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			isValid = true;
 			cout << "Enter the Date Of the Confrence: ";
-			cin >> newDate;
+			getline(cin, newDate);
 			//Validate Data
+			if (newDate.length() > 100) throw(1);
 		}
 		catch (int errorCode)
 		{
 			system("cls");
 			switch (errorCode)
 			{
-				//TO BE DONE POSSIBLY
+			case 1:
+				cout << "Date is too long" << endl;
+				break;
 			}
 			isValid = false;
 		}

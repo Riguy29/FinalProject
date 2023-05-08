@@ -263,7 +263,13 @@ void UserInfoAccessScreen::CheckoutMediaInteractionMenu(CheckedoutMedia& selecte
             goBack = true;
             break;
         case 1:
-            selectedMedia.Renew();
+            if (CurrentSessionInfo::currUser.getUserType() == User::student) { //If they are a student can renew for 7 days
+                selectedMedia.Renew(7);
+            }
+            else { //If staff or employee they can renew for 14 days
+                selectedMedia.Renew(14);
+            }
+            
             break;
         case 2:
             selectedMedia.ReturnMedia();

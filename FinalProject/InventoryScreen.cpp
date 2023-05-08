@@ -546,10 +546,29 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia, bool& me
 			 }
 			else {//If regiestered user
 				if (selectedMedia->GetInventoryCount() > 0) {//If books are avaliable
-					mediaToCheckoutOrBuy.emplace_back(selectedMedia);
-					system("cls");
-					cout << selectedMedia->GetTitle() << " has been added to your cart" <<endl; 
-					selectedMedia->ChangeCount(-1); //Temporialy reduce count by 1
+					bool alreadyInCart = false;
+					//Checks the the user doesn't already have the media in the cart or checkedout
+					for (LibraryMedia* media : mediaToCheckoutOrBuy) {
+						if (media->GetMediaID() == selectedMedia->GetMediaID()) {
+							alreadyInCart = true;
+						}
+					}
+					for (CheckedoutMedia media : CurrentSessionInfo::borrowedMediaList) {
+						if (media.GetBookId() == selectedMedia->GetMediaID()) {
+							alreadyInCart = true;
+						}
+					}
+					if (!alreadyInCart) { //If the user doesn't already have the media checkedout or in cart, add it
+						mediaToCheckoutOrBuy.emplace_back(selectedMedia);
+						system("cls");
+						cout << selectedMedia->GetTitle() << " has been added to your cart" << endl;
+						selectedMedia->ChangeCount(-1); //Temporialy reduce count by 1
+					}
+					else {
+						system("cls");
+						cout << "You already have this media checked out or in your cart" << endl;
+					}
+
 				}
 				else {
 					//Call
