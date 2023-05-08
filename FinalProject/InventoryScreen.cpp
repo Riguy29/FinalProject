@@ -442,7 +442,7 @@ void InventoryScreen::SearchByPublisherAddress()
 			}
 		}
 	}
-	if (matchingList.size() == 0) { //IF we dont find any media, print out statement and then return
+	if (matchingList.size() == 0) { //If we dont find any media, print out statement and then return
 		system("cls");
 		cout << "No Matching Media Found";
 		return;
@@ -459,6 +459,7 @@ void InventoryScreen::PrintMatchingMedia(vector<LibraryMedia*> mediaList)
 	{
 		cout << "Select a media\n" << endl;
 		cout << "0. Return" << endl;
+		cout << endl;
 		for (int i = 1; i <= mediaList.size(); i++)
 		{
 			cout << i << ". ";
@@ -525,18 +526,17 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia, bool& me
 			break;
 		case 1:
 			{
+
 			if(CurrentSessionInfo::isGuest){
-				ofstream clearBuyList("PurchaseList.txt", ios::trunc);//open file to clear it and then close
-				clearBuyList.close();
 
 				ofstream buyList("PurchaseList.txt", ios::in | ios::out | ios::app);//open file to write to it
 
 				if (buyList.is_open()) {
-					buyList << selectedMedia->GetTitle() << selectedMedia->GetPrice();
-					//buyList << selectedMedia->GetPrice();
+					buyList << selectedMedia->GetTitle() << " "<< selectedMedia->GetPrice() << "\n";					
 					buyList.close();
+					selectedMedia->ChangeCount(-1);
 				}
-				//mediaToCheckout->SetInventoryCount(mediaToCheckout->GetInventoryCount() - 1);
+				
 				else {
 					cout << "File not opened successfully" << endl;
 				}		
@@ -649,6 +649,7 @@ void InventoryScreen::ConfirmMediaCheckout() {
 				mediaP->ChangeCount(1); //Return copy to the library
 			}
 			mediaToCheckoutOrBuy.clear();
+			system("cls");
 		}
 		else {
 			system("cls");
