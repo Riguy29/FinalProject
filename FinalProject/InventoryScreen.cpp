@@ -38,7 +38,6 @@ void InventoryScreen::AddMedia()
 			continue;
 		}
 
-		newMedia->GenerateNewRandomID(); //Calling this because if the users adds multiple books at once it keeps the same Id
 		newMedia->SetTitle();
 		newMedia->SetAuthors();
 		newMedia->SetPublishers();
@@ -532,14 +531,9 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia, bool& me
 			if(CurrentSessionInfo::isGuest){				
 				if (selectedMedia->GetInventoryCount() > 0) {//If available
 					bool alreadyInCart = false;
-					//checks the user doesn't have media in cart or checkedout
+					//Checks the user doesn't have media in cart
 					for (LibraryMedia* media : mediaToCheckoutOrBuy) {
 						if (media->GetMediaID() == selectedMedia->GetMediaID()) {
-							alreadyInCart = true;
-						}
-					}
-					for (CheckedoutMedia media : CurrentSessionInfo::borrowedMediaList) {
-						if (media.GetBookId() == selectedMedia->GetMediaID()) {
 							alreadyInCart = true;
 						}
 					}
@@ -693,7 +687,7 @@ void InventoryScreen::EditMediaDataMenu(LibraryMedia* selectedMedia) {
 		cout << "5. Change SubCateogory" << endl;
 		cout << "6. Change Price" << endl;
 		cout << "7. Change Doner" << endl;
-		cout << "8. Change Iventory Count" << endl;
+		cout << "8. Change Inventory Count" << endl;
 
 		switch (selectedMediaType)
 		{
