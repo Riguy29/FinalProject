@@ -8,7 +8,6 @@ string InventoryScreen::recordTxtFile;
 void InventoryScreen::AddMedia()
 {
 	int choice =0;
-
 	do
 	{
 		cout << setfill('-') << setw(115) << "" << endl;
@@ -39,6 +38,7 @@ void InventoryScreen::AddMedia()
 			continue;
 		}
 
+		newMedia->GenerateNewRandomID(); //Calling this because if the users adds multiple books at once it keeps the same Id
 		newMedia->SetTitle();
 		newMedia->SetAuthors();
 		newMedia->SetPublishers();
@@ -448,6 +448,7 @@ void InventoryScreen::PrintMatchingMedia(vector<LibraryMedia*> mediaList)
 		{
 			cout << i << ". ";
 			mediaList.at(i - 1)->ToString();
+			cout << endl;
 
 		}
 		cin.clear();

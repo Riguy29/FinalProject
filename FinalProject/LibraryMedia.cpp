@@ -32,6 +32,12 @@ void LibraryMedia::ChangeCount(int changeAmt)
 	inventoryCount += changeAmt;
 	if (inventoryCount < 0) inventoryCount = 0;
 }
+void LibraryMedia::GenerateNewRandomID()
+{
+	default_random_engine generator;
+	uniform_int_distribution<int> distribution(10, 2147483647);
+	mediaID = distribution(generator);
+}
 void LibraryMedia::ToString()
 {
 	//cout << "MediaId: " << GetMediaID();
@@ -98,9 +104,8 @@ LibraryMedia::LibraryMedia(const LibraryMedia& mediaToCopy)
 
 LibraryMedia::LibraryMedia()
 {
-	//mediaID = 1; //FIXME:: MIGHT want to randomly generate ids
 	default_random_engine generator;
-	uniform_int_distribution<int> distribution(10, 1000000);
+	uniform_int_distribution<int> distribution(10, 2147483647);
 	mediaID = distribution(generator);
 	//FIXME:: Make sure it doesn't generate an already in use id
 	strncpy_s(title, "Not Set", sizeof(title));

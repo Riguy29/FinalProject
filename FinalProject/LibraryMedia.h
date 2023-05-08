@@ -56,6 +56,7 @@ public:
 	//Methods
 	void DeleteFromLibrary();
 	void ChangeCount(int changeAmt);
+	void GenerateNewRandomID();
 	virtual void ToString();
 protected:
 	int mediaID;
