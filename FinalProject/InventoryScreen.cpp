@@ -91,11 +91,11 @@ void InventoryScreen::AddMedia()
 
 void InventoryScreen::SearchForMedia()
 {
-	system("cls"); 
 	int choice;
 	bool returnToPrevMenu = false;
 
 	do {
+		system("cls");
 		cout << setfill('-') << setw(115) << "" << endl;
 		cout << setfill('-') << setw(56) << " SEARCH " << setfill('-') << setw(59) << "" << endl;
 		cout << setfill('-') << setw(115) << "" << endl;
@@ -172,11 +172,10 @@ void InventoryScreen::SearchForMedia()
 	} while (!returnToPrevMenu);
 }
 void InventoryScreen::printMenu() {
-	int choice =0;
+	int choice = 0;
 	bool goBack = false;
 
-	do
-	{
+	do {
 		cout << setfill('-') << setw(117) << "" << endl;
 		cout << setfill('-') << setw(117)<< "" << endl; //setw(62) <<  " INVENTORY SCREEN " << setfill('-') << setw(53) << "" << endl;
 		cout << setfill('-') << setw(118) << "\n" << endl;
@@ -250,11 +249,12 @@ void InventoryScreen::printMenu() {
 
 void InventoryScreen::SearchByTitle() 
 {
+	string searchTitle;
+	cout << "Enter the title of the media you are looking for" << endl;
+
 	cin.clear();
 	cin.ignore();
 
-	string searchTitle;
-	cout << "Enter the title of the media you are looking for" << endl;
 	getline(cin, searchTitle);
 
 	//Create vector of pointers that will point to the memory of matching books found in BookList();
@@ -279,15 +279,15 @@ void InventoryScreen::SearchByTitle()
 	else {
 		PrintMatchingMedia(matchingList);
 	}
-
 }
 void InventoryScreen::SearchByAuthor() 
 {
+	string searchAuthor;
+	cout << "Enter the author of the media you are looking for" << endl;
+
 	cin.clear();
 	cin.ignore();
 
-	string searchAuthor;
-	cout << "Enter the author of the media you are looking for" << endl;
 	getline(cin,searchAuthor);
 
 	//Create vector of pointers that will point to the memory of matching books found in BookList();
@@ -315,12 +315,14 @@ void InventoryScreen::SearchByAuthor()
 }
 void InventoryScreen::SearchByDepartment() 
 {
+	string searchDep;
+	cout << "Enter the Department of the media you are looking for" << endl;
+
 	cin.clear();
 	cin.ignore();
 
-	string searchDep;
-	cout << "Enter the Department of the media you are looking for" << endl;
 	getline(cin, searchDep);
+
 	vector<LibraryMedia*> matchingList;//Create vector of pointers that will point to the memory of matching books found in BookList();
 	for (int i = 0; i < CurrentSessionInfo::mediaList.size(); i++)//Goes through Book list and checks for title that contain the user input
 	{
@@ -344,8 +346,6 @@ void InventoryScreen::SearchBySubject()
 {
 	string searchSub;
 	cout << "Enter the Department of the media you are looking for" << endl;
-	cin.clear();
-	cin.ignore();
 
 	cin >> searchSub;
 	vector<LibraryMedia*> matchingList;//Create vector of pointers that will point to the memory of matching books found in BookList();
@@ -369,12 +369,14 @@ void InventoryScreen::SearchBySubject()
 }
 void InventoryScreen::SearchByPublisherName()
 {
+	string searchName;
+	cout << "Enter the publisher's name of the media you are looking for" << endl;
+
 	cin.clear();
 	cin.ignore();
 
-	string searchName;
-	cout << "Enter the publisher's name of the media you are looking for" << endl;
 	getline(cin, searchName);
+
 	vector<LibraryMedia*> matchingList;//Create vector of pointers that will point to the memory of matching books found in BookList();
 	for (int i = 0; i < CurrentSessionInfo::mediaList.size(); i++)//Goes through Book list and checks for title that contain the user input
 	{
@@ -399,9 +401,6 @@ void InventoryScreen::SearchByPrice()
 	double searchPrice;
 	cout << "Enter the Price of the media you are looking for" << endl;
 
-	cin.clear();
-	cin.ignore();
-
 	if (!cin) return;
 	cin >> searchPrice;
 	vector<LibraryMedia*> matchingList;//Create vector of pointers that will point to the memory of matching books found in BookList();
@@ -425,12 +424,14 @@ void InventoryScreen::SearchByPrice()
 }
 void InventoryScreen::SearchByPublisherAddress()
 {
+	string searchAdd;
+	cout << "Enter the publisher's address of the media you are looking for" << endl;
+
 	cin.clear();
 	cin.ignore();
 
-	string searchAdd;
-	cout << "Enter the publisher's address of the media you are looking for" << endl;
 	getline(cin, searchAdd);
+
 	vector<LibraryMedia*> matchingList;//Create vector of pointers that will point to the memory of matching books found in BookList();
 	for (int i = 0; i < CurrentSessionInfo::mediaList.size(); i++)//Goes through Book list and checks for title that contain the user input
 	{
@@ -493,6 +494,9 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia, bool& me
 	bool goBack = false;
 	do
 	{
+		cin.clear();
+		cin.ignore();
+
 		cout << "Selected Media";
 		selectedMedia->ToString();
 		cout << setfill('-') << setw(115) << "" << endl;
@@ -502,25 +506,25 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia, bool& me
 		cout << setfill(' ') << setw(51) << "0. Return" << endl;
 
 		if (selectedMedia->GetInventoryCount() > 0) {
-			cout << setfill(' ') << setw(57) << "1. Add to cart\n" << endl; //FIXME: Make this buy if they are guest, if they are no copies and they are guest then print 
+			cout << setfill(' ') << setw(56) << "1. Add to cart" << endl; //FIXME: Make this buy if they are guest, if they are no copies and they are guest then print 
 		}
 		else {
 			//if() //Check if user is a borrower, if not then they can't call for media and it should say media is out of stock
 			cout << "1. Call For Media" << endl; //Not sure if a guest should be able to call for media
 		}
+
 		if (CurrentSessionInfo::currUser.getLibID() == 1000) {
-		cout << setfill(' ') << setw(53) << "2. Update Media" << endl;
-		cout << setfill(' ') << setw(56) << "3. Delete Media\n" << endl;
+			cout << setfill(' ') << setw(57) << "2. Update Media" << endl;
+			cout << setfill(' ') << setw(57) << "3. Delete Media" << endl;
 		}
+
+		cout << endl;
 		
 		cout << setfill(' ') << setw(60) << "Enter Your Choice:\t";
 
-
-		cin.clear();
-		cin.ignore();
-
 		cin >> choice;
 		if (!cin) continue;
+
 		switch (choice) {
 		case 0:
 			goBack = true;
@@ -575,7 +579,6 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia, bool& me
 						system("cls");
 						cout << "You already have this media checked out or in your cart" << endl;
 					}
-
 				}
 				else {
 					//Call
@@ -584,10 +587,6 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia, bool& me
 					cout << "Succesfully called for media" << endl;
 				}
 			}
-
-			return;
-			}
-			
 			break;
 		case 2:
 			//CHECK IF ADMIN
@@ -615,12 +614,10 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia, bool& me
 		}
 
 	} while (!goBack);
-	
 }
 
 void InventoryScreen::ConfirmMediaCheckout() {
 	system("cls");
-
 	string choice;
 	do
 	{
@@ -633,6 +630,7 @@ void InventoryScreen::ConfirmMediaCheckout() {
 		{
 			cout << media->GetMediaType() << "---" << media->GetTitle() << endl;
 		}
+
 		cin.clear();
 		cin.ignore();
 
@@ -665,6 +663,7 @@ void InventoryScreen::ConfirmMediaCheckout() {
 			system("cls");
 			cout << "Invalid Input" << endl;
 		}
+
 	} while (choice != "1" && choice != "2"); //If the user enter numbers other than 1 or 2
 }
 
@@ -710,7 +709,7 @@ void InventoryScreen::EditMediaDataMenu(LibraryMedia* selectedMedia) {
 		}
 		cout << "Enter Your Choice: ";
 		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cin.ignore();
 		cin >> choice;
 
 		if (!cin) continue;

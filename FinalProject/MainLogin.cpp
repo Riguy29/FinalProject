@@ -30,7 +30,7 @@ void Login::printMenu() {
         cout << setfill(' ') << setw(66) << "1. Login to Your Account" << endl;
         cout << setfill(' ') << setw(56) << "2. Guest Login" << endl;
         cout << setfill(' ') << setw(65) << "3. Register for Account" << endl;
-        cout << setfill(' ') << setw(49) << "4. Exit\n" << endl;
+        cout << setfill(' ') << setw(50) << "4. Exit\n" << endl;
         cout << setfill(' ') << setw(60) << "Enter Your Choice:\t";
 
         cin >> choice;
