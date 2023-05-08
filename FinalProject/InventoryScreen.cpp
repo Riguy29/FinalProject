@@ -195,9 +195,6 @@ void InventoryScreen::printMenu() {
 		cout << endl;
 		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 
-		cin.clear();
-		cin.ignore();
-
 		cin >> choice;
 		if (!cin) continue;
 		switch (choice)
@@ -613,17 +610,13 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia, bool& me
 
 void InventoryScreen::ConfirmMediaCheckout() {
 	system("cls");
-	//for (LibraryMedia* media : mediaToCheckoutOrBuy) {
-	//	media->ToString();
-	//	cout << endl;
-	//}
 
 	string choice;
 	do
 	{
 		cout << "Does this look correct?" << endl;
 		cout << "1.Yes" << endl;
-		cout << "2.No, clears cart" << endl;
+		cout << "2.No, clears cart\n" << endl;
 
 		//Show them a preview of their cart
 		for (LibraryMedia* media : mediaToCheckoutOrBuy)
