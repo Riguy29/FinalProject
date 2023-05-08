@@ -189,17 +189,17 @@ void InventoryScreen::printMenu() {
 		
 		cout << endl;
 		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
-
+		cin.clear();
 		cin >> choice;
+		if (!cin) continue;
 		switch (choice)
 		{
 		case 0:
 
-			//Delete all pointers and then clear vector
+			//Return media and lear vector
 			for (LibraryMedia* mediaPointer : mediaToCheckoutOrBuy)
 			{
 				mediaPointer->ChangeCount(1); //Return the copy to the library
-				delete mediaPointer;
 			}
 			mediaToCheckoutOrBuy.clear();
 			system("cls");
@@ -389,6 +389,7 @@ void InventoryScreen::SearchByPrice()
 {
 	double searchPrice;
 	cout << "Enter the Price of the media you are looking for" << endl;
+	if (!cin) return;
 	cin >> searchPrice;
 	vector<LibraryMedia*> matchingList;//Create vector of pointers that will point to the memory of matching books found in BookList();
 	for (int i = 0; i < CurrentSessionInfo::mediaList.size(); i++)//Goes through Book list and checks for title that contain the user input
@@ -528,10 +529,29 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia, bool& me
 			 }
 			else {//If regiestered user
 				if (selectedMedia->GetInventoryCount() > 0) {//If books are avaliable
-					mediaToCheckoutOrBuy.emplace_back(selectedMedia);
-					system("cls");
-					cout << selectedMedia->GetTitle() << " has been added to your cart" <<endl; 
-					selectedMedia->ChangeCount(-1); //Temporialy reduce count by 1
+					bool alreadyInCart = false;
+					//Checks the the user doesn't already have the media in the cart or checkedout
+					for (LibraryMedia* media : mediaToCheckoutOrBuy) {
+						if (media->GetMediaID() == selectedMedia->GetMediaID()) {
+							alreadyInCart = true;
+						}
+					}
+					for (CheckedoutMedia media : CurrentSessionInfo::borrowedMediaList) {
+						if (media.GetBookId() == selectedMedia->GetMediaID()) {
+							alreadyInCart = true;
+						}
+					}
+					if (!alreadyInCart) { //If the user doesn't already have the media checkedout or in cart, add it
+						mediaToCheckoutOrBuy.emplace_back(selectedMedia);
+						system("cls");
+						cout << selectedMedia->GetTitle() << " has been added to your cart" << endl;
+						selectedMedia->ChangeCount(-1); //Temporialy reduce count by 1
+					}
+					else {
+						system("cls");
+						cout << "You already have this media checked out or in your cart" << endl;
+					}
+
 				}
 				else {
 					//Call
@@ -606,10 +626,8 @@ void InventoryScreen::ConfirmMediaCheckout() {
 			else { //If regiestered user check them out
 				for (LibraryMedia* media : mediaToCheckoutOrBuy)
 				{
-					media->ChangeCount(-1); //Removing one from the count
 					CheckedoutMedia temp(CurrentSessionInfo::currUser.getLibID(), media->GetMediaID());
 					CurrentSessionInfo::borrowedMediaList.push_back(temp);
-					delete media; //Delete the pointer after we are done with it
 				}
 				mediaToCheckoutOrBuy.clear();
 			}
@@ -617,10 +635,9 @@ void InventoryScreen::ConfirmMediaCheckout() {
 		}
 		else if (choice == "2") {
 			//Clears cart and returns
-			//Deletes all pointers and then clears the vector
 			for (LibraryMedia* mediaP : mediaToCheckoutOrBuy) {
-				delete mediaP;
-			}			
+				mediaP->ChangeCount(1); //Return copy to the library
+			}
 			mediaToCheckoutOrBuy.clear();
 			system("cls");
 		}

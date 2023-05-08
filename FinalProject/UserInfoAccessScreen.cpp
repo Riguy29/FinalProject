@@ -93,7 +93,7 @@ void UserInfoAccessScreen::printUserDataMenu()
                 if (CurrentSessionInfo::userList.at(i)->getLibID() == userLibID) {
                     string fName = CurrentSessionInfo::userList.at(i)->getFirstName();
                     string lName = CurrentSessionInfo::userList.at(i)->getLastName();
-                    updateUserInfo(userLibID, i);
+                    updateUserInfo(userLibID, i); //Commented this out because it was undefined
                     CurrentSessionInfo::currUser = *CurrentSessionInfo::userList.at(i);
                 }
             }
@@ -162,25 +162,7 @@ void UserInfoAccessScreen::printAdminMenu() {
                 system("cls");
                 break;
             case 1:
-                system("cls");
-                int userLibID;
-                cout << "Enter Library ID of user you want to update: " << endl;
-
-                cin >> userLibID;
-
-                for (int i = 0; i < CurrentSessionInfo::userList.size(); i++) {
-                    if (CurrentSessionInfo::userList.at(i)->getLibID() == userLibID) {
-                        string fName = CurrentSessionInfo::userList.at(i)->getFirstName();
-                        string lName = CurrentSessionInfo::userList.at(i)->getLastName();
-                        cout << setfill(' ') << setw(70) << "Current User Selected: " << fName << " " << lName;
-                        updateUserInfo(userLibID, i);
-                    }
-                }
-                system("cls");
-                break;
-            case 2:
-                system("cls");
-                deleteUserAcc();
+                
                 break;
             default:
                 cout << "Invalid Choice" << endl;
@@ -234,9 +216,58 @@ void UserInfoAccessScreen::updateUserInfo(int userLibID, int i) {
     default:
         cout << "Invalid Choice" << endl;
     }
-    system("cls");
 }
 
+
+void UserInfoAccessScreen::CheckoutMediaInteractionMenu(CheckedoutMedia& selectedMedia, bool& mediaReturned)
+{
+    system("cls");
+    int choice;
+    bool goBack = false;
+    do
+    {
+        selectedMedia.PrintInfo();
+        cout << "0. Go Back" << endl;
+        cout << "1. Renew" << endl;
+        cout << "2. Return" << endl;
+
+        cin >> choice;
+        if (!cin) continue;
+        switch (choice)
+        {
+        case 0:
+            system("cls");
+            goBack = true;
+            break;
+        case 1:
+            if (CurrentSessionInfo::currUser.getUserType() == User::student) { //If they are a student can renew for 7 days
+                selectedMedia.Renew(7);
+            }
+            else { //If staff or employee they can renew for 14 days
+                selectedMedia.Renew(14);
+            }
+            
+            break;
+        case 2:
+            selectedMedia.ReturnMedia();
+
+            //Reloads the users media list because an object was removed
+            usersCheckedoutMedia.clear();
+            for (CheckedoutMedia media : CurrentSessionInfo::borrowedMediaList) {
+                if (media.GetUserId() == CurrentSessionInfo::currUser.getLibID()) {
+                    usersCheckedoutMedia.push_back(media);
+                }
+            }
+            mediaReturned = true;
+            goBack = true;
+            system("cls");
+            cout << "Returned Media";
+            break;
+        default:
+            break;
+        }
+    } while (!goBack);
+}
 // Delete user account
 void UserInfoAccessScreen::deleteUserAcc() {
     int userLibID;
@@ -252,7 +283,7 @@ void UserInfoAccessScreen::deleteUserAcc() {
         }
 
     } while (userLibID == CurrentSessionInfo::currUser.getLibID());
-    
+
     for (int i = 0; i < CurrentSessionInfo::userList.size(); i++) {
         if (CurrentSessionInfo::userList.at(i)->getLibID() == userLibID) {
             string fName = CurrentSessionInfo::userList.at(i)->getFirstName();
@@ -282,49 +313,4 @@ void UserInfoAccessScreen::deleteUserAcc() {
             break;
         }
     }
-}
-
-void UserInfoAccessScreen::SearchForUsers() {}
-
-void UserInfoAccessScreen::CheckoutMediaInteractionMenu(CheckedoutMedia& selectedMedia, bool& mediaReturned)
-{
-    system("cls");
-    int choice;
-    bool goBack = false;
-    do
-    {
-        selectedMedia.PrintInfo();
-        cout << setfill(' ') << setw(55) << "0. Return to previous screen" << endl;
-        cout << setfill(' ') << setw(55) << "1. Renew" << endl;
-        cout << setfill(' ') << setw(55) << "2. Back to media" << endl;
-
-        cin >> choice;
-        if (!cin) continue;
-        switch (choice)
-        {
-        case 0:
-            goBack = true;
-            break;
-        case 1:
-            selectedMedia.Renew();
-            break;
-        case 2:
-            selectedMedia.ReturnMedia();
-
-            //Reloads the users media list because an object was removed
-            usersCheckedoutMedia.clear();
-            for (CheckedoutMedia media : CurrentSessionInfo::borrowedMediaList) {
-                if (media.GetUserId() == CurrentSessionInfo::currUser.getLibID()) {
-                    usersCheckedoutMedia.push_back(media);
-                }
-            }
-            mediaReturned = true;
-            goBack = true;
-            system("cls");
-            cout << "Returned Media";
-            break;
-        default:
-            break;
-        }
-    } while (!goBack);
 }

@@ -16,9 +16,7 @@ private:
 	static vector<reference_wrapper<CheckedoutMedia>> usersCheckedoutMedia;
 public:
 	static void DisplayCheckedoutMedia();
-	static void printMainMenu();
 	static void printUserDataMenu();
-	static void SearchForUsers();
 	static void printAdminMenu();
 	static void deleteUserAcc();
 	static void updateUserInfo(int id, int i);

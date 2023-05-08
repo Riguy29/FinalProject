@@ -13,8 +13,8 @@ private:
 	int userId;
 	int bookId;
 	double lateFee;
-	long checkoutDate; //Both are stored as seconds since 1970
-	long dueDate; 
+	long long checkoutDate; //Both are stored as seconds since 1970
+	long long dueDate; 
 public:
 	//Constructors
 	CheckedoutMedia();
@@ -34,7 +34,7 @@ public:
 	//No Mutators because everything is auto generated
 
 	//Methods
-	void Renew();
+	void Renew(int days);
 	void ReturnMedia();
 	void PrintInfo();
 
