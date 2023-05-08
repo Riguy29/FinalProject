@@ -362,3 +362,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/FinalProject/PublisherRecord.txt
+/FinalProject/PeriodicalRecord.txt
+/FinalProject/NewspaperRecord.txt
+/FinalProject/JournalRecord.txt
+/FinalProject/BookRecord.txt
+/FinalProject/AuthorRecord.txt
