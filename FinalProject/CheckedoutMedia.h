@@ -34,7 +34,7 @@ public:
 	//No Mutators because everything is auto generated
 
 	//Methods
-	void Renew();
+	void Renew(int days);
 	void ReturnMedia();
 	void PrintInfo();
 
