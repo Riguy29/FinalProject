@@ -13,7 +13,7 @@ bool GuestLogin::isGuest(bool guest) {
 }
 void GuestLogin::buy() {
 
-
+	
 		string name;
 		cout << "Enter 0 to return\n" << endl;
 		cout << "Enter Name:\t";
@@ -24,7 +24,7 @@ void GuestLogin::buy() {
 			return;
 		}
 			system("cls");
-			fstream purchase;
+			ifstream purchase;
 			purchase.open("PurchaseList.txt", ios::in | ios::out);
 			if (!purchase.is_open()) {
 				cout << "PurchaseList not opened successfully." << endl;
@@ -53,8 +53,8 @@ void GuestLogin::buy() {
 			double tax = sum * 0.05;
 
 			double total = sum + tax;
-
-			//date.printDate();
+			Date date;
+			date.printDate();
 
 
 			cout << setfill(' ') << left << setw(25) << name << endl;
@@ -63,7 +63,7 @@ void GuestLogin::buy() {
 			cout << setfill(' ') << setw(35) << left << "Item" << "Price" << endl;
 			for (int i = 0; i < nameList.size(); i++) {
 				cout << setfill(' ') << fixed << setprecision(2) << setw(10) << left << nameList.at(i);
-				cout << setw(30) << right << priceList.at(i) << endl;
+				cout << setw(24) << fixed << right << priceList.at(i) << endl;
 
 			}
 			cout << endl;
@@ -76,6 +76,8 @@ void GuestLogin::buy() {
 			cout << setfill(' ') << fixed << setprecision(2) << setw(10) << left << "Total: ";
 			cout << setw(30) << right << total << endl;
 		
+			ofstream clearBuyList("PurchaseList.txt", ios::trunc);//open file to clear it and then close
+			clearBuyList.close();
 	
 }
 

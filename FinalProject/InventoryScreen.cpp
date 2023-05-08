@@ -110,8 +110,9 @@ void InventoryScreen::SearchForMedia()
 		if (CurrentSessionInfo::currUser.getLibID() == 1000) {
 			//cout << setfill(' ') << setw(61) << "6. Search By Course" << endl;
 			cout << setfill(' ') << setw(60) << "6. Search By Price" << endl;
-			cout << setfill(' ') << setw(73) << "7. Search By Publisher Address\n" << endl;
+			cout << setfill(' ') << setw(73) << "7. Search By Publisher Address" << endl;
 		}
+		cout << endl;
 		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 
 		cin.clear();
@@ -483,10 +484,10 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia, bool& me
 		cout << setfill('-') << setw(115) << "" << endl;
 		cout << setfill('-') << setw(115) << "" << endl;
 		cout << setfill('-') << setw(116) << "\n" << endl;
-		cout << setfill(' ') << setw(68) << "What would you like to do?\n" << endl;
+		cout << setfill(' ') << setw(62) << "What would you like to do?\n" << endl;
 
 		if (selectedMedia->GetInventoryCount() > 0) {
-			cout << setfill(' ') << setw(54) << "1. Add to cart " << endl; //FIXME: Make this buy if they are guest, if they are no copies and they are guest then print 
+			cout << setfill(' ') << setw(56) << "1. Add to cart " << endl; //FIXME: Make this buy if they are guest, if they are no copies and they are guest then print 
 		}
 		else {
 			//if() //Check if user is a borrower, if not then they can't call for media and it should say media is out of stock
@@ -512,15 +513,13 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia, bool& me
 			{
 
 			if(CurrentSessionInfo::isGuest){
-				ofstream clearBuyList("PurchaseList.txt", ios::trunc);//open file to clear it and then close
-				clearBuyList.close();
 
 				ofstream buyList("PurchaseList.txt", ios::in | ios::out | ios::app);//open file to write to it
 
 				if (buyList.is_open()) {
-					buyList << selectedMedia->GetTitle() << selectedMedia->GetPrice();
-					//buyList << selectedMedia->GetPrice();
+					buyList << selectedMedia->GetTitle() << " "<< selectedMedia->GetPrice() << "\n";					
 					buyList.close();
+					selectedMedia->ChangeCount(-1);
 				}
 				
 				else {
