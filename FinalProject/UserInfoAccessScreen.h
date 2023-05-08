@@ -20,6 +20,8 @@ public:
 	static void printUserDataMenu();
 	static void SearchForUsers();
 	static void printAdminMenu();
+	static void deleteUserAcc();
+	static void updateUserInfo(int id, int i);
 	static void CheckoutMediaInteractionMenu(CheckedoutMedia& selectedMedia, bool& mediaReturned);
 };
 
