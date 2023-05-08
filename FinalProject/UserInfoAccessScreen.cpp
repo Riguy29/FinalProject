@@ -142,6 +142,7 @@ void UserInfoAccessScreen::printAdminMenu() {
         }
         else if (choice == "2") {
             system("cls");
+            int userLibID;
 
             cout << "Total Users: " << CurrentSessionInfo::userList.size() << endl;
 
@@ -162,7 +163,21 @@ void UserInfoAccessScreen::printAdminMenu() {
                 system("cls");
                 break;
             case 1:
-                
+                system("cls");
+                cout << "Enter Account Library ID you wish to modify: ";
+
+                cin >> userLibID;
+
+                for (int i = 0; i < CurrentSessionInfo::userList.size(); i++) {
+                    if (userLibID == CurrentSessionInfo::userList.at(i)->getLibID()) {
+                        updateUserInfo(userLibID, i);
+                        break;
+                    }
+                }
+                break;
+            case 2:
+                system("cls");
+                deleteUserAcc();
                 break;
             default:
                 cout << "Invalid Choice" << endl;
@@ -184,6 +199,8 @@ void UserInfoAccessScreen::printAdminMenu() {
 
 // Update user account information
 void UserInfoAccessScreen::updateUserInfo(int userLibID, int i) {
+    system("cls");
+
     int userUpdateChoice;
 
     cout << setfill(' ') << setw(70) << "What would you like to update?" << endl;
@@ -198,20 +215,26 @@ void UserInfoAccessScreen::updateUserInfo(int userLibID, int i) {
     switch (userUpdateChoice) {
     case 1:
         CurrentSessionInfo::userList.at(i)->setFirstName();
+        system("cls");
         break;
     case 2:
         CurrentSessionInfo::userList.at(i)->setLastName();
+        system("cls");
         break;
     case 3:
         CurrentSessionInfo::userList.at(i)->setAddress();
+        system("cls");
         break;
     case 4:
         CurrentSessionInfo::userList.at(i)->setPhoneNumber();
+        system("cls");
         break;
     case 5:
         CurrentSessionInfo::userList.at(i)->setEmail();
+        system("cls");
         break;
     case 0:
+        system("cls");
         break;
     default:
         cout << "Invalid Choice" << endl;
