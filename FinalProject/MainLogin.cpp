@@ -30,8 +30,7 @@ void Login::printMenu() {
         cout << setfill(' ') << setw(66) << "1. Login to Your Account" << endl;
         cout << setfill(' ') << setw(56) << "2. Guest Login" << endl;
         cout << setfill(' ') << setw(65) << "3. Register for Account" << endl;
-        cout << setfill(' ') << setw(49) << "4. Exit" << endl;
-        cout << setfill(' ') << setw(108) << "5. List all Registered Accounts (Please remove before submission)\n" << endl;
+        cout << setfill(' ') << setw(49) << "4. Exit\n" << endl;
         cout << setfill(' ') << setw(60) << "Enter Your Choice:\t";
 
         cin >> choice;
@@ -54,6 +53,7 @@ void Login::printMenu() {
             CurrentSessionInfo::SaveAllData(); //Before we exit save all our data
             exit(0);
             break;
+        /* Illegal
         case 5:
             system("cls");
 
@@ -66,6 +66,7 @@ void Login::printMenu() {
             system("pause");
 
             break;
+        */
         default:
             system("cls");
             cout << "Invalid Choice...Please Try Again...\n" << endl;

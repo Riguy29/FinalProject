@@ -95,6 +95,7 @@ void InventoryScreen::SearchForMedia()
 	system("cls"); 
 	int choice;
 	bool returnToPrevMenu = false;
+
 	do {
 		cout << setfill('-') << setw(115) << "" << endl;
 		cout << setfill('-') << setw(56) << " SEARCH " << setfill('-') << setw(59) << "" << endl;
@@ -110,19 +111,23 @@ void InventoryScreen::SearchForMedia()
 		if (CurrentSessionInfo::currUser.getLibID() == 1000) {
 			//cout << setfill(' ') << setw(61) << "6. Search By Course" << endl;
 			cout << setfill(' ') << setw(60) << "6. Search By Price" << endl;
-			cout << setfill(' ') << setw(73) << "7. Search By Publisher Address" << endl;
+			cout << setfill(' ') << setw(73) << "7. Search By Publisher Address\n" << endl;
 		}
+
 		cout << endl;
 		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 
 		cin.clear();
-		//cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cin.ignore();
+
 		cin >> choice;
 		system("cls");
+
 		if (!cin) { //If they enter a a non integer value go to next loop
 			cout << "Invalid selection, try again" << endl;
 			continue;
 		}
+
 		switch (choice) {
 		case 0:
 			returnToPrevMenu = true;
@@ -170,7 +175,7 @@ void InventoryScreen::SearchForMedia()
 void InventoryScreen::printMenu() {
 	int choice =0;
 	bool goBack = false;
-	
+
 	do
 	{
 		cout << setfill('-') << setw(117) << "" << endl;
@@ -189,7 +194,7 @@ void InventoryScreen::printMenu() {
 		
 		cout << endl;
 		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
-		cin.clear();
+
 		cin >> choice;
 		if (!cin) continue;
 		switch (choice)
@@ -247,7 +252,8 @@ void InventoryScreen::printMenu() {
 void InventoryScreen::SearchByTitle() 
 {
 	cin.clear();
-	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	cin.ignore();
+
 	string searchTitle;
 	cout << "Enter the title of the media you are looking for" << endl;
 	getline(cin, searchTitle);
@@ -279,7 +285,8 @@ void InventoryScreen::SearchByTitle()
 void InventoryScreen::SearchByAuthor() 
 {
 	cin.clear();
-	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	cin.ignore();
+
 	string searchAuthor;
 	cout << "Enter the author of the media you are looking for" << endl;
 	getline(cin,searchAuthor);
@@ -310,7 +317,8 @@ void InventoryScreen::SearchByAuthor()
 void InventoryScreen::SearchByDepartment() 
 {
 	cin.clear();
-	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	cin.ignore();
+
 	string searchDep;
 	cout << "Enter the Department of the media you are looking for" << endl;
 	getline(cin, searchDep);
@@ -338,7 +346,8 @@ void InventoryScreen::SearchBySubject()
 	string searchSub;
 	cout << "Enter the Department of the media you are looking for" << endl;
 	cin.clear();
-	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	cin.ignore();
+
 	cin >> searchSub;
 	vector<LibraryMedia*> matchingList;//Create vector of pointers that will point to the memory of matching books found in BookList();
 	for (int i = 0; i < CurrentSessionInfo::mediaList.size(); i++)//Goes through Book list and checks for title that contain the user input
@@ -362,7 +371,8 @@ void InventoryScreen::SearchBySubject()
 void InventoryScreen::SearchByPublisherName()
 {
 	cin.clear();
-	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	cin.ignore();
+
 	string searchName;
 	cout << "Enter the publisher's name of the media you are looking for" << endl;
 	getline(cin, searchName);
@@ -389,6 +399,10 @@ void InventoryScreen::SearchByPrice()
 {
 	double searchPrice;
 	cout << "Enter the Price of the media you are looking for" << endl;
+
+	cin.clear();
+	cin.ignore();
+
 	if (!cin) return;
 	cin >> searchPrice;
 	vector<LibraryMedia*> matchingList;//Create vector of pointers that will point to the memory of matching books found in BookList();
@@ -413,7 +427,8 @@ void InventoryScreen::SearchByPrice()
 void InventoryScreen::SearchByPublisherAddress()
 {
 	cin.clear();
-	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	cin.ignore();
+
 	string searchAdd;
 	cout << "Enter the publisher's address of the media you are looking for" << endl;
 	getline(cin, searchAdd);
@@ -438,24 +453,21 @@ void InventoryScreen::SearchByPublisherAddress()
 }
 void InventoryScreen::PrintMatchingMedia(vector<LibraryMedia*> mediaList) 
 {
-	
-	int choice=0;
+	int choice;
 	bool goBack = false;
 	do
 	{
-		system("cls");
-		cout << "Select a media" << endl;
+		cout << "Select a media\n" << endl;
 		cout << "0. Return" << endl;
 		cout << endl;
 		for (int i = 1; i <= mediaList.size(); i++)
 		{
 			cout << i << ". ";
 			mediaList.at(i - 1)->ToString();
-
 		}
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
 		cin >> choice;
+
 		if (choice == 0) {
 			system("cls");
 			return;
@@ -465,11 +477,11 @@ void InventoryScreen::PrintMatchingMedia(vector<LibraryMedia*> mediaList)
 			bool wasMediaDeleted = false;
 			MediaInteractionMenu(mediaList.at(choice - 1),wasMediaDeleted);
 			if (wasMediaDeleted) goBack = true;
+			return;
 		}
-		else cout << "Invalid Selection, try again" << endl;
-
-		
-
+		else {
+			cout << "Invalid Selection, try again" << endl;
+		}
 	} while (!goBack); 
 }
 
@@ -485,10 +497,11 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia, bool& me
 		cout << setfill('-') << setw(115) << "" << endl;
 		cout << setfill('-') << setw(115) << "" << endl;
 		cout << setfill('-') << setw(116) << "\n" << endl;
-		cout << setfill(' ') << setw(62) << "What would you like to do?\n" << endl;
+		cout << setfill(' ') << setw(68) << "What would you like to do?\n" << endl;
+		cout << setfill(' ') << setw(51) << "0. Return" << endl;
 
 		if (selectedMedia->GetInventoryCount() > 0) {
-			cout << setfill(' ') << setw(56) << "1. Add to cart " << endl; //FIXME: Make this buy if they are guest, if they are no copies and they are guest then print 
+			cout << setfill(' ') << setw(57) << "1. Add to cart\n" << endl; //FIXME: Make this buy if they are guest, if they are no copies and they are guest then print 
 		}
 		else {
 			//if() //Check if user is a borrower, if not then they can't call for media and it should say media is out of stock
@@ -496,14 +509,15 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia, bool& me
 		}
 		if (CurrentSessionInfo::currUser.getLibID() == 1000) {
 		cout << setfill(' ') << setw(53) << "2. Update Media" << endl;
-		cout << setfill(' ') << setw(56) << "3. Delete Media" << endl;
+		cout << setfill(' ') << setw(56) << "3. Delete Media\n" << endl;
 		}
-		cout << setfill(' ') << setw(51) << "0. Return\n" << endl;
-		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+		
+		cout << setfill(' ') << setw(60) << "Enter Your Choice:\t";
 
 
 		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cin.ignore();
+
 		cin >> choice;
 		if (!cin) continue;
 		switch (choice) {
@@ -610,19 +624,13 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia, bool& me
 
 void InventoryScreen::ConfirmMediaCheckout() {
 	system("cls");
-	//for (LibraryMedia* media : mediaToCheckoutOrBuy) {
-	//	media->ToString();
-	//	cout << endl;
-	//}
 
 	string choice;
 	do
 	{
 		cout << "Does this look correct?" << endl;
 		cout << "1.Yes" << endl;
-		cout << "2.No, clears cart" << endl;
-		
-
+		cout << "2.No, clears cart\n" << endl;
 
 		//Show them a preview of their cart
 		for (LibraryMedia* media : mediaToCheckoutOrBuy)
@@ -630,8 +638,10 @@ void InventoryScreen::ConfirmMediaCheckout() {
 			cout << media->GetMediaType() << "---" << media->GetTitle() << endl;
 		}
 		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		getline(cin, choice);
+		cin.ignore();
+
+		getline(cin,choice);
+
 		if (choice == "1") {
 
 			if (CurrentSessionInfo::isGuest) {
