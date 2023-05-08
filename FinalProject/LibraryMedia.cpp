@@ -41,7 +41,7 @@ void LibraryMedia::GenerateNewRandomID()
 void LibraryMedia::ToString()
 {
 	//cout << "MediaId: " << GetMediaID();
-	cout << " Title: " << GetTitle();
+	cout << " Title: " << GetTitle() << endl;
 	cout << " Type: ";
 
 	switch (mediaType)
@@ -61,7 +61,9 @@ void LibraryMedia::ToString()
 	default:
 		break;
 	}
-	cout << " Category: " << GetCategory();
+
+	cout << endl;
+	cout << " Category: " << GetCategory() << endl;
 	cout << " Authors: " ;
 
 	//Access our static author list, and search the list for any authors that match our book id
@@ -71,17 +73,22 @@ void LibraryMedia::ToString()
 		}
 	}
 
+	cout << endl;
+
 	cout << " Publishers: ";
 	for (int i = 0; i < CurrentSessionInfo::pubList.size(); i++) {
 		if (mediaID == CurrentSessionInfo::pubList.at(i).GetBookId()) {
 			cout << CurrentSessionInfo::pubList.at(i).GetName();
 		}
 	}
-	cout << " Sub-Category: " << GetSubCategory();
-	cout << " Inventory Amt: " << inventoryCount;
-	cout << " Price: " << price;
-	cout << " Donated By: " << GetDoner();
-	//cout << endl << endl;
+
+	cout << endl;
+
+	cout << " Sub-Category: " << GetSubCategory() << endl;
+	cout << " Inventory Amt: " << inventoryCount << endl;
+	cout << " Price: " << price << endl;
+	cout << " Donated By: " << GetDoner() << endl;
+	cout << endl;
 }
 
 LibraryMedia::~LibraryMedia() {
