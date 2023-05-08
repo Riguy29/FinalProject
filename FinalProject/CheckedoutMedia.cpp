@@ -16,7 +16,7 @@ CheckedoutMedia::CheckedoutMedia(int IDUser, int IDbook)
 	bookId = IDbook;
 	lateFee = 0; //No Late fee because they just checkouted
 	checkoutDate = time(0);
-	dueDate = checkoutDate + 7 * 86400; //Standard checkout date is 7 days from now, converting 7 days into seconds and adding it to the checkoutDatee
+	dueDate = time(0) + 7 * 86400; //Standard checkout date is 7 days from now, converting 7 days into seconds and adding it to the checkoutDatee
 }
 
 CheckedoutMedia::~CheckedoutMedia() {}
@@ -76,6 +76,7 @@ int CheckedoutMedia::GetBookId()
 
 void CheckedoutMedia::Renew()
 {
+	dueDate += 7 * 86400; //Adds another 7 days in seco
 }
 
 //Function to return the media to the library, increases inventory count by 1 and remove the checkedout media object from list in currentSessionInfo

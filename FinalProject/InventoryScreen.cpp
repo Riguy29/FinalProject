@@ -195,11 +195,10 @@ void InventoryScreen::printMenu() {
 		{
 		case 0:
 
-			//Delete all pointers and then clear vector
+			//Return media and lear vector
 			for (LibraryMedia* mediaPointer : mediaToCheckoutOrBuy)
 			{
 				mediaPointer->ChangeCount(1); //Return the copy to the library
-				delete mediaPointer;
 			}
 			mediaToCheckoutOrBuy.clear();
 			system("cls");
@@ -606,10 +605,8 @@ void InventoryScreen::ConfirmMediaCheckout() {
 			else { //If regiestered user check them out
 				for (LibraryMedia* media : mediaToCheckoutOrBuy)
 				{
-					media->ChangeCount(-1); //Removing one from the count
 					CheckedoutMedia temp(CurrentSessionInfo::currUser.getLibID(), media->GetMediaID());
 					CurrentSessionInfo::borrowedMediaList.push_back(temp);
-					delete media; //Delete the pointer after we are done with it
 				}
 				mediaToCheckoutOrBuy.clear();
 			}
@@ -617,9 +614,8 @@ void InventoryScreen::ConfirmMediaCheckout() {
 		}
 		else if (choice == "2") {
 			//Clears cart and returns
-			//Deletes all pointers and then clears the vector
 			for (LibraryMedia* mediaP : mediaToCheckoutOrBuy) {
-				delete mediaP;
+				mediaP->ChangeCount(1); //Return copy to the library
 			}
 			mediaToCheckoutOrBuy.clear();
 		}

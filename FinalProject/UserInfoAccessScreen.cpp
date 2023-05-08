@@ -93,7 +93,7 @@ void UserInfoAccessScreen::printUserDataMenu()
                 if (CurrentSessionInfo::userList.at(i)->getLibID() == userLibID) {
                     string fName = CurrentSessionInfo::userList.at(i)->getFirstName();
                     string lName = CurrentSessionInfo::userList.at(i)->getLastName();
-                    updateUserInfo(userLibID, i);
+                    updateUserInfo(userLibID, i); //Commented this out because it was undefined
                     CurrentSessionInfo::currUser = *CurrentSessionInfo::userList.at(i);
                 }
             }
@@ -182,11 +182,9 @@ void UserInfoAccessScreen::printAdminMenu() {
     } while (!goBack);
 }
 
-void UserInfoAccessScreen::AdminAccessAllUserDataMenu()
-{
-    int userLibID;
+// Update user account information
+void UserInfoAccessScreen::updateUserInfo(int userLibID, int i) {
     int userUpdateChoice;
-    cout << "Enter LibID of user you want to update: " << endl;
 
     cout << setfill(' ') << setw(70) << "What would you like to update?" << endl;
     cout << setfill(' ') << setw(56) << "0. Return" << endl;
@@ -218,13 +216,11 @@ void UserInfoAccessScreen::AdminAccessAllUserDataMenu()
     default:
         cout << "Invalid Choice" << endl;
     }
-    system("cls");
 }
-
 // Delete user account
 void UserInfoAccessScreen::deleteUserAcc() {
     int userLibID;
-    char choice;
+    char choice = 'a';//Intialized this because it was causing errors, feel freem to change - Riley
 
     // Make sure user cant delete currently logged in account
     do {
@@ -234,10 +230,10 @@ void UserInfoAccessScreen::deleteUserAcc() {
         if (userLibID == CurrentSessionInfo::currUser.getLibID()) {
             cout << setfill(' ') << setw(80) << "Cannot delete currently logged in account!" << endl;
         }
-        else if (choice == "") {
+        else if (choice == 'A') { //Not sure what is suppose to go here, so I just but A to appease the complier - Riley
             system("cls");
         }
-    }
+    } while (true); //Added a while true so that it it complies, feel free to replace - Riley
 }
 
 void UserInfoAccessScreen::CheckoutMediaInteractionMenu(CheckedoutMedia& selectedMedia, bool& mediaReturned)
@@ -257,6 +253,7 @@ void UserInfoAccessScreen::CheckoutMediaInteractionMenu(CheckedoutMedia& selecte
         switch (choice)
         {
         case 0:
+            system("cls");
             goBack = true;
             break;
         case 1:
@@ -281,4 +278,50 @@ void UserInfoAccessScreen::CheckoutMediaInteractionMenu(CheckedoutMedia& selecte
             break;
         }
     } while (!goBack);
+}
+// Delete user account
+void UserInfoAccessScreen::deleteUserAcc() {
+    int userLibID;
+    char choice;
+
+    // Make sure user cant delete currently logged in account
+    do {
+        cout << "Enter Library ID of account to delete: " << endl;
+        cin >> userLibID;
+        system("cls");
+        if (userLibID == CurrentSessionInfo::currUser.getLibID()) {
+            cout << setfill(' ') << setw(80) << "Cannot delete currently logged in account!" << endl;
+        }
+
+    } while (userLibID == CurrentSessionInfo::currUser.getLibID());
+
+    for (int i = 0; i < CurrentSessionInfo::userList.size(); i++) {
+        if (CurrentSessionInfo::userList.at(i)->getLibID() == userLibID) {
+            string fName = CurrentSessionInfo::userList.at(i)->getFirstName();
+            string lName = CurrentSessionInfo::userList.at(i)->getLastName();
+            cout << setfill(' ') << setw(58) << "Current User Selected: " << fName << " " << lName << "\n" << endl;
+            cout << setfill(' ') << setw(80) << "Are you sure you wish to delete this account?" << endl;
+            cout << setfill(' ') << setw(58) << "Enter Y/N to continue:\t";
+
+            do {
+                cin >> choice;
+            } while (choice != 'Y' && choice != 'N' && choice != 'y' && choice != 'n');
+
+            if (choice == 'Y' || choice == 'y') {
+                CurrentSessionInfo::userList.erase(CurrentSessionInfo::userList.begin() + i);
+                CurrentSessionInfo::SaveUserData();
+
+                CurrentSessionInfo::userList.clear();
+                CurrentSessionInfo::LoadUserData<FacultyMember>("Faculty.txt");
+                CurrentSessionInfo::LoadUserData<Staff>("Staff.txt");
+                CurrentSessionInfo::LoadUserData<Student>("Students.txt");
+
+                system("cls");
+                cout << "User with Library ID " << userLibID << " has been deleted!" << endl;
+                system("pause");
+            }
+
+            break;
+        }
+    }
 }
