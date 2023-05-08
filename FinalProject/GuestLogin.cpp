@@ -12,7 +12,7 @@ bool GuestLogin::isGuest(bool guest) {
 	}
 }
 void GuestLogin::buy() {
-	
+
 
 		string name;
 		cout << "Enter 0 to return\n" << endl;
@@ -23,7 +23,6 @@ void GuestLogin::buy() {
 			system("cls");
 			return;
 		}
-		{
 			system("cls");
 			fstream purchase;
 			purchase.open("PurchaseList.txt", ios::in | ios::out);
@@ -76,7 +75,7 @@ void GuestLogin::buy() {
 			cout << setw(30) << right << tax << endl;
 			cout << setfill(' ') << fixed << setprecision(2) << setw(10) << left << "Total: ";
 			cout << setw(30) << right << total << endl;
-		}
+		
 	
 }
 
