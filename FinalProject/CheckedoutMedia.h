@@ -13,8 +13,8 @@ private:
 	int userId;
 	int bookId;
 	double lateFee;
-	long checkoutDate; //Both are stored as seconds since 1970
-	long dueDate; 
+	long long checkoutDate; //Both are stored as seconds since 1970
+	long long dueDate; 
 public:
 	//Constructors
 	CheckedoutMedia();

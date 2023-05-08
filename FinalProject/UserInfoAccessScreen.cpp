@@ -217,24 +217,7 @@ void UserInfoAccessScreen::updateUserInfo(int userLibID, int i) {
         cout << "Invalid Choice" << endl;
     }
 }
-// Delete user account
-void UserInfoAccessScreen::deleteUserAcc() {
-    int userLibID;
-    char choice = 'a';//Intialized this because it was causing errors, feel freem to change - Riley
 
-    // Make sure user cant delete currently logged in account
-    do {
-        cout << "Enter Library ID of account to delete: " << endl;
-        cin >> userLibID;
-        system("cls");
-        if (userLibID == CurrentSessionInfo::currUser.getLibID()) {
-            cout << setfill(' ') << setw(80) << "Cannot delete currently logged in account!" << endl;
-        }
-        else if (choice == 'A') { //Not sure what is suppose to go here, so I just but A to appease the complier - Riley
-            system("cls");
-        }
-    } while (true); //Added a while true so that it it complies, feel free to replace - Riley
-}
 
 void UserInfoAccessScreen::CheckoutMediaInteractionMenu(CheckedoutMedia& selectedMedia, bool& mediaReturned)
 {
