@@ -513,19 +513,33 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia, bool& me
 		case 1:
 			{
 
-			if(CurrentSessionInfo::isGuest){
-
-				ofstream buyList("PurchaseList.txt", ios::in | ios::out | ios::app);//open file to write to it
-
-				if (buyList.is_open()) {
-					buyList << selectedMedia->GetTitle() << " "<< selectedMedia->GetPrice() << "\n";					
-					buyList.close();
-					selectedMedia->ChangeCount(-1);
-				}
-				
-				else {
-					cout << "File not opened successfully" << endl;
+			if(CurrentSessionInfo::isGuest){				
+				if (selectedMedia->GetInventoryCount() > 0) {//If available
+					bool alreadyInCart = false;
+					//checks the user doesn't have media in cart or checkedout
+					for (LibraryMedia* media : mediaToCheckoutOrBuy) {
+						if (media->GetMediaID() == selectedMedia->GetMediaID()) {
+							alreadyInCart = true;
+						}
+					}
+					for (CheckedoutMedia media : CurrentSessionInfo::borrowedMediaList) {
+						if (media.GetBookId() == selectedMedia->GetMediaID()) {
+							alreadyInCart = true;
+						}
+					}
+					if (!alreadyInCart) { //If the user doesn't already have the media checkedout or in cart, add it
+						ofstream buyList("PurchaseList.txt", ios::in | ios::out | ios::app);//open file to write to it
+						if (buyList.is_open()) {
+							buyList << selectedMedia->GetTitle() << " " << selectedMedia->GetPrice() << "\n";
+							buyList.close();
+							selectedMedia->ChangeCount(-1);
+						}
+						else {
+							cout << "File not opened successfully" << endl;
+						}
+					}
 				}		
+				
 			 }
 			else {//If regiestered user
 				if (selectedMedia->GetInventoryCount() > 0) {//If books are avaliable
