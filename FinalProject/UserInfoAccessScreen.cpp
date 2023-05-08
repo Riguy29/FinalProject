@@ -17,8 +17,6 @@ void UserInfoAccessScreen::DisplayCheckedoutMedia()
         }
         try
         {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cin >> choice;
             if (!cin) throw(1);
             if (choice == 0) {
@@ -131,7 +129,8 @@ void UserInfoAccessScreen::printAdminMenu() {
         cout << setfill(' ') << setw(73) << "Select from the options below:\n" << endl;
         cout << setfill(' ') << setw(53) << "0. Log out" << endl;
         cout << setfill(' ') << setw(62) << "1. Access Inventory" << endl;
-        cout << setfill(' ') << setw(67) << "2. View Member Accounts\n" << endl;
+        cout << setfill(' ') << setw(66) << "2. View Member Accounts" << endl;
+        cout << setfill(' ') << setw(60) << "3. View My Books\n" << endl;
         cout << setfill(' ') << setw(61) << "Enter Your Choice:\t";
 
         getline(cin, choice);
@@ -183,9 +182,13 @@ void UserInfoAccessScreen::printAdminMenu() {
                 cout << "Invalid Choice" << endl;
             }
         }
+        else if (choice == "3") {
+            DisplayCheckedoutMedia();
+        }
         else if (choice == "0") {
             system("cls");
             goBack = true;
+            return;
         }
         else if (choice == "") {
             system("cls");
