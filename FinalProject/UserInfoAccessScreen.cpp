@@ -8,7 +8,7 @@ void UserInfoAccessScreen::DisplayCheckedoutMedia()
     int choice;
     do {
         cout << " Enter 0 to go back" << endl;
-        cout << "Books you currently have checked out are: " << endl;
+        cout << "Media you currently have checked out are: " << endl;
         for (int i = 1; i <= usersCheckedoutMedia.size(); i++)
         {
             cout << i << ". ";
@@ -46,18 +46,22 @@ void UserInfoAccessScreen::DisplayCheckedoutMedia()
 // Essentially the "User Menu"
 void UserInfoAccessScreen::printUserDataMenu()
 {
-    //When a users logs in get there currently checkedout books and store them in a vector
-    for (CheckedoutMedia media : CurrentSessionInfo::borrowedMediaList) {
-        if (media.GetUserId() == CurrentSessionInfo::currUser.getLibID()) {
-            usersCheckedoutMedia.push_back(media);
-        }
-    }
+    
+
     int accountChoice;
     bool valid = false;
     
     int userLibID = CurrentSessionInfo::currUser.getLibID();
 
     do {
+        //When a users logs in get there currently checkedout books and store them in a vector
+        usersCheckedoutMedia.clear();
+        for (int i = 0; i < CurrentSessionInfo::borrowedMediaList.size(); i++)
+        {
+            if (CurrentSessionInfo::borrowedMediaList.at(i).GetUserId() == CurrentSessionInfo::currUser.getLibID()) {
+                usersCheckedoutMedia.push_back(ref(CurrentSessionInfo::borrowedMediaList.at(i)));
+            }
+        }
         string fName = CurrentSessionInfo::currUser.getFirstName();
         string lName = CurrentSessionInfo::currUser.getLastName();
 
@@ -121,6 +125,13 @@ void UserInfoAccessScreen::printAdminMenu() {
 
     // Using a while true loop so that when a user comes back from a submenu it reprints this menu
     do {
+        usersCheckedoutMedia.clear();
+        for (int i = 0; i < CurrentSessionInfo::borrowedMediaList.size(); i++)
+        {
+            if (CurrentSessionInfo::borrowedMediaList.at(i).GetUserId() == CurrentSessionInfo::currUser.getLibID()) {
+                usersCheckedoutMedia.push_back(ref(CurrentSessionInfo::borrowedMediaList.at(i)));
+            }
+        }
         cout << setfill('-') << setw(117) << "" << endl;
         cout << setfill('-') << setw(65) << " WELCOME ADMIN " << setfill('-') << setw(52) << "" << endl;
         cout << setfill('-') << setw(117) << "" << endl;
@@ -173,10 +184,12 @@ void UserInfoAccessScreen::printAdminMenu() {
                         break;
                     }
                 }
+                CurrentSessionInfo::SaveAllData();
                 break;
             case 2:
                 system("cls");
                 deleteUserAcc();
+                CurrentSessionInfo::SaveAllData();
                 break;
             default:
                 cout << "Invalid Choice" << endl;
@@ -266,12 +279,14 @@ void UserInfoAccessScreen::CheckoutMediaInteractionMenu(CheckedoutMedia& selecte
             goBack = true;
             break;
         case 1:
+
             if (CurrentSessionInfo::currUser.getUserType() == User::student) { //If they are a student can renew for 7 days
                 selectedMedia.Renew(7);
             }
             else { //If staff or employee they can renew for 14 days
                 selectedMedia.Renew(14);
             }
+
             
             break;
         case 2:
@@ -287,11 +302,12 @@ void UserInfoAccessScreen::CheckoutMediaInteractionMenu(CheckedoutMedia& selecte
             mediaReturned = true;
             goBack = true;
             system("cls");
-            cout << "Returned Media";
+            cout << "Returned Media" << endl;
             break;
         default:
             break;
         }
+        CurrentSessionInfo::SaveAllData();
     } while (!goBack);
 }
 // Delete user account

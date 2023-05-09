@@ -33,8 +33,12 @@ void CurrentSessionInfo::GenerateDummyData()
 	if (stream.is_open()) {
 		Author a1(1, "JRR Tolkien");
 		Author a2(2, "Susane Collins");
+		Author a3(5, "JRR Tolkien");
+		Author a4(6, "Susane Collins");
 		stream.write(reinterpret_cast<char*> (&a1), sizeof(Author));
 		stream.write(reinterpret_cast<char*> (&a2), sizeof(Author));
+		stream.write(reinterpret_cast<char*> (&a3), sizeof(Author));
+		stream.write(reinterpret_cast<char*> (&a4), sizeof(Author));
 	}
 	stream.close();
 	stream.open("BookRecord.txt", ios::binary | ios::out);
@@ -42,8 +46,12 @@ void CurrentSessionInfo::GenerateDummyData()
 	if (stream.is_open()) {
 		Book b1(1, "Lord of the Rings", 24, "Fiction", "Fantasy", 5, "Riley Jr", "5123523", 1);
 		Book b2(2, "The Hunger Games", 15, "Fiction", "Dystopia", 5, "Amber", "89239123", 3);
+		Book b3(5, "The Hobbit", 10, "Fiction", "Fantasy", 5, "Amber", "89239323", 3);
+		Book b4(6, "MockingJay", 12, "Fiction", "Dystopia", 5, "Amber", "89239723", 3);
 		stream.write(reinterpret_cast<char*> (&b1), sizeof(Book));
 		stream.write(reinterpret_cast<char*> (&b2), sizeof(Book));
+		stream.write(reinterpret_cast<char*> (&b3), sizeof(Book));
+		stream.write(reinterpret_cast<char*> (&b4), sizeof(Book));
 	}
 
 	stream.close();
@@ -61,9 +69,8 @@ void CurrentSessionInfo::GenerateDummyData()
 		Periodical p1(4, "Monthy Science",25,"Science","Cool Science",2,"John Wick", Periodical::monthly);
 		stream.write(reinterpret_cast<char*> (&p1), sizeof(Periodical));
 	}
-
-	//TODO Generate Some Dummy users and an admin so we can log in
 	stream.close();
+
 }
 
 vector<LibraryMedia*> CurrentSessionInfo::GetLibraryInventory()
@@ -184,17 +191,17 @@ void CurrentSessionInfo::SaveUserData()
 			if (currType == User::facultyMember) {
 				FacultyMember* temp = dynamic_cast<FacultyMember*>(userList.at(i));
 				fOut.write(reinterpret_cast<char*>(temp), sizeof(FacultyMember));
-				delete temp;
+				//delete temp;
 			}
 			else if (currType == User::staff) {
 				Staff* temp = dynamic_cast<Staff*>(userList.at(i));
 				stOut.write(reinterpret_cast<char*>(temp), sizeof(Staff));
-				delete temp;
+				//delete temp;
 			}
 			else if (currType == User::student) {
 				Student* temp = dynamic_cast<Student*>(userList.at(i));
 				sOut.write(reinterpret_cast<char*>(temp), sizeof(Student));
-				delete temp;
+				//delete temp;
 			}
 		}
 	}
@@ -222,22 +229,22 @@ void CurrentSessionInfo::SaveData()
 			if (currType == LibraryMedia::book) {
 				Book* temp = dynamic_cast<Book*>(mediaList.at(i));
 				bookOut.write(reinterpret_cast<char*>(&*temp), sizeof(Book));
-				delete temp;
+				//delete temp;
 			}
 			else if (currType == LibraryMedia::newspaper) {
 				Newspaper* temp = dynamic_cast<Newspaper*>(mediaList.at(i));
 				newspaperOut.write(reinterpret_cast<char*>(&*temp), sizeof(Newspaper));
-				delete temp;
+				//delete temp;
 			}
 			else if (currType == LibraryMedia::conferenceJournal) {
 				ConferenceJournal* temp = dynamic_cast<ConferenceJournal*>(mediaList.at(i));
 				journalOut.write(reinterpret_cast<char*>(&*temp), sizeof(ConferenceJournal));
-				delete temp;
+				//delete temp;
 			}
 			else if (currType == LibraryMedia::periodical) {
 				Periodical* temp = dynamic_cast<Periodical*>(mediaList.at(i));
 				periodicalOut.write(reinterpret_cast<char*>(&*temp), sizeof(Periodical));
-				delete temp;
+				//delete temp;
 			}
 		}
 		

@@ -12,13 +12,15 @@ class CheckedoutMedia
 private:
 	int userId;
 	int bookId;
+	int renewsLeft;
 	double lateFee;
 	long long checkoutDate; //Both are stored as seconds since 1970
 	long long dueDate; 
 public:
 	//Constructors
 	CheckedoutMedia();
-	CheckedoutMedia(int IDUser, int IDbook); //This constructor is going to be used when a user checks out a book
+	CheckedoutMedia(int IDUser, int IDbook, int renewlsAllowed); //This constructor is going to be used when a user checks out a book
+	CheckedoutMedia(int IDUser, int IDbook, int renewlsAllowed, long long dateCheckout, long long dateDue); //This function is only used for testing
 	~CheckedoutMedia();
 	CheckedoutMedia(const CheckedoutMedia& copy);
 
@@ -30,7 +32,7 @@ public:
 
 	int GetUserId(); //No set method since these are set at checkout and can not be changed
 	int GetBookId();
-
+	int GetRenewlsLeft();
 	//No Mutators because everything is auto generated
 
 	//Methods

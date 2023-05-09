@@ -20,9 +20,14 @@ void InventoryScreen::AddMedia()
 		cout << setfill(' ') << setw(56) << "3. Journals" << endl;
 	    cout << setfill(' ') << setw(60) << "4. Periodicals\n" << endl;
 		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cin >> choice;
 		
-		if (!cin) continue; //If user enters a non integer value go to next loop
+		if (!cin) {
+			system("cls");
+			continue; //If user enters a non integer value go to next loop
+		}
 		LibraryMedia* newMedia;
 		if (choice == 1) newMedia = new Book();
 		else if (choice == 2) newMedia = new Newspaper();
@@ -86,6 +91,7 @@ void InventoryScreen::AddMedia()
 			system("cls");
 			cout << "New Periodical added" << endl;
 		}
+		CurrentSessionInfo::SaveAllData();
 	} while (choice != 0);
 }
 
@@ -121,7 +127,6 @@ void InventoryScreen::SearchForMedia()
 
 		cin >> choice;
 		system("cls");
-
 		if (!cin) { //If they enter a a non integer value go to next loop
 			cout << "Invalid selection, try again" << endl;
 			continue;
@@ -193,8 +198,14 @@ void InventoryScreen::printMenu() {
 		cout << endl;
 		cout << setfill(' ') << setw(58) << "Enter Your Choice:\t";
 
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cin >> choice;
-		if (!cin) continue;
+		if (!cin) {
+			system("cls");
+			continue;
+		}
+
 		switch (choice)
 		{
 		case 0:
@@ -214,12 +225,7 @@ void InventoryScreen::printMenu() {
 			break;
 		case 2:
 			system("cls");
-			if (CurrentSessionInfo::isGuest) {
-				GuestLogin::buy();
-			}
-			else {
-				ConfirmMediaCheckout();
-			}			
+			ConfirmMediaCheckout();			
 			break;
 		case 3: //If a user is not an admin and selects 3, make choice invlaid
 			if (CurrentSessionInfo::currUser.getLibID() == 1000) {
@@ -530,7 +536,7 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia, bool& me
 			goBack = true;
 			break;
 		case 1:
-			{
+
 
 			if(CurrentSessionInfo::isGuest){				
 				if (selectedMedia->GetInventoryCount() > 0) {//If available
@@ -542,34 +548,6 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia, bool& me
 						}
 					}
 					if (!alreadyInCart) { //If the user doesn't already have the media checkedout or in cart, add it
-						ofstream buyList("PurchaseList.txt", ios::in | ios::out | ios::app);//open file to write to it
-						if (buyList.is_open()) {
-							buyList << selectedMedia->GetTitle() << " " << selectedMedia->GetPrice() << "\n";
-							buyList.close();
-							selectedMedia->ChangeCount(-1);
-						}
-						else {
-							cout << "File not opened successfully" << endl;
-						}
-					}
-				}		
-				
-			 }
-			else {//If regiestered user
-				if (selectedMedia->GetInventoryCount() > 0) {//If books are avaliable
-					bool alreadyInCart = false;
-					//Checks the the user doesn't already have the media in the cart or checkedout
-					for (LibraryMedia* media : mediaToCheckoutOrBuy) {
-						if (media->GetMediaID() == selectedMedia->GetMediaID()) {
-							alreadyInCart = true;
-						}
-					}
-					for (CheckedoutMedia media : CurrentSessionInfo::borrowedMediaList) {
-						if (media.GetBookId() == selectedMedia->GetMediaID()) {
-							alreadyInCart = true;
-						}
-					}
-					if (!alreadyInCart) { //If the user doesn't already have the media checkedout or in cart, add it
 						mediaToCheckoutOrBuy.emplace_back(selectedMedia);
 						system("cls");
 						cout << selectedMedia->GetTitle() << " has been added to your cart" << endl;
@@ -577,8 +555,52 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia, bool& me
 					}
 					else {
 						system("cls");
-						cout << "You already have this media checked out or in your cart" << endl;
+						cout << "You already have this media in your cart" << endl;
 					}
+				}
+				
+			}
+			else {//If regiestered user
+				if (selectedMedia->GetInventoryCount() > 0) {//If books are avaliable
+					try
+					{
+						//Checks the the user doesn't already have the media in the cart or checkedout
+						for (LibraryMedia* media : mediaToCheckoutOrBuy) {
+							if (media->GetMediaID() == selectedMedia->GetMediaID()) throw(1);
+						}
+						for (CheckedoutMedia media : CurrentSessionInfo::borrowedMediaList) {
+							//If we find a record that matches both user id and media, then the user alreay has that item checkedout
+							if (media.GetBookId() == selectedMedia->GetMediaID() && CurrentSessionInfo::currUser.getLibID() == media.GetUserId()) throw(1);
+						}
+						if (CurrentSessionInfo::currUser.getUserType() == User::student) {
+							int itemsAlreadyInCartOrCheckedOut = mediaToCheckoutOrBuy.size();
+							for (CheckedoutMedia media : CurrentSessionInfo::borrowedMediaList) {
+								if (media.GetUserId() == CurrentSessionInfo::currUser.getLibID()) {
+									itemsAlreadyInCartOrCheckedOut++;								
+								}
+							}if (itemsAlreadyInCartOrCheckedOut >= 4) throw(2);//If a student already has 4 or more items both in cart and checkedout don't let them checkout more
+						}
+						mediaToCheckoutOrBuy.emplace_back(selectedMedia);
+						system("cls");
+						cout << selectedMedia->GetTitle() << " has been added to your cart" << endl;
+						selectedMedia->ChangeCount(-1); //Temporialy reduce count by 1
+					}
+					catch (int errorCode)
+					{
+						system("cls");
+						switch (errorCode)
+						{
+						case 1: //Already in cart or checkedout
+							cout << "Already have media in cart or checkedout" << endl;
+							break;
+						case 2: //Too many items checked out or in cart
+							cout << "You have too many items both checkedout out and in cart" << endl;
+							break;
+						}
+					}
+
+
+
 				}
 				else {
 					//Call
@@ -607,12 +629,14 @@ void InventoryScreen::MediaInteractionMenu(LibraryMedia* selectedMedia, bool& me
 			else {
 				cout << "Invalid choice" << endl;
 			}
+			CurrentSessionInfo::SaveAllData();
 			break;
 		default:
 			system("cls");
 			cout << "Invalid Input, try again" << endl;
+			break;
 		}
-
+		CurrentSessionInfo::SaveAllData();
 	} while (!goBack);
 }
 
@@ -640,16 +664,22 @@ void InventoryScreen::ConfirmMediaCheckout() {
 
 			if (CurrentSessionInfo::isGuest) {
 				//Buy the books
+				GuestLogin::buy(mediaToCheckoutOrBuy);
+				
 			}
 			else { //If regiestered user check them out
 				for (LibraryMedia* media : mediaToCheckoutOrBuy)
 				{
-					CheckedoutMedia temp(CurrentSessionInfo::currUser.getLibID(), media->GetMediaID());
+					int renewlsAllowed = 1;
+					if (CurrentSessionInfo::currUser.getUserType() != User::student) renewlsAllowed = 2;
+					CheckedoutMedia temp(CurrentSessionInfo::currUser.getLibID(), media->GetMediaID(), renewlsAllowed);
 					CurrentSessionInfo::borrowedMediaList.push_back(temp);
 				}
+				system("cls");
+				cout << "Succesfully Checkedout Media" << endl;
 				mediaToCheckoutOrBuy.clear();
 			}
-
+			CurrentSessionInfo::SaveAllData();
 		}
 		else if (choice == "2") {
 			//Clears cart and returns

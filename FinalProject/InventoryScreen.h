@@ -9,6 +9,7 @@
 #include "Periodical.h"
 #include "Book.h"
 #include "GuestLogin.h"
+//#include "User.h"
 #include <vector>
 #include <fstream>
 

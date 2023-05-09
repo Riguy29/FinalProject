@@ -11,24 +11,19 @@ bool GuestLogin::isGuest(bool guest) {
 		return false;
 	}
 }
-void GuestLogin::buy() {
+void GuestLogin::buy(vector<LibraryMedia*> buyList) {
 
 	
 		string name;
 		cout << "Enter 0 to return\n" << endl;
 		cout << "Enter Name:\t";
-		cin.ignore();
+		cin.clear();
 		getline(cin, name);
 		if (name == "0") {
 			system("cls");
 			return;
 		}
 			system("cls");
-			ifstream purchase;
-			purchase.open("PurchaseList.txt", ios::in | ios::out);
-			if (!purchase.is_open()) {
-				cout << "PurchaseList not opened successfully." << endl;
-			}
 			string mediaName;
 			string line;
 			vector<double> priceList;
@@ -36,15 +31,10 @@ void GuestLogin::buy() {
 			string priceStr;
 			double price;
 			double sum = 0.0;
-			while (getline(purchase, line)) {
-				auto lastSpace = line.find_last_of(" ");
-				mediaName = line.substr(0, lastSpace);
-				priceStr = line.substr(lastSpace + 1);
-				price = stod(priceStr);
-
-				nameList.push_back(mediaName);
-				priceList.push_back(price);
-
+			for (LibraryMedia* mediaP : buyList)
+			{
+				nameList.push_back(mediaP->GetTitle());
+				priceList.push_back(mediaP->GetPrice());
 			}
 			for (int i = 0; i < priceList.size(); i++) {
 				sum += priceList.at(i);

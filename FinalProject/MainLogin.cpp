@@ -51,6 +51,13 @@ void Login::printMenu() {
         case 4:
             system("cls");
             CurrentSessionInfo::SaveAllData(); //Before we exit save all our data
+            //Then destory all pointers so we dont leak memory
+            for (LibraryMedia* mediaP : CurrentSessionInfo::mediaList) {
+                delete mediaP;
+            }
+            for (User* userP : CurrentSessionInfo::userList) {
+                delete userP;
+            }
             exit(0);
             break;
         /* Illegal

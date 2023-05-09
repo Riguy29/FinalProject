@@ -3,6 +3,7 @@
 
 #include "InventoryScreen.h"
 #include "Date.h"
+#include "LibraryMedia.h"
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -19,7 +20,7 @@ public:
 	GuestLogin();
 	~GuestLogin();
 	static bool isGuest(bool guest);
-	static void buy();
+	static void buy(vector<LibraryMedia*> buyList);
 
 };
 
